@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../stylesheets/style.css">
+        <link rel="stylesheet" href="../stylesheets/kp_extraction.css">
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" id="banner_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10"><center><img id=banner src='../assets/swisscom-logo.png'></img></center></div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="panel_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10 panel_box">
+                    <div class="panel panel-default">
+                        <div id="form-input" class="panel-body">
+                            <div class="col-md-3">
+                                <div class="panel_title">Source</div>
+                                <!--
+                                <div class="radio">
+                                  <label><input type="radio" name="sourceradio" value='twitter'>Twitter</label>
+                                </div>
+                                -->
+                                <div class="radio">
+                                  <label><input type="radio" name="sourceradio" value='theguardian.com'>The Guardian</label>
+                                </div>
+                                <div class="radio">
+                                  <label><input type="radio" name="sourceradio" value='wired.com'>Wired</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="panel_title">Window Dates</div>
+                                <div class="radio">
+                                  <label><input type="radio" name="datesradio" value='w'>1 Week</label>
+                                </div>
+                                <!--
+                                <div class="radio">
+                                  <label><input type="radio" name="datesradio" value='m'>1 Month</label>
+                                </div>
+                                -->
+                                <div class="radio">
+                                  <label><input type="radio" name="datesradio" value='a'>All</label>
+                                </div>                            </div>
+                            <div class="col-md-3">
+                                <div class="panel_title">Method</div>
+                                <!--
+                                <div class="checkbox">
+                                  <label><input type="checkbox" name="methods_on" value='u'>Unigram</label>
+                                </div>
+                                -->
+                                <div class="checkbox">
+                                  <label><input type="checkbox" name="methods_on" value='n'>Ngram</label>
+                                </div> 
+                                <div class="checkbox">
+                                  <label><input type="checkbox" name="methods_on" value='a'>Autophrase</label>
+                                </div>       
+                             </div>
+                            <!--
+                            <div class="col-md-1">
+                                <div class="panel_title">Filters</div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="filters_on" data-toggle="toggle" data-size="mini" value='1'>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="filters_on" data-toggle="toggle" data-size="mini" value='2'>
+                                </div> 
+                                <div class="checkbox">
+                                    <input type="checkbox" name="filters_on" data-toggle="toggle" data-size="mini" value='3'>
+                                </div>    
+                             </div>
+                             -->
+                             <div class="col-md-2" id="submit_col">
+                                <button id="submit_button" class="btn btn-default" onclick='submit()'>Search</button>
+                             </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="results_row">
+            </div>
+        </div>
+        <!-- jQuery first, then Tether, then Bootstrap JS. -->
+        <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+        <script src="../javascripts/common.js"></script>
+        <script src="../javascripts/kp_extraction.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    </body>
+</html>

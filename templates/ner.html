@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../stylesheets/style.css">
+        <link rel="stylesheet" href="../stylesheets/ner.css">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" id="banner_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10"><center><img id=banner src='../assets/swisscom-logo.png'></img></center></div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="search_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-12">
+                            <input type="text" id="input_text" class="form-control input-lg" placeholder="Type something or choose between one of our suggestions :)" />
+                            <span class="input-group-btn">
+                                <button id="refresh_button" class="btn btn-info btn-lg" type="button">
+                                    <i class="glyphicon glyphicon-refresh"></i>
+                                </button>
+                                <button id="search_button" class="btn btn-info btn-lg" type="button">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <div class="row" id="question_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div id="question"></div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="answer_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="col-md-6 answer_model">
+                        <div id="answer_embeddings"></div>
+                        <img class="robot" id='r-clever' hidden src='../assets/r-clever.png'></img>
+                    </div>                    <div class="col-md-6 answer_model">
+                        <div id="answer_baseline"></div>
+                        <img class="robot" id='r-dumb' hidden src='../assets/r-dumb.png'></img>
+                    </div>
+
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="legend" hidden>
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="col-md-3 legend_item"><span class="fa fa-square red"></span> Person </div>
+                    <div class="col-md-3 legend_item"><span class="fa fa-square blue"></span> Organization </div>
+                    <div class="col-md-3 legend_item"><span class="fa fa-square green"></span> Location </div>
+                    <div class="col-md-3 legend_item"><span class="fa fa-square orange"></span> Miscellanious </div>                
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="suggestions_row">
+
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="row" id="suggestions"></div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+        </div>
+        <!-- jQuery first, then Tether, then Bootstrap JS. -->
+        <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+        <script src="../javascripts/common.js"></script>
+        <script src="../javascripts/ner.js"></script>
+    </body>
+</html>
