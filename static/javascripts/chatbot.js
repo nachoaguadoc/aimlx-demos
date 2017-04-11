@@ -30,9 +30,9 @@ function submit(input_text) {
 	  data: input_text,
 	  dataType: 'text',
 	  success: function(data) {
-	  	data = data.split('___|||___');
-	  	nn = data[0].split('___***___');
-	  	solr = data[1].split('___***___');
+	  	data = JSON.parse(data);
+	  	var nn = data.encoder;
+	  	var solr = data.solr;
 	  	new_chatbot_answer(nn, solr)
 	  }
 	});

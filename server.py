@@ -1,7 +1,12 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import jsonify
+
 from flask_cors import CORS, cross_origin
+
+import config as conf
+import subprocess
 
 app = Flask(__name__)
 CORS(app)
@@ -13,10 +18,21 @@ def getChatbot():
 
 @app.route('/chatbot/<question>', methods=['POST'])
 def submitChatbot(question):
+    print("Question:", question)
     if request.method == 'POST':
+        predict_dir = conf.chatbot['path']
+        model_id = conf.chatbot['model_id']
+        model_dir = predict_dir + 'runs/' + model_id
+        subprocess.call(['python', predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir, '--raw_query=' + "'" + question + "'"])
         # Generate answer here
-        answer = ''
-        return render_template('chatbot.html', answer=answer)
+        with open(predict_dir + "answers.txt", "r") as text_file:
+            answer = text_file.readlines()[0]
+        answer = answer.split('___|||___')
+        encoder = answer[0].split('___***___');
+        solr = answer[1].split('___***___');
+        encoder = answer[0].split('___***___');
+        answer = {'solr':solr, 'encoder': encoder}
+        return jsonify(answer)
 
 # Opinion target route handling
 @app.route('/opinion')
@@ -27,6 +43,11 @@ def getOpinion():
 def submitOpinion(input):
     if request.method == 'POST':
         # Generate answer here
+
+
+        data = data.split('___|||___')
+        nn = data[0].split('___***___');
+        solr = data[1].split('___***___');
         answer = ''
         return render_template('opinion_target', answer=answer)
 
