@@ -1,4 +1,5 @@
-models/
+models/chatbot_swisscom
+models/chatbot_ubuntu
 .DS_Store
 config.py
 
