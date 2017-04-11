@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+from flaskrun import flaskrun
 
 from flask_cors import CORS, cross_origin
 
@@ -81,3 +82,5 @@ def submitSummary(input):
         # Generate answer here
         answer = {'your_json_answer_key': 'your_value'}
         return jsonify(answer)
+
+flaskrun(app)
