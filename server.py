@@ -43,13 +43,8 @@ def getOpinion():
 def submitOpinion(input):
     if request.method == 'POST':
         # Generate answer here
-
-
-        data = data.split('___|||___')
-        nn = data[0].split('___***___');
-        solr = data[1].split('___***___');
-        answer = ''
-        return render_template('opinion_target', answer=answer)
+        answer = {'your_json_answer_key': 'your_value'}
+        return jsonify(answer)
 
 # NER route handling
 @app.route('/ner')
@@ -60,8 +55,8 @@ def getNER():
 def submitNER(input):
     if request.method == 'POST':
         # Generate answer here
-        answer = ''
-        return render_template('ner.html', answer=answer)
+        answer = {'your_json_answer_key': 'your_value'}
+        return jsonify(answer)
 
 # KP Extraction route handling
 @app.route('/kp')
@@ -72,8 +67,8 @@ def getKP():
 def submitKP(input):
     if request.method == 'POST':
         # Generate answer here
-        answer = ''
-        return render_template('kp_extraction.html', answer=answer)
+        answer = {'your_json_answer_key': 'your_value'}
+        return jsonify(answer)
 
 # Summary route handling
 @app.route('/summary')
@@ -84,5 +79,5 @@ def getSummary():
 def submitSummary(input):
     if request.method == 'POST':
         # Generate answer here
-        answer = ''
-        return render_template('summary.html', answer=answer)
+        answer = {'your_json_answer_key': 'your_value'}
+        return jsonify(answer)
