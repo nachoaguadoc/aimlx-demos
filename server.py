@@ -12,17 +12,24 @@ app = Flask(__name__)
 CORS(app)
 
 # Chatbot route handling
-@app.route('/chatbot')
-def getChatbot():
-    return render_template('chatbot.html')
-
-@app.route('/chatbot/<question>', methods=['POST'])
-def submitChatbot(question):
+@app.route('/chatbot/<demo>')
+def getChatbot(demo):
+    if demo=='ubuntu':
+        return render_template('chatbot_ubuntu.html')
+    elif demo=='swisscom':
+        return render_template('chatbot_swisscom.html')
+@app.route('/chatbot/<demo>/<question>', methods=['POST'])
+def submitChatbot(demo, question):
     print("Question:", question)
     if request.method == 'POST':
-        predict_dir = conf.chatbot['path']
-        model_id = conf.chatbot['model_id']
-        python_env = conf.chatbot['python_env']
+        if demo=='ubuntu':
+            predict_dir = conf.chatbot_ubuntu['path']
+            model_id = conf.chatbot_ubuntu['model_id']
+            python_env = conf.chatbot_ubuntu['python_env']
+        elif demo=='swisscom':
+            predict_dir = conf.chatbot_swisscom['path']
+            model_id = conf.chatbot_swisscom['model_id']
+            python_env = conf.chatbot_swisscom['python_env']
         model_dir = predict_dir + 'runs/' + model_id
         subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir, '--raw_query=' + "'" + question + "'"])
         # Generate answer here
