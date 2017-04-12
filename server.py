@@ -101,8 +101,8 @@ def getSummary():
 def submitSummary(input):
     if request.method == 'POST':
         # Generate answer here
-        answer = {'your_json_answer_key': 'your_value'}
-        return jsonify(answer)
+        answer = input.replace('**n**', '\n')
+        return answer
 
 if __name__ == '__main__':
     app.run(host= '127.0.0.1')
