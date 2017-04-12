@@ -17,7 +17,8 @@ function new_question(text) {
 
 function new_summary_answer(summarized) {
     console.log("Summarized:", summarized)
-    $('#summarized_text').text(summarized);
+    summarized = summarized.replace(/\n/g, '<br>')
+    $('#summarized_text').html(summarized);
     stop_spinner();
 }
 
@@ -26,11 +27,11 @@ function submit(input_text) {
     console.log("Opinion target input:", input_text)
     $('#input_text').val('');
     new_question(input_text);
-    url = "http://localhost:8080/summary"
+    input_text = input_text.replace(/\n/g, '**n**')
+    url = "/summary/" + input_text
     $.ajax({
       type: "POST",
       url: url,
-      data: input_text,
       dataType: 'text',
       success: function(data) {
         new_summary_answer(data)

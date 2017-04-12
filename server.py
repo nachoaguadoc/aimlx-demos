@@ -14,17 +14,24 @@ app = Flask(__name__)
 CORS(app)
 
 # Chatbot route handling
-@app.route('/chatbot')
-def getChatbot():
-    return render_template('chatbot.html')
-
-@app.route('/chatbot/<question>', methods=['POST'])
-def submitChatbot(question):
+@app.route('/chatbot/<demo>')
+def getChatbot(demo):
+    if demo=='ubuntu':
+        return render_template('chatbot_ubuntu.html')
+    elif demo=='swisscom':
+        return render_template('chatbot_swisscom.html')
+@app.route('/chatbot/<demo>/<question>', methods=['POST'])
+def submitChatbot(demo, question):
     print("Question:", question)
     if request.method == 'POST':
-        predict_dir = conf.chatbot['path']
-        model_id = conf.chatbot['model_id']
-        python_env = conf.chatbot['python_env']
+        if demo=='ubuntu':
+            predict_dir = conf.chatbot_ubuntu['path']
+            model_id = conf.chatbot_ubuntu['model_id']
+            python_env = conf.chatbot_ubuntu['python_env']
+        elif demo=='swisscom':
+            predict_dir = conf.chatbot_swisscom['path']
+            model_id = conf.chatbot_swisscom['model_id']
+            python_env = conf.chatbot_swisscom['python_env']
         model_dir = predict_dir + 'runs/' + model_id
         subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir, '--raw_query=' + "'" + question + "'"])
         # Generate answer here
@@ -79,7 +86,7 @@ def submitNER(input):
         subprocess.call(['python', script_dir, '--sentence', '"'+ input + '"'])
         answer = parse_output(predict_dir)
         print("Question received for NER project", answer)
-        answer = {'labes': answer}
+        answer = {'labels': answer}
         return jsonify(answer)
 
 # KP Extraction route handling
@@ -118,12 +125,30 @@ def read_kp_output():
 def getSummary():
     return render_template('summary.html')
 
+import os
+if not os.path.exists('%s/run/launch.py'%conf.summary['path']):
+    print('File required to run summary')
+import sys
+sys.path.insert(0,'%s/run'%conf.summary['path'])
+ret_path=os.path.abspath('.')
+os.chdir(conf.summary['path'])
+import launch
+os.chdir(ret_path)
+
 @app.route('/summary/<input>', methods=['POST'])
 def submitSummary(input):
     if request.method == 'POST':
         # Generate answer here
-        answer = {'your_json_answer_key': 'your_value'}
-        return jsonify(answer)
+        answer = input.replace('**n**', '\n')
+        ret_path=os.path.abspath('.')
+        os.chdir(conf.summary['path'])
+        with open('tmp.txt','w') as fopen:
+            fopen.write(answer)
+        launch.predict()
+        answer = ''.join(open('output.txt','r').readlines())
+        os.system('rm tmp.txt output.txt')
+        os.chdir(ret_path)
+        return answer
 
 if __name__ == '__main__':
     app.run(host= '127.0.0.1')

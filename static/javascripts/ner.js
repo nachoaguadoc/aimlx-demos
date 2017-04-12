@@ -15,7 +15,10 @@ function new_question(question) {
 function new_ner_answer(original, labels) {
 	console.log("Labels:", labels)
 	formatted_text = ''
-	labels_model = labels.split(" | ");
+	labels_model = [labels]
+	console.log("Labels:", labels)
+
+	//labels_model = labels.split(" | ");
 	var formatted_texts = [];
 	for (var l in labels_model) {
 		l = labels_model[l].split(" ");
@@ -55,14 +58,15 @@ function submit(input_text) {
 	console.log("Opinion target input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "http://localhost:8080/ner"
+	url = "ner/" + input_text;
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: input_text,
 	  dataType: 'text',
 	  success: function(data) {
-	  	new_ner_answer(input_text, data)
+	  	answer = JSON.parse(data);
+        labels = answer['labels'];
+	  	new_ner_answer(input_text, labels)
 	  }
 	});
 }

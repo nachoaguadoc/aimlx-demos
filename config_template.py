@@ -1,4 +1,9 @@
-chatbot = {
+chatbot_ubuntu = {
+	'path': '',
+	'model_id': '',
+	'python_env': ''
+}
+chatbot_swisscom = {
 	'path': '',
 	'model_id': '',
 	'python_env': ''

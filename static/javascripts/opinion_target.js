@@ -14,7 +14,10 @@ function new_question(question) {
 function new_opinion_answer(original, labels) {
 	console.log("Labels:", labels)
 	formatted_text = ''
-	labels_model = labels.split(" | ");
+	labels_model = [labels]
+	console.log("Labels:", labels)
+
+	//labels_model = labels.split(" | ");
 	var formatted_texts = [];
 	for (var l in labels_model) {
 		l = labels_model[l].split(" ");
@@ -34,24 +37,27 @@ function new_opinion_answer(original, labels) {
 	$('#question').text('');
 	suggestions_random = get_random_suggestions(suggestions);
     load_suggestions(suggestions_random);	
-    $('#answer_baseline').html(formatted_texts[0]);
-	$('#answer_embeddings').html(formatted_texts[1]);
+    $('#answer_baseline').html(formatted_texts[1]);
+	$('#answer_embeddings').html(formatted_texts[0]);
 	stop_spinner();
 }
+
 
 
 function submit(input_text) {
 	console.log("Opinion target input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "http://localhost:8080/opinion"
+	url = "/opinion/" + input_text
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: input_text,
 	  dataType: 'text',
 	  success: function(data) {
-	  	new_opinion_answer(input_text, data)
+	  	answer = JSON.parse(data);
+        labels = answer['labels'];
+        console.log(labels);
+        new_opinion_answer(input_text, labels);
 	  }
 	});
 }
@@ -98,7 +104,7 @@ function refresh() {
 $(document).ready(function(){
 	$('#question_row').hide();
 
-	$.getJSON("../javascripts/lists/opinion_mining.json", function(json) {
+	$.getJSON("static/javascripts/lists/opinion_mining.json", function(json) {
 		suggestions = json.candidates;
 		suggestions_random = get_random_suggestions(suggestions);
 	    load_suggestions(suggestions_random);
