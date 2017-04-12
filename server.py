@@ -45,7 +45,6 @@ def parse_output(output_path):
         if len(line.split()) == 3:
             pred_label = line.split()[2]
             pred_labels.append(pred_label)
-    print(pred_labels)
     return " ".join(pred_labels)
 
 @app.route('/opinion')
@@ -57,7 +56,7 @@ def submitOpinion(input):
     if request.method == 'POST':
         script_dir = conf.ate['path'] + 'run_demo.py'
         predict_dir = conf.ate['path'] + '/predictions/predictions.txt'
-        python_env = conf.opinion['python_env']
+        python_env = conf.ate['python_env']
         response = ""
         subprocess.call([python_env, script_dir, '--sentence', '"'+ input + '"'])
         answer = parse_output(predict_dir)
