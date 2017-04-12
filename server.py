@@ -104,11 +104,29 @@ def submitKP(input):
 def getSummary():
     return render_template('summary.html')
 
+import os
+if not os.path.exists('%s/run/launch.py'%conf.summary['path']):
+    print('File required to run summary')
+import sys
+sys.path.insert(0,'%s/run'%conf.summary['path'])
+ret_path=os.path.abspath('.')
+os.chdir(conf.summary['path'])
+import launch
+os.chdir(ret_path)
+
 @app.route('/summary/<input>', methods=['POST'])
 def submitSummary(input):
     if request.method == 'POST':
         # Generate answer here
         answer = input.replace('**n**', '\n')
+        ret_path=os.path.abspath('.')
+        os.chdir(conf.summary['path'])
+        with open('tmp.txt','w') as fopen:
+            fopen.write(answer)
+        launch.predict()
+        answer = ''.join(open('output.txt','r').readlines())
+        os.system('rm tmp.txt output.txt')
+        os.chdir(ret_path)
         return answer
 
 if __name__ == '__main__':
