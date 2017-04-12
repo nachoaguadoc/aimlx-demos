@@ -23,7 +23,7 @@ function submit(input_text) {
 	console.log("Chatbot input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "http://localhost:5000/chatbot/" + input_text
+	url = "/chatbot/" + input_text
 	$.ajax({
 	  type: "POST",
 	  url: url,
