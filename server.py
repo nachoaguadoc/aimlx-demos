@@ -36,6 +36,17 @@ def submitChatbot(question):
         return jsonify(answer)
 
 # Opinion target route handling
+def parse_output(output_path):
+    f = open(output_path,'r')
+    pred_labels = []
+    for line in f:
+        line = line.strip()
+        if len(line.split()) == 3:
+            pred_label = line.split()[2]
+            pred_labels.append(pred_label)
+    print(pred_labels)
+    return " ".join(pred_labels)
+
 @app.route('/opinion')
 def getOpinion():
     return render_template('opinion_target.html')
@@ -43,8 +54,13 @@ def getOpinion():
 @app.route('/opinion/<input>', methods=['POST'])
 def submitOpinion(input):
     if request.method == 'POST':
-        # Generate answer here
-        answer = {'your_json_answer_key': 'your_value'}
+        script_dir = conf.ate['path'] + 'run_demo.py'
+        predict_dir = conf.ate['path'] + '/predictions/predictions.txt'
+        response = ""
+        subprocess.call(['python', script_dir, '--sentence', '"'+ input + '"'])
+        answer = parse_output(predict_dir)
+        print("Question received for ATE project", answer)
+        answer = {'labels': answer}
         return jsonify(answer)
 
 # NER route handling
