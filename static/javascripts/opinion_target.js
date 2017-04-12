@@ -14,7 +14,10 @@ function new_question(question) {
 function new_opinion_answer(original, labels) {
 	console.log("Labels:", labels)
 	formatted_text = ''
-	labels_model = labels.split(" | ");
+	labels_model = [labels]
+	console.log("Labels:", labels)
+
+	//labels_model = labels.split(" | ");
 	var formatted_texts = [];
 	for (var l in labels_model) {
 		l = labels_model[l].split(" ");
@@ -34,10 +37,11 @@ function new_opinion_answer(original, labels) {
 	$('#question').text('');
 	suggestions_random = get_random_suggestions(suggestions);
     load_suggestions(suggestions_random);	
-    $('#answer_baseline').html(formatted_texts[0]);
-	$('#answer_embeddings').html(formatted_texts[1]);
+    $('#answer_baseline').html(formatted_texts[1]);
+	$('#answer_embeddings').html(formatted_texts[0]);
 	stop_spinner();
 }
+
 
 
 function submit(input_text) {
