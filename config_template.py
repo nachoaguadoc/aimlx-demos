@@ -1,10 +1,13 @@
 chatbot = {
 	'path': '',
-	'model_id': ''
+	'model_id': '',
+	'python_env': ''
 }
 ate = {
-	'path' : ''
+	'path' : '',
+	'python_env': ''
 }
 ner = {
-	'path' : ''
+	'path' : '',
+	'python_env': ''
 }

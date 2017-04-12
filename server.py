@@ -23,8 +23,9 @@ def submitChatbot(question):
     if request.method == 'POST':
         predict_dir = conf.chatbot['path']
         model_id = conf.chatbot['model_id']
+        python_env = conf.chatbot['python_env']
         model_dir = predict_dir + 'runs/' + model_id
-        subprocess.call(['python', predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir, '--raw_query=' + "'" + question + "'"])
+        subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir, '--raw_query=' + "'" + question + "'"])
         # Generate answer here
         with open(predict_dir + "answers.txt", "r") as text_file:
             answer = text_file.readlines()[0]
@@ -56,8 +57,9 @@ def submitOpinion(input):
     if request.method == 'POST':
         script_dir = conf.ate['path'] + 'run_demo.py'
         predict_dir = conf.ate['path'] + '/predictions/predictions.txt'
+        python_env = conf.opinion['python_env']
         response = ""
-        subprocess.call(['python', script_dir, '--sentence', '"'+ input + '"'])
+        subprocess.call([python_env, script_dir, '--sentence', '"'+ input + '"'])
         answer = parse_output(predict_dir)
         print("Question received for ATE project", answer)
         answer = {'labels': answer}
