@@ -26,11 +26,10 @@ function submit(input_text) {
     console.log("Opinion target input:", input_text)
     $('#input_text').val('');
     new_question(input_text);
-    url = "http://localhost:8080/summary"
+    url = "/summary/" + input_text
     $.ajax({
       type: "POST",
       url: url,
-      data: input_text,
       dataType: 'text',
       success: function(data) {
         new_summary_answer(data)
