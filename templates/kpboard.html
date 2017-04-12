@@ -1,0 +1,52 @@
+        <style>
+        #doc_block{
+          width: 50%;
+          float:left;
+        }
+        #html_doc{
+          position: relative;
+          height: 600px;
+          color: rgba(0, 0, 0, 0.2);
+          overflow: scroll;
+          }
+
+
+        #div_list_kp{
+            float:right;
+            width:50%
+        }
+
+    .kp{
+        position: relative;
+        color:rgba(255, 0, 0, 0.5);
+        font-weight: bold;
+        display:inline;
+     }
+
+
+    .start:hover{
+        color:black;
+    }
+
+    .start:hover .kp{
+        color:rgba(255, 0, 0, 1);
+    }
+    </style>
+
+
+    <div class="container">
+        <div id="doc_block" class="col-xs-6">
+            <div id="html_doc">
+                {{ html_doc|safe }}
+            </div>
+            <div id="next_kp"></div>
+        </div>
+
+        <div id="div_list_kp" class="col-xs-6">
+            <ul id="list_kp" class="list-group">
+            {% for keyphrase in list_kp %}
+                <li class="list-group-item">{{keyphrase}}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>

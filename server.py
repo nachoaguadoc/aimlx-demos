@@ -7,6 +7,8 @@ from flask_cors import CORS, cross_origin
 
 import config as conf
 import subprocess
+import os
+import re
 
 app = Flask(__name__)
 CORS(app)
@@ -85,12 +87,31 @@ def submitNER(input):
 def getKP():
     return render_template('kp_extraction.html')
 
-@app.route('/kp/<input>', methods=['POST'])
+@app.route('/kp/<path:input>', methods=['POST'])
 def submitKP(input):
     if request.method == 'POST':
-        # Generate answer here
-        answer = {'your_json_answer_key': 'your_value'}
-        return jsonify(answer)
+        text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], input]).decode('utf-8')
+        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.singlerank', text_content, '6', '14', os.path.join(conf.kpextract['path'],'tmp')])
+        html_doc, list_kp = read_kp_output()
+        return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
+
+def read_file(path):
+    with open(path, 'r') as f:
+        return f.read()
+
+def read_kp_output():
+    processed_text = read_file(os.path.join(conf.kpextract['path'],'tmp','result_text.txt'))
+    processed_text = re.sub('\n+', '\n', processed_text)
+    html_doc = processed_text.replace('\n', '</div><div class=start></br>')
+    html_doc = html_doc.replace('<phrase>', '<span class=kp>')
+    html_doc = html_doc.replace('</phrase>', '</span>')
+    html_doc = '<div class=start>' + html_doc + '</div>'
+
+    list_kp_text =  read_file(os.path.join(conf.kpextract['path'],'tmp','result_kp.txt'))
+    list_kp = list_kp_text.split(';')
+    
+    return html_doc, list_kp
+
 
 # Summary route handling
 @app.route('/summary')
