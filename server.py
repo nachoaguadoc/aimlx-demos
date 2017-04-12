@@ -84,7 +84,7 @@ def submitNER(input):
         subprocess.call(['python', script_dir, '--sentence', '"'+ input + '"'])
         answer = parse_output(predict_dir)
         print("Question received for NER project", answer)
-        answer = {'labes': answer}
+        answer = {'labels': answer}
         return jsonify(answer)
 
 # KP Extraction route handling

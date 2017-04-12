@@ -54,10 +54,10 @@ function submit(input_text) {
 	  url: url,
 	  dataType: 'text',
 	  success: function(data) {
-	       answer = JSON.parse(data);
-               labels = answer['labels'];
-               console.log(labels);
-               new_opinion_answer(input_text, labels);
+	  	answer = JSON.parse(data);
+        labels = answer['labels'];
+        console.log(labels);
+        new_opinion_answer(input_text, labels);
 	  }
 	});
 }
