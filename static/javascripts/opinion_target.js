@@ -44,11 +44,10 @@ function submit(input_text) {
 	console.log("Opinion target input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "http://localhost:8080/opinion"
+	url = "/opinion/" + input_text
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: input_text,
 	  dataType: 'text',
 	  success: function(data) {
 	  	new_opinion_answer(input_text, data)
@@ -98,7 +97,7 @@ function refresh() {
 $(document).ready(function(){
 	$('#question_row').hide();
 
-	$.getJSON("../javascripts/lists/opinion_mining.json", function(json) {
+	$.getJSON("static/javascripts/lists/opinion_mining.json", function(json) {
 		suggestions = json.candidates;
 		suggestions_random = get_random_suggestions(suggestions);
 	    load_suggestions(suggestions_random);
