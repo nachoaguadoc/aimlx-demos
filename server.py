@@ -71,8 +71,13 @@ def getNER():
 @app.route('/ner/<input>', methods=['POST'])
 def submitNER(input):
     if request.method == 'POST':
-        # Generate answer here
-        answer = {'your_json_answer_key': 'your_value'}
+        script_dir = conf.ner['path'] + 'run_demo.py'
+        predict_dir = conf.ner['path'] + 'predictions/predictions.txt'
+        response = ""
+        subprocess.call(['python', script_dir, '--sentence', '"'+ input + '"'])
+        answer = parse_output(predict_dir)
+        print("Question received for NER project", answer)
+        answer = {'labes': answer}
         return jsonify(answer)
 
 # KP Extraction route handling

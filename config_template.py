@@ -5,3 +5,6 @@ chatbot = {
 ate = {
 	'path' : ''
 }
+ner = {
+	'path' : ''
+}
