@@ -1,8 +1,7 @@
 chatbot = {
 	'path': '',
-	'model': ''
+	'model_id': ''
 }
-
 ate = {
 	'path' : ''
 }
