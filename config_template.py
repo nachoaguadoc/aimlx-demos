@@ -11,3 +11,8 @@ ner = {
 	'path' : '',
 	'python_env': ''
 }
+kpextract = {
+	'path': '',
+	'fetcher_path': '',
+	'python_env': ''
+}

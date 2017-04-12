@@ -103,3 +103,6 @@ def submitSummary(input):
         # Generate answer here
         answer = {'your_json_answer_key': 'your_value'}
         return jsonify(answer)
+
+if __name__ == '__main__':
+    app.run(host= '127.0.0.1')
