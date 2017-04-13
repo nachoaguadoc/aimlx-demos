@@ -9,15 +9,15 @@ function new_question(question) {
 
 function new_chatbot_answer(candidates_nn, candidates_solr) {
 	$('.robot').show();
-	suggestions_random = get_random_suggestions(suggestions);
-    load_suggestions(suggestions_random);	
+
    	for (c in candidates_nn) {
 		$('#answer_nn').html($('#answer_nn').html() + '<div class="col-md-12 answer_box"><div class="panel panel-default neural"><div class="panel-body">' + candidates_nn[c] + ' </div></div></div>');
 	}
 	for (c in candidates_solr) {
 		$('#answer_solr').html($('#answer_solr').html() + '<div class="col-md-12 answer_box"><div class="panel panel-default benchmark"><div class="panel-body">' + candidates_solr[c] + ' </div></div></div>');
 	}
-    
+    suggestions_random = get_random_suggestions(suggestions);
+    load_suggestions(suggestions_random);	
 	$('.col-md-6').matchHeight();
 	stop_spinner();
 }
@@ -42,16 +42,7 @@ function submit(input_text) {
 	});
 }
 
-function clean() {
-	$('#question').text('');
-	$('#answer_nn').text('');
-	$('#answer_solr').text('');
-	$('#suggestions').text('');	
-	$('.robot').hide();
-}
-
 function load_suggestions(suggestions){
-	clean()
 	for (var c in suggestions) {
 		$('#suggestions').html($('#suggestions').html() + '<div class="col-md-4 suggestion_box"><div class="panel panel-default suggestion"><div class="panel-body">' + suggestions[c] + ' </div></div></div>');
 	}
