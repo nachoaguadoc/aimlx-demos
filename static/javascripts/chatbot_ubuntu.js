@@ -2,6 +2,7 @@ function new_question(question) {
 	$('#question').text(question);
 	$('#answer_nn').text('');
 	$('#answer_solr').text('');
+	$('#suggestions').text('');	
 	$('.robot').hide();
 	start_spinner();
 }
@@ -14,6 +15,8 @@ function new_chatbot_answer(candidates_nn, candidates_solr) {
 	for (c in candidates_solr) {
 		$('#answer_solr').html($('#answer_solr').html() + '<div class="col-md-12 answer_box"><div class="panel panel-default benchmark"><div class="panel-body">' + candidates_solr[c] + ' </div></div></div>');
 	}
+	suggestions_random = get_random_suggestions(suggestions);
+    load_suggestions(suggestions_random);	
 	$('.col-md-6').matchHeight();
 	stop_spinner();
 }
@@ -38,6 +41,38 @@ function submit(input_text) {
 	});
 }
 
+function load_suggestions(suggestions){
+	clean()
+	for (var c in suggestions) {
+		$('#suggestions').html($('#suggestions').html() + '<div class="col-md-4 suggestion_box"><div class="panel panel-default suggestion"><div class="panel-body">' + suggestions[c] + ' </div></div></div>');
+	}
+	$('.suggestion .panel-body').matchHeight();
+	$('.suggestion .panel-body').click(function(e){
+		query = $(e.target).text();
+		submit(query);
+	})
+}
+
+function get_random_suggestions(suggestions) {
+	var random_indexes = []
+	while(random_indexes.length < 6){
+	    var random_number = Math.ceil(Math.random()*(suggestions.length-1));
+	    if(random_indexes.indexOf(random_number) > -1) continue;
+	    random_indexes[random_indexes.length] = random_number;
+	}
+
+	suggestions_random = []
+	for (var i in random_indexes) {
+		suggestions_random.push(suggestions[random_indexes[i]]);
+	}
+	return suggestions_random
+}
+
 $(document).ready(function(){
+	$.getJSON("../static/javascripts/lists/chatbot_ubuntu.json", function(json) {
+		suggestions = json.candidates;
+		suggestions_random = get_random_suggestions(suggestions);
+	    load_suggestions(suggestions_random);
+	});
 	$('.robot').hide();
 });
