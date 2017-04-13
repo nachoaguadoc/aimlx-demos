@@ -16,11 +16,11 @@ function submit(input_text) {
 	console.log("Chatbot input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "/chatbot/ubuntuseq2seq/" + input_text
+	url = "/chatbot/ubuntuseq2seq"
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: input_text,
+	  data: {"question": input_text},
 	  dataType: 'text',
 	  success: function(data) {
 	  	data = JSON.parse(data);

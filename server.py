@@ -23,8 +23,9 @@ def getChatbot(demo):
         return render_template('chatbot_swisscom.html')
     elif demo=='ubuntuseq2seq':
         return render_template('chatbot_seq2seq_ubuntu.html')
-@app.route('/chatbot/<demo>/<question>', methods=['POST'])
-def submitChatbot(demo, question):
+@app.route('/chatbot/<demo>', methods=['POST'])
+def submitChatbot(demo):
+    question = request.form['question']
     print("Question:", question)
     if request.method == 'POST':
         if demo=='ubuntu':
