@@ -9,6 +9,7 @@ import config as conf
 import subprocess
 import os
 import re
+import socket
 
 app = Flask(__name__)
 CORS(app)
@@ -32,6 +33,17 @@ def submitChatbot(demo, question):
             predict_dir = conf.chatbot_swisscom['path']
             model_id = conf.chatbot_swisscom['model_id']
             python_env = conf.chatbot_swisscom['python_env']
+        elif demo=='ubuntuseq2seq':
+            predict_dir = conf.chatbot_ubuntu_seq2seq['path']
+            model_id = conf.chatbot_ubuntu_seq2seq['model_id']
+            python_env = conf.chatbot_ubuntu_seq2seq['python_env']
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect(("localhost", 9988))
+            s.sendall(question.encode())
+            answer = s.recv(1024).decode("utf-8")
+            s.close()
+            return answer
+
         model_dir = predict_dir + 'runs/' + model_id
         subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir, '--raw_query=' + "'" + question + "'"])
         # Generate answer here

@@ -8,6 +8,12 @@ chatbot_swisscom = {
 	'model_id': '',
 	'python_env': ''
 }
+chatbot_ubuntu_seq2seq = {
+	'path': '',
+	'model_id': '',
+	'python_env': '',
+	'socket_port': ''
+}
 ate = {
 	'path' : '',
 	'python_env': ''
