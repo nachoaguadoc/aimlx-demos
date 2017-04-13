@@ -82,8 +82,9 @@ def submitNER(input):
     if request.method == 'POST':
         script_dir = conf.ner['path'] + 'run_demo.py'
         predict_dir = conf.ner['path'] + 'predictions/predictions.txt'
+        python_env = conf.ate['python_env']
         response = ""
-        subprocess.call(['python', script_dir, '--sentence', '"'+ input + '"'])
+        subprocess.call([python_env, script_dir, '--sentence', '"'+ input + '"'])
         answer = parse_output(predict_dir)
         print("Question received for NER project", answer)
         answer = {'labels': answer}

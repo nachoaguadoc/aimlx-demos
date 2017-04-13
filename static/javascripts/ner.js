@@ -55,7 +55,7 @@ function new_ner_answer(original, labels) {
 
 
 function submit(input_text) {
-	console.log("Opinion target input:", input_text)
+	console.log("NER target input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
 	url = "ner/" + input_text;
@@ -114,7 +114,7 @@ function refresh() {
 $(document).ready(function(){
 	$('#question_row').hide();
 
-	$.getJSON("../javascripts/lists/ner.json", function(json) {
+	$.getJSON("../static/javascripts/lists/ner.json", function(json) {
 		suggestions = json.candidates;
 		suggestions_random = get_random_suggestions(suggestions);
 	    load_suggestions(suggestions_random);

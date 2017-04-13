@@ -104,7 +104,7 @@ function refresh() {
 $(document).ready(function(){
 	$('#question_row').hide();
 
-	$.getJSON("static/javascripts/lists/opinion_mining.json", function(json) {
+	$.getJSON("../static/javascripts/lists/opinion_mining.json", function(json) {
 		suggestions = json.candidates;
 		suggestions_random = get_random_suggestions(suggestions);
 	    load_suggestions(suggestions_random);
