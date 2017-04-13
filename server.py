@@ -94,11 +94,15 @@ def submitNER(input):
 def getKP():
     return render_template('kp_extraction.html')
 
-@app.route('/kp/<path:input>', methods=['POST'])
-def submitKP(input):
+@app.route('/kp', methods=['POST'])
+def submitKP():
     if request.method == 'POST':
-        text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], input]).decode('utf-8')
-        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.singlerank', text_content, '6', '14', os.path.join(conf.kpextract['path'],'tmp')])
+        print('input ',request.form['inp_url'])
+        html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
+        write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8'))
+        text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], os.path.join(conf.kpextract['path'],'tmp','html_file')])
+        write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8'))
+        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.singlerank', os.path.join(conf.kpextract['path'],'tmp','raw_text') , '6', '14', os.path.join(conf.kpextract['path'],'tmp')])
         html_doc, list_kp = read_kp_output()
         return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
 
@@ -106,6 +110,11 @@ def read_file(path):
     with open(path, 'r') as f:
         return f.read()
 
+def write_file(path, s):
+    with open(path, 'w') as f:
+        f.write(s)
+
+          
 def read_kp_output():
     processed_text = read_file(os.path.join(conf.kpextract['path'],'tmp','result_text.txt'))
     processed_text = re.sub('\n+', '\n', processed_text)
