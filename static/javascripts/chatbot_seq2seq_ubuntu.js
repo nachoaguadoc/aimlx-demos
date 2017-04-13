@@ -1,12 +1,12 @@
 function new_question(question) {
 	$('#question').text(question);
 	$('#answer_seq2seq').text('');
+	$('#suggestions').text('');	
 	$('.robot').hide();
 	start_spinner();
 }
 
 function new_chatbot_answer(seq2seq) {
-	$('.robot').show();
 	$('#answer_seq2seq').text(seq2seq);
 	suggestions_random = get_random_suggestions(suggestions);
     load_suggestions(suggestions_random);
