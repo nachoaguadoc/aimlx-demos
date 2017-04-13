@@ -73,8 +73,9 @@ def parse_output(output_path):
 def getOpinion():
     return render_template('opinion_target.html')
 
-@app.route('/opinion/<input>', methods=['POST'])
-def submitOpinion(input):
+@app.route('/opinion', methods=['POST'])
+def submitOpinion():
+    input = request.form['input']
     if request.method == 'POST':
         script_dir = conf.ate['path'] + 'run_demo.py'
         predict_dir = conf.ate['path'] + '/predictions/predictions.txt'
@@ -91,8 +92,9 @@ def submitOpinion(input):
 def getNER():
     return render_template('ner.html')
 
-@app.route('/ner/<input>', methods=['POST'])
-def submitNER(input):
+@app.route('/ner', methods=['POST'])
+def submitNER():
+    input = request.form['input']
     if request.method == 'POST':
         script_dir = conf.ner['path'] + 'run_demo.py'
         predict_dir = conf.ner['path'] + 'predictions/predictions.txt'

@@ -58,10 +58,11 @@ function submit(input_text) {
 	console.log("NER target input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "ner/" + input_text;
+	url = "ner";
 	$.ajax({
 	  type: "POST",
 	  url: url,
+	  data: {"input": input_text},
 	  dataType: 'text',
 	  success: function(data) {
 	  	answer = JSON.parse(data);
