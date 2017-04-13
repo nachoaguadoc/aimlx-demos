@@ -36,16 +36,15 @@ def submitChatbot(demo, question):
             model_id = conf.chatbot_swisscom['model_id']
             python_env = conf.chatbot_swisscom['python_env']
         elif demo=='ubuntuseq2seq':
-            predict_dir = conf.chatbot_ubuntu_seq2seq['path']
-            model_id = conf.chatbot_ubuntu_seq2seq['model_id']
-            python_env = conf.chatbot_ubuntu_seq2seq['python_env']
+            socket_address = conf.chatbot_ubuntu_seq2seq['socket_address']
+            socket_port = conf.chatbot_ubuntu_seq2seq['socket_port']
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect(("localhost", 9988))
+            s.connect((socket_address, socket_port))
             s.sendall(question.encode())
             answer = s.recv(1024).decode("utf-8")
             s.close()
-            return answer
-
+            return jsonify({'seq2seq':answer})
+        
         model_dir = predict_dir + 'runs/' + model_id
         subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir, '--raw_query=' + "'" + question + "'"])
         # Generate answer here

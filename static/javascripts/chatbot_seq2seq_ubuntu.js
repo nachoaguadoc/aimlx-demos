@@ -1,7 +1,6 @@
 function new_question(question) {
 	$('#question').text(question);
-	$('#answer_nn').text('');
-	$('#answer_solr').text('');
+	$('#answer_seq2seq').text('');
 	$('.robot').hide();
 	start_spinner();
 }
@@ -17,7 +16,7 @@ function submit(input_text) {
 	console.log("Chatbot input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "/chatbot/swisscom/" + input_text
+	url = "/chatbot/ubuntuseq2seq/" + input_text
 	$.ajax({
 	  type: "POST",
 	  url: url,
