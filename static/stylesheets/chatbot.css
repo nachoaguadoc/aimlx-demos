@@ -8,3 +8,18 @@
 	display: block;
     margin: 0 auto;
 }
+
+#suggestions {
+	margin-left: 0px;
+}
+.suggestion {
+    border-color: rgba(119, 185, 248, 0.45);
+    font-size: 13px;
+}
+.suggestion_box {
+    padding-left: 0;
+}
+.suggestion .panel-body {
+	background: rgba(119, 185, 248, 0.2);
+	cursor: pointer;
+}
