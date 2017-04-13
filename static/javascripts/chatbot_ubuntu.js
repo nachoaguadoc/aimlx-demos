@@ -41,6 +41,14 @@ function submit(input_text) {
 	});
 }
 
+function clean() {
+	$('#question').text('');
+	$('#answer_nn').text('');
+	$('#answer_solr').text('');
+	$('#suggestions').text('');	
+	$('.robot').hide();
+}
+
 function load_suggestions(suggestions){
 	clean()
 	for (var c in suggestions) {
@@ -69,6 +77,18 @@ function get_random_suggestions(suggestions) {
 }
 
 $(document).ready(function(){
+
+	$('#input_text').keyup(function(e){
+	    if(e.keyCode == 13) {
+	    	input_text = $('#input_text').val();
+	    	if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
+	    }
+	});
+
+	$('#search_button').click(function(e){
+		input_text = $('#input_text').val();
+	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
+	})
 	$.getJSON("../static/javascripts/lists/chatbot_ubuntu.json", function(json) {
 		suggestions = json.candidates;
 		suggestions_random = get_random_suggestions(suggestions);

@@ -32,4 +32,11 @@ function submit(input_text) {
 
 $(document).ready(function(){
 	$('.robot').hide();
+	$('#search_button').click(function(e){
+		input_text = $('#input_text').val();
+	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
+	})
+	$('#refresh_button').click(function(e){
+		refresh();
+	})
 });
