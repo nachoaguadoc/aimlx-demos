@@ -2,6 +2,7 @@ function new_question(question) {
 	$('#question').text(question);
 	$('#answer_nn').text('');
 	$('#answer_solr').text('');
+	$('#suggestions').text('');	
 	$('.robot').hide();
 	start_spinner();
 }
@@ -14,6 +15,8 @@ function new_chatbot_answer(candidates_nn, candidates_solr) {
 	for (c in candidates_solr) {
 		$('#answer_solr').html($('#answer_solr').html() + '<div class="col-md-12 answer_box"><div class="panel panel-default benchmark"><div class="panel-body">' + candidates_solr[c] + ' </div></div></div>');
 	}
+	suggestions_random = get_random_suggestions(suggestions);
+    load_suggestions(suggestions_random);	
 	$('.col-md-6').matchHeight();
 	stop_spinner();
 }
