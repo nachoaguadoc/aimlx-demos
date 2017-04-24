@@ -118,9 +118,9 @@ def submitKP():
     if request.method == 'POST':
         print('input ',request.form['inp_url'])
         html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
-        write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8'))
+        write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8', 'ignore'))
         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], os.path.join(conf.kpextract['path'],'tmp','html_file')])
-        write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8'))
+        write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8', 'ignore'))
         subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'],'tmp','raw_text') , '6', '14', os.path.join(conf.kpextract['path'],'tmp')])
         html_doc, list_kp = read_kp_output()
         return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
@@ -148,11 +148,6 @@ def read_kp_output():
     return html_doc, list_kp
 
 
-# Summary route handling
-@app.route('/summary')
-def getSummary():
-    return render_template('summary.html')
-
 sys.path.insert(0,conf.summary['path']+os.sep+'run')
 sys.path.insert(0,conf.summary['path']+os.sep+'util')
 ret_path=os.path.abspath('.')
@@ -162,6 +157,11 @@ import xml_parser
 laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
 app.clf=laucher.laucher(laucher_params)
 os.chdir(ret_path)
+
+# Summary route handling
+@app.route('/summary')
+def getSummary():
+    return render_template('summary.html')
 
 @app.route('/summary/<input>', methods=['POST'])
 def submitSummary(input):
@@ -179,7 +179,38 @@ def submitSummary(input):
         #os.system('rm -rf tmp')
         os.chdir(ret_path)
         #app.clf.end()
+        output.replace('#','$')
         return output
+
+# Summarization handling a url
+@app.route('/summary_url')
+def getSummaryURL():
+    return render_template('summary_url.html')
+
+@app.route('/summary_url', methods=['POST'])
+def submitSummaryURL():
+    if request.method == 'POST':
+        os.chdir(conf.summary['path'])
+        print('input ',request.form['inp_url'])
+        html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
+        with open('tmp.html','w') as fopen:
+            fopen.write(html_content.decode('utf-8','ignore'))
+        text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], 'tmp.html'])
+        text_content = text_content.decode('utf-8','ignore')
+        with open('tmp.txt','w') as fopen:
+            fopen.write(text_content)
+        text_content_list_with_idx=[]
+        for idx,sentence in enumerate(text_content.split('\n')):
+            text_content_list_with_idx.append('[%d] %s'%(idx+1,sentence))
+        text_content='\n'.join(text_content_list_with_idx)
+        print(text_content)
+        app.clf.start()
+        output=app.clf.run('tmp.txt')
+        os.system('rm tmp.html')
+        os.system('rm tmp.txt')
+        os.chdir(ret_path)
+        print(output)
+        return jsonify({'text':text_content,'summary':output})
 
 if __name__ == '__main__':
     sys.path.insert(0,conf.summary['path']+os.sep+'run')
