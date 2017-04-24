@@ -10,6 +10,8 @@ import subprocess
 import os
 import re
 import socket
+import sys
+import tensorflow as tf
 
 app = Flask(__name__)
 CORS(app)
@@ -119,7 +121,7 @@ def submitKP():
         write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8'))
         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], os.path.join(conf.kpextract['path'],'tmp','html_file')])
         write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8'))
-        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.singlerank', os.path.join(conf.kpextract['path'],'tmp','raw_text') , '6', '14', os.path.join(conf.kpextract['path'],'tmp')])
+        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'],'tmp','raw_text') , '6', '14', os.path.join(conf.kpextract['path'],'tmp')])
         html_doc, list_kp = read_kp_output()
         return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
 
@@ -151,30 +153,42 @@ def read_kp_output():
 def getSummary():
     return render_template('summary.html')
 
-import os
-if not os.path.exists('%s/run/launch.py'%conf.summary['path']):
-    print('File required to run summary')
-import sys
-sys.path.insert(0,'%s/run'%conf.summary['path'])
+sys.path.insert(0,conf.summary['path']+os.sep+'run')
+sys.path.insert(0,conf.summary['path']+os.sep+'util')
 ret_path=os.path.abspath('.')
 os.chdir(conf.summary['path'])
-import launch
+import laucher
+import xml_parser
+laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
+app.clf=laucher.laucher(laucher_params)
 os.chdir(ret_path)
 
 @app.route('/summary/<input>', methods=['POST'])
 def submitSummary(input):
     if request.method == 'POST':
-        # Generate answer here
-        answer = input.replace('**n**', '\n')
-        ret_path=os.path.abspath('.')
         os.chdir(conf.summary['path'])
+        #global my_launcher
+        #laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
+        #app.clf=laucher.laucher(laucher_params)
+        app.clf.start()
+        answer = input.replace('**n**', '\n')
         with open('tmp.txt','w') as fopen:
             fopen.write(answer)
-        launch.predict()
-        answer = ''.join(open('output.txt','r').readlines())
-        os.system('rm tmp.txt output.txt')
+        output=app.clf.run('tmp.txt')
+        os.system('rm tmp.txt')
+        #os.system('rm -rf tmp')
         os.chdir(ret_path)
-        return answer
+        #app.clf.end()
+        return output
 
 if __name__ == '__main__':
+    sys.path.insert(0,conf.summary['path']+os.sep+'run')
+    sys.path.insert(0,conf.summary['path']+os.sep+'util')
+    ret_path=os.path.abspath('.')
+    os.chdir(conf.summary['path'])
+    import laucher
+    import xml_parser
+#    laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
+#    app.clf=laucher.laucher(laucher_params)
+    os.chdir(ret_path)
     app.run(host= '127.0.0.1')
