@@ -37,7 +37,31 @@ function submit(input_text) {
 	  }
 	});
 }
+function load_suggestions(suggestions){
+	for (var c in suggestions) {
+		$('#suggestions').html($('#suggestions').html() + '<div class="col-md-4 suggestion_box"><div class="panel panel-default suggestion"><div class="panel-body">' + suggestions[c] + ' </div></div></div>');
+	}
+	$('.suggestion .panel-body').matchHeight();
+	$('.suggestion .panel-body').click(function(e){
+		query = $(e.target).text();
+		submit(query);
+	})
+}
 
+function get_random_suggestions(suggestions) {
+	var random_indexes = []
+	while(random_indexes.length < 6){
+	    var random_number = Math.ceil(Math.random()*(suggestions.length-1));
+	    if(random_indexes.indexOf(random_number) > -1) continue;
+	    random_indexes[random_indexes.length] = random_number;
+	}
+
+	suggestions_random = []
+	for (var i in random_indexes) {
+		suggestions_random.push(suggestions[random_indexes[i]]);
+	}
+	return suggestions_random
+}
 $(document).ready(function(){
 
 	$('#input_text').keyup(function(e){
@@ -51,5 +75,10 @@ $(document).ready(function(){
 		input_text = $('#input_text').val();
 	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
 	})
+	$.getJSON("../static/javascripts/lists/chatbot_swisscom.json", function(json) {
+		suggestions = json.candidates;
+		suggestions_random = get_random_suggestions(suggestions);
+	    load_suggestions(suggestions_random);
+	});
 	$('.robot').hide();
 });
