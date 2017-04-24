@@ -50,7 +50,7 @@ function load_suggestions(suggestions){
 
 function get_random_suggestions(suggestions) {
 	var random_indexes = []
-	while(random_indexes.length < 6){
+	while(random_indexes.length < 3){
 	    var random_number = Math.ceil(Math.random()*(suggestions.length-1));
 	    if(random_indexes.indexOf(random_number) > -1) continue;
 	    random_indexes[random_indexes.length] = random_number;
