@@ -12,6 +12,7 @@ import re
 import socket
 import sys
 import tensorflow as tf
+import nltk.data
 
 app = Flask(__name__)
 CORS(app)
@@ -156,6 +157,7 @@ import laucher
 import xml_parser
 laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
 app.clf=laucher.laucher(laucher_params)
+tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 os.chdir(ret_path)
 
 # Summary route handling
@@ -197,13 +199,24 @@ def submitSummaryURL():
             fopen.write(html_content.decode('utf-8','ignore'))
         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], 'tmp.html'])
         text_content = text_content.decode('utf-8','ignore')
+        text_content_list = []
+        for sentence in tokenizer.tokenize(text_content):
+            #print(type(sentence))
+            #print(sentence.split(' '))
+            print(len(sentence.split(' ')))
+            if len(sentence.split(' '))>=5:
+                text_content_list.append(sentence)
+            else:
+                print('>>>'+sentence)
+        text_content = '\n'.join(text_content_list)
+        
         with open('tmp.txt','w') as fopen:
             fopen.write(text_content)
         text_content_list_with_idx=[]
         for idx,sentence in enumerate(text_content.split('\n')):
             text_content_list_with_idx.append('[%d] %s'%(idx+1,sentence))
         text_content='\n'.join(text_content_list_with_idx)
-        print(text_content)
+        # print(text_content)
         app.clf.start()
         output=app.clf.run('tmp.txt')
         os.system('rm tmp.html')
