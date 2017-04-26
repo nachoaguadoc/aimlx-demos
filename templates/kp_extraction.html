@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 
   </head>
@@ -45,24 +45,27 @@
 
     <div class='row' id="kpvizu_div">
     </div>
-  </div>
 
+    <div class='row'>
+            <div data-role="main" class="ui-content">
+        <a href="#control_pannel" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-gear ui-btn-icon-left">Settings</a>
 
-    <div data-role="main" class="ui-content">
-    <a href="#control_pannel" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ui-btn-icon-left">Settings</a>
-
-    <div data-role="popup" id="control_pannel" class="ui-content" style="min-width:250px;">
-        <div>
-          <h3>Settings</h3>
-          <label for="nbkp">Number of keyphrases</label>
-          <input type="number" name="nbkp" id="nbkp" value=14>
-          <label for="window">Window size</label>
-          <input type="number" name="window" id="window" value=5>
-          <label for="ilp">Use ILP Extractor</label>
-          <input type="checkbox" name="ilp" id="ilp" value="1" checked="checked">
+        <div data-role="popup" id="control_pannel" class="ui-content" style="min-width:250px;">
+            <div>
+              <h3>Settings</h3>
+              <label for="nbkp">Number of keyphrases</label>
+              <input type="number" name="nbkp" id="nbkp" value=14>
+              <label for="window">Window size</label>
+              <input type="number" name="window" id="window" value=5>
+              <label for="ilp">Use ILP Extractor</label>
+              <input type="checkbox" name="ilp" id="ilp" value="1" checked="checked">
+            </div>
         </div>
+      </div>
     </div>
-  </div>
+
+
+
 
 
 
