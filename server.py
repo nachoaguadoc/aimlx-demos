@@ -117,33 +117,38 @@ def getKP():
 @app.route('/kp', methods=['POST'])
 def submitKP():
     if request.method == 'POST':
-        print('input ',request.form['inp_url'])
+        print('input ', request.form['inp_url'])
         html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
         write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8', 'ignore'))
         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], os.path.join(conf.kpextract['path'],'tmp','html_file')])
         write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8', 'ignore'))
-        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'],'tmp','raw_text') , '6', '14', os.path.join(conf.kpextract['path'],'tmp')])
+        ilp_arg = ''
+        if request.form(['ilp']):
+            ilp_arg = '--ilp'
+        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'], 'tmp', 'raw_text'), request.form['window'], request.form['nbkp'], os.path.join(conf.kpextract['path'],'tmp'), ilp_arg])
         html_doc, list_kp = read_kp_output()
         return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
+
 
 def read_file(path):
     with open(path, 'r') as f:
         return f.read()
 
+
 def write_file(path, s):
     with open(path, 'w') as f:
         f.write(s)
 
-          
+
 def read_kp_output():
-    processed_text = read_file(os.path.join(conf.kpextract['path'],'tmp','result_text.txt'))
-    processed_text = re.sub('\n+', '\n', processed_text)
+    processed_text = read_file(os.path.join(conf.kpextract['path'], 'tmp', 'result_text.txt'))
+    processed_text = re.sub('\n+', '\n', processed_text) #Multiple jumplines into 1 jumpline
     html_doc = processed_text.replace('\n', '</div><div class=start></br>')
     html_doc = html_doc.replace('<phrase>', '<span class=kp>')
     html_doc = html_doc.replace('</phrase>', '</span>')
     html_doc = '<div class=start>' + html_doc + '</div>'
 
-    list_kp_text =  read_file(os.path.join(conf.kpextract['path'],'tmp','result_kp.txt'))
+    list_kp_text = read_file(os.path.join(conf.kpextract['path'], 'tmp', 'result_kp.txt'))
     list_kp = list_kp_text.split(';')
     
     return html_doc, list_kp
