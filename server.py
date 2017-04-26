@@ -123,9 +123,9 @@ def submitKP():
         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], os.path.join(conf.kpextract['path'],'tmp','html_file')])
         write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8', 'ignore'))
         ilp_arg = ''
-        if request.form(['ilp']):
+        if request.form['ilp']:
             ilp_arg = '--ilp'
-        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'], 'tmp', 'raw_text'), request.form['window'], request.form['nbkp'], os.path.join(conf.kpextract['path'],'tmp'), ilp_arg])
+        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'], 'tmp', 'raw_text'), request.form['window_size'], request.form['nbkp'], os.path.join(conf.kpextract['path'],'tmp'), ilp_arg])
         html_doc, list_kp = read_kp_output()
         return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
 
