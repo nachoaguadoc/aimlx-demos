@@ -117,15 +117,15 @@ def getKP():
 @app.route('/kp', methods=['POST'])
 def submitKP():
     if request.method == 'POST':
-        print('input ', request.form['inp_url'])
+        print('input ', request.form['inp_url'], 'window_size ', request.form['window_size'], 'nbkp ', request.form['nbkp'], 'ilp ', request.form['ilp'])
         html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
         write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8', 'ignore'))
         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], os.path.join(conf.kpextract['path'],'tmp','html_file')])
         write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8', 'ignore'))
-        ilp_arg = ''
-        if request.form['ilp']:
-            ilp_arg = '--ilp'
-        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'], 'tmp', 'raw_text'), request.form['window_size'], request.form['nbkp'], os.path.join(conf.kpextract['path'],'tmp'), ilp_arg])
+        cmd = [conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'], 'tmp', 'raw_text'), request.form['window_size'], request.form['nbkp'], os.path.join(conf.kpextract['path'],'tmp')]
+        if request.form['ilp'] == 'true':
+            cmd.append('--ilp')
+        subprocess.call(cmd)
         html_doc, list_kp = read_kp_output()
         return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
 
