@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 
+
+      <style>
+          #setpopup{
+              position: fixed;
+              bottom: 0;
+              left: 0;
+          }
+      </style>
   </head>
   <body>
     <div class="container">
@@ -46,7 +54,7 @@
     <div class='row' id="kpvizu_div">
     </div>
 
-    <div class='row'>
+    <div class='row' id="setpopup">
             <div data-role="main" class="ui-content">
         <a href="#control_pannel" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-gear ui-btn-icon-left">Settings</a>
 
