@@ -106,3 +106,6 @@
     width: 20%;
 }
 
+.group-larger {
+    max-width: 95px !important;
+}
