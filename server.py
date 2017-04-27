@@ -12,6 +12,7 @@ import re
 import socket
 import sys
 import tensorflow as tf
+import nltk.data
 
 app = Flask(__name__)
 CORS(app)
@@ -116,42 +117,42 @@ def getKP():
 @app.route('/kp', methods=['POST'])
 def submitKP():
     if request.method == 'POST':
-        print('input ',request.form['inp_url'])
+        print('input ', request.form['inp_url'], 'window_size ', request.form['window_size'], 'nbkp ', request.form['nbkp'], 'ilp ', request.form['ilp'])
         html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
-        write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8'))
+        write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8', 'ignore'))
         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], os.path.join(conf.kpextract['path'],'tmp','html_file')])
-        write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8'))
-        subprocess.call([conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'],'tmp','raw_text') , '6', '14', os.path.join(conf.kpextract['path'],'tmp')])
+        write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8', 'ignore'))
+        cmd = [conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'], 'tmp', 'raw_text'), request.form['window_size'], request.form['nbkp'], os.path.join(conf.kpextract['path'],'tmp')]
+        if request.form['ilp'] == 'true':
+            cmd.append('--ilp')
+        subprocess.call(cmd)
         html_doc, list_kp = read_kp_output()
         return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
+
 
 def read_file(path):
     with open(path, 'r') as f:
         return f.read()
 
+
 def write_file(path, s):
     with open(path, 'w') as f:
         f.write(s)
 
-          
+
 def read_kp_output():
-    processed_text = read_file(os.path.join(conf.kpextract['path'],'tmp','result_text.txt'))
-    processed_text = re.sub('\n+', '\n', processed_text)
+    processed_text = read_file(os.path.join(conf.kpextract['path'], 'tmp', 'result_text.txt'))
+    processed_text = re.sub('\n+', '\n', processed_text) #Multiple jumplines into 1 jumpline
     html_doc = processed_text.replace('\n', '</div><div class=start></br>')
     html_doc = html_doc.replace('<phrase>', '<span class=kp>')
     html_doc = html_doc.replace('</phrase>', '</span>')
     html_doc = '<div class=start>' + html_doc + '</div>'
 
-    list_kp_text =  read_file(os.path.join(conf.kpextract['path'],'tmp','result_kp.txt'))
+    list_kp_text = read_file(os.path.join(conf.kpextract['path'], 'tmp', 'result_kp.txt'))
     list_kp = list_kp_text.split(';')
     
     return html_doc, list_kp
 
-
-# Summary route handling
-@app.route('/summary')
-def getSummary():
-    return render_template('summary.html')
 
 sys.path.insert(0,conf.summary['path']+os.sep+'run')
 sys.path.insert(0,conf.summary['path']+os.sep+'util')
@@ -161,7 +162,13 @@ import laucher
 import xml_parser
 laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
 app.clf=laucher.laucher(laucher_params)
+tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 os.chdir(ret_path)
+
+# Summary route handling
+@app.route('/summary')
+def getSummary():
+    return render_template('summary.html')
 
 @app.route('/summary/<input>', methods=['POST'])
 def submitSummary(input):
@@ -179,7 +186,49 @@ def submitSummary(input):
         #os.system('rm -rf tmp')
         os.chdir(ret_path)
         #app.clf.end()
+        output.replace('#','$')
         return output
+
+# Summarization handling a url
+@app.route('/summary_url')
+def getSummaryURL():
+    return render_template('summary_url.html')
+
+@app.route('/summary_url', methods=['POST'])
+def submitSummaryURL():
+    if request.method == 'POST':
+        os.chdir(conf.summary['path'])
+        print('input ',request.form['inp_url'])
+        html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
+        with open('tmp.html','w') as fopen:
+            fopen.write(html_content.decode('utf-8','ignore'))
+        text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], 'tmp.html'])
+        text_content = text_content.decode('utf-8','ignore')
+        text_content_list = []
+        for sentence in tokenizer.tokenize(text_content):
+            #print(type(sentence))
+            #print(sentence.split(' '))
+            print(len(sentence.split(' ')))
+            if len(sentence.split(' '))>=5:
+                text_content_list.append(sentence)
+            else:
+                print('>>>'+sentence)
+        text_content = '\n'.join(text_content_list)
+        
+        with open('tmp.txt','w') as fopen:
+            fopen.write(text_content)
+        text_content_list_with_idx=[]
+        for idx,sentence in enumerate(text_content.split('\n')):
+            text_content_list_with_idx.append('[%d] %s'%(idx+1,sentence))
+        text_content='\n'.join(text_content_list_with_idx)
+        # print(text_content)
+        app.clf.start()
+        output=app.clf.run('tmp.txt')
+        os.system('rm tmp.html')
+        os.system('rm tmp.txt')
+        os.chdir(ret_path)
+        print(output)
+        return jsonify({'text':text_content,'summary':output})
 
 if __name__ == '__main__':
     sys.path.insert(0,conf.summary['path']+os.sep+'run')
