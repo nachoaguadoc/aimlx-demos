@@ -2,7 +2,7 @@ models/chatbot_swisscom
 models/chatbot_ubuntu
 .DS_Store
 config.py
-
+start_server.sh
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
