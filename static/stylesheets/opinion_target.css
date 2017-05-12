@@ -28,3 +28,9 @@
 #refresh_button {
 	font-size: 23px;
 }
+.learning_type {
+	text-align: center;
+}
+.learning_label {
+	font-weight: normal;
+}

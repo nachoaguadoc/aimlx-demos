@@ -16,6 +16,10 @@ ate = {
 	'path' : '',
 	'python_env': ''
 }
+neuroate = {
+	'path' : '',
+	'python_env': ''
+}
 ner = {
 	'path' : '',
 	'python_env': ''

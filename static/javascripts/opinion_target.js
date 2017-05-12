@@ -45,14 +45,15 @@ function new_opinion_answer(original, labels) {
 
 
 function submit(input_text) {
-	console.log("Opinion target input:", input_text)
+	console.log("Opinion target input:", input_text);
+	console.log("Learning type", learning_type);
 	$('#input_text').val('');
 	new_question(input_text);
 	url = "/opinion";
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"input": input_text},
+	  data: {"input": input_text, "learning": learning_type},
 	  dataType: 'text',
 	  success: function(data) {
 	  	answer = JSON.parse(data);
@@ -104,7 +105,7 @@ function refresh() {
 
 $(document).ready(function(){
 	$('#question_row').hide();
-
+	learning_type = 'supervised'
 	$.getJSON("../static/javascripts/lists/opinion_mining.json", function(json) {
 		suggestions = json.candidates;
 		suggestions_random = get_random_suggestions(suggestions);
@@ -118,5 +119,14 @@ $(document).ready(function(){
 	$('#refresh_button').click(function(e){
 		refresh();
 	})
+
+	$('input:radio[name="learning"]').change( function(){
+        if ($(this).is(':checked') && $(this).val() == 'supervised') {
+            learning_type = 'supervised';
+        } else {
+        	learning_type = 'unsupervised';
+        }
+    });
+
 });
 
