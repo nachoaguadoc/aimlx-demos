@@ -89,7 +89,7 @@ def submitOpinion():
     if request.method == 'POST':
         if learning_type == "supervised":
             script_dir = conf.ate['path'] + 'run_demo.py'
-            predict_dir = conf.ate['path'] + '/predictions/predictions.txt'
+            predict_dir = conf.ate['path'] + 'predictions/predictions.txt'
             python_env = conf.ate['python_env']
             response = ""
             subprocess.call([python_env, script_dir, '--sentence', '"'+ input + '"'])
@@ -98,19 +98,28 @@ def submitOpinion():
             answer = {'labels': answer}
             return jsonify(answer)
         else:
-            current_dir = os.path.dirname(os.path.realpath(__file__))
-            parse_input(input, conf.neuroate["path"] + "data/server/input.txt")
-            script_dir = conf.neuroate['path'] + 'src/'
-            predict_dir = conf.neuroate['path'] + 'output/predictions/100_test.txt'
-            python_env = conf.neuroate['python_env']
+            script_dir = conf.unsupervisedate['path'] + 'run_demo.py'
+            predict_dir = conf.unsupervisedate['path'] + 'predictions/predictions.txt'
+            python_env = conf.unsupervisedate['python_env']
             response = ""
-            os.chdir(script_dir)
-            subprocess.call([python_env, "predict.py"])
-            os.chdir(current_dir)
+            subprocess.call([python_env, script_dir, '--sentence', '"'+ input + '"'])
             answer = parse_output(predict_dir)
             print("Question received for ATE project", answer)
             answer = {'labels': answer}
             return jsonify(answer)
+            #current_dir = os.path.dirname(os.path.realpath(__file__))
+            #parse_input(input, conf.neuroate["path"] + "data/server/input.txt")
+            #script_dir = conf.neuroate['path'] + 'src/'
+            #predict_dir = conf.neuroate['path'] + 'output/predictions/100_test.txt'
+            #python_env = conf.neuroate['python_env']
+            #response = ""
+            #os.chdir(script_dir)
+            #subprocess.call([python_env, "predict.py"])
+            #os.chdir(current_dir)
+            #answer = parse_output(predict_dir)
+            #print("Question received for ATE project", answer)
+            #answer = {'labels': answer}
+            #return jsonify(answer)
 
 # NER route handling
 @app.route('/ner')
