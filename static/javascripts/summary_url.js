@@ -14,13 +14,13 @@ function answer(text, summary) {
 
 
 function submit(input_text) {
-    $('#input_text').val('');
+    // $('#input_text').val('');
     start_spinner();
     url = "/summary_url"
     $.ajax({
       type: "POST",
       url: url,
-      data: {'inp_url':input_text},
+      data: {'inp_url':input_text,'model_type':model_type},
       dataType: 'text',
       success: function(data) {
         data = JSON.parse(data);
@@ -43,6 +43,7 @@ function clean() {
 }
 
 $(document).ready(function(){
+    model_type = 'extractive'
     $('#input_text').keyup(function(e){
         if(e.keyCode == 13) {
             input_text = $('#input_text').val();
@@ -54,5 +55,16 @@ $(document).ready(function(){
         input_text = $('#input_text').val();
         if (input_text != '') submit(input_text, $('#project_value').text());
     })
+
+    $('input:radio[name="model_type"]').change( function(){
+        if ($(this).is(':checked') && $(this).val() == 'extractive') {
+            model_type='extractive'
+        } else {
+            model_type='abstractive'
+        }
+        input_text = $('#input_text').val();
+        if (input_text != '') submit(input_text, $('#project_value').text());        
+    });
+
 });
 

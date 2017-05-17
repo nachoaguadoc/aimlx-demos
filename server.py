@@ -10,9 +10,9 @@ import subprocess
 import os
 import re
 import socket
+import select
 import sys
 import tensorflow as tf
-import nltk.data
 
 app = Flask(__name__)
 CORS(app)
@@ -184,91 +184,138 @@ def read_kp_output():
     
     return html_doc, list_kp
 
-
-sys.path.insert(0,conf.summary['path']+os.sep+'run')
-sys.path.insert(0,conf.summary['path']+os.sep+'util')
-ret_path=os.path.abspath('.')
-os.chdir(conf.summary['path'])
-import laucher
-import xml_parser
-laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
-app.clf=laucher.laucher(laucher_params)
-tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-os.chdir(ret_path)
-
-# Summary route handling
-@app.route('/summary')
-def getSummary():
-    return render_template('summary.html')
-
-@app.route('/summary/<input>', methods=['POST'])
-def submitSummary(input):
-    if request.method == 'POST':
-        os.chdir(conf.summary['path'])
-        #global my_launcher
-        #laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
-        #app.clf=laucher.laucher(laucher_params)
-        app.clf.start()
-        answer = input.replace('**n**', '\n')
-        with open('tmp.txt','w') as fopen:
-            fopen.write(answer)
-        output=app.clf.run('tmp.txt')
-        os.system('rm tmp.txt')
-        #os.system('rm -rf tmp')
-        os.chdir(ret_path)
-        #app.clf.end()
-        output.replace('#','$')
-        return output
-
-# Summarization handling a url
 @app.route('/summary_url')
 def getSummaryURL():
+    print('1')
     return render_template('summary_url.html')
 
-@app.route('/summary_url', methods=['POST'])
+@app.route('/summary_url',methods=['POST'])
 def submitSummaryURL():
-    if request.method == 'POST':
-        os.chdir(conf.summary['path'])
-        print('input ',request.form['inp_url'])
-        html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
-        with open('tmp.html','w') as fopen:
-            fopen.write(html_content.decode('utf-8','ignore'))
-        text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], 'tmp.html'])
-        text_content = text_content.decode('utf-8','ignore')
-        text_content_list = []
-        for sentence in tokenizer.tokenize(text_content):
-            #print(type(sentence))
-            #print(sentence.split(' '))
-            print(len(sentence.split(' ')))
-            if len(sentence.split(' '))>=5:
-                text_content_list.append(sentence)
-            else:
-                print('>>>'+sentence)
-        text_content = '\n'.join(text_content_list)
+    input=request.form['inp_url']
+    model_type=request.form['model_type']
+    url=input.rstrip('\n')
+    if request.method=='POST':
+        if model_type=='extractive':
+            host=conf.summary['e_host']
+            port=conf.summary['e_port']
+        elif model_type=='abstractive':
+            host=conf.summary['a_host']
+            port=conf.summary['a_port']
+        else:
+            return jsonify({'text':'Unrecognized model_type: %s'%model_type,'summary':'Unrecognized model_type: %s'%model_type})
+
+        client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        client.settimeout(2)
+
+        try:
+            client.connect((host,port))
+            print('Socket established on %s:%d!'%(host,port))
+        except:
+            return jsonify({'text':'Unable to connect the server','summary':'Unable to connect the server'})
+
+        socket_list=[client,sys.stdin]
+        client.send(url.encode('utf8'))
+
+        print('Start analyzing %s'%url)
+        while True:
+            ready2read,ready2write,in_err=select.select(socket_list,[],[])
+            for sock in ready2read:
+                if sock==client:
+                    response=sock.recv(65536).decode('utf8')
+                    if not response:
+                        return jsonify({'text':'Unable to connect the server','summary':'Unable to connect the server'})
+                    else:
+                        parts=response.split('@@@@@')
+                        if len(parts)==1:
+                            return jsonify({'text':parts[0],'summary':parts[0]})
+                        else:
+                            return jsonify({'text':parts[0],'summary':parts[1]})
+
+# sys.path.insert(0,conf.summary['path']+os.sep+'run')
+# sys.path.insert(0,conf.summary['path']+os.sep+'util')
+# ret_path=os.path.abspath('.')
+# os.chdir(conf.summary['path'])
+# import laucher
+# import xml_parser
+# laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
+# app.clf=laucher.laucher(laucher_params)
+# tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+# os.chdir(ret_path)
+
+# # Summary route handling
+# @app.route('/summary')
+# def getSummary():
+#     return render_template('summary.html')
+
+# @app.route('/summary/<input>', methods=['POST'])
+# def submitSummary(input):
+#     if request.method == 'POST':
+#         os.chdir(conf.summary['path'])
+#         #global my_launcher
+#         #laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
+#         #app.clf=laucher.laucher(laucher_params)
+#         app.clf.start()
+#         answer = input.replace('**n**', '\n')
+#         with open('tmp.txt','w') as fopen:
+#             fopen.write(answer)
+#         output=app.clf.run('tmp.txt')
+#         os.system('rm tmp.txt')
+#         #os.system('rm -rf tmp')
+#         os.chdir(ret_path)
+#         #app.clf.end()
+#         output.replace('#','$')
+#         return output
+
+# # Summarization handling a url
+# @app.route('/summary_url')
+# def getSummaryURL():
+#     return render_template('summary_url.html')
+
+# @app.route('/summary_url', methods=['POST'])
+# def submitSummaryURL():
+#     if request.method == 'POST':
+#         os.chdir(conf.summary['path'])
+#         print('input ',request.form['inp_url'])
+#         html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
+#         with open('tmp.html','w') as fopen:
+#             fopen.write(html_content.decode('utf-8','ignore'))
+#         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], 'tmp.html'])
+#         text_content = text_content.decode('utf-8','ignore')
+#         text_content_list = []
+#         for sentence in tokenizer.tokenize(text_content):
+#             #print(type(sentence))
+#             #print(sentence.split(' '))
+#             print(len(sentence.split(' ')))
+#             if len(sentence.split(' '))>=5:
+#                 text_content_list.append(sentence)
+#             else:
+#                 print('>>>'+sentence)
+#         text_content = '\n'.join(text_content_list)
         
-        with open('tmp.txt','w') as fopen:
-            fopen.write(text_content)
-        text_content_list_with_idx=[]
-        for idx,sentence in enumerate(text_content.split('\n')):
-            text_content_list_with_idx.append('[%d] %s'%(idx+1,sentence))
-        text_content='\n'.join(text_content_list_with_idx)
-        # print(text_content)
-        app.clf.start()
-        output=app.clf.run('tmp.txt')
-        os.system('rm tmp.html')
-        os.system('rm tmp.txt')
-        os.chdir(ret_path)
-        print(output)
-        return jsonify({'text':text_content,'summary':output})
+#         with open('tmp.txt','w') as fopen:
+#             fopen.write(text_content)
+#         text_content_list_with_idx=[]
+#         for idx,sentence in enumerate(text_content.split('\n')):
+#             text_content_list_with_idx.append('[%d] %s'%(idx+1,sentence))
+#         text_content='\n'.join(text_content_list_with_idx)
+#         # print(text_content)
+#         app.clf.start()
+#         output=app.clf.run('tmp.txt')
+#         os.system('rm tmp.html')
+#         os.system('rm tmp.txt')
+#         os.chdir(ret_path)
+#         print(output)
+#         return jsonify({'text':text_content,'summary':output})
+
 
 if __name__ == '__main__':
-    sys.path.insert(0,conf.summary['path']+os.sep+'run')
-    sys.path.insert(0,conf.summary['path']+os.sep+'util')
-    ret_path=os.path.abspath('.')
-    os.chdir(conf.summary['path'])
-    import laucher
-    import xml_parser
-#    laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
-#    app.clf=laucher.laucher(laucher_params)
-    os.chdir(ret_path)
+#     sys.path.insert(0,conf.summary['path']+os.sep+'run')
+#     sys.path.insert(0,conf.summary['path']+os.sep+'util')
+#     ret_path=os.path.abspath('.')
+#     os.chdir(conf.summary['path'])
+#     import laucher
+#     import xml_parser
+# #    laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
+# #    app.clf=laucher.laucher(laucher_params)
+#     os.chdir(ret_path)
     app.run(host= '127.0.0.1')
