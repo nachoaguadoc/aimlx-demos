@@ -214,14 +214,14 @@ def submitSummaryURL():
             return jsonify({'text':'Unable to connect the server','summary':'Unable to connect the server'})
 
         socket_list=[client,sys.stdin]
-        client.send(url.encode('utf8'))
+        client.send(url.encode('iso-8859-1'))
 
         print('Start analyzing %s'%url)
         while True:
             ready2read,ready2write,in_err=select.select(socket_list,[],[])
             for sock in ready2read:
                 if sock==client:
-                    response=sock.recv(65536).decode('utf8')
+                    response=sock.recv(65536).decode('iso-8859-1')
                     if not response:
                         return jsonify({'text':'Unable to connect the server','summary':'Unable to connect the server'})
                     else:
