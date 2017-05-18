@@ -17,6 +17,26 @@ import tensorflow as tf
 app = Flask(__name__)
 CORS(app)
 
+def encode_sth(item):
+    coding=['iso-8859-1','utf8','latin1','ascii']
+    for coding_format in coding:
+        try:
+            coded=item.encode(coding_format)
+            return coded
+        except:
+            continue
+    raise Exception('Unable to encode',item)
+
+def decode_sth(item):
+    coding=['iso-8859-1','utf8','latin1','ascii']
+    for coding_format in coding:
+        try:
+            coded=item.decode(coding_format)
+            return coded
+        except:
+            continue
+    raise Exception('Unable to decode',item)
+
 # Chatbot route handling
 @app.route('/chatbot/<demo>')
 def getChatbot(demo):
@@ -214,14 +234,14 @@ def submitSummaryURL():
             return jsonify({'text':'Unable to connect the server','summary':'Unable to connect the server'})
 
         socket_list=[client,sys.stdin]
-        client.send(url.encode('iso-8859-1'))
+        client.send(encode_sth(url))
 
         print('Start analyzing %s'%url)
         while True:
             ready2read,ready2write,in_err=select.select(socket_list,[],[])
             for sock in ready2read:
                 if sock==client:
-                    response=sock.recv(65536).decode('iso-8859-1')
+                    response=decode_sth(sock.recv(65536))
                     if not response:
                         return jsonify({'text':'Unable to connect the server','summary':'Unable to connect the server'})
                     else:
