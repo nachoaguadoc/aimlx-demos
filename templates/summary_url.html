@@ -10,6 +10,33 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/summary.css') }}">
 
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('input.deletable').wrap('<span class="deleteicon" />').after($('<span/>').click(function() {
+                    $(this).prev('input').val('').focus();
+                }));
+            });
+        </script>
+        <style>
+            span.deleteicon {
+                position: relative;
+            }
+            span.deleteicon span {
+                position: absolute;
+                display: block;
+                top: 5px;
+                right: 0px;
+                width: 16px;
+                height: 16px;
+                background: url('http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=4') 0 -690px;
+                cursor: pointer;
+            }
+            span.deleteicon input {
+                padding-right: 16px;
+            }
+        </style>
+
     </head>
     <body>
         <div class="container">
@@ -29,12 +56,12 @@
                                 <span id="project_value">Summary</span>
                                 </button>
                             </span>
-                            <input type="text" id="input_text" class="form-control input-lg" placeholder="Enter an URL" />
-                            <span class="input-group-btn" id="last_group">
+                            <input type="input" id="input_text" class="deletable input-lg" placeholder="Enter an URL" size="96%" />
+                            <!-- <span class="input-group-btn" id="last_group">
                                 <button id="search_button" class="btn btn-info btn-lg" type="button">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
-                            </span>
+                            </span> -->
                         </div>
                     </div>
                 </div>
