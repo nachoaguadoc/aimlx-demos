@@ -56,6 +56,12 @@ $(document).ready(function(){
         if (input_text != '') submit(input_text, $('#project_value').text());
     })
 
+    $('#refresh_button').click(function(e){
+        document.getElementById('input_text').value="";
+        $('#original_text').html("");
+        $('#summarized_text').html("");
+    })
+
     $('input:radio[name="model_type"]').change( function(){
         if ($(this).is(':checked') && $(this).val() == 'extractive') {
             model_type='extractive'
