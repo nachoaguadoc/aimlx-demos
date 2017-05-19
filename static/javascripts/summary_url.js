@@ -59,7 +59,9 @@ $(document).ready(function(){
     $('input:radio[name="model_type"]').change( function(){
         if ($(this).is(':checked') && $(this).val() == 'extractive') {
             model_type='extractive'
-        } else {
+        } else if ($(this).is(':checked') && $(this).val() == 'mixed'){
+            model_type='mixed'
+        }else {
             model_type='abstractive'
         }
         input_text = $('#input_text').val();

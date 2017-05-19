@@ -221,6 +221,9 @@ def submitSummaryURL():
         elif model_type=='abstractive':
             host=conf.summary['a_host']
             port=conf.summary['a_port']
+        elif model_type=='mixed':
+            host=conf.summary['m_host']
+            port=conf.summary['m_port']
         else:
             return jsonify({'text':'Unrecognized model_type: %s'%model_type,'summary':'Unrecognized model_type: %s'%model_type})
 
