@@ -90,7 +90,7 @@ def getNeuralProgrammer():
 def submitNeuralProgrammer():
     tokens = request.form['question']
     table_key = request.form['table_key']
-    print("Question:", question, "Table:", table_key)
+    print("Question:", tokens, "Table:", table_key)
     if request.method == 'POST':
         socket_address = conf.neural_programmer['socket_address']
         socket_port = conf.neural_programmer['socket_port']
