@@ -87,7 +87,7 @@ def getNeuralProgrammer(demo):
     return render_template('neural_programmer.html')
 
 @app.route('/neural_programmer', methods=['POST'])
-def submitNeuralProgrammer(demo):
+def submitNeuralProgrammer():
     question = request.form['question']
     table_key = request.form['table_key']
     print("Question:", question, "Table:", table)
