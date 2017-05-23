@@ -83,7 +83,7 @@ def submitChatbot(demo):
 
 # Chatbot route handling
 @app.route('/neural_programmer')
-def getNeuralProgrammer(demo):
+def getNeuralProgrammer():
     return render_template('neural_programmer.html')
 
 @app.route('/neural_programmer', methods=['POST'])
