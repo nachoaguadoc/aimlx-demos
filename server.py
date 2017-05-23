@@ -204,9 +204,16 @@ def read_kp_output():
     
     return html_doc, list_kp
 
+@app.route('/summary')
+def getSummary():
+    return getSummaryURL()
+
+@app.route('/summary',methods=['POST'])
+def submitSummary():
+    return submitSummary()
+
 @app.route('/summary_url')
 def getSummaryURL():
-    print('1')
     return render_template('summary_url.html')
 
 @app.route('/summary_url',methods=['POST'])
