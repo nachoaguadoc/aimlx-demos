@@ -88,7 +88,7 @@ def getNeuralProgrammer():
 
 @app.route('/neural_programmer', methods=['POST'])
 def submitNeuralProgrammer():
-    question = request.form['question']
+    tokens = request.form['question']
     table_key = request.form['table_key']
     print("Question:", question, "Table:", table_key)
     if request.method == 'POST':
