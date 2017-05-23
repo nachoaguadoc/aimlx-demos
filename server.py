@@ -81,6 +81,27 @@ def submitChatbot(demo):
         answer = {'solr':solr, 'encoder': encoder}
         return jsonify(answer)
 
+# Chatbot route handling
+@app.route('/neural_programmer')
+def getNeuralProgrammer(demo):
+    return render_template('neural_programmer.html')
+
+@app.route('/neural_programmer', methods=['POST'])
+def submitNeuralProgrammer(demo):
+    question = request.form['question']
+    table_key = request.form['table_key']
+    print("Question:", question, "Table:", table)
+    if request.method == 'POST':
+        socket_address = conf.neural_programmer['socket_address']
+        socket_port = conf.neural_programmer['socket_port']
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((socket_address, socket_port))
+        msg = table_key + '****----****' + tokens
+        s.sendall(msg.encode())
+        answer = s.recv(1024).decode("utf-8")
+        s.close()
+        return jsonify({'neural_programmer':answer})
+
 # Opinion target route handling
 def parse_output(output_path):
     f = open(output_path,'r')

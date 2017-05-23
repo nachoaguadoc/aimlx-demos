@@ -29,3 +29,7 @@ kpextract = {
 	'fetcher_path': '',
 	'python_env': ''
 }
+neural_programmer = {
+	'socket_address': '',
+	'socket_port': ''
+}
