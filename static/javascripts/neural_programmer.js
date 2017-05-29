@@ -20,10 +20,11 @@ function submit(input_text) {
 	url = "/neural_programmer"
 	//table_key = 'csv/203-csv/713.csv'
 	table_key = 'csv/204-csv/custom-1.csv'
+	processed_text = input_text.toLowerCase().replace('?',' ?')
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"question": input_text, "table_key": table_key },
+	  data: {"question": processed_text, "table_key": table_key },
 	  dataType: 'text',
 	  success: function(data) {
 	  	data = JSON.parse(data);
