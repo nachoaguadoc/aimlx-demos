@@ -18,6 +18,9 @@
 	background: rgba(119, 185, 248, 0.2);
 	cursor: pointer;
 }
-table {
+#table {
 	text-align: center;
+}
+.table th {
+   text-align: center;
 }
