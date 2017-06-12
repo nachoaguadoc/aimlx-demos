@@ -14,6 +14,8 @@ import select
 import sys
 import tensorflow as tf
 
+import requests
+
 app = Flask(__name__)
 CORS(app)
 
@@ -189,17 +191,13 @@ def getKP():
 @app.route('/kp', methods=['POST'])
 def submitKP():
     if request.method == 'POST':
-        print('input ', request.form['inp_url'], 'window_size ', request.form['window_size'], 'nbkp ', request.form['nbkp'], 'ilp ', request.form['ilp'])
-        html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
-        write_file(os.path.join(conf.kpextract['path'],'tmp','html_file'), html_content.decode('utf-8', 'ignore'))
-        text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], os.path.join(conf.kpextract['path'],'tmp','html_file')])
-        write_file(os.path.join(conf.kpextract['path'],'tmp','raw_text'),text_content.decode('utf-8', 'ignore'))
-        cmd = [conf.kpextract['python_env'], '-m', 'kpextract.models.graph_based', os.path.join(conf.kpextract['path'], 'tmp', 'raw_text'), request.form['window_size'], request.form['nbkp'], os.path.join(conf.kpextract['path'],'tmp')]
-        if request.form['ilp'] == 'true':
-            cmd.append('--ilp')
-        subprocess.call(cmd)
-        html_doc, list_kp = read_kp_output()
-        return render_template('kpboard.html', html_doc=html_doc, list_kp=list_kp)
+        post_parameters = request.form.to_dict()
+        print(post_parameters)
+
+        result = requests.post(conf.kpextract['api_url'], json=post_parameters)
+        result_dict = result.json()
+
+        return render_template('kpboard.html', html_doc=post_process(result_dict['processed_text']), list_kp=result_dict['list_kp'])
 
 
 def read_file(path):
@@ -212,18 +210,14 @@ def write_file(path, s):
         f.write(s)
 
 
-def read_kp_output():
-    processed_text = read_file(os.path.join(conf.kpextract['path'], 'tmp', 'result_text.txt'))
+def post_process(processed_text):
     processed_text = re.sub('\n+', '\n', processed_text) #Multiple jumplines into 1 jumpline
     html_doc = processed_text.replace('\n', '</div><div class=start></br>')
     html_doc = html_doc.replace('<phrase>', '<span class=kp>')
     html_doc = html_doc.replace('</phrase>', '</span>')
     html_doc = '<div class=start>' + html_doc + '</div>'
 
-    list_kp_text = read_file(os.path.join(conf.kpextract['path'], 'tmp', 'result_kp.txt'))
-    list_kp = list_kp_text.split(';')
-    
-    return html_doc, list_kp
+    return html_doc
 
 @app.route('/summary')
 def getSummary():
