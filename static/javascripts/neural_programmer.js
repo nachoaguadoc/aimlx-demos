@@ -28,7 +28,9 @@ function submit(input_text) {
 	  dataType: 'text',
 	  success: function(data) {
 	  	data = JSON.parse(data);
-	  	var answer = data.neural_programmer;
+	  	var answer = JSON.parse(data.neural_programmer);
+	  	console.log("**********")
+	  	console.log(answer)
 	  	new_neural_programmer_answer(answer)
 	  }
 	});
