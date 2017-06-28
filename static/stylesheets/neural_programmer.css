@@ -3,7 +3,7 @@
 
 #question {
     font-size: 18px;
-    margin: 20px 20px 30px 20px;
+    margin: 20px 20px 30px 0px;
     visibility: hidden;
 }
 
@@ -89,10 +89,10 @@
   color:#003366;
 }
 .me-message {
-  background: #E9724C;
+  background: #348edd;
 }
 .me-message:after {
-    border-color: #E9724C transparent;
+    border-color: #348edd transparent;
     right: 20px;
     top: -15px;
     left: auto;
