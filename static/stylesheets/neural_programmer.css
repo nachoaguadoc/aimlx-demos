@@ -6,9 +6,8 @@
     width: 70% !important;
   }
 }
-
 #question {
-    font-size: 18px;
+    font-size: 16px;
     margin: 20px 20px 30px 0px;
     visibility: hidden;
 }
@@ -71,9 +70,9 @@
 
 .message {
   color: white;
-  padding: 14px 20px;
+  padding: 8px 20px;
   line-height: 26px;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 5px;
   margin-bottom: 30px;
   width: 60%;
@@ -104,6 +103,16 @@
     left: auto;
     bottom:auto;
 }
+#debug {
+  font-size: 18px;
+  color: #003366;
+  visibility: hidden;
+}
+
+.debug-message:hover {
+  background: #348edd;
+  color: white;
+}
 
 .chat-ul li{
     list-style-type: none;
@@ -130,11 +139,4 @@
   content: " ";
   clear: both;
   height: 0;
-}
-.you {
-  color: #CCDBDC;
-}
-
-.me {
-  color: #E9724C;
 }

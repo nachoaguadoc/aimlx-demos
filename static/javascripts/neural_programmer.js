@@ -19,14 +19,12 @@ function new_neural_programmer_answer(np, debug) {
 		index = i+1;
 		if (i == l -1) {
 			var rows_selector = last_rows;
-			var final = "true"
 		}
 		else {
 			var rows_selector = JSON.parse(rows).join('-');
 			last_rows = rows_selector;
-			var final = "false"
 		}
-		steps += "Step " + index + ": Perform operation <b><span class='op'>" + op + "</span></b> over column <b><span final=" + final + " rows=" + rows_selector + " class='col'>" + col + "</span></b><br>";	
+		steps += "<span rows=" + rows_selector + " class='col'> Step " + index + ": Perform operation <b><span class='op'>" + op + "</span></b> over column <b>" + col + "</b><br></span>";	
 	}
 
 	$('#debug').html(steps);
