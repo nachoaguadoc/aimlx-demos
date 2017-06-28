@@ -1,6 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
 
+@media (min-width: 1200px) {
+  .container {
+    width: 70% !important;
+  }
+}
+
 #question {
     font-size: 18px;
     margin: 20px 20px 30px 0px;
