@@ -113,19 +113,14 @@ $(document).ready(function(){
 	$(document).on('mouseenter', '.col', function() {
 		var col_name = $(this).text().replace(/ /g, "_");
 		col_name = col_name.slice(0, -1);
-		if (!final) $(".col-" + col_name).addClass("highlighted");
-		else $(".col-" + col_name).addClass("selected");
+		$(".col-" + col_name).addClass("highlighted");
 		var rows_selector = this.getAttribute('rows').split("-");
-		var final = this.getAttribute('final') == 'true';
-		console.log("Rows selected:", rows_selector);
-		console.log("Final:", final);
 		for (var r in rows_selector) {
 			row = parseInt(rows_selector[r]);
 			var cells = $($('tr')[row+1])
-			console.log(row, cells)
-			if (!final) cells.addClass('highlighted')
+			cells.addClass('highlighted')
 			cells.children('td').each(function (){
-				if ($(this).hasClass('highlighted') || $(this).hasClass('selected')) {
+				if ($(this).hasClass('highlighted')) {
 					$(this).addClass("result");
 				}
 			})
@@ -136,14 +131,12 @@ $(document).ready(function(){
 		var col_name = $(this).text().replace(/ /g, "_");
 		col_name = ".col-" + col_name.slice(0, -1);
 		$(col_name).removeClass("highlighted");
-		$(col_name).removeClass("selected");
 		var rows_selector = this.getAttribute('rows').split("-");
 		for (var r in rows_selector) {
 			row = parseInt(rows_selector[r]);
 			var cells = $($('tr')[row+1])
 			cells.removeClass('highlighted')
 			cells.children('td').each(function (){
-				$(this).removeClass("selected");
 				$(this).removeClass("highlighted");
 				$(this).removeClass("result");
 			})
