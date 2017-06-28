@@ -25,7 +25,7 @@ function new_neural_programmer_answer(np, debug) {
 			var rows_selector = JSON.parse(rows).join('-');
 			last_rows = rows_selector;
 		}
-		steps += "<span rows=" + rows_selector + " class='col'> Step " + index + ": Perform operation <b><span class='op'>" + op + "</span></b> over column <b>" + col + "</b><br></span>";	
+		steps += "<div class='step'>Step " + index + ": Perform operation <b><span" + op + "</b> over column <b><span rows=" + rows_selector + " class='col'>" + col + "</b><br></span></div>";	
 	}
 
 	$('#debug').html(steps);

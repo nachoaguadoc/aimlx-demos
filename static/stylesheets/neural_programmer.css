@@ -104,7 +104,13 @@
     bottom:auto;
 }
 #debug {
-  font-size: 18px;
+  padding: 8px 20px;
+  line-height: 26px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  width: 60%;
+  position: relative;
   color: #003366;
   visibility: hidden;
 }
