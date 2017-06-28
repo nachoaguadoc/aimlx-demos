@@ -1,12 +1,15 @@
 function new_question(question) {
 	$('#question').text(question);
+	start_spinner();
+	$("#answer_np").css('visibility', 'hidden');
 	$('#answer_np').text('');
 	$('#suggestions').text('');	
-	start_spinner();
+	$("#question").css('visibility', 'visible');
 }
 
 function new_neural_programmer_answer(np, debug) {
 	$('#answer_np').text(np);
+	$("#answer_np").css('visibility', 'visible');
 	var steps = "";
 	var last_rows = ""
 	for (var i=0, l=debug.ops.length; i<l; i++) { 

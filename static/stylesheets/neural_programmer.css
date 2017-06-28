@@ -3,7 +3,7 @@
 
 #question {
     font-size: 18px;
-    margin: 20px;
+    margin: 20px 20px 30px 20px;
 }
 
 #suggestions {
@@ -57,18 +57,14 @@
   box-sizing: border-box;
 }
 
-.message-data {
-  margin-bottom: 15px;
-}
-
 .message {
   color: white;
-  padding: 18px 20px;
+  padding: 14px 20px;
   line-height: 26px;
-  font-size: 16px;
+  font-size: 18px;
   border-radius: 5px;
   margin-bottom: 30px;
-  width: 90%;
+  width: 60%;
   position: relative;
 }
 .message:after {
@@ -100,7 +96,9 @@
 .chat-ul li{
     list-style-type: none;
 }
-
+.chat-ul {
+  padding-left: 0;
+}
 .align-left {
   text-align: left;
 }
