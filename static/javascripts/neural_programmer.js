@@ -5,8 +5,16 @@ function new_question(question) {
 	start_spinner();
 }
 
-function new_neural_programmer_answer(np) {
+function new_neural_programmer_answer(np, debug) {
 	$('#answer_np').text(np);
+	var steps = "";
+	for (var i=0, l=debug.ops.length; i<l; i++) { 
+		op = debug.ops[i];
+		col = debug.cols[i];
+		index = i+1;
+		steps += "Step " + index + ": Perform operation <b> " + op + "</b> over column <b>" + col + "</b><br>";
+	}
+	$('#debug').html(steps);
 	suggestions_random = get_random_suggestions(suggestions);
     load_suggestions(suggestions_random);
 	stop_spinner();
@@ -19,7 +27,7 @@ function submit(input_text) {
 	new_question(input_text);
 	url = "/neural_programmer"
 	//table_key = 'csv/203-csv/713.csv'
-	table_key = 'csv/204-csv/uefa.csv'
+	table_key = 'csv/custom-csv/uefa.csv'
 	processed_text = input_text.toLowerCase().replace('?',' ?')
 	$.ajax({
 	  type: "POST",
@@ -27,12 +35,20 @@ function submit(input_text) {
 	  data: {"question": processed_text, "table_key": table_key },
 	  dataType: 'text',
 	  success: function(data) {
-	  	data = JSON.parse(data);
-	  	var answer = JSON.parse(data.neural_programmer);
-	  	console.log("**********")
-	  	console.log(answer)
-	  	new_neural_programmer_answer(answer)
-	  }
+		var data = JSON.parse(data).neural_programmer;
+		data = data.replace(/'{/g, '{');
+		data = data.replace(/}'/g, '}');
+		data = data.replace(/"{/g, '{');
+		 data = data.replace(/}"/g, '}');
+		data = data.replace(/'/g, '"');
+		console.log(data)
+		data = JSON.parse(data);
+		var answer = data.answer;
+		var debug = data.debugging;
+                console.log("Debug:", debug);
+		console.log("Answer:", answer);
+		new_neural_programmer_answer(answer, debug)
+	  }	
 	});
 }
 

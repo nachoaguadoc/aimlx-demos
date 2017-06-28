@@ -24,3 +24,12 @@
 .table th {
    text-align: center;
 }
+
+#answers {
+   padding-left: 0;
+   padding-right: 0;
+}
+
+#debug {
+  text-align: left;
+}
