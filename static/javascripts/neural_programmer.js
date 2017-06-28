@@ -116,6 +116,20 @@ $(document).ready(function(){
 		console.log("Entering column", col_name);
 		console.log($(".col-" + col_name));
 		$(".col-" + col_name).addClass("highlighted");
+
+		var rows_selector = $(this).getAttribute('rows').split("-");
+		var final = $(this).getAttribute('final') == 'true';
+		for (var r in rows_selector) {
+			row = rows_selector[r];
+			if (final) $('tr')[row].addClass('highlighted')
+			var cells = $($('tr')[row+1])
+			cells.children('td').each(function (){
+				if ($(this).hasClass('highlighted')) {
+					$(this).removeClass("highlighted");
+					$(this).addClass("result");
+				}
+			})
+		}
 	})
 
 	$(document).on('mouseleave', '.col', function() {
