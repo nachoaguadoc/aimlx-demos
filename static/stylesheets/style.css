@@ -68,6 +68,10 @@
     color: red;
     font-weight: bold;
 }
+.blue {
+    color: #348edd;
+    font-weight: bold;
+}
 
 #banner {
     width: 50%;

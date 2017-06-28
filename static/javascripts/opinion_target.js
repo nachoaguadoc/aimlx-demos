@@ -27,7 +27,7 @@ function new_opinion_answer(original, labels) {
 			if (l[i] == "O") {
 				formatted_text += '<span>' + original_splitted[i] + ' </span>';
 			} else {
-				formatted_text += '<span class="red">' + original_splitted[i] + ' </span>';
+				formatted_text += '<span class="blue">' + original_splitted[i] + ' </span>';
 			}
 		}
 		formatted_texts.push(formatted_text);
