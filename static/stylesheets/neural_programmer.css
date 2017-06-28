@@ -10,6 +10,7 @@
     font-size: 16px;
     margin: 20px 20px 30px 0px;
     visibility: hidden;
+    width: min-content;
 }
 
 #answer_np {
@@ -75,7 +76,7 @@
   font-size: 16px;
   border-radius: 5px;
   margin-bottom: 30px;
-  width: 60%;
+  min-width: 40%;
   position: relative;
 }
 .message:after {
@@ -103,7 +104,7 @@
     left: auto;
     bottom:auto;
 }
-#debug {
+.step {
   padding: 8px 20px;
   line-height: 26px;
   font-size: 16px;
