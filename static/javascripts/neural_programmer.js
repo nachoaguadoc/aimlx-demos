@@ -25,7 +25,7 @@ function new_neural_programmer_answer(np, debug) {
 			var rows_selector = JSON.parse(rows).join('-');
 			last_rows = rows_selector;
 		}
-		steps += "<div class='step'>Step " + index + ": Perform operation <b><span" + op + "</b> over column <b><span rows=" + rows_selector + " class='col'>" + col + "</b><br></span></div>";	
+		steps += "<div class='step'>Step " + index + ": Perform operation <b>" + op + "</b> over column <b><span rows=" + rows_selector + " class='col'>" + col + "</b><br></span></div>";	
 	}
 
 	$('#debug').html(steps);
@@ -113,8 +113,9 @@ $(document).ready(function(){
 	   load_suggestions(suggestions_random);
 	});
 	
-	$(document).on('mouseenter', '.col', function() {
-		var col_name = $(this).text().replace(/ /g, "_");
+	$(document).on('mouseenter', '.step', function() {
+    	var col = $(this).find('.col')[0]
+		var col_name = $(col).text().replace(/ /g, "_");
 		col_name = col_name.slice(0, -1);
 		$(".col-" + col_name).addClass("highlighted");
 		var rows_selector = this.getAttribute('rows').split("-");
@@ -130,8 +131,9 @@ $(document).ready(function(){
 		}
 	})
 
-    $(document).on('mouseleave', '.col', function() {
-		var col_name = $(this).text().replace(/ /g, "_");
+    $(document).on('mouseleave', '.step', function() {
+    	var col = $(this).find('.col')[0]
+		var col_name = $(col).text().replace(/ /g, "_");
 		col_name = ".col-" + col_name.slice(0, -1);
 		$(col_name).removeClass("highlighted");
 		var rows_selector = this.getAttribute('rows').split("-");
