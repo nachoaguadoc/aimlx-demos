@@ -46,6 +46,7 @@
 #debug {
   text-align: left;
   visibility: hidden;
+  display: inline-block;
 }
 
 #answer_benchmark, #answer_chatbot {
@@ -77,6 +78,8 @@
   border-radius: 5px;
   margin-bottom: 30px;
   position: relative;
+  display: inline-block;
+
 }
 .message:after {
     content: "";
@@ -110,7 +113,6 @@
   line-height: 26px;
   font-size: 16px;
   border-radius: 5px;
-  display: inline-block;
   position: relative;
   color: #003366;
 }
