@@ -40,3 +40,7 @@
     padding-left: 0 !important;
     text-align: right;
 }
+
+.highlighted {
+  background-color: #ffa;
+}
