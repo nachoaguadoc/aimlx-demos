@@ -46,6 +46,7 @@
 
 #debug {
   text-align: left;
+  visibility: hidden;
 }
 
 #answer_benchmark, #answer_chatbot {
@@ -104,6 +105,7 @@
     left: auto;
     bottom:auto;
 }
+
 .step {
   padding: 8px 20px;
   line-height: 26px;
@@ -113,7 +115,6 @@
   width: 60%;
   position: relative;
   color: #003366;
-  visibility: hidden;
 }
 
 .debug-message:hover {
