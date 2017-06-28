@@ -2,6 +2,7 @@ function new_question(question) {
 	$('#question').text(question);
 	start_spinner();
 	$("#answer_np").css('visibility', 'hidden');
+	$("#debug").css('visibility', 'hidden');
 	$('#answer_np').text('');
 	$('#suggestions').text('');	
 	$("#question").css('visibility', 'visible');
@@ -28,6 +29,7 @@ function new_neural_programmer_answer(np, debug) {
 	}
 
 	$('#debug').html(steps);
+	$("#debug").css('visibility', 'visible');
 	suggestions_random = get_random_suggestions(suggestions);
     load_suggestions(suggestions_random);
 	stop_spinner();
