@@ -1,7 +1,6 @@
 #question {
     font-size: 18px;
     margin: 20px;
-    padding-left: 80px;
 }
 
 #suggestions {
@@ -32,4 +31,12 @@
 
 #debug {
   text-align: left;
+}
+
+#answer_benchmark, #answer_chatbot {
+    font-size: 18px;
+    margin: 20px;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    text-align: right;
 }
