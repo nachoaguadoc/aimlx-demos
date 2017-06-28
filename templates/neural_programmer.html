@@ -41,13 +41,23 @@
       <div class="row" id="dialog_row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
-                <div id="question"></div>
-                <div class="row" id="answer_benchmark">
-                    <div  class="col-md-12" id="answers">
-                        <div id="answer_np"></div><br>
-			<div id="debug"></div>
+                <ul class="chat-ul">
+                  <li>
+                    <div class="message-data">
+                      <span class="message-data-name"><i class="fa fa-circle you"></i> Question</span>
                     </div>
-                </div>
+                    <div  id="question" class="message you-message"></div>
+                  </li>
+                  <li class="clearfix">
+                    <div class="message-data align-right">
+                      <span class="message-data-name">Answer</span> <i class="fa fa-circle me"></i>
+                    </div>
+                    <div id="answer_np" class="message me-message float-right"></div>
+                  </li>
+                </ul>
+
+			     <div id="debug"></div>
+
             </div>
             <div class="col-md-1"></div>
       </div>
