@@ -1,3 +1,5 @@
+answers_translate = {"word-match": " and perform a <b>word query</b>.", "print": " and <b>return</b> the matching results.", "count": " and return the <b>count</b> of the matching results.", "group_by_max": " and <b>group</b> the elements by the query.", "max": " and obtain the <b>maximum</b> value.", "min": " and obtain the <b>minimum</b> value.", "greater": " and get the cells with value <b>greater</b> than the query.", "smaller": " and get the cells with value <b>smaller</b> than the query.", "geq": " and get the cells with value <b>greater or equal</b> than the query.", "leq": " and get the cells with value <b>smaller or equal</b> than the query.", "first_rs": " and get the <b>first</b> cell.", "last_rs": " and get the <b>last</b> cell.", "reset_select": " <b>select all</b> the rows."}
+
 function new_question(question) {
 	$('#question').text(question);
 	start_spinner();
@@ -25,7 +27,7 @@ function new_neural_programmer_answer(np, debug) {
 			var rows_selector = JSON.parse(rows).join('-');
 			last_rows = rows_selector;
 		}
-		steps += "<div class='step debug-message'>Step " + index + ": Perform operation <b>" + op + "</b> over column <b><span rows=" + rows_selector + " class='col'>" + col + "</b><br></span></div>";	
+		steps += "<div class='step debug-message'>Step " + index + ": Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</div>";	
 	}
 
 	$('#debug').html(steps);
