@@ -32,8 +32,8 @@ function new_neural_programmer_answer(np, debug) {
 
 	$('#debug').html(steps);
 	$("#debug").css('visibility', 'visible');
-	suggestions_random = get_random_suggestions(suggestions);
-    load_suggestions(suggestions_random);
+	//suggestions_random = get_random_suggestions(suggestions);
+    //load_suggestions(suggestions_random);
 	stop_spinner();
 }
 
@@ -109,11 +109,11 @@ $(document).ready(function(){
 	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
 	})
 
-	$.getJSON("../static/javascripts/lists/neural_programmer_uefa.json", function(json) {
-		suggestions = json.questions;
-		suggestions_random = get_random_suggestions(suggestions);
-	   load_suggestions(suggestions_random);
-	});
+	//$.getJSON("../static/javascripts/lists/neural_programmer_uefa.json", function(json) {
+	//	suggestions = json.questions;
+	//	suggestions_random = get_random_suggestions(suggestions);
+	//   load_suggestions(suggestions_random);
+	//});
 	
 	$(document).on('mouseenter', '.step', function() {
     	var col = $(this).find('.col')[0]
