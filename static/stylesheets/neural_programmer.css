@@ -148,3 +148,16 @@
   clear: both;
   height: 0;
 }
+
+.input-group-btn {
+   width: 30px;
+}
+
+#banner {
+    width: 100% !important;
+    margin: 5% !important;
+}
+
+#search_row {
+    margin-top: 80px !important;
+}
