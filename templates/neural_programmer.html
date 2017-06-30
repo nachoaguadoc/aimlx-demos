@@ -14,18 +14,12 @@
   </head>
   <body>
     <div class="container">
-        <div class="row" id="banner_row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10"><center><img id=banner src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img></center></div>
-            <div class="col-md-1"></div>
-        </div>
       <div class="row" id="search_row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
                 <div id="custom-search-input">
                     <div class="input-group col-md-12">
-                        <span class="input-group-btn">
-                        </span>
+                        <span class="input-group-btn"><img id=banner src='{{ url_for('static', filename='assets/swisscom.png') }}'></img></span>
                         <input type="text" id="input_text" class="form-control input-lg" placeholder="Ask me something!" />
                         <span class="input-group-btn">
                             <button id="search_button" class="btn btn-info btn-lg" type="button">
