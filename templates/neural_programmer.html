@@ -19,7 +19,7 @@
             <div class="col-md-10">
                 <div id="custom-search-input">
                     <div class="input-group col-md-12">
-                        <span class="input-group-btn"><img id=banner src='{{ url_for('static', filename='assets/swisscom.png') }}'></img></span>
+                        <span id="swisscom-logo" class="input-group-btn"><img id=banner src='{{ url_for('static', filename='assets/swisscom.png') }}'></img></span>
                         <input type="text" id="input_text" class="form-control input-lg" placeholder="Ask me something!" />
                         <span class="input-group-btn">
                             <button id="search_button" class="btn btn-info btn-lg" type="button">
@@ -50,19 +50,15 @@
             <div class="col-md-1"></div>
       </div>
       <div class="row" id="table_row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div id="table_container"></div>
             </div>
-            <div class="col-md-1"></div>
        </div>
       <div class="row" id="suggestions_row">
 
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="row" id="suggestions"></div>
         </div>
-        <div class="col-md-1"></div>
     </div>
     </div>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
