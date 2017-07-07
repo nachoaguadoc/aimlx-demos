@@ -135,7 +135,7 @@
 }
 
 .step .panel-body {
-    height: 75px;
+    min-height: 75px;
 }
 
 .chat-ul li{
@@ -176,4 +176,11 @@
 
 #search_row {
     margin-top: 80px !important;
+}
+
+.right-arrow {
+    font-size: 21px;
+    text-align: center;
+    position: absolute;
+    top: 0.5em;
 }
