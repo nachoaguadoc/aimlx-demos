@@ -27,6 +27,7 @@
 }
 .suggestion .panel-body {
 	background: rgba(119, 185, 248, 0.2);
+  height: 75px;
 	cursor: pointer;
 }
 #table {
