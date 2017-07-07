@@ -49,6 +49,9 @@
   display: inline-block;
   margin-bottom: 20px;
 }
+#debug .col-md-4 {
+  padding: 0;
+}
 
 #answer_benchmark, #answer_chatbot {
     font-size: 18px;

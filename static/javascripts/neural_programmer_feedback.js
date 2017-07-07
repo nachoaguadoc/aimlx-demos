@@ -35,7 +35,7 @@ function new_neural_programmer_answer(np, debug) {
 			var rows_selector = JSON.parse(rows).join('-');
 			last_rows = rows_selector;
 		}
-		steps += "<div class='col-md-4'><div class='panel panel-default step'><div class='panel-heading'><h3 class='panel-title'>Step " + index +  "</h3></div><div class='panel-body'><span>Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div></div></div>"
+		steps += "<div class='col-md-4'><div class='panel panel-default step col-md-10'><div class='panel-heading'><h3 class='panel-title'>Step " + index +  "</h3></div><div class='panel-body'><span>Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div></div><span class='glyphicon glyphicon-arrow-right right-arrow col-md-2'></div>"
 
 		//steps += '<div class='step debug-message col-md-4'><span>Step " + index + ": Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div>";	
 	}
