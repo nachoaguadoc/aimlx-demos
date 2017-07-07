@@ -35,16 +35,26 @@ function new_neural_programmer_answer(np, debug) {
 			var rows_selector = JSON.parse(rows).join('-');
 			last_rows = rows_selector;
 		}
-		steps += "<div class='col-md-4'><div class='panel panel-default step col-md-10'><div class='panel-heading'><h3 class='panel-title'>Step " + index +  "</h3></div><div class='panel-body'><span>Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div></div><span class='glyphicon glyphicon-arrow-right right-arrow col-md-2'></div>"
+		steps += "<div class='col-md-4'><div id='step_" + i +  "' class='panel panel-default step col-md-10 steps_box'><div class='panel-heading'><h3 class='panel-title'>Step " + index +  "</h3></div><div class='panel-body'><span>Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div></div><span class='glyphicon glyphicon-arrow-right hidden right-arrow col-md-2'></div>"
 
 		//steps += '<div class='step debug-message col-md-4'><span>Step " + index + ": Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div>";	
 	}
+
 	steps += "<div class='col-md-4'><div class='panel panel-primary step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div class='panel-body'><span>" + np + "</span></div></div></div>"
 	$('#debug').html(steps);
 	$("#debug").css('visibility', 'visible');
 	suggestions_random = get_random_suggestions(suggestions);
     load_suggestions(suggestions_random);
 	stop_spinner();
+
+	//$('#step_0').css('visibility', 'visible').animate({opacity: 1.0}, 2000);
+	setTimeout(function(){
+	    $('#step_0').fadeIn(2000);
+	    setTimeout(function(){
+		    $('#step_1').fadeIn(2000)
+		}, 1500);
+	}, 1500);
+
 }
 
 function submit(input_text) {
@@ -77,6 +87,7 @@ function submit(input_text) {
 	  }	
 	});
 }
+
 function load_suggestions(suggestions){
 	for (var c in suggestions) {
 		$('#suggestions').html($('#suggestions').html() + '<div class="col-md-4 suggestion_box"><div class="panel panel-default suggestion"><div class="panel-body">' + suggestions[c] + ' </div></div></div>');

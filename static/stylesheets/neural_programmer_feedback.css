@@ -129,6 +129,9 @@
   position: relative;
   color: #003366;
 }
+.steps_box {
+  display: none;
+}
 
 .panel-default:hover {
   background: rgba(119, 185, 248, 0.2);
