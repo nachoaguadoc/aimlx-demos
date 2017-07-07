@@ -90,6 +90,9 @@ def getNeuralProgrammer(demo):
         return render_template('neural_programmer_football.html')
     elif demo=='swisscom':
         return render_template('neural_programmer.html')
+    elif demo=='feedback':
+        return render_template('neural_programmer_feedback.html')
+
 
 @app.route('/neural_programmer', methods=['POST'])
 def submitNeuralProgrammer():
