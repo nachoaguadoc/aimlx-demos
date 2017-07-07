@@ -100,13 +100,17 @@ function new_neural_programmer_answer(np, debug) {
 		}, 500);
 	}, 500);
 
-	if (first_time) {	
-		console.log($('#answer'));
-		first_time = false;
-		initial_tour.end();
-		answers_tour.init();
-		answers_tour.start(true);
-	}
+    if (first_time) {
+        console.log($('#answer'));
+        first_time = false;
+        initial_tour.end();
+        answers_tour.end();
+        setTimeout(function(){
+            answers_tour.init();
+            answers_tour.setCurrentStep(0);
+            answers_tour.start(true);
+        }, 2000);
+    }
 	}
 
 function submit(input_text) {

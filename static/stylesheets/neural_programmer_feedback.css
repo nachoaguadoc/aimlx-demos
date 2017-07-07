@@ -187,3 +187,10 @@
     position: absolute;
     top: 0.5em;
 }
+
+.popover {
+  border-color:red;
+}
+.popover-title {
+  background-color: rgba(255, 0, 0, 0.39); 
+}
