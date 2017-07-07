@@ -1,5 +1,50 @@
 answers_translate = {"word-match": " and perform a <b>word query</b>.", "print": " and <b>return</b> the results.", "count": " and return the <b>number</b> of results.", "group_by_max": " and <b>group</b> the elements by the query.", "max": " and obtain the <b>maximum</b> value.", "min": " and obtain the <b>minimum</b> value.", "greater": " and get the cells with value <b>greater</b> than the query.", "smaller": " and get the cells with value <b>smaller</b> than the query.", "geq": " and get the cells with value <b>greater or equal</b> than the query.", "leq": " and get the cells with value <b>smaller or equal</b> than the query.", "first_rs": " and get the <b>first</b> cell.", "last_rs": " and get the <b>last</b> cell.", "reset_select": " and <b>select all</b> the rows."}
 
+var initial_tour = new Tour({
+  steps: [
+  {
+    element: "#table_row",
+    title: "Data table",
+    content: "This table contains the information you can ask for.",
+    placement: "top"
+  },
+  {
+    element: "#custom-search-input",
+    title: "Type here your question",
+    content: "It should not be a complex question. Try with 'What is the position of Ronaldo?' or 'How many goals did Messi score?'. That kind of complexity.",
+    placement: "left"
+  },
+  {
+    element: "#custom-search-input",
+    title: "Go ahead!",
+    content: "Type your own question :)",
+    placement: "left"
+  }
+]});
+
+var answers_tour = new Tour({
+  steps: [
+  {
+    element: "#answer",
+    title: "Answer from our system",
+    content: "This is the answer that the chatbot has given. How did we arrive here? ",
+    placement: "bottom"
+  },
+  {
+    element: "#step_0",
+    title: "Hover over the step boxes!",
+    content: "For each step we can see what was done over the selected column until we get to the final answer",
+    placement: "top"
+  },
+  {
+    element: "#custom-search-input",
+    title: "Try as many times as you want!",
+    content: "Type your own question :)",
+    placement: "bottom"
+  }
+]});
+var first_time = true;
+
 function new_question(question) {
 	$('#question').text(question);
 	start_spinner();
@@ -40,7 +85,7 @@ function new_neural_programmer_answer(np, debug) {
 		//steps += '<div class='step debug-message col-md-4'><span>Step " + index + ": Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div>";	
 	}
 
-	steps += "<div class='col-md-4'><div class='panel panel-primary step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div class='panel-body'><span>" + np + "</span></div></div></div>"
+	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div class='panel-body'><span>" + np + "</span></div></div></div>"
 	$('#debug').html(steps);
 	$("#debug").css('visibility', 'visible');
 	suggestions_random = get_random_suggestions(suggestions);
@@ -49,13 +94,20 @@ function new_neural_programmer_answer(np, debug) {
 
 	//$('#step_0').css('visibility', 'visible').animate({opacity: 1.0}, 2000);
 	setTimeout(function(){
-	    $('#step_0').fadeIn(2000);
+	    $('#step_0').fadeIn(1500);
 	    setTimeout(function(){
-		    $('#step_1').fadeIn(2000)
-		}, 1500);
-	}, 1500);
+		    $('#step_1').fadeIn(1500)
+		}, 500);
+	}, 500);
 
-}
+	if (first_time) {	
+		console.log($('#answer'));
+		first_time = false;
+		initial_tour.end();
+		answers_tour.init();
+		answers_tour.start(true);
+	}
+	}
 
 function submit(input_text) {
 	console.log("Neural Programmer input:", input_text)
@@ -114,12 +166,19 @@ function get_random_suggestions(suggestions) {
 	return suggestions_random
 }
 
+
+
+
 $(document).ready(function(){
+
+
 
 	$('#input_text').keyup(function(e){
 	    if(e.keyCode == 13) {
 	    	input_text = $('#input_text').val();
-	    	if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
+	    	if (input_text != '') {
+	    		submit(input_text, $('#project_value').text().toLowerCase());
+	    	}
 	    }
 	});
 
@@ -134,7 +193,7 @@ $(document).ready(function(){
 	  load_suggestions(suggestions_random);
 	});
 	
-	$(document).on('mouseenter', '.step', function() {
+	$(document).on('mouseenter', '.steps_box', function() {
     	var col = $(this).find('.col')[0]
 		var col_name = $(col).text().replace(/ /g, "_");
 		col_name = col_name.slice(0, -1);
@@ -152,7 +211,7 @@ $(document).ready(function(){
 		}
 	})
 
-    $(document).on('mouseleave', '.step', function() {
+    $(document).on('mouseleave', '.steps_box', function() {
     	var col = $(this).find('.col')[0]
 		var col_name = $(col).text().replace(/ /g, "_");
 		col_name = ".col-" + col_name.slice(0, -1);
@@ -168,6 +227,9 @@ $(document).ready(function(){
 			})
 		}
     })
+	initial_tour.init();
+
+    initial_tour.start();
 
 	table = '<div id="table-wrap""><div id="table"><table class="clean table"><thead><tr><th class="col-player">Player</th><th class="col-nationality">Nationality</th><th class="col-team">Team</th><th class="col-titles">Titles</th><th class="col-age">Age</th><th class="col-salary">Salary</th><th class="col-position">Position</th><th class="col-matches">Matches Played</th><th class="col-goals">Goals</th><th class="col-assists">Assists</th><th class="col-yellow_cards">Yellow Cards</th><th class="col-red_cards"">Red Cards</th></tr></thead><tbody><tr><td class="col-player">Iker Casillas</td><td class="col-nationality">Spain</td><td class="col-team">FC Porto</td><td class="col-titles">3</td><td class="col-age">36</td><td class="col-salary">7.500.000€</td><td class="col-position">Goalkeeper</td><td class="col-matches">164</td><td class="col-goals">0</td><td class="col-assists">0</td><td class="col-yellow_cards">5</td><td class="col-red_cards"">0</td></tr><tr><td class="col-player">Cristiano Ronaldo</td><td class="col-nationality">Portugal</td><td class="col-team">Real Madrid CF</td><td class="col-titles">4</td><td class="col-age">32</td><td class="col-salary">32.000.000€</td><td class="col-position">Forward</td><td class="col-matches">140</td><td class="col-goals">105</td><td class="col-assists">31</td><td class="col-yellow_cards">16</td><td class="col-red_cards">0</td></tr><tr><td class="col-player">Andrés Iniesta</td><td class="col-nationality">Spain</td><td class="col-team">FC Barcelona</td><td class="col-titles">4</td><td class="col-age">33</td><td class="col-salary">14.000.000€</td><td class="col-position">Midfield</td><td class="col-matches">122</td><td class="col-goals">11</td><td class="col-assists">16</td><td class="col-yellow_cards">8</td><td class="col-red_cards">0</td></tr><tr><td class="col-player">Zlatan Ibrahimovic</td><td class="col-nationality">Sweden</td><td class="col-team">Manchester United</td><td class="col-titles">0</td><td class="col-age">35</td><td class="col-salary" class="col-salary">12.000.000€</td><td class="col-position">Forward</td><td class="col-matches">119</td><td class="col-goals">48</td><td class="col-assists">22</td><td class="col-yellow_cards">19</td><td class="col-red_cards">4</td></tr><tr><td class="col-player">Leo Messi</td><td class="col-nationality">Argentina</td><td class="col-team">FC Barcelona</td><td class="col-titles">4</td><td class="col-age" class="col-age">30</td><td class="col-salary">40.000.000€</td><td class="col-position">Forward</td><td class="col-matches" class="col-matches">115</td><td class="col-goals">94</td><td class="col-assists">24</td><td class="col-yellow_cards">14</td><td class="col-red_cards">0</td></tr><tr><td class="col-player">Petr Cech</td><td class="col-nationality">Czech Republic</td><td class="col-team">FC Arsenal</td><td class="col-titles">1</td><td class="col-age">35</td><td class="col-salary">7.000.000€</td><td class="col-position">Goalkeeper</td><td class="col-matches">111</td><td class="col-goals">0</td><td class="col-assists">0</td><td class="col-yellow_cards">4</td><td class="col-red_cards">0</td></tr><tr><td class="col-player">Gianluigi Buffon</td><td class="col-nationality">Italy</td><td class="col-team">Juventus FC</td><td class="col-titles">0</td><td class="col-age">39</td><td class="col-salary">4.000.000€</td><td class="col-position">Goalkeeper</td><td class="col-matches">108</td><td class="col-goals">0</td><td class="col-assists">0</td><td class="col-yellow_cards">2</td><td class="col-red_cards">0</td></tr><tr><td class="col-player">Sergio Ramos</td><td class="col-nationality">Spain</td><td class="col-team">Real Madrid CF</td><td class="col-titles">3</td><td class="col-age">31</td><td class="col-salary">10.000.000€</td><td class="col-position">Defender</td><td class="col-matches">103</td><td class="col-goals">10</td><td class="col-assists">6</td><td class="col-yellow_cards">32</td><td class="col-red_cards">3</td></tr></tbody></table></div></div>'
 	//table = '<div id="table-wrap" style="height: 664px;"><div id="table"><table class="clean table"><thead><tr><th>S.No.</th><th>Name of Kingdom</th><th>Name of King</th><th>No. of villages</th><th>Capital</th><th>Names of districts</th></tr></thead><tbody><tr><td>1.</td><td>Sihag</td><td>Chokha Singh</td><td>150</td><td>Suin</td><td>Rawatsar, Baramsar, Purabsar Dandusar, Gandaisi</td></tr><tr><td>2.</td><td>Beniwal</td><td>Raisal Singh</td><td>150</td><td>Rasalana</td><td>Bhukarka, Sanduri, Manoharpur, Kooi, Bae</td></tr><tr><td>3.</td><td>Johiya</td><td>Sher Singh</td><td>600</td><td>Bhurupal</td><td>Jaitpur, Kumanu, Mahajan, Peepasar, Udasar</td></tr><tr><td>4.</td><td>Punia</td><td>Kanha Singh</td><td>300</td><td>Luddi</td><td>Bhadra, Ajitpura, Sidhmukh, Rajgarh, Dadrewa, Sankhoo</td></tr><tr><td>5.</td><td>Saharan</td><td>Pula Singh</td><td>300</td><td>Bhadang</td><td>Khejra, Phoglo, Buchawas, Sui, Badnu, Sirsila</td></tr><tr><td>6.</td><td>Godara</td><td>Pandu Singh</td><td>700</td><td>Shekhsar</td><td>Shekhsar, Pundrasar, Gusainsar (Bada), Gharsisar, Garibdesar, Rungaysar, Kalu</td></tr><tr><td>7.</td><td>Kaswan</td><td>Kanwarpal Singh</td><td>400</td><td>Sidhmukh</td><td></td></tr></tbody></table></div>    </div>'
