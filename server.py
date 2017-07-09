@@ -102,12 +102,13 @@ def submitNeuralProgrammer(demo):
         question = request.form['question']
         answer = request.form['answer']
         table_key = request.form['table_key']
-        debug = request.form['debug']
+        #debug = request.form['debug']
         print("Correct:", correct)
         print("Question:", question)
         print("Answer:", answer)
         print("Table key:", table_key)
-        print("Debug:", debug)
+        #print("Debug:", debug)
+        return "Feedback sent!"
     else:     
         tokens = request.form['question']
         table_key = request.form['table_key']

@@ -83,7 +83,7 @@ function new_neural_programmer_answer(np, debug) {
 		steps += "<div class='col-md-4'><div id='step_" + i +  "' class='panel panel-default step col-md-10 steps_box'><div class='panel-heading'><h3 class='panel-title'>Step " + index +  "</h3></div><div class='panel-body'><span>Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div></div><span class='glyphicon glyphicon-arrow-right hidden right-arrow col-md-2'></div>"
 	}
 
-	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div class='panel-body'><span>" + np + "</span><span class='glyphicon glyphicon-ok-circle' id='correct'></span><span class='glyphicon glyphicon-remove-circle' id='wrong'></span></div></div></div>"
+	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div class='panel-body'><span>" + np + "</span><span id='feedback'><span class='glyphicon glyphicon-ok-circle' id='correct'></span><span class='glyphicon glyphicon-remove-circle' id='wrong'></span></span></div></div></div>"
 	$('#debug').html(steps);
 	$("#debug").css('visibility', 'visible');
 	suggestions_random = get_random_suggestions(suggestions);
@@ -176,11 +176,14 @@ function submit_feedback(feedback) {
 	  data: feedback,
 	  dataType: 'text',
 	  success: function(data) {
-	  	console.log("Thank you for your feedback!");
+	  	console.log(data);
+	  	if (feedback.correct) {
+	  		$('#feedback').html("Thank you for your feedback!");
+	  		$('#feedback').addClass("feedback")
+	  	}
 	  }	
 	});
 }
-
 
 function load_suggestions(suggestions){
 	for (var c in suggestions) {

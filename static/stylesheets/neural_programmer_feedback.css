@@ -202,6 +202,7 @@
   right: 35px;
   font-size: 25px;
   color: #32C77C; 
+  cursor: pointer;
 }
 
 #wrong {
@@ -211,4 +212,12 @@
   right: 5px;
   font-size: 25px;
   color: #e54c4c;
+  cursor: pointer;
+}
+
+.feedback {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    font-size: 13px;
 }
