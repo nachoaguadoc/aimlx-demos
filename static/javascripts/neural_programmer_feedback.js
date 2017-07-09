@@ -98,6 +98,8 @@ function new_neural_programmer_answer(np, debug) {
 		}, 500);
 	}, 500);
 
+	feedback_listeners();
+
     if (first_time) {
         console.log($('#answer'));
         first_time = false;
@@ -109,6 +111,20 @@ function new_neural_programmer_answer(np, debug) {
             answers_tour.start(true);
         }, 2000);
     }
+}
+
+function feedback_listeners() {
+	$('#correct').off('click');
+	$('#wrong').off('click');
+	
+	$('#correct').click(function(e){
+		last_question.correct = true;
+		submit_feedback(last_question);
+	})
+	$('#wrong').click(function(e){
+		last_question.correct = false;
+		submit_feedback(last_question);
+	})
 }
 
 var last_question = {"correct": false, "question": "", "answer": "", table_key: "", debug: {}};
@@ -206,16 +222,6 @@ $(document).ready(function(){
 	$('#search_button').click(function(e){
 		input_text = $('#input_text').val();
 	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
-	})
-
-	$('#correct').click(function(e){
-		last_question.correct = true;
-		submit_feedback(last_question);
-	})
-
-	$('#wro g').click(function(e){
-		last_question.correct = false;
-		submit_feedback(last_question);
 	})
 
 	$.getJSON("../static/javascripts/lists/neural_programmer_uefa.json", function(json) {
