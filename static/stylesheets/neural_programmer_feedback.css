@@ -194,3 +194,21 @@
 .popover-title {
   background-color: rgba(255, 0, 0, 0.39); 
 }
+
+#correct {
+  position: absolute;
+  top: auto;
+  bottom: 5px;
+  right: 35px;
+  font-size: 25px;
+  color: #32C77C; 
+}
+
+#wrong {
+  position: absolute;
+  top: auto;
+  bottom: 5px;
+  right: 5px;
+  font-size: 25px;
+  color: #e54c4c;
+}

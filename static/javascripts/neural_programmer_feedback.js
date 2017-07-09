@@ -81,11 +81,9 @@ function new_neural_programmer_answer(np, debug) {
 			last_rows = rows_selector;
 		}
 		steps += "<div class='col-md-4'><div id='step_" + i +  "' class='panel panel-default step col-md-10 steps_box'><div class='panel-heading'><h3 class='panel-title'>Step " + index +  "</h3></div><div class='panel-body'><span>Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div></div><span class='glyphicon glyphicon-arrow-right hidden right-arrow col-md-2'></div>"
-
-		//steps += '<div class='step debug-message col-md-4'><span>Step " + index + ": Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div>";	
 	}
 
-	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div class='panel-body'><span>" + np + "</span></div></div></div>"
+	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div class='panel-body'><span>" + np + "</span><span class='glyphicon glyphicon-ok-circle' id='correct'></span><span class='glyphicon glyphicon-remove-circle' id='wrong'></span></div></div></div>"
 	$('#debug').html(steps);
 	$("#debug").css('visibility', 'visible');
 	suggestions_random = get_random_suggestions(suggestions);
@@ -111,13 +109,15 @@ function new_neural_programmer_answer(np, debug) {
             answers_tour.start(true);
         }, 2000);
     }
-	}
+}
+
+var last_question = {"correct": false, "question": "", "answer": "", table_key: "", debug: {}};
 
 function submit(input_text) {
 	console.log("Neural Programmer input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "/neural_programmer"
+	url = "/neural_programmer/question"
 	//table_key = 'csv/203-csv/713.csv'
 	table_key = 'csv/custom-csv/uefa.csv'
 	processed_text = input_text.toLowerCase().replace('?',' ?')
@@ -139,10 +139,32 @@ function submit(input_text) {
 		var debug = data.debugging;
 		console.log("Debug:", debug);
 		console.log("Answer:", answer);
+		// Update last question info
+		last_question.question = processed_text;
+		last_question.answer = answer;
+		last.table_key = table_key;
+		last.debug = debug;
 		new_neural_programmer_answer(answer, debug)
 	  }	
 	});
 }
+
+function submit_feedback(feedback) {
+	// Correct: feedback = {correct:true, question: '', answer: '', table_key: '', lookup: false/true, cells: []}
+	// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', lookup: false/true, cells: []}
+	console.log("Feedback sent:", feedback);
+	url = "/neural_programmer/feedback";
+	$.ajax({
+	  type: "POST",
+	  url: url,
+	  data: feedback,
+	  dataType: 'text',
+	  success: function(data) {
+	  	console.log("Thank you for your feedback!");
+	  }	
+	});
+}
+
 
 function load_suggestions(suggestions){
 	for (var c in suggestions) {
@@ -170,12 +192,7 @@ function get_random_suggestions(suggestions) {
 	return suggestions_random
 }
 
-
-
-
 $(document).ready(function(){
-
-
 
 	$('#input_text').keyup(function(e){
 	    if(e.keyCode == 13) {
@@ -189,6 +206,16 @@ $(document).ready(function(){
 	$('#search_button').click(function(e){
 		input_text = $('#input_text').val();
 	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
+	})
+
+	$('#correct').click(function(e){
+		last_question.correct = true;
+		submit_feedback(last_question);
+	})
+
+	$('#wro g').click(function(e){
+		last_question.correct = false;
+		submit_feedback(last_question);
 	})
 
 	$.getJSON("../static/javascripts/lists/neural_programmer_uefa.json", function(json) {

@@ -48,6 +48,7 @@ def getChatbot(demo):
         return render_template('chatbot_swisscom.html')
     elif demo=='ubuntuseq2seq':
         return render_template('chatbot_seq2seq_ubuntu.html')
+
 @app.route('/chatbot/<demo>', methods=['POST'])
 def submitChatbot(demo):
     question = request.form['question']
@@ -93,22 +94,34 @@ def getNeuralProgrammer(demo):
     elif demo=='feedback':
         return render_template('neural_programmer_feedback.html')
 
-
-@app.route('/neural_programmer', methods=['POST'])
-def submitNeuralProgrammer():
-    tokens = request.form['question']
-    table_key = request.form['table_key']
-    print("Question:", tokens, "Table:", table_key)
-    if request.method == 'POST':
-        socket_address = conf.neural_programmer['socket_address']
-        socket_port = conf.neural_programmer['socket_port']
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((socket_address, socket_port))
-        msg = table_key + '****----****' + tokens
-        s.sendall(msg.encode())
-        answer = s.recv(1024).decode("utf-8")
-        s.close()
-        return jsonify({'neural_programmer':answer})
+@app.route('/neural_programmer/<demo>', methods=['POST'])
+def submitNeuralProgrammer(demo):
+    if (demo == "feedback"):
+        print("Feedback received")
+        correct = request.form['correct']
+        question = request.form['question']
+        answer = request.form['answer']
+        table_key = request.form['table_key']
+        debug = request.form['debug']
+        print("Correct:", correct)
+        print("Question:", question)
+        print("Answer:", answer)
+        print("Table key:", table_key)
+        print("Debug:", debug)
+    else:     
+        tokens = request.form['question']
+        table_key = request.form['table_key']
+        print("Question:", tokens, "Table:", table_key)
+        if request.method == 'POST':
+            socket_address = conf.neural_programmer['socket_address']
+            socket_port = conf.neural_programmer['socket_port']
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((socket_address, socket_port))
+            msg = table_key + '****----****' + tokens
+            s.sendall(msg.encode())
+            answer = s.recv(1024).decode("utf-8")
+            s.close()
+            return jsonify({'neural_programmer':answer})
 
 # Opinion target route handling
 def parse_output(output_path):
