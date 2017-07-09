@@ -142,8 +142,8 @@ function submit(input_text) {
 		// Update last question info
 		last_question.question = processed_text;
 		last_question.answer = answer;
-		last.table_key = table_key;
-		last.debug = debug;
+		last_question.table_key = table_key;
+		last_question.debug = debug;
 		new_neural_programmer_answer(answer, debug)
 	  }	
 	});
