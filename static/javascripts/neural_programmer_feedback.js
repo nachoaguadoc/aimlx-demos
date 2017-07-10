@@ -185,10 +185,10 @@ function submit(input_text) {
 	new_question(input_text);
 	url = "/neural_programmer/question"
 	//table_key = 'csv/203-csv/713.csv'
-	/* 
+	
 	table_key = 'csv/custom-csv/uefa.csv'
 	processed_text = input_text.toLowerCase().replace('?',' ?')
-
+	/* 
 	data = {"answer": " forward", "debugging": {"ops_soft": [], "rows": ["[3]", "[]"], "cols": ["nationality ", "position "], "cols_soft": [], "ops": ["word-match", "print"]}};
 	var answer = data.answer;
 	var debug = data.debugging;
