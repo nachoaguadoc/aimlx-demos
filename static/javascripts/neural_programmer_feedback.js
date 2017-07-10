@@ -57,10 +57,13 @@ function new_question(question) {
 }
 
 function clean_table() {
+	$(".table tbody").removeClass('selectable');
+	$("tr td").removeClass("feedback_cell");
 	$("tr th").removeClass("highlighted");
 	$("tr td").removeClass("highlighted");
 	$("tr").removeClass("highlighted");
 	$("tr td").removeClass("result");
+	$('tr td').off('click');
 }
 
 function new_neural_programmer_answer(np, debug) {
@@ -83,7 +86,7 @@ function new_neural_programmer_answer(np, debug) {
 		steps += "<div class='col-md-4'><div id='step_" + i +  "' class='panel panel-default step col-md-10 steps_box'><div class='panel-heading'><h3 class='panel-title'>Step " + index +  "</h3></div><div class='panel-body'><span>Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div></div><span class='glyphicon glyphicon-arrow-right hidden right-arrow col-md-2'></div>"
 	}
 
-	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div class='panel-body'><span>" + np + "</span><span id='feedback'><span class='glyphicon glyphicon-ok-circle' id='correct'></span><span class='glyphicon glyphicon-remove-circle' id='wrong'></span></span></div></div></div>"
+	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary answer_box step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div id='to_replace' class='panel-body'><span>" + np + "</span><span id='feedback'><span class='glyphicon glyphicon-ok-circle' id='correct'></span><span class='glyphicon glyphicon-remove-circle' id='wrong'></span></span></div></div></div>"
 	$('#debug').html(steps);
 	$("#debug").css('visibility', 'visible');
 	suggestions_random = get_random_suggestions(suggestions);
@@ -123,7 +126,54 @@ function feedback_listeners() {
 	})
 	$('#wrong').click(function(e){
 		last_question.correct = false;
-		submit_feedback(last_question);
+		$('.answer_box .panel-heading .panel-title').text("Feedback");
+		$('#to_replace').html("<div><span>Please, select the correct cells of the table<span><button id='next' class='btn btn-primary'>Next</button>");
+		$(".table tbody").addClass('selectable');
+		var selected_cells = [];
+		$('td').click(function(e){
+			var row = this.parentNode.rowIndex-1;
+			var col = this.cellIndex;
+			var cell = row + "," +  col;
+			var cell_index = selected_cells.indexOf(cell);
+			if (cell_index == -1) selected_cells.push(cell);
+			else selected_cells.splice(cell_index);
+			$(this).toggleClass('feedback_cell');
+			console.log(selected_cells)
+		});
+		$('#next').click(function(e){
+			if (selected_cells.length > 0) {
+				$('#to_replace').html("<div><span>The answer is the content of the cells or the number of cells selected?<span><button id='content' class='btn btn-danger'>Content</button><button id='count' class='btn btn-primary'>Count</button>");
+				// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', lookup: false/true, cells: []}
+				$('#count').click(function(e){
+					last_question.lookup = false;
+					last_question.answer = selected_cells.length;
+					last_question.cells = selected_cells;
+					$(".table tbody").removeClass('selectable');
+					$('tr td').off('click');
+					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer + "</b>.</div><div>Thank you for your feedback!</div>");
+				})
+				$('#content').click(function(e){
+					last_question.lookup = false;
+					last_question.answer = selected_cells.length;
+					last_question.cells = selected_cells;
+					var table = $("table")[0];
+					var answer = '';
+					for (var i in selected_cells) {
+						var cell = selected_cells[i].split(',');
+						var row = parseInt(cell[0])+1;
+						var col = parseInt(cell[1]);
+						console.log(cell, row, col);
+						var cell = table.rows[row].cells[col]; // This is a DOM "TD" element
+						answer += $(cell).text() + ", ";
+					}
+					answer = answer.substring(0, answer.length-2);
+					$(".table tbody").removeClass('selectable');
+					$('tr td').off('click');
+					$('#to_replace').html("<div>Submitted answer: <b>" + answer + "</b>.</div><div> Thank you for your feedback!</div>");
+				})			
+			}
+		});
+		//submit_feedback(last_question);
 	})
 }
 
@@ -137,7 +187,13 @@ function submit(input_text) {
 	//table_key = 'csv/203-csv/713.csv'
 	table_key = 'csv/custom-csv/uefa.csv'
 	processed_text = input_text.toLowerCase().replace('?',' ?')
-	$.ajax({
+
+	data = {"answer": " forward", "debugging": {"ops_soft": [], "rows": ["[3]", "[]"], "cols": ["nationality ", "position "], "cols_soft": [], "ops": ["word-match", "print"]}};
+	var answer = data.answer;
+	var debug = data.debugging;
+	new_neural_programmer_answer(answer, debug);
+
+/*	$.ajax({
 	  type: "POST",
 	  url: url,
 	  data: {"question": processed_text, "table_key": table_key },
@@ -162,7 +218,7 @@ function submit(input_text) {
 		last_question.debug = debug;
 		new_neural_programmer_answer(answer, debug)
 	  }	
-	});
+	});*/
 }
 
 function submit_feedback(feedback) {

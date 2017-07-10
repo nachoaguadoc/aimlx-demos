@@ -221,3 +221,30 @@
     right: 5px;
     font-size: 13px;
 }
+
+.selectable tr td:hover {
+  background-color: rgba(119, 185, 248, 0.2);
+  cursor: pointer;
+}
+
+.feedback_cell {
+  background-color: rgba(85, 161, 226, 0.72) !important;
+}
+
+#next {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+#count {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+#content {
+  position: absolute;
+  bottom: 5px;
+  right: 80px;
+}
