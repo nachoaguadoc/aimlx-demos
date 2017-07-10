@@ -117,16 +117,17 @@ function new_neural_programmer_answer(np, debug) {
 	$("#answer_np").css('visibility', 'visible');
 	var steps = "";
 	var last_rows = ""
-	for (var i=0, l=debug.ops.length; i<l; i++) { 
-		op = debug.ops[i];
-		col = debug.cols[i];
-		rows = debug.rows[i].replace(/ /g, ",");
+	for (var i=0, l=debug.steps.length; i<l; i++) { 
+		step = steps[i]
+		op = step.operation_name;
+		col = step.column_name;
+		rows = step.rows;
 		index = i+1;
 		if (i == l -1) {
 			var rows_selector = last_rows;
 		}
 		else {
-			var rows_selector = JSON.parse(rows).join('-');
+			var rows_selector = rows.join('-');
 			last_rows = rows_selector;
 		}
 		steps += "<div class='col-md-4'><div id='step_" + i +  "' class='panel panel-default step col-md-10 steps_box'><div class='panel-heading'><h3 class='panel-title'>Step " + index +  "</h3></div><div class='panel-body'><span>Select the column <b><span rows=" + rows_selector + " class='col'>" + col + "</span></b>" + answers_translate[op] + "</span></div></div><span class='glyphicon glyphicon-arrow-right hidden right-arrow col-md-2'></div>"
@@ -168,6 +169,7 @@ function feedback_listeners() {
 	
 	$('#correct').click(function(e){
 		last_question.correct = true;
+		last_question.cells = 
 		submit_feedback(last_question);
 	})
 	$('#wrong').click(function(e){
@@ -224,7 +226,7 @@ function feedback_listeners() {
 	})
 }
 
-var last_question = {"correct": false, "question": "", "answer": "", table_key: "", "is_lookup": false, "cells": []};
+var last_question = {}
 
 function submit(input_text) {
 	console.log("Neural Programmer input:", input_text)
@@ -249,17 +251,20 @@ function submit(input_text) {
 	  dataType: 'text',
 	  success: function(data) {
 		var data = JSON.parse(data).neural_programmer;
+		console.log(data);
+		data = data.replace(/True/g, true);
+		data = data.replace(/False/g, false);
 		data = data.replace(/'{/g, '{');
 		data = data.replace(/}'/g, '}');
 		data = data.replace(/"{/g, '{');
 		data = data.replace(/}"/g, '}');
 		data = data.replace(/'/g, '"');
-		console.log(data)
 		data = JSON.parse(data);
 		var answer = data.answer;
 		var debug = data.debugging;
 		console.log("Debug:", debug);
 		console.log("Answer:", answer);
+		last_question = debug;
 		// Update last question info
 		last_question.question = processed_text;
 		last_question.answer = answer;
