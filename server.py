@@ -98,20 +98,11 @@ def getNeuralProgrammer(demo):
 def submitNeuralProgrammer(demo):
     if (demo == "feedback"):
         print("Feedback received")
-        correct = request.form['correct']
-        question = request.form['question']
-        answer = request.form['answer']
-        table_key = request.form['table_key']
-        is_lookup = request.form['is_lookup']
-        cells = request.form['cells']
-        #debug = request.form['debug']
-        print("Correct:", correct)
-        print("Question:", question)
-        print("Answer:", answer)
-        print("Table key:", table_key)
-        print("Lookup:", is_lookup)
-        print("Cells:", cells)
-        #print("Debug:", debug)
+        print(request.form)
+        print("--------------")
+        debugging = request.form['debugging']
+        print("Debug:", debugging)
+
         return "Feedback sent!"
     else:     
         tokens = request.form['question']

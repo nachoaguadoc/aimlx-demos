@@ -169,7 +169,6 @@ function feedback_listeners() {
 	
 	$('#correct').click(function(e){
 		last_question.correct = true;
-		last_question.cells = 
 		submit_feedback(last_question);
 	})
 	$('#wrong').click(function(e){
@@ -193,18 +192,17 @@ function feedback_listeners() {
 				$('#to_replace').html("<div><span>The answer is the content of the cells or the number of cells selected?<span><button id='content' class='btn btn-danger'>Content</button><button id='count' class='btn btn-primary'>Count</button>");
 				// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 				$('#count').click(function(e){
-					last_question.is_lookup = false;
-					last_question.answer = selected_cells.length;
-					last_question.cells = selected_cells;
+					last_question.is_lookup_feedback = false;
+					last_question.answer_feedback = [selected_cells.length];
+					last_question.cells_answer_feedback = selected_cells;
 					$(".table tbody").removeClass('selectable');
 					$('tr td').off('click');
 					submit_feedback(last_question);
 					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer + "</b>.</div><div>Thank you for your feedback!</div>");
 				})
 				$('#content').click(function(e){
-					last_question.is_lookup = true;
-					last_question.answer = selected_cells.length;
-					last_question.cells = selected_cells;
+					last_question.is_lookup_feedback = true;
+					last_question.cells_answer_feedback = selected_cells;
 					var table = $("table")[0];
 					var answer = '';
 					for (var i in selected_cells) {
@@ -213,7 +211,9 @@ function feedback_listeners() {
 						var col = parseInt(cell[1]);
 						console.log(cell, row, col);
 						var cell = table.rows[row].cells[col]; // This is a DOM "TD" element
-						answer += $(cell).text() + ", ";
+						var text = $(cell).text();
+						last_question.answer_feedback.push(text)
+						answer += text + ", ";
 					}
 					answer = answer.substring(0, answer.length-2);
 					$(".table tbody").removeClass('selectable');
@@ -280,10 +280,11 @@ function submit_feedback(feedback) {
 	// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 	console.log("Feedback sent:", feedback);
 	url = "/neural_programmer/feedback";
+	data = {"debugging": feedback}
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: feedback,
+	  data: data,
 	  dataType: 'text',
 	  success: function(data) {
 	  	console.log(data);
