@@ -278,7 +278,7 @@ function submit(input_text) {
 function submit_feedback(feedback) {
 	console.log("Feedback sent:", feedback);
 	url = "/neural_programmer/feedback";
-	data = {"debugging": feedback}
+	data = {"debugging": JSON.stringify(feedback)}
 	$.ajax({
 	  type: "POST",
 	  url: url,
