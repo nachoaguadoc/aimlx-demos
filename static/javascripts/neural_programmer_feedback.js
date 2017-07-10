@@ -45,7 +45,7 @@ var initial_tour = new Tour({
 		onEnd: function (tour) {
 			$("#search_button").click()
 		}
-	},
+	}
 	]
 });
 
@@ -195,7 +195,7 @@ function feedback_listeners() {
 		$('#next').click(function(e){
 			if (selected_cells.length > 0) {
 				$('#to_replace').html("<div><span>The answer is the content of the cells or the number of cells selected?<span><button id='content' class='btn btn-danger'>Content</button><button id='count' class='btn btn-primary'>Count</button>");
-				// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', lookup: false/true, cells: []}
+				// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 				$('#count').click(function(e){
 					last_question.is_lookup = false;
 					last_question.answer = selected_cells.length;
@@ -230,7 +230,7 @@ function feedback_listeners() {
 	})
 }
 
-var last_question = {"correct": false, "question": "", "answer": "", table_key: "", debug: {}};
+var last_question = {"correct": false, "question": "", "answer": "", table_key: "", debug: {}, "is_lookup": false, "cells": []};
 
 function submit(input_text) {
 	console.log("Neural Programmer input:", input_text)
@@ -277,7 +277,7 @@ function submit(input_text) {
 }
 
 function submit_feedback(feedback) {
-	// Correct: feedback = {correct:true, question: '', answer: '', table_key: '', loois_lookupkup: false/true, cells: []}
+	// Correct: feedback = {correct:true, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 	// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 	console.log("Feedback sent:", feedback);
 	url = "/neural_programmer/feedback";
