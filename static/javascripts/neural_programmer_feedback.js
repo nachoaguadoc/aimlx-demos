@@ -118,7 +118,7 @@ function new_neural_programmer_answer(np, debug) {
 	var steps = "";
 	var last_rows = ""
 	for (var i=0, l=debug.steps.length; i<l; i++) { 
-		step = steps[i]
+		step = debug.steps[i]
 		op = step.operation_name;
 		col = step.column_name;
 		rows = step.rows;
@@ -346,7 +346,6 @@ $(document).ready(function(){
 	$(document).on('mouseenter', '.steps_box', function() {
     	var col = $(this).find('.col')[0]
 		var col_name = $(col).text().replace(/ /g, "_");
-		col_name = col_name.slice(0, -1);
 		$(".col-" + col_name).addClass("highlighted");
 		var rows_selector = col.getAttribute('rows').split("-");
 		for (var r in rows_selector) {
@@ -364,7 +363,7 @@ $(document).ready(function(){
     $(document).on('mouseleave', '.steps_box', function() {
     	var col = $(this).find('.col')[0]
 		var col_name = $(col).text().replace(/ /g, "_");
-		col_name = ".col-" + col_name.slice(0, -1);
+		col_name = ".col-" + col_name
 		$(col_name).removeClass("highlighted");
 		var rows_selector = col.getAttribute('rows').split("-");
 		for (var r in rows_selector) {
