@@ -68,6 +68,7 @@ function clean_table() {
 
 function new_neural_programmer_answer(np, debug) {
 	//$('#answer_np').text(np);
+	answers_tour.end();
 	$("#answer_np").css('visibility', 'visible');
 	var steps = "";
 	var last_rows = ""
@@ -150,6 +151,7 @@ function feedback_listeners() {
 					last_question.cells = selected_cells;
 					$(".table tbody").removeClass('selectable');
 					$('tr td').off('click');
+					submit_feedback(last_question);
 					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer + "</b>.</div><div>Thank you for your feedback!</div>");
 				})
 				$('#content').click(function(e){
@@ -169,11 +171,11 @@ function feedback_listeners() {
 					answer = answer.substring(0, answer.length-2);
 					$(".table tbody").removeClass('selectable');
 					$('tr td').off('click');
+					submit_feedback(last_question);
 					$('#to_replace').html("<div>Submitted answer: <b>" + answer + "</b>.</div><div> Thank you for your feedback!</div>");
 				})			
 			}
 		});
-		//submit_feedback(last_question);
 	})
 }
 
