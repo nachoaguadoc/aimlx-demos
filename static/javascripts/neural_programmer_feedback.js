@@ -198,7 +198,7 @@ function feedback_listeners() {
 					$(".table tbody").removeClass('selectable');
 					$('tr td').off('click');
 					submit_feedback(last_question);
-					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer + "</b>.</div><div>Thank you for your feedback!</div>");
+					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer_feedback + "</b>.</div><div>Thank you for your feedback!</div>");
 				})
 				$('#content').click(function(e){
 					last_question.is_lookup_feedback = true;
@@ -267,7 +267,6 @@ function submit(input_text) {
 		last_question = debug;
 		// Update last question info
 		last_question.question = input_text.toLowerCase();
-		last_question.answer = answer;
 		last_question.table_key = table_key;
 		//last_question.debug = debug;
 		new_neural_programmer_answer(answer, debug)
