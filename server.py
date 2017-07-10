@@ -102,11 +102,15 @@ def submitNeuralProgrammer(demo):
         question = request.form['question']
         answer = request.form['answer']
         table_key = request.form['table_key']
+        is_lookup = request.form['is_lookup']
+        cells = request.form['cells']
         #debug = request.form['debug']
         print("Correct:", correct)
         print("Question:", question)
         print("Answer:", answer)
         print("Table key:", table_key)
+        print("Lookup:", is_lookup)
+        print("Cells:", cells)
         #print("Debug:", debug)
         return "Feedback sent!"
     else:     

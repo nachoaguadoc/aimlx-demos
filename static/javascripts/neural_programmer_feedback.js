@@ -1,45 +1,96 @@
 answers_translate = {"word-match": " and perform a <b>word query</b>.", "print": " and <b>return</b> the results.", "count": " and return the <b>number</b> of results.", "group_by_max": " and <b>group</b> the elements by the query.", "max": " and obtain the <b>maximum</b> value.", "min": " and obtain the <b>minimum</b> value.", "greater": " and get the cells with value <b>greater</b> than the query.", "smaller": " and get the cells with value <b>smaller</b> than the query.", "geq": " and get the cells with value <b>greater or equal</b> than the query.", "leq": " and get the cells with value <b>smaller or equal</b> than the query.", "first_rs": " and get the <b>first</b> cell.", "last_rs": " and get the <b>last</b> cell.", "reset_select": " and <b>select all</b> the rows."}
 
 var initial_tour = new Tour({
-  steps: [
-  {
-    element: "#table_row",
-    title: "Data table",
-    content: "This table contains the information you can ask for.",
-    placement: "top"
-  },
-  {
-    element: "#custom-search-input",
-    title: "Type here your question",
-    content: "It should not be a complex question. Try with 'What is the position of Ronaldo?' or 'How many goals did Messi score?'. That kind of complexity.",
-    placement: "left"
-  },
-  {
-    element: "#custom-search-input",
-    title: "Go ahead!",
-    content: "Type your own question :)",
-    placement: "left"
-  }
-]});
+	steps: [
+	{
+		element: "#table_row",
+		title: "Data table",
+		content: "This table contains the information you can ask for",
+		placement: "top"
+	},
+	{
+		element: "#custom-search-input",
+		title: "What it does",
+		content: "The bot answers simple questions about the table",
+		placement: "bottom"
+	},
+	{
+		element: "#custom-search-input",
+		title: "Go ahead!",
+		content: "Let's try with a predefined question!",
+		placement: "bottom",
+		onNext: function (tour) {
+			var question = "What players come from Spain?";
+			var element = document.getElementById("input_text");
+			function type(string,element){
+			    (function writer(i){
+			      if(string.length <= i++){
+			        element.value = string;
+			        return;
+			      }
+			      element.value = string.substring(0,i);
+			      if( element.value[element.value.length-1] != " " )element.focus();
+			      var rand = Math.floor(Math.random() * (50)) + 100;
+			      setTimeout(function(){writer(i);},rand);
+			    })(0)
+			}
+			type(question, element);
+		}
+	},
+	{
+		element: "#custom-search-input",
+		title: "Go ahead!",
+		content: "Press enter to submit the question",
+		placement: "bottom",
+		onEnd: function (tour) {
+			$("#search_button").click()
+		}
+	},
+	]
+});
 
 var answers_tour = new Tour({
   steps: [
   {
     element: "#answer",
-    title: "Answer from our system",
-    content: "This is the answer that the chatbot has given. How did we arrive here? ",
-    placement: "bottom"
+    title: "Answer",
+    content: "This is the answer that the chatbot has given. What was its thinking process? ",
+    placement: "top"
   },
   {
     element: "#step_0",
     title: "Hover over the step boxes!",
-    content: "For each step we can see what was done over the selected column until we get to the final answer",
+    content: "For each step the bot selects a column and an action to perform over it.",
     placement: "top"
+  },
+  {
+    element: "#step_0",
+    title: "Hover over the step boxes!",
+    content: "In this example the bot first selects the column Nationality to perform a word query of Spain",
+    placement: "top"
+  },
+   {
+    element: "#step_1",
+    title: "Hover over the step boxes!",
+    content: "After that, it selects the column Players and return the content of the cells selected",
+    placement: "top"
+  },
+   {
+    element: "#answer",
+    title: "Help us improve",
+    content: "You can give feedback to the bot answers. In this case the answer is perfect, so you can make us know how awesome this is with the green button",
+    placement: "bottom"
+  },
+  {
+    element: "#answer",
+    title: "Help us improve",
+    content: "However, the bot is still learning. If the answer is wrong, click on the red button to give us a hand to keep improving :)",
+    placement: "bottom"
   },
   {
     element: "#custom-search-input",
     title: "Try as many times as you want!",
-    content: "Type your own question :)",
+    content: "Type your own questions :)",
     placement: "bottom"
   }
 ]});
@@ -146,7 +197,7 @@ function feedback_listeners() {
 				$('#to_replace').html("<div><span>The answer is the content of the cells or the number of cells selected?<span><button id='content' class='btn btn-danger'>Content</button><button id='count' class='btn btn-primary'>Count</button>");
 				// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', lookup: false/true, cells: []}
 				$('#count').click(function(e){
-					last_question.lookup = false;
+					last_question.is_lookup = false;
 					last_question.answer = selected_cells.length;
 					last_question.cells = selected_cells;
 					$(".table tbody").removeClass('selectable');
@@ -155,7 +206,7 @@ function feedback_listeners() {
 					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer + "</b>.</div><div>Thank you for your feedback!</div>");
 				})
 				$('#content').click(function(e){
-					last_question.lookup = false;
+					last_question.is_lookup = true;
 					last_question.answer = selected_cells.length;
 					last_question.cells = selected_cells;
 					var table = $("table")[0];
@@ -226,8 +277,8 @@ function submit(input_text) {
 }
 
 function submit_feedback(feedback) {
-	// Correct: feedback = {correct:true, question: '', answer: '', table_key: '', lookup: false/true, cells: []}
-	// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', lookup: false/true, cells: []}
+	// Correct: feedback = {correct:true, question: '', answer: '', table_key: '', loois_lookupkup: false/true, cells: []}
+	// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 	console.log("Feedback sent:", feedback);
 	url = "/neural_programmer/feedback";
 	$.ajax({
