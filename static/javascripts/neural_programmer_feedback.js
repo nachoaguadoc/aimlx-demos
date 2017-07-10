@@ -266,7 +266,7 @@ function submit(input_text) {
 		console.log("Answer:", answer);
 		last_question = debug;
 		// Update last question info
-		last_question.question = processed_text;
+		last_question.question = input_text.toLowerCase();
 		last_question.answer = answer;
 		last_question.table_key = table_key;
 		//last_question.debug = debug;
@@ -276,8 +276,6 @@ function submit(input_text) {
 }
 
 function submit_feedback(feedback) {
-	// Correct: feedback = {correct:true, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
-	// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 	console.log("Feedback sent:", feedback);
 	url = "/neural_programmer/feedback";
 	data = {"debugging": feedback}

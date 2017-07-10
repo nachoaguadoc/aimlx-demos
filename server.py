@@ -100,7 +100,7 @@ def submitNeuralProgrammer(demo):
         print("Feedback received")
         print(request.form)
         print("--------------")
-        debugging = request.form['debugging']
+        debugging = jsonify(request.form['debugging'])
         print("Debug:", debugging)
 
         return "Feedback sent!"
