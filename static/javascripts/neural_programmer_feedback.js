@@ -17,9 +17,9 @@ var initial_tour = new Tour({
 	{
 		element: "#custom-search-input",
 		title: "Go ahead!",
-		content: "Let's try with a predefined question!",
+		content: "Let's try with a predefined question! Press enter or End Tour when you are ready.",
 		placement: "bottom",
-		onNext: function (tour) {
+		onShown: function (tour) {
 			var question = "What players come from Spain?";
 			var element = document.getElementById("input_text");
 			function type(string,element){
@@ -35,17 +35,11 @@ var initial_tour = new Tour({
 			    })(0)
 			}
 			type(question, element);
+		},
+		onHidden: function (tour) {
+			$("#search_button").click();
 		}
 	},
-	{
-		element: "#custom-search-input",
-		title: "Go ahead!",
-		content: "Press enter to submit the question",
-		placement: "bottom",
-		onEnd: function (tour) {
-			$("#search_button").click()
-		}
-	}
 	]
 });
 
@@ -88,11 +82,11 @@ var answers_tour = new Tour({
     placement: "bottom"
   },
   {
-    element: "#custom-search-input",
-    title: "Try as many times as you want!",
-    content: "Type your own questions :)",
+    element: "#answer",
+    title: "Thank you!",
+    content: "That's all. Thank you for your help",
     placement: "bottom"
-  }
+  },
 ]});
 var first_time = true;
 
@@ -230,7 +224,7 @@ function feedback_listeners() {
 	})
 }
 
-var last_question = {"correct": false, "question": "", "answer": "", table_key: "", debug: {}, "is_lookup": false, "cells": []};
+var last_question = {"correct": false, "question": "", "answer": "", table_key: "", "is_lookup": false, "cells": []};
 
 function submit(input_text) {
 	console.log("Neural Programmer input:", input_text)
@@ -270,7 +264,7 @@ function submit(input_text) {
 		last_question.question = processed_text;
 		last_question.answer = answer;
 		last_question.table_key = table_key;
-		last_question.debug = debug;
+		//last_question.debug = debug;
 		new_neural_programmer_answer(answer, debug)
 	  }	
 	});
