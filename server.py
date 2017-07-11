@@ -15,7 +15,7 @@ import sys
 import tensorflow as tf
 import json
 import requests
-
+from multiprocessing import Value
 from pymongo import MongoClient
 
 if (conf.neural_programmer['mongo']):
@@ -23,7 +23,7 @@ if (conf.neural_programmer['mongo']):
     db = client[conf.neural_programmer['mongo_db']]
     collection = db[conf.neural_programmer['mongo_collection']]
 
-counter = 0
+counter = Value('i', 0)
 users = {}
 
 app = Flask(__name__)
@@ -102,11 +102,15 @@ def getNeuralProgrammer(demo):
     elif demo=='swisscom':
         return render_template('neural_programmer.html')
     elif demo=='feedback':
-        if counter%2 == 0:
-            counter += 1
+        if counter.value%2 == 0:
+            with counter.get_lock():
+                counter.value += 1
+            console.log(counter)
             return render_template('neural_programmer_feedback.html')
         else:
-            counter += 1
+            with counter.get_lock():
+                counter.value += 1
+            console.log(counter)
             return render_template('neural_programmer_simple_feedback.html')        
 
 @app.route('/neural_programmer/<demo>', methods=['POST'])
