@@ -305,7 +305,8 @@ function submit_feedback(feedback) {
 	console.log("Feedback sent:", feedback);
 	url = "/neural_programmer/feedback";
 	feedback.user_id = getCookie('user_id');
-	console.log("User:", user_id);
+	feedback.timestamp = new Date().getTime();
+	console.log("User:", feedback.user_id, "with timestamp:", feedback.timestamp);
 	data = {"debugging": JSON.stringify(feedback)}
 	$.ajax({
 	  type: "POST",
