@@ -175,6 +175,7 @@ function feedback_listeners() {
 		$('.answer_box .panel-heading .panel-title').text("Feedback");
 		$('#to_replace').html("<div><span>Can you click on the step(s) of the process that are wrong?<span><button id='next_steps' class='btn btn-primary'>Done</button>");
 		$(".steps_box").addClass('steps_selectable');
+		$(".steps_box").effect("shake", {duration:1000, times: 10, distance:2, direction: "left"});
 		var selected_steps = []
 		$('.steps_box').click(function(e){
 			var id = parseInt(this.id.split("_")[1]);
@@ -186,6 +187,7 @@ function feedback_listeners() {
 
 		$('#next_steps').click(function(e){
 			$('#to_replace').html("<div><span>Please, select the correct cells of the table<span><button id='next' class='btn btn-primary'>Done</button>");
+			$("#table").effect("shake", {duration:1000, times: 10, distance:2, direction: "left"});
 			$(".table tbody").addClass('selectable');
 			var selected_cells = [];
 			$('td').click(function(e){

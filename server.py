@@ -13,12 +13,12 @@ import socket
 import select
 import sys
 import tensorflow as tf
-
+import json
 import requests
 
 from pymongo import MongoClient
 
-client = MongoClient(conf.neural_programmer['mongo_address'], conf.neural_programmer.['mongo_port'])
+client = MongoClient(conf.neural_programmer['mongo_address'], conf.neural_programmer['mongo_port'], connect=False)
 db = client[conf.neural_programmer['mongo_db']]
 collection = db[conf.neural_programmer['mongo_collection']]
 
@@ -104,7 +104,7 @@ def getNeuralProgrammer(demo):
 def submitNeuralProgrammer(demo):
     if (demo == "feedback"):
         print("Feedback received")
-        debugging = jsonify(request.form['debugging'])
+        debugging = json.loads(request.form['debugging'])
         feedback_id = collection.insert_one(debugging).inserted_id
         print("Debug:", debugging)
         return "Feedback " + str(feedback_id) + " sent!"
