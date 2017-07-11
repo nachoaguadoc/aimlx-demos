@@ -31,5 +31,9 @@ kpextract = {
 }
 neural_programmer = {
 	'socket_address': '',
-	'socket_port': ''
+	'socket_port': '',
+	'mongo_address': '',
+	'mongo_port': '',
+	'mongo_db': '',
+	'mongo_collection': ''
 }

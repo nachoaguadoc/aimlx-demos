@@ -16,6 +16,12 @@ import tensorflow as tf
 
 import requests
 
+from pymongo import MongoClient
+
+client = MongoClient(conf.neural_programmer['mongo_address'], conf.neural_programmer.['mongo_port'])
+db = client[conf.neural_programmer['mongo_db']]
+collection = db[conf.neural_programmer['mongo_collection']]
+
 app = Flask(__name__)
 CORS(app)
 
@@ -98,12 +104,10 @@ def getNeuralProgrammer(demo):
 def submitNeuralProgrammer(demo):
     if (demo == "feedback"):
         print("Feedback received")
-        print(request.form)
-        print("--------------")
         debugging = jsonify(request.form['debugging'])
+        feedback_id = collection.insert_one(debugging).inserted_id
         print("Debug:", debugging)
-
-        return "Feedback sent!"
+        return "Feedback " + str(feedback_id) + " sent!"
     else:     
         tokens = request.form['question']
         table_key = request.form['table_key']
