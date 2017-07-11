@@ -102,10 +102,10 @@ def getNeuralProgrammer(demo):
     elif demo=='swisscom':
         return render_template('neural_programmer.html')
     elif demo=='feedback':
-        if counter%2 = 0:
+        if counter%2 == 0:
             counter += 1
             return render_template('neural_programmer_feedback.html')
-        else
+        else:
             counter += 1
             return render_template('neural_programmer_simple_feedback.html')        
 
