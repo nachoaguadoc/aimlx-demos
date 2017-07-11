@@ -102,15 +102,14 @@ def getNeuralProgrammer(demo):
     elif demo=='swisscom':
         return render_template('neural_programmer.html')
     elif demo=='feedback':
+        print(counter.value)
         if counter.value%2 == 0:
             with counter.get_lock():
                 counter.value += 1
-            console.log(counter)
             return render_template('neural_programmer_feedback.html')
         else:
             with counter.get_lock():
                 counter.value += 1
-            console.log(counter)
             return render_template('neural_programmer_simple_feedback.html')        
 
 @app.route('/neural_programmer/<demo>', methods=['POST'])
@@ -136,6 +135,7 @@ def submitNeuralProgrammer(demo):
             users[user_id][demo + "_counter"] += 1
         else:
             users[user_id][demo + "_counter"] += 1
+        print(users[user_id])
 
         print("Question:", tokens, "Table:", table_key)
         if request.method == 'POST':
