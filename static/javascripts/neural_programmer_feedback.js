@@ -151,7 +151,6 @@ function new_neural_programmer_answer(np, debug) {
 	feedback_listeners();
 
     if (first_time) {
-        console.log($('#answer'));
         first_time = false;
         initial_tour.end();
         answers_tour.end();
@@ -174,54 +173,78 @@ function feedback_listeners() {
 	$('#wrong').click(function(e){
 		last_question.correct = false;
 		$('.answer_box .panel-heading .panel-title').text("Feedback");
-		$('#to_replace').html("<div><span>Please, select the correct cells of the table<span><button id='next' class='btn btn-primary'>Next</button>");
-		$(".table tbody").addClass('selectable');
-		var selected_cells = [];
-		$('td').click(function(e){
-			var row = this.parentNode.rowIndex-1;
-			var col = this.cellIndex;
-			var cell = row + "," +  col;
-			var cell_index = selected_cells.indexOf(cell);
-			if (cell_index == -1) selected_cells.push(cell);
-			else selected_cells.splice(cell_index);
-			$(this).toggleClass('feedback_cell');
-			console.log(selected_cells)
+		$('#to_replace').html("<div><span>Can you click on the step(s) of the process that are wrong?<span><button id='next_steps' class='btn btn-primary'>Done</button>");
+		$(".steps_box").addClass('steps_selectable');
+		var selected_steps = []
+		$('.steps_box').click(function(e){
+			var id = parseInt(this.id.split("_")[1]);
+			var index = selected_steps.indexOf(id);
+			if (index > -1) selected_steps.splice(index, 1)
+			else selected_steps.push(id);
+			$(e.currentTarget).toggleClass('steps_selected');
 		});
-		$('#next').click(function(e){
-			if (selected_cells.length > 0) {
-				$('#to_replace').html("<div><span>The answer is the content of the cells or the number of cells selected?<span><button id='content' class='btn btn-danger'>Content</button><button id='count' class='btn btn-primary'>Count</button>");
-				// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
-				$('#count').click(function(e){
-					last_question.is_lookup_feedback = false;
-					last_question.answer_feedback = [selected_cells.length];
-					last_question.cells_answer_feedback = selected_cells;
-					$(".table tbody").removeClass('selectable');
-					$('tr td').off('click');
-					submit_feedback(last_question);
-					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer_feedback + "</b>.</div><div>Thank you for your feedback!</div>");
-				})
-				$('#content').click(function(e){
-					last_question.is_lookup_feedback = true;
-					last_question.cells_answer_feedback = selected_cells;
-					var table = $("table")[0];
-					var answer = '';
-					for (var i in selected_cells) {
-						var cell = selected_cells[i].split(',');
-						var row = parseInt(cell[0])+1;
-						var col = parseInt(cell[1]);
-						console.log(cell, row, col);
-						var cell = table.rows[row].cells[col]; // This is a DOM "TD" element
-						var text = $(cell).text();
-						last_question.answer_feedback.push(text)
-						answer += text + ", ";
-					}
-					answer = answer.substring(0, answer.length-2);
-					$(".table tbody").removeClass('selectable');
-					$('tr td').off('click');
-					submit_feedback(last_question);
-					$('#to_replace').html("<div>Submitted answer: <b>" + answer + "</b>.</div><div> Thank you for your feedback!</div>");
-				})			
-			}
+
+		$('#next_steps').click(function(e){
+			$('#to_replace').html("<div><span>Please, select the correct cells of the table<span><button id='next' class='btn btn-primary'>Done</button>");
+			$(".table tbody").addClass('selectable');
+			var selected_cells = [];
+			$('td').click(function(e){
+				var row = this.parentNode.rowIndex-1;
+				var col = this.cellIndex;
+				var cell = row + "," +  col;
+				var cell_index = selected_cells.indexOf(cell);
+				if (cell_index == -1) selected_cells.push(cell);
+				else selected_cells.splice(cell_index, 1);
+				$(this).toggleClass('feedback_cell');
+			});
+			$('#next').click(function(e){
+				if (selected_cells.length > 0) {
+					$('#to_replace').html("<div><span>The answer is the content of the cells or the number of cells selected?<span><button id='content' class='btn btn-danger'>Content</button><button id='count' class='btn btn-primary'>Count</button>");
+					// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
+					$('#count').click(function(e){
+						last_question.is_lookup_feedback = false;
+						last_question.answer_feedback = [selected_cells.length];
+						last_question.cells_answer_feedback = selected_cells;
+						for (var i in last_question.steps) {
+							var step = last_question.steps[i];
+							if (selected_steps.indexOf(step.index) > -1) {
+								last_question.steps[i].correct = false;
+							}						}
+						$(".table tbody").removeClass('selectable');
+						$('tr td').off('click');
+						submit_feedback(last_question);
+						$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer_feedback + "</b>.</div><div>Thank you for your feedback!</div>");
+					})
+					$('#content').click(function(e){
+						last_question.is_lookup_feedback = true;
+						last_question.cells_answer_feedback = selected_cells;
+						for (var i in last_question.steps) {
+							var step = last_question.steps[i];
+							if (selected_steps.indexOf(step.index) > -1) {
+								last_question.steps[i].correct = false;
+							}
+						}						
+						var table = $("table")[0];
+						var answer = '';
+						for (var i in selected_cells) {
+							var cell = selected_cells[i].split(',');
+							var row = parseInt(cell[0])+1;
+							var col = parseInt(cell[1]);
+							var cell = table.rows[row].cells[col]; // This is a DOM "TD" element
+							var text = $(cell).text();
+							last_question.answer_feedback.push(text)
+							answer += text + ", ";
+						}
+						answer = answer.substring(0, answer.length-2);
+						$(".steps_box").addClass('steps_selectable')
+						$(".steps_box").off('click');
+						$(".table tbody").removeClass('selectable');
+						$('tr td').off('click');
+						submit_feedback(last_question);
+						$('#to_replace').html("<div>Submitted answer: <b>" + answer + "</b>.</div><div> Thank you for your feedback!</div>");
+					})			
+				}
+			});
 		});
 	})
 }
@@ -236,11 +259,14 @@ function submit(input_text) {
 	//table_key = 'csv/203-csv/713.csv'
 	
 	table_key = 'csv/custom-csv/uefa.csv'
-	processed_text = input_text.toLowerCase().replace('?',' ?')
+	processed_text = input_text.toLowerCase().replace('?',' ?')	
 	/* 
-	data = {"answer": " forward", "debugging": {"ops_soft": [], "rows": ["[3]", "[]"], "cols": ["nationality ", "position "], "cols_soft": [], "ops": ["word-match", "print"]}};
+	data = {'answer': ' real madrid cf', 'debugging': {'table_key': '', 'answer_feedback': [], 'is_lookup_neural': true, 'cells_answer_neural': [[1, 2]], 'is_lookup_feedback': true, 'threshold': 45.0, 'below_threshold': false, 'answer_neural': ['real madrid cf'], 'cells_answer_feedback': [], 'question': '', 'steps': [{'index': 0, 'column_name': 'player', 'rows': [1], 'column_softmax': 0.99054680061079792, 'correct': true, 'operation_softmax': 0.90454135269931735, 'column_index': 0, 'operation_index': 12, 'operation_name': 'word-match'}, {'index': 1, 'column_name': 'team', 'rows': [], 'column_softmax': 0.6281557113649795, 'correct': true, 'operation_softmax': 0.99847889357398723, 'column_index': 2, 'operation_index': 14, 'operation_name': 'print'}], 'correct': true}}
 	var answer = data.answer;
 	var debug = data.debugging;
+	last_question = debug;
+	last_question.question = input_text.toLowerCase();
+	last_question.table_key = table_key;
 	new_neural_programmer_answer(answer, debug);
 	*/
 
@@ -268,10 +294,11 @@ function submit(input_text) {
 		// Update last question info
 		last_question.question = input_text.toLowerCase();
 		last_question.table_key = table_key;
-		//last_question.debug = debug;
 		new_neural_programmer_answer(answer, debug)
 	  }	
 	});
+
+
 }
 
 function submit_feedback(feedback) {

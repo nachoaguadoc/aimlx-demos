@@ -226,12 +226,21 @@
   background-color: rgba(119, 185, 248, 0.2);
   cursor: pointer;
 }
+.steps_selectable:hover  {
+  border: 2px solid rgba(255, 0, 0, 1) !important;
+  cursor: pointer;
+}
+
+.steps_selected  {
+  border: 2px solid rgba(255, 0, 0, 1) !important;
+  cursor: pointer;
+}
 
 .feedback_cell {
   background-color: rgba(85, 161, 226, 0.72) !important;
 }
 
-#next {
+#next, #next_steps {
   position: absolute;
   bottom: 5px;
   right: 5px;
