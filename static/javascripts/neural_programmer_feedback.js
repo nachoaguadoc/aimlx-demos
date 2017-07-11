@@ -1,5 +1,5 @@
 answers_translate = {"word-match": " and perform a <b>word query</b>.", "print": " and <b>return</b> the results.", "count": " and return the <b>number</b> of results.", "group_by_max": " and <b>group</b> the elements by the query.", "max": " and obtain the <b>maximum</b> value.", "min": " and obtain the <b>minimum</b> value.", "greater": " and get the cells with value <b>greater</b> than the query.", "smaller": " and get the cells with value <b>smaller</b> than the query.", "geq": " and get the cells with value <b>greater or equal</b> than the query.", "leq": " and get the cells with value <b>smaller or equal</b> than the query.", "first_rs": " and get the <b>first</b> cell.", "last_rs": " and get the <b>last</b> cell.", "reset_select": " and <b>select all</b> the rows."}
-
+var suggestions_activated = false;
 var initial_tour = new Tour({
 	steps: [
 	{
@@ -136,8 +136,10 @@ function new_neural_programmer_answer(np, debug) {
 	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary answer_box step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div id='to_replace' class='panel-body'><span>" + np + "</span><span id='feedback'><span class='glyphicon glyphicon-ok-circle' id='correct'></span><span class='glyphicon glyphicon-remove-circle' id='wrong'></span></span></div></div></div>"
 	$('#debug').html(steps);
 	$("#debug").css('visibility', 'visible');
-	suggestions_random = get_random_suggestions(suggestions);
-    load_suggestions(suggestions_random);
+	if (suggestions_activated) {
+		suggestions_random = get_random_suggestions(suggestions);
+	    load_suggestions(suggestions_random);
+	}
 	stop_spinner();
 
 	//$('#step_0').css('visibility', 'visible').animate({opacity: 1.0}, 2000);
@@ -390,7 +392,7 @@ function getCookie(cname) {
 }
 
 $(document).ready(function(){
-	setCookie()
+	setCookie();
 	$('#input_text').keyup(function(e){
 	    if(e.keyCode == 13) {
 	    	input_text = $('#input_text').val();
@@ -404,12 +406,13 @@ $(document).ready(function(){
 		input_text = $('#input_text').val();
 	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
 	})
-
-	$.getJSON("../static/javascripts/lists/neural_programmer_uefa.json", function(json) {
-		suggestions = json.questions;
-		suggestions_random = get_random_suggestions(suggestions);
-	  load_suggestions(suggestions_random);
-	});
+	if (suggestions_activated) {
+		$.getJSON("../static/javascripts/lists/neural_programmer_uefa.json", function(json) {
+			suggestions = json.questions;
+			suggestions_random = get_random_suggestions(suggestions);
+		  load_suggestions(suggestions_random);
+		});
+	}
 	
 	$(document).on('mouseenter', '.steps_box', function() {
     	var col = $(this).find('.col')[0]
