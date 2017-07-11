@@ -304,6 +304,8 @@ function submit(input_text) {
 function submit_feedback(feedback) {
 	console.log("Feedback sent:", feedback);
 	url = "/neural_programmer/feedback";
+	feedback.user_id = getCookie('user_id');
+	console.log("User:", user_id);
 	data = {"debugging": JSON.stringify(feedback)}
 	$.ajax({
 	  type: "POST",
@@ -346,8 +348,46 @@ function get_random_suggestions(suggestions) {
 	return suggestions_random
 }
 
-$(document).ready(function(){
+function create_new_cookie() {
+    // Expire date for cookie
+    var expires = new Date();
+    // Set expire date for cookie
+    expires.setTime(expires.getTime() + (365 * 24 * 60 * 60 * 1000));
+    var value = new Date().getTime();
+    // Set cookie key and value which is passed in by parameters 
+    document.cookie = 'user_id=' + value + ';expires=' + expires.toUTCString();
+    return value;
+}
 
+function setCookie() {
+	var user_id =  getCookie('user_id');
+	if (user_id == "") {
+		user_id = create_new_cookie();
+		console.log("New user:", user_id)
+	}
+	else {
+		console.log("Returning user:", user_id)
+	}
+	return user_id;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+$(document).ready(function(){
+	setCookie()
 	$('#input_text').keyup(function(e){
 	    if(e.keyCode == 13) {
 	    	input_text = $('#input_text').val();
