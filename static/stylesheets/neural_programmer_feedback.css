@@ -249,11 +249,20 @@
 #count {
   position: absolute;
   bottom: 5px;
-  right: 5px;
+  right: 155px;
 }
 
 #content {
   position: absolute;
   bottom: 5px;
-  right: 80px;
+  right: 72px;
+}
+#other, #submit {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+#cell_example {
+  font-size: 12px;
 }

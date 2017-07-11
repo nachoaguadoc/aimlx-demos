@@ -18,9 +18,13 @@ import requests
 
 from pymongo import MongoClient
 
-client = MongoClient(conf.neural_programmer['mongo_address'], conf.neural_programmer['mongo_port'], connect=False)
-db = client[conf.neural_programmer['mongo_db']]
-collection = db[conf.neural_programmer['mongo_collection']]
+if (conf.neural_programmer['mongo']):
+    client = MongoClient(conf.neural_programmer['mongo_address'], conf.neural_programmer['mongo_port'], connect=False)
+    db = client[conf.neural_programmer['mongo_db']]
+    collection = db[conf.neural_programmer['mongo_collection']]
+
+counter = 0
+users = {}
 
 app = Flask(__name__)
 CORS(app)
@@ -98,7 +102,12 @@ def getNeuralProgrammer(demo):
     elif demo=='swisscom':
         return render_template('neural_programmer.html')
     elif demo=='feedback':
-        return render_template('neural_programmer_feedback.html')
+        if counter%2 = 0:
+            counter += 1
+            return render_template('neural_programmer_feedback.html')
+        else
+            counter += 1
+            return render_template('neural_programmer_simple_feedback.html')        
 
 @app.route('/neural_programmer/<demo>', methods=['POST'])
 def submitNeuralProgrammer(demo):
@@ -109,8 +118,21 @@ def submitNeuralProgrammer(demo):
         print("Debug:", debugging)
         return "Feedback " + str(feedback_id) + " sent!"
     else:     
+        user_id = request.form['user_id']
+        demo = request.form['demo']
         tokens = request.form['question']
         table_key = request.form['table_key']
+
+        if user_id not in users:
+            users[user_id] = {
+                "starting_demo": demo,
+                "simple_counter": 0,
+                "feedback_counter": 0
+            }
+            users[user_id][demo + "_counter"] += 1
+        else:
+            users[user_id][demo + "_counter"] += 1
+
         print("Question:", tokens, "Table:", table_key)
         if request.method == 'POST':
             socket_address = conf.neural_programmer['socket_address']
