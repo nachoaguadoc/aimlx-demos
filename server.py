@@ -101,6 +101,13 @@ def getNeuralProgrammer(demo):
         return render_template('neural_programmer_football.html')
     elif demo=='swisscom':
         return render_template('neural_programmer.html')
+    elif demo=='tutorial':
+        return render_template('neural_programmer_tutorial.html')
+    elif demo=='steps':
+        return render_template('neural_programmer_steps.html')
+    elif demo=="simple":
+        return render_template('neural_programmer_simple.html')
+    '''
     elif demo=='feedback':
         print(counter.value)
         if counter.value%2 == 0:
@@ -110,7 +117,8 @@ def getNeuralProgrammer(demo):
         else:
             with counter.get_lock():
                 counter.value += 1
-            return render_template('neural_programmer_simple_feedback.html')        
+            return render_template('neural_programmer_simple_feedback.html')
+    '''
 
 @app.route('/neural_programmer/<demo>', methods=['POST'])
 def submitNeuralProgrammer(demo):
