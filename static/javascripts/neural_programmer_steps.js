@@ -246,7 +246,7 @@ function feedback_listeners() {
 			$('#next').click(function(e){
 				feedback_cells_tour.end();
 				if (selected_cells.length > 0) {
-					$('#to_replace').html("<div><span>The answer is the number of cells, the text inside or neither?<span></div><div class='button_container'><span><button id='content' class='btn btn-success'>Content</button><button id='count' class='btn btn-primary'>Count</button><button id='other' class='btn btn-danger'>Other</button></span></div>");
+					$('#to_replace').html("<div><span>The answer is the number of cells you selected, their content or other?<span></div><div class='button_container'><span><button id='content' class='btn btn-success'>Content</button><button id='count' class='btn btn-primary'>Count</button><button id='other' class='btn btn-danger'>Other</button></span></div>");
 					// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 				    if (first_feedback) {
 				    	create_new_cookie('first_feedback');
