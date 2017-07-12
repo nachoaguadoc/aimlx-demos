@@ -149,11 +149,12 @@ def submitNeuralProgrammer(demo):
         table_key = request.form['table_key']
         user_id = request.form['user_id']
         timestamp = request.form['timestamp']
+        question_id = request.form['question_id']
         demo = request.form['demo']
 
-        info = {"question": tokens, "table_key": table_key, "user_id": user_id, "timestamp": timestamp, "demo": demo}
+        info = {"question": tokens, "table_key": table_key, "user_id": user_id, "timestamp": timestamp, "demo": demo, "question_id": question_id}
         feedback_id = use_coll.insert_one(info).inserted_id
-        print("Question:", tokens, "Table:", table_key)
+        print("Question ID", question_id, "with text", tokens, "about table", table_key, "from user", user_id, "using the", demo, "demo")
         print("Question stored:", feedback_id)
 
         if request.method == 'POST':

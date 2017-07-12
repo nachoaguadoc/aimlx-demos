@@ -350,10 +350,12 @@ function submit(input_text) {
 	last_question.table_key = table_key;
 	new_neural_programmer_answer(answer, debug);
 	*/
+	var timestamp = new Date().getTime();
+	var question_id = "q-" + timestamp;
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"question": processed_text, "table_key": table_key, "user_id": getCookie('user_id'), "demo": "steps", "timestamp": new Date().getTime()},
+	  data: {"question": processed_text, "table_key": table_key, "user_id": getCookie('user_id'), "demo": "steps", "timestamp": timestamp, "question_id". question_id},
 	  dataType: 'text',
 	  success: function(data) {
 		var data = JSON.parse(data).neural_programmer;
@@ -371,6 +373,7 @@ function submit(input_text) {
 		console.log("Debug:", debug);
 		console.log("Answer:", answer);
 		last_question = debug;
+		last_question.question_id = question_id;
 		// Update last question info
 		last_question.question = input_text.toLowerCase();
 		last_question.table_key = table_key;
