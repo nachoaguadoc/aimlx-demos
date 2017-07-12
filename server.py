@@ -103,7 +103,9 @@ def getLandingNeuralProgrammer():
 # Chatbot route handling
 @app.route('/neural_programmer/<demo>')
 def getNeuralProgrammer(demo):
-    if demo=='football':
+    if demo=='':
+        return render_template('neural_programmer_landing.html')
+    elif demo=='football':
         return render_template('neural_programmer_football.html')
     elif demo=='swisscom':
         return render_template('neural_programmer_swisscom.html')
