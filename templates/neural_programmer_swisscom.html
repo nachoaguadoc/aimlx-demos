@@ -2,12 +2,14 @@
 
 <html lang="en">
   <head>
+    <title>Swisscom Demo</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/css/bootstrap-tour-standalone.css">    
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/neural_programmer.css') }}">
 
@@ -40,12 +42,9 @@
                   <li>
                     <div id="question" class="message you-message"></div>
                   </li>
-                  <li class="clearfix">
-                    <div id="answer_np" class="message me-message float-right"></div>
-                  </li>
                 </ul>
 
-			     <div id="debug"></div>
+           <div id="debug"></div>
 
             </div>
             <div class="col-md-1"></div>
@@ -65,9 +64,11 @@
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/js/bootstrap-tour-standalone.js"></script>
     <script type=text/javascript src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
-    <script type=text/javascript src="{{ url_for('static', filename='javascripts/neural_programmer.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='javascripts/neural_programmer_swisscom.js') }}"></script>
   </body>
 </html>

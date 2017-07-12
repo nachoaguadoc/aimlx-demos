@@ -105,7 +105,7 @@ def getNeuralProgrammer(demo):
     if demo=='football':
         return render_template('neural_programmer_football.html')
     elif demo=='swisscom':
-        return render_template('neural_programmer.html')
+        return render_template('neural_programmer_swisscom.html')
     elif demo=='tutorial':
         return render_template('neural_programmer_tutorial.html')
     elif demo=='steps':
@@ -133,6 +133,21 @@ def submitNeuralProgrammer(demo):
         feedback_id = collection.insert_one(debugging).inserted_id
         print("Debug:", debugging)
         return "Feedback " + str(feedback_id) + " sent!"
+    elif (demo == "demo_question"):
+        tokens = request.form['question']
+        table_key = request.form['table_key']
+        print("Question:", tokens, "Table:", table_key)
+        if request.method == 'POST':
+            socket_address = conf.neural_programmer['socket_address']
+            socket_port = conf.neural_programmer['socket_port']
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((socket_address, socket_port))
+            msg = table_key + '****----****' + tokens
+            s.sendall(msg.encode())
+            answer = s.recv(1024).decode("utf-8")
+            s.close()
+            return jsonify({'neural_programmer':answer})
+
     else:     
         user_id = request.form['user_id']
         demo = request.form['demo']
