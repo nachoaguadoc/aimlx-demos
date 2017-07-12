@@ -110,7 +110,7 @@ var feedback_op_tour = new Tour({
   {
     element: "#answer",
     title: "Operation",
-    content: "What should we do with the selected cells? If your answer involves other arithmetic operations, click 'Other'",
+    content: "What should we do with your selected cells? If your answer involves other arithmetic operations, click 'Other'",
     placement: "top"
   }
 ]});
