@@ -13,12 +13,16 @@ html, body {
     vertical-align: middle;
 }
 .thumbnail {
-	margin-bottom: 0px;
+	background-color: #eee;
+    border: 2px solid #ddd;
 }
 
 .caption {
 	position: relative;
 	padding: 0 10px 10px 10px;
+}
+.caption h3{
+    text-align: center;
 }
 
 i {
@@ -31,11 +35,24 @@ i {
 	font-size: 7em;
 }
 
-.corner {
-	position: absolute;
-    bottom: 21px;
-    right: 50%;
+.button-go {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 15px;
 }
 p {
     text-align: justify;
+}
+
+#explain {
+    text-align: right;
+    cursor: pointer;   
+}
+#explain i {
+    display: initial;
+}
+#explanation {
+    margin: 15px;
+    text-align: justify; 
+    display: none;
 }

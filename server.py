@@ -99,6 +99,10 @@ def submitChatbot(demo):
 @app.route('/neural_programmer')
 def getLandingNeuralProgrammer():
     return render_template('neural_programmer_landing.html')
+# Chatbot route handling
+@app.route('/neural_programmer/')
+def getLanding2NeuralProgrammer():
+    return render_template('neural_programmer_landing.html')
 
 # Chatbot route handling
 @app.route('/neural_programmer/<demo>')

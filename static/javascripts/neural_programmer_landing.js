@@ -25,13 +25,14 @@ $(document).ready(function(){
 		console.log("New user. Needs to complete tutorial.")
 		$('#demo_simple').addClass("disabled");
 		$('#demo_steps').addClass("disabled");
-		$("#demo_simple_desc").html($("#demo_simple_desc").html() + "<b> You must complete the tutorial first to activate this demo.</b>");
-		$("#demo_steps_desc").html($("#demo_steps_desc").html() + "<b> You must complete the tutorial first to activate this demo.</b>")
-
 	} else {
 		console.log("Already completed tutorial")
 	}
 
 	$('.thumbnail').matchHeight();
-	$('.button-go').addClass("corner");
+
+	$(document).on('click', '#explain i', function() {
+		$("#explanation").toggle();
+		
+	})
 });
