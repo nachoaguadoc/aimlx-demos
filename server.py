@@ -149,11 +149,13 @@ def submitNeuralProgrammer(demo):
             return jsonify({'neural_programmer':answer})
 
     else:     
-        user_id = request.form['user_id']
-        demo = request.form['demo']
+
         tokens = request.form['question']
         table_key = request.form['table_key']
 
+        '''
+        user_id = request.form['user_id']
+        demo = request.form['demo']
         if user_id not in users:
             users[user_id] = {
                 "starting_demo": demo,
@@ -164,6 +166,7 @@ def submitNeuralProgrammer(demo):
         else:
             users[user_id][demo + "_counter"] += 1
         print(users[user_id])
+        '''
 
         print("Question:", tokens, "Table:", table_key)
         if request.method == 'POST':
