@@ -271,3 +271,12 @@
 button[data-role='end'] {
   display: none;
 }
+
+#home_button {
+  height: 54px;
+  text-align: left;
+  padding-top: 13px;
+}
+#home_button span {
+  cursor: pointer;
+}

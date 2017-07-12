@@ -415,6 +415,10 @@ $(document).ready(function(){
 	$("#banner").click(function(){
 		window.location.replace("/neural_programmer");
 	})
+	$("#home_button span").click(function(){
+		window.location.replace("/neural_programmer");
+	})
+	
 	if (suggestions_activated) {
 		$.getJSON("../static/javascripts/lists/neural_programmer_uefa.json", function(json) {
 			suggestions = json.questions;
