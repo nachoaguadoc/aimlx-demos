@@ -265,6 +265,7 @@ function feedback_listeners() {
 					$('#count').click(function(e){
 						feedback_op_tour.end()
 						last_question.is_lookup_feedback = false;
+						last_question.custom_input = false;
 						last_question.answer_feedback = [selected_cells.length];
 						last_question.cells_answer_feedback = selected_cells;
 						for (var i in last_question.steps) {
@@ -280,6 +281,7 @@ function feedback_listeners() {
 					$('#content').click(function(e){
 						feedback_op_tour.end()
 						last_question.is_lookup_feedback = true;
+						last_question.custom_input = false;
 						last_question.cells_answer_feedback = selected_cells;
 						for (var i in last_question.steps) {
 							var step = last_question.steps[i];
@@ -307,9 +309,20 @@ function feedback_listeners() {
 						$('#to_replace').html("<div>Submitted answer: <b>" + answer + "</b>.</div><div> Thank you for your feedback!</div>");
 					})
 					$('#other').click(function(e){
-						feedback_op_tour.end()
-						$('#to_replace').html("<div>Type here the correct answer:</div><input type='text'></input><button id='submit' class='btn btn-primary'>Submit</button>");
-					})			
+						feedback_op_tour.end();
+						last_question.is_lookup_feedback = false;
+						last_question.cells_answer_feedback = selected_cells;
+
+						$('#to_replace').html("<div>Type here the correct answer:</div><input id='submitted_input' type='text'></input><button id='submit' class='btn btn-primary'>Submit</button>");
+						$('#submit').click(function(e){
+							last_question.answer_feedback = $("#submitted_input").val();
+							last_question.custom_input = true;
+							$(".table tbody").removeClass('selectable');
+							$('tr td').off('click');
+							submit_feedback(last_question);
+							$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer_feedback + "</b>.</div><div> Thank you for your feedback!</div>");
+						})
+					})		
 				}
 			});
 		});
