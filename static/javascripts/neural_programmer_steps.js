@@ -401,8 +401,9 @@ function submit_feedback(feedback) {
 	  success: function(data) {
 	  	console.log(data);
 	  	if (feedback.correct) {
-	  		$('#feedback').html("Thank you for your feedback!");
+	  		$('#feedback').html("Thank you for your feedback! Ask another question :)");
 	  		$('#feedback').addClass("feedback")
+	  		$("#input_text").focus();
 	  	}
 	  }	
 	});
