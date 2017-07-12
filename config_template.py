@@ -36,5 +36,6 @@ neural_programmer = {
 	'mongo_address': '',
 	'mongo_port': '',
 	'mongo_db': '',
-	'mongo_collection': ''
+	'mongo_feedback_coll': '',
+	'mongo_use_coll': ''
 }

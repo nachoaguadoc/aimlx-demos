@@ -21,7 +21,8 @@ from pymongo import MongoClient
 if (conf.neural_programmer['mongo']):
     client = MongoClient(conf.neural_programmer['mongo_address'], conf.neural_programmer['mongo_port'], connect=False)
     db = client[conf.neural_programmer['mongo_db']]
-    collection = db[conf.neural_programmer['mongo_collection']]
+    feedback_coll = db[conf.neural_programmer['mongo_feedback_coll']]
+    use_coll = db[conf.neural_programmer['mongo_use_coll']]
 
 counter = Value('i', 0)
 users = {}
@@ -112,27 +113,16 @@ def getNeuralProgrammer(demo):
         return render_template('neural_programmer_steps.html')
     elif demo=="simple":
         return render_template('neural_programmer_simple.html')
-    '''
-    elif demo=='feedback':
-        print(counter.value)
-        if counter.value%2 == 0:
-            with counter.get_lock():
-                counter.value += 1
-            return render_template('neural_programmer_feedback.html')
-        else:
-            with counter.get_lock():
-                counter.value += 1
-            return render_template('neural_programmer_simple_feedback.html')
-    '''
 
 @app.route('/neural_programmer/<demo>', methods=['POST'])
 def submitNeuralProgrammer(demo):
     if (demo == "feedback"):
         print("Feedback received")
         debugging = json.loads(request.form['debugging'])
-        feedback_id = collection.insert_one(debugging).inserted_id
+        feedback_id = feedback_coll.insert_one(debugging).inserted_id
         print("Debug:", debugging)
         return "Feedback " + str(feedback_id) + " sent!"
+    
     elif (demo == "demo_question"):
         tokens = request.form['question']
         table_key = request.form['table_key']
@@ -148,27 +138,18 @@ def submitNeuralProgrammer(demo):
             s.close()
             return jsonify({'neural_programmer':answer})
 
-    else:     
-
+    elif (demo == "question"):     
         tokens = request.form['question']
         table_key = request.form['table_key']
-
-        '''
         user_id = request.form['user_id']
+        timestamp = request.form['timestamp']
         demo = request.form['demo']
-        if user_id not in users:
-            users[user_id] = {
-                "starting_demo": demo,
-                "simple_counter": 0,
-                "steps_counter": 0
-            }
-            users[user_id][demo + "_counter"] += 1
-        else:
-            users[user_id][demo + "_counter"] += 1
-        print(users[user_id])
-        '''
 
+        info = {"question": tokens, "table_key": table_key, "user_id": user_id, "timestamp": timestamp, "demo": demo}
+        feedback_id = use_coll.insert_one(info).inserted_id
         print("Question:", tokens, "Table:", table_key)
+        print("Question stored:", feedback_id)
+
         if request.method == 'POST':
             socket_address = conf.neural_programmer['socket_address']
             socket_port = conf.neural_programmer['socket_port']
