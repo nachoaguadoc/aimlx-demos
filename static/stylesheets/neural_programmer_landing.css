@@ -36,3 +36,6 @@ i {
     bottom: 21px;
     right: 50%;
 }
+p {
+    text-align: justify;
+}
