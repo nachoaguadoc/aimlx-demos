@@ -158,7 +158,7 @@ def submitNeuralProgrammer(demo):
             users[user_id] = {
                 "starting_demo": demo,
                 "simple_counter": 0,
-                "feedback_counter": 0
+                "steps_counter": 0
             }
             users[user_id][demo + "_counter"] += 1
         else:
