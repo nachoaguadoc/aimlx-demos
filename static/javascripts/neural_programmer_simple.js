@@ -278,7 +278,7 @@ function submit(input_text) {
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"question": processed_text, "table_key": table_key, "user_id": getCookie('user_id'), "demo": "simple", "timestamp": timestamp, "question_id". question_id},
+	  data: {"question": processed_text, "table_key": table_key, "user_id": getCookie('user_id'), "demo": "simple", "timestamp": timestamp, "question_id": question_id},
 	  dataType: 'text',
 	  success: function(data) {
 		var data = JSON.parse(data).neural_programmer;
