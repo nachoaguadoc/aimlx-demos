@@ -93,7 +93,7 @@ var answers_feedback_tour = new Tour({
   {
     element: "#answer",
     title: "Answer",
-    content: "We get again the answer, but now we can also understand what was the thinking process ",
+    content: "We get again the answer, but now we can also understand what the thinking process was ",
     placement: "top"
   },
   {
@@ -117,13 +117,13 @@ var answers_feedback_tour = new Tour({
   {
     element: "#step_1",
     title: "Reminder",
-    content: "Take into account that at the moment the bot can only answer correctly questions that involve maximum two steps.",
+    content: "Take into account that at the moment the bot can only answer correctly questions that involve a maximum of two steps.",
     placement: "top"
   },
    {
     element: "#answer",
     title: "Help us improve",
-    content: "You can give feedback to the bot answers. In this case the answer is perfect, so you can make us know how awesome this is with the green button",
+    content: "You can give feedback to the bot answers. If the answer is correct you can make us know how awesome this is with the green button",
     placement: "bottom"
   },
   {
@@ -135,13 +135,13 @@ var answers_feedback_tour = new Tour({
   {
     element: "#answer",
     title: "Thank you!",
-    content: "That's all. Now you will be redirected to the main page. There you can choose between the simple option or the one with more information. ",
+    content: "That's all. Now you will be redirected to the main page. There you can choose between the simple option or the one with the steps information ",
     placement: "bottom",
 	onShown: function (tour) {
 		$( "button[data-role='end']").show()
 	},
 	onHidden: function (tour) {
-		window.location.replace("/neural_programmer/landpage");
+		window.location.replace("/neural_programmer");
 	}
   },
 ]});
