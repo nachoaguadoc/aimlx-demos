@@ -95,6 +95,11 @@ def submitChatbot(demo):
         return jsonify(answer)
 
 # Chatbot route handling
+@app.route('/neural_programmer')
+def getLandingNeuralProgrammer():
+    return render_template('neural_programmer_landing.html')
+
+# Chatbot route handling
 @app.route('/neural_programmer/<demo>')
 def getNeuralProgrammer(demo):
     if demo=='football':

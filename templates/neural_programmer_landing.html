@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Neural Programmer</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/css/bootstrap-tour-standalone.css">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/neural_programmer_landing.css') }}">
+
+  </head>
+  <body>
+
+
+  <div class="main">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-2 col-sm-0"></div>
+        <div class="col-md-8 col-sm-12">
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <i class="fa fa-5x fa-info-circle" aria-hidden="true"></i>
+              <div class="caption">
+                <h3>Tutorial</h3>
+                <p>What is this so called "Neural Programmer"? What can I do with it? How does it work? You must visit this tutorial before trying the other demos. It's only 2 minutes, I promise.</p>
+              </div>
+              <div class="button-go"><a id="tutorial" href="/neural_programmer/tutorial" class="btn btn-primary" role="button">Go</a></div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <i class="fa fa-5x fa-comments" aria-hidden="true"></i>
+              <div class="caption">
+                <h3>Demo without steps</h3>
+                <p>First demo showed in the tutorial. Ask a question and get an answer.</p>
+              </div>
+              <div class="button-go"><a id="demo_simple" href="/neural_programmer/simple" class="btn btn-primary" role="button">Go</a></div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <i class="fa fa-5x fa-cogs" aria-hidden="true"></i>
+              <div class="caption">
+                <h3>Demo with steps</h3>
+                <p>Second demo showed in the tutorial. Apart from the answer, you also get a step-by-step explanation of the thinking process of the chatbot, useful to understand how it works.</p>
+              </div>
+              <div class="button-go"><a id="demo_steps" href="/neural_programmer/steps" class="btn btn-primary" role="button">Go</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-0"></div>
+
+
+
+    </div>
+  </div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/js/bootstrap-tour-standalone.js"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='javascripts/neural_programmer_landing.js') }}"></script>
+  </body>
+</html>

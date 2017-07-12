@@ -1,0 +1,38 @@
+
+html, body {
+    height: 100%;
+}
+.main {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.container {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+}
+.thumbnail {
+	margin-bottom: 0px;
+}
+
+.caption {
+	position: relative;
+	padding: 0 10px 10px 10px;
+}
+
+i {
+	width: 100%;
+	text-align: center;
+	padding: 10px 10px 0 10px;
+}
+
+.fa-7x {
+	font-size: 7em;
+}
+
+.corner {
+	position: absolute;
+    bottom: 21px;
+    right: 50%;
+}
