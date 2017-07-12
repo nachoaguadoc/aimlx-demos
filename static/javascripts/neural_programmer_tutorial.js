@@ -133,7 +133,13 @@ var answers_feedback_tour = new Tour({
     placement: "bottom"
   },
   {
-    element: "#answer",
+    element: "#banner",
+    title: "Main menu",
+    content: "During the demos, click on the logo to go back to the main menu",
+    placement: "bottom"
+  },
+  {
+    element: "#custom-search-input",
     title: "Thank you!",
     content: "That's all. Now you will be redirected to the main page. There you can choose between the simple option or the one with the steps information ",
     placement: "bottom",

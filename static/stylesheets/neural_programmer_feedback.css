@@ -175,6 +175,7 @@
 #banner {
     width: 100% !important;
     margin: 5% !important;
+    cursor: pointer;
 }
 
 #search_row {

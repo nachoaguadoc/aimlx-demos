@@ -410,6 +410,10 @@ $(document).ready(function(){
 		input_text = $('#input_text').val();
 	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
 	})
+
+	$("#banner").click(function(){
+		window.location.replace("/neural_programmer");
+	})
 	if (suggestions_activated) {
 		$.getJSON("../static/javascripts/lists/neural_programmer_uefa.json", function(json) {
 			suggestions = json.questions;
