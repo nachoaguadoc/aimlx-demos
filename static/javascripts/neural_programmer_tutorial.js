@@ -39,7 +39,7 @@ var initial_tour = new Tour({
 			$( "button[data-role='end']").show()
 		},
 		onHidden: function (tour) {
-			$("#search_button").click();
+			submit("What players come from Spain?");
 		}
 	}
 	]
@@ -83,7 +83,7 @@ var answers_simple_tour = new Tour({
 		$( "button[data-role='end']").show()
 	},
 	onHidden: function (tour) {
-		$("#search_button").click();
+		submit("What players come from Spain?");
 	}
   }
 ]});
@@ -506,7 +506,7 @@ $(document).ready(function(){
 
 	$('#search_button').click(function(e){
 		input_text = $('#input_text').val();
-	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
+	    if (input_text != '') submit(input_text);
 	})
 
 	$(document).on('mouseenter', '.steps_box', function() {
