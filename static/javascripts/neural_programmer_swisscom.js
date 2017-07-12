@@ -47,6 +47,13 @@ function new_neural_programmer_answer(np, debug) {
 	steps += "<div class='col-md-4'><div id='answer' class='panel panel-primary answer_box step'><div class='panel-heading'><h3 class='panel-title'>Answer</h3></div><div id='to_replace' class='panel-body'><span>" + np + "</span></div></div></div>"
 	$('#debug').html(steps);
 	$("#debug").css('visibility', 'visible');
+
+	setTimeout(function(){
+	    $('#step_0').fadeIn(1500);
+	    setTimeout(function(){
+		    $('#step_1').fadeIn(1500)
+		}, 500);
+	}, 500);
 	if (suggestions_activated) {
 		suggestions_random = get_random_suggestions(suggestions);
 	    load_suggestions(suggestions_random);
@@ -74,6 +81,8 @@ function submit(input_text) {
 	  success: function(data) {
 		var data = JSON.parse(data).neural_programmer;
 		console.log(data);
+		data = data.replace(/True/g, true);
+		data = data.replace(/False/g, false);
 		data = data.replace(/'{/g, '{');
 		data = data.replace(/}'/g, '}');
 		data = data.replace(/"{/g, '{');
