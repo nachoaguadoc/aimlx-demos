@@ -241,28 +241,10 @@
   background-color: rgba(85, 161, 226, 0.72) !important;
 }
 
-#next, #next_steps {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-}
-
-#count {
-  position: absolute;
-  bottom: 5px;
-  right: 155px;
-}
-
-#content {
-  position: absolute;
-  bottom: 5px;
-  right: 72px;
-}
-#other, #submit {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-}
+.button_container{
+  width: 100%;
+  text-align: right;
+} 
 
 #cell_example {
   font-size: 12px;
@@ -279,4 +261,9 @@ button[data-role='end'] {
 }
 #home_button span {
   cursor: pointer;
+}
+
+.btn {
+  margin-left: 1px;
+  margin-right: 1px;
 }

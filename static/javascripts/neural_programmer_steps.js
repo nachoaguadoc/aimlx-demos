@@ -206,7 +206,7 @@ function feedback_listeners() {
 	$('#wrong').click(function(e){
 		last_question.correct = false;
 		$('.answer_box .panel-heading .panel-title').text("Feedback");
-		$('#to_replace').html("<div><span>Can you click on the step(s) of the process that are wrong?<span><button id='next_steps' class='btn btn-primary'>Done</button>");
+		$('#to_replace').html("<div><span>Can you click on the step(s) of the process that are wrong?<span></div><div class='button_container'><span><button id='next_steps' class='btn btn-primary'>Done</button></span></div>");
 		$(".steps_box").addClass('steps_selectable');
 		$(".steps_box").effect("shake", {duration:1000, times: 10, distance:2, direction: "left"});
 		var selected_steps = []
@@ -219,7 +219,7 @@ function feedback_listeners() {
 		});
 
 		$('#next_steps').click(function(e){
-			$('#to_replace').html("<div><span>Please, select the cells of the table needed to get the correct answer.<span><button id='next' class='btn btn-primary'>Done</button>");
+			$('#to_replace').html("<div><span>Please, select the cells of the table needed to get the correct answer. You can unselect them by clicking on them again.<span></div><div class='button_container'><span><button id='next' class='btn btn-primary'>Done</button></span></div>");
 			$("#table").effect("shake", {duration:1000, times: 10, distance:2, direction: "left"});
 
 		    if (first_feedback) {
@@ -246,7 +246,7 @@ function feedback_listeners() {
 			$('#next').click(function(e){
 				feedback_cells_tour.end();
 				if (selected_cells.length > 0) {
-					$('#to_replace').html("<div><span>The answer is the number of cells, their content or neither?<span><button id='content' class='btn btn-success'>Content</button><button id='count' class='btn btn-primary'>Count</button><button id='other' class='btn btn-danger'>Other</button>");
+					$('#to_replace').html("<div><span>The answer is the number of cells, the text inside or neither?<span></div><div class='button_container'><span><button id='content' class='btn btn-success'>Content</button><button id='count' class='btn btn-primary'>Count</button><button id='other' class='btn btn-danger'>Other</button></span></div>");
 					// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
 				    if (first_feedback) {
 				    	create_new_cookie('first_feedback');
