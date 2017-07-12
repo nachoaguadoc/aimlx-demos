@@ -208,7 +208,8 @@ function feedback_listeners() {
 					$(".table tbody").removeClass('selectable');
 					$('tr td').off('click');
 					submit_feedback(last_question);
-					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer_feedback + "</b>.</div><div>Thank you for your feedback!</div>");
+					$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer_feedback + "</b>.</div><div>Thank you for your feedback! Ask another question :)</div>");
+					$("#input_text").focus();
 				})
 				$('#content').click(function(e){
 					feedback_op_tour.end()
@@ -230,7 +231,8 @@ function feedback_listeners() {
 					$(".table tbody").removeClass('selectable');
 					$('tr td').off('click');
 					submit_feedback(last_question);
-					$('#to_replace').html("<div>Submitted answer: <b>" + answer + "</b>.</div><div> Thank you for your feedback!</div>");
+					$('#to_replace').html("<div>Submitted answer: <b>" + answer + "</b>.</div><div>Thank you for your feedback! Ask another question :)</div>");
+					$("#input_text").focus();
 				})
 				$('#other').click(function(e){
 					feedback_op_tour.end();
