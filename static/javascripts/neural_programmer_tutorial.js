@@ -260,126 +260,6 @@ function new_neural_programmer_answer(np, debug, mode) {
     }
 }
 
-function feedback_listeners() {
-	$('#correct').off('click');
-	$('#wrong').off('click');
-	
-	$('#correct').click(function(e){
-		last_question.correct = true;
-		submit_feedback(last_question);
-	})
-	$('#wrong').click(function(e){
-		last_question.correct = false;
-		$('.answer_box .panel-heading .panel-title').text("Feedback");
-		$('#to_replace').html("<div><span>Can you click on the step(s) of the process that are wrong?<span><button id='next_steps' class='btn btn-primary'>Done</button>");
-		$(".steps_box").addClass('steps_selectable');
-		$(".steps_box").effect("shake", {duration:1000, times: 10, distance:2, direction: "left"});
-		var selected_steps = []
-		$('.steps_box').click(function(e){
-			var id = parseInt(this.id.split("_")[1]);
-			var index = selected_steps.indexOf(id);
-			if (index > -1) selected_steps.splice(index, 1)
-			else selected_steps.push(id);
-			$(e.currentTarget).toggleClass('steps_selected');
-		});
-
-		$('#next_steps').click(function(e){
-			$('#to_replace').html("<div><span>Please, select the cells of the table needed to get the correct answer.<span><button id='next' class='btn btn-primary'>Done</button>");
-			$("#table").effect("shake", {duration:1000, times: 10, distance:2, direction: "left"});
-
-		    if (first_feedback) {
-		        initial_tour.end();
-		        answers_tour.end();
-		        feedback_cells_tour.end();
-		        setTimeout(function(){
-		            feedback_cells_tour.init();
-		            feedback_cells_tour.setCurrentStep(0);
-		            feedback_cells_tour.start(true);
-		        }, 1000);
-		    }
-			$(".table tbody").addClass('selectable');
-			var selected_cells = [];
-			$('td').click(function(e){
-				var row = this.parentNode.rowIndex-1;
-				var col = this.cellIndex;
-				var cell = row + "," +  col;
-				var cell_index = selected_cells.indexOf(cell);
-				if (cell_index == -1) selected_cells.push(cell);
-				else selected_cells.splice(cell_index, 1);
-				$(this).toggleClass('feedback_cell');
-			});
-			$('#next').click(function(e){
-				feedback_cells_tour.end();
-				if (selected_cells.length > 0) {
-					$('#to_replace').html("<div><span>The answer is the number of cells, their content or neither?<span><button id='content' class='btn btn-success'>Content</button><button id='count' class='btn btn-primary'>Count</button><button id='other' class='btn btn-danger'>Other</button>");
-					// Wrong: feedback = {correct: false, question: '', answer: '', table_key: '', is_lookup: false/true, cells: []}
-				    if (first_feedback) {
-				    	create_new_cookie('first_feedback');
-				    	first_feedback = false;
-				        initial_tour.end();
-				        answers_tour.end();
-				        feedback_cells_tour.end();
-				        feedback_op_tour.end()
-				        setTimeout(function(){
-				            feedback_op_tour.init();
-				            feedback_op_tour.setCurrentStep(0);
-				            feedback_op_tour.start(true);
-				        }, 1000);
-				    }
-
-					$('#count').click(function(e){
-						feedback_op_tour.end()
-						last_question.is_lookup_feedback = false;
-						last_question.answer_feedback = [selected_cells.length];
-						last_question.cells_answer_feedback = selected_cells;
-						for (var i in last_question.steps) {
-							var step = last_question.steps[i];
-							if (selected_steps.indexOf(step.index) > -1) {
-								last_question.steps[i].correct = false;
-							}						}
-						$(".table tbody").removeClass('selectable');
-						$('tr td').off('click');
-						submit_feedback(last_question);
-						$('#to_replace').html("<div>Submitted answer: <b>" + last_question.answer_feedback + "</b>.</div><div>Thank you for your feedback!</div>");
-					})
-					$('#content').click(function(e){
-						feedback_op_tour.end()
-						last_question.is_lookup_feedback = true;
-						last_question.cells_answer_feedback = selected_cells;
-						for (var i in last_question.steps) {
-							var step = last_question.steps[i];
-							if (selected_steps.indexOf(step.index) > -1) {
-								last_question.steps[i].correct = false;
-							}
-						}						
-						var table = $("table")[0];
-						var answer = '';
-						for (var i in selected_cells) {
-							var cell = selected_cells[i].split(',');
-							var row = parseInt(cell[0])+1;
-							var col = parseInt(cell[1]);
-							var cell = table.rows[row].cells[col]; // This is a DOM "TD" element
-							var text = $(cell).text();
-							last_question.answer_feedback.push(text)
-							answer += text + ", ";
-						}
-						answer = answer.substring(0, answer.length-2);
-						$(".steps_box").addClass('steps_selectable')
-						$(".steps_box").off('click');
-						$(".table tbody").removeClass('selectable');
-						$('tr td').off('click');
-						submit_feedback(last_question);
-						$('#to_replace').html("<div>Submitted answer: <b>" + answer + "</b>.</div><div> Thank you for your feedback!</div>");
-					})
-					$('#other').click(function(e){
-						feedback_op_tour.end()
-						$('#to_replace').html("<div>Type here the correct answer:</div><input type='text'></input><button id='submit' class='btn btn-primary'>Submit</button>");
-					})			
-				}
-			});
-		});
-	})
-}
 
 var last_question = {}
 
@@ -402,10 +282,12 @@ function submit(input_text) {
 	last_question.table_key = table_key;
 	new_neural_programmer_answer(answer, debug);
 	*/
+	var timestamp = new Date().getTime();
+	var question_id = "q-" + timestamp;
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"question": processed_text, "table_key": table_key, "user_id": getCookie('user_id'), "demo": "feedback" },
+	  data: {"question": processed_text, "table_key": table_key, "user_id": getCookie('user_id'), "demo": "tutorial", "timestamp": timestamp, "question_id": question_id},
 	  dataType: 'text',
 	  success: function(data) {
 		var data = JSON.parse(data).neural_programmer;
@@ -430,29 +312,6 @@ function submit(input_text) {
 	  }	
 	});
 }
-
-function submit_feedback(feedback) {
-	console.log("Feedback sent:", feedback);
-	url = "/neural_programmer/feedback";
-	feedback.user_id = getCookie('user_id');
-	feedback.timestamp = new Date().getTime();
-	console.log("User:", feedback.user_id, "with timestamp:", feedback.timestamp);
-	data = {"debugging": JSON.stringify(feedback)}
-	$.ajax({
-	  type: "POST",
-	  url: url,
-	  data: data,
-	  dataType: 'text',
-	  success: function(data) {
-	  	console.log(data);
-	  	if (feedback.correct) {
-	  		$('#feedback').html("Thank you for your feedback!");
-	  		$('#feedback').addClass("feedback")
-	  	}
-	  }	
-	});
-}
-
 
 function create_new_cookie(key) {
     // Expire date for cookie
