@@ -141,6 +141,7 @@ function clean_table() {
 
 function new_neural_programmer_answer(np, debug) {
 	//$('#answer_np').text(np);
+	if (!isNaN(np)) np = str(parseInt(np))
 	answers_tour.end();
 	$("#answer_np").css('visibility', 'visible');
 	var steps = "";
