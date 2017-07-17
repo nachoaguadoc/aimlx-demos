@@ -8,8 +8,8 @@ function new_question(question) {
 
 function new_chatbot_answer(seq2seq) {
 	$('#answer_seq2seq').text(seq2seq);
-	suggestions_random = get_random_suggestions(suggestions);
-    load_suggestions(suggestions_random);
+	//suggestions_random = get_random_suggestions(suggestions);
+    //load_suggestions(suggestions_random);
 	stop_spinner();
 }
 
@@ -71,10 +71,10 @@ $(document).ready(function(){
 		input_text = $('#input_text').val();
 	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
 	})
-	$.getJSON("../static/javascripts/lists/chatbot_seq2seq_ubuntu.json", function(json) {
-		suggestions = json.candidates;
-		suggestions_random = get_random_suggestions(suggestions);
-	    load_suggestions(suggestions_random);
-	});
+	//$.getJSON("../static/javascripts/lists/chatbot_seq2seq_ubuntu.json", function(json) {
+	//	suggestions = json.candidates;
+	//	suggestions_random = get_random_suggestions(suggestions);
+	//    load_suggestions(suggestions_random);
+	//});
 	$('.robot').hide();
 });
