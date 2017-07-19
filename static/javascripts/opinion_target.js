@@ -6,7 +6,6 @@ function new_question(question) {
 	$('#suggestions').text('');	
 	$('#answer_baseline').text('');
 	$('#answer_embeddings').text('');	
-	$('.robot').hide();
 
 	start_spinner();
 }
@@ -33,7 +32,6 @@ function new_opinion_answer(original, labels) {
 		formatted_texts.push(formatted_text);
 	}
 	$('#question_row').hide();
-	$('.robot').show();
 	$('#question').text('');
 	suggestions_random = get_random_suggestions(suggestions);
     load_suggestions(suggestions_random);	
@@ -97,7 +95,6 @@ function clean() {
 }
 function refresh() {
 	$('#question_row').hide();
-	$('.robot').hide();
 
 	suggestions_random = get_random_suggestions(suggestions);
 	load_suggestions(suggestions_random);
