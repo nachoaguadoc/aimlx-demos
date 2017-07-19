@@ -113,6 +113,14 @@ $(document).ready(function(){
 		input_text = $('#input_text').val();
 	    if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
 	})
+
+	$('#input_text').keyup(function(e){
+	    if(e.keyCode == 13) {
+	    	input_text = $('#input_text').val();
+	    	if (input_text != '') submit(input_text, $('#project_value').text().toLowerCase());
+	    }
+	});
+
 	$('#refresh_button').click(function(e){
 		refresh();
 	})
