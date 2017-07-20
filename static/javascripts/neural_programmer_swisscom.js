@@ -72,12 +72,12 @@ function submit(input_text) {
 	
 	table_key = 'csv/custom-csv/swisscom.csv'
 	processed_text = input_text.toLowerCase().replace('?',' ?')	
-
+	var data = {"question": processed_text, "table_key": table_key};
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"question": processed_text, "table_key": table_key},
-	  dataType: 'text',
+	  contentType: 'application/json',
+	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
 		var data = JSON.parse(data).neural_programmer;
 		console.log(data);

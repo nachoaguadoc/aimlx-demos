@@ -50,15 +50,16 @@ function submit(input_text) {
 	console.log("Neural Programmer input:", input_text)
 	$('#input_text').val('');
 	new_question(input_text);
-	url = "/neural_programmer/question"
+	url = "/neural_programmer/question";
 	//table_key = 'csv/203-csv/713.csv'
-	table_key = 'csv/custom-csv/swisscom.csv'
-	processed_text = input_text.toLowerCase().replace('?',' ?')
+	table_key = 'csv/custom-csv/swisscom.csv';
+	processed_text = input_text.toLowerCase().replace('?',' ?');
+	data = {"question": processed_text, "table_key": table_key }
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"question": processed_text, "table_key": table_key },
-	  dataType: 'text',
+	  contentType: 'application/json',
+	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
 		var data = JSON.parse(data).neural_programmer;
 		data = data.replace(/'{/g, '{');

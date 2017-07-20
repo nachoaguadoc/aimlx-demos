@@ -277,11 +277,12 @@ function submit(input_text) {
 	*/
 	var timestamp = new Date().getTime();
 	var question_id = "q-" + timestamp;
+	var data = {"question": processed_text, "table_key": table_key, "user_id": getCookie('user_id'), "demo": "simple", "timestamp": timestamp, "question_id": question_id};
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"question": processed_text, "table_key": table_key, "user_id": getCookie('user_id'), "demo": "simple", "timestamp": timestamp, "question_id": question_id},
-	  dataType: 'text',
+	  contentType: 'application/json',
+	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
 		var data = JSON.parse(data).neural_programmer;
 		console.log(data);

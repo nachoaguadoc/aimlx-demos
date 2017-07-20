@@ -62,7 +62,7 @@ def getChatbot(demo):
 
 @app.route('/chatbot/<demo>', methods=['POST'])
 def submitChatbot(demo):
-    question = request.form['question']
+    question = request.get_json(force=True)['question']
     print("Question:", question)
     if request.method == 'POST':
         if demo=='ubuntu':
@@ -124,14 +124,14 @@ def getNeuralProgrammer(demo):
 def submitNeuralProgrammer(demo):
     if (demo == "feedback"):
         print("Feedback received")
-        debugging = json.loads(request.form['debugging'])
+        debugging = json.loads(request.get_json(force=True)['debugging'])
         feedback_id = feedback_coll.insert_one(debugging).inserted_id
         print("Debug:", debugging)
         return "Feedback " + str(feedback_id) + " sent!"
     
     elif (demo == "demo_question"):
-        tokens = request.form['question']
-        table_key = request.form['table_key']
+        tokens = request.get_json(force=True)['question']
+        table_key = request.get_json(force=True)['table_key']
         print("Question:", tokens, "Table:", table_key)
         if request.method == 'POST':
             socket_address = conf.neural_programmer['socket_address']
@@ -145,12 +145,12 @@ def submitNeuralProgrammer(demo):
             return jsonify({'neural_programmer':answer})
 
     elif (demo == "question"):     
-        tokens = request.form['question']
-        table_key = request.form['table_key']
-        user_id = request.form['user_id']
-        timestamp = request.form['timestamp']
-        question_id = request.form['question_id']
-        demo = request.form['demo']
+        tokens = request.get_json(force=True)['question']
+        table_key = request.get_json(force=True)['table_key']
+        user_id = request.get_json(force=True)['user_id']
+        timestamp = request.get_json(force=True)['timestamp']
+        question_id = request.get_json(force=True)['question_id']
+        demo = request.get_json(force=True)['demo']
 
         info = {"question": tokens, "table_key": table_key, "user_id": user_id, "timestamp": timestamp, "demo": demo, "question_id": question_id}
         feedback_id = use_coll.insert_one(info).inserted_id
@@ -191,8 +191,8 @@ def getOpinion():
 
 @app.route('/opinion', methods=['POST'])
 def submitOpinion():
-    input = request.form['input']
-    learning_type = request.form["learning"]
+    input = request.get_json(force=True)['input']
+    learning_type = request.get_json(force=True)["learning"]
     if request.method == 'POST':
         if learning_type == "supervised":
             script_dir = conf.ate['path'] + 'run_demo.py'
@@ -235,7 +235,7 @@ def getNER():
 
 @app.route('/ner', methods=['POST'])
 def submitNER():
-    input = request.form['input']
+    input = request.get_json(force=True)['input']
     if request.method == 'POST':
         script_dir = conf.ner['path'] + 'run_demo.py'
         predict_dir = conf.ner['path'] + 'predictions/predictions.txt'
@@ -255,7 +255,7 @@ def getKP():
 @app.route('/kp', methods=['POST'])
 def submitKP():
     if request.method == 'POST':
-        post_parameters = request.form.to_dict()
+        post_parameters = request.get_json(force=True).to_dict()
         print(post_parameters)
 
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
@@ -297,8 +297,8 @@ def getSummaryURL():
 
 @app.route('/summary_url',methods=['POST'])
 def submitSummaryURL():
-    input=request.form['inp_url']
-    model_type=request.form['model_type']
+    input=request.get_json(force=True)['inp_url']
+    model_type=request.get_json(force=True)['model_type']
     url=input.rstrip('\n')
     if request.method=='POST':
         if model_type=='extractive':
@@ -340,91 +340,6 @@ def submitSummaryURL():
                         else:
                             return jsonify({'text':parts[0],'summary':parts[1]})
 
-# sys.path.insert(0,conf.summary['path']+os.sep+'run')
-# sys.path.insert(0,conf.summary['path']+os.sep+'util')
-# ret_path=os.path.abspath('.')
-# os.chdir(conf.summary['path'])
-# import laucher
-# import xml_parser
-# laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
-# app.clf=laucher.laucher(laucher_params)
-# tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-# os.chdir(ret_path)
-
-# # Summary route handling
-# @app.route('/summary')
-# def getSummary():
-#     return render_template('summary.html')
-
-# @app.route('/summary/<input>', methods=['POST'])
-# def submitSummary(input):
-#     if request.method == 'POST':
-#         os.chdir(conf.summary['path'])
-#         #global my_launcher
-#         #laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
-#         #app.clf=laucher.laucher(laucher_params)
-#         app.clf.start()
-#         answer = input.replace('**n**', '\n')
-#         with open('tmp.txt','w') as fopen:
-#             fopen.write(answer)
-#         output=app.clf.run('tmp.txt')
-#         os.system('rm tmp.txt')
-#         #os.system('rm -rf tmp')
-#         os.chdir(ret_path)
-#         #app.clf.end()
-#         output.replace('#','$')
-#         return output
-
-# # Summarization handling a url
-# @app.route('/summary_url')
-# def getSummaryURL():
-#     return render_template('summary_url.html')
-
-# @app.route('/summary_url', methods=['POST'])
-# def submitSummaryURL():
-#     if request.method == 'POST':
-#         os.chdir(conf.summary['path'])
-#         print('input ',request.form['inp_url'])
-#         html_content = subprocess.check_output(['curl', request.form['inp_url']], close_fds=True)
-#         with open('tmp.html','w') as fopen:
-#             fopen.write(html_content.decode('utf-8','ignore'))
-#         text_content = subprocess.check_output([conf.kpextract['python_env'], conf.kpextract['fetcher_path'], 'tmp.html'])
-#         text_content = text_content.decode('utf-8','ignore')
-#         text_content_list = []
-#         for sentence in tokenizer.tokenize(text_content):
-#             #print(type(sentence))
-#             #print(sentence.split(' '))
-#             print(len(sentence.split(' ')))
-#             if len(sentence.split(' '))>=5:
-#                 text_content_list.append(sentence)
-#             else:
-#                 print('>>>'+sentence)
-#         text_content = '\n'.join(text_content_list)
-        
-#         with open('tmp.txt','w') as fopen:
-#             fopen.write(text_content)
-#         text_content_list_with_idx=[]
-#         for idx,sentence in enumerate(text_content.split('\n')):
-#             text_content_list_with_idx.append('[%d] %s'%(idx+1,sentence))
-#         text_content='\n'.join(text_content_list_with_idx)
-#         # print(text_content)
-#         app.clf.start()
-#         output=app.clf.run('tmp.txt')
-#         os.system('rm tmp.html')
-#         os.system('rm tmp.txt')
-#         os.chdir(ret_path)
-#         print(output)
-#         return jsonify({'text':text_content,'summary':output})
-
 
 if __name__ == '__main__':
-#     sys.path.insert(0,conf.summary['path']+os.sep+'run')
-#     sys.path.insert(0,conf.summary['path']+os.sep+'util')
-#     ret_path=os.path.abspath('.')
-#     os.chdir(conf.summary['path'])
-#     import laucher
-#     import xml_parser
-# #    laucher_params=xml_parser.parse(conf.summary['laucher_params_file'],flat=False)
-# #    app.clf=laucher.laucher(laucher_params)
-#     os.chdir(ret_path)
     app.run(host= '127.0.0.1')

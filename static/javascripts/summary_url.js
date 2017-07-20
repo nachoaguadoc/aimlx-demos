@@ -17,11 +17,12 @@ function submit(input_text) {
     // $('#input_text').val('');
     start_spinner();
     url = "/summary_url"
+    var data = {'inp_url':input_text,'model_type':model_type};
     $.ajax({
       type: "POST",
       url: url,
-      data: {'inp_url':input_text,'model_type':model_type},
-      dataType: 'text',
+      contentType: 'application/json',
+      data: JSON.stringify(data, null, '\t'),
       success: function(data) {
         data = JSON.parse(data);
         var text = data.text;

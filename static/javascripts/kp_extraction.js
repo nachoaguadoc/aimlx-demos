@@ -3,15 +3,16 @@ function submit(input_text, number_keyphrases, window_size, ilp) {
 	console.log("url input: ", input_text, 'number keyphrases', number_keyphrases, 'window_size', window_size, 'ilp', ilp);
 	$('#input_text').val('');
 	url = "/kp";
-	$.ajax({
-	  type: "POST",
-	  url: url,
-	  data: {'inp_url' : input_text,
+	data = {'inp_url' : input_text,
 	  'nbkp' : number_keyphrases,
 	  'window_size' : window_size,
 	  'ilp' : ilp
-	  },
-	  dataType: 'text',
+	  };
+	$.ajax({
+	  type: "POST",
+	  url: url,
+	  contentType: 'application/json',
+	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data){
 	  	console.log(data);
 	  	$('#kpvizu_div').html(data);

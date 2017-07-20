@@ -48,11 +48,12 @@ function submit(input_text) {
 	$('#input_text').val('');
 	new_question(input_text);
 	url = "/opinion";
+	var data = {"input": input_text, "learning": learning_type};
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: {"input": input_text, "learning": learning_type},
-	  dataType: 'text',
+	  contentType: 'application/json',
+	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
 	  	answer = JSON.parse(data);
         labels = answer['labels'];
