@@ -26,7 +26,6 @@ function submit(input_text) {
 	  contentType: 'application/json',
 	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
-	  	data = JSON.parse(data);
 	  	var seq2seq = data.seq2seq;
 	  	new_chatbot_answer(seq2seq)
 	  }

@@ -35,7 +35,6 @@ function submit(input_text) {
 	  contentType: 'application/json',
 	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
-	  	data = JSON.parse(data);
 	  	var nn = data.encoder;
 	  	var solr = data.solr;
 	  	new_chatbot_answer(nn, solr)

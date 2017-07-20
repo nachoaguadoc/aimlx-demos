@@ -61,7 +61,7 @@ function submit(input_text) {
 	  contentType: 'application/json',
 	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
-		var data = JSON.parse(data).neural_programmer;
+		var data = data.neural_programmer;
 		data = data.replace(/'{/g, '{');
 		data = data.replace(/}'/g, '}');
 		data = data.replace(/"{/g, '{');

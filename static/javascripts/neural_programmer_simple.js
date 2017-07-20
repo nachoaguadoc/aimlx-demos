@@ -284,7 +284,7 @@ function submit(input_text) {
 	  contentType: 'application/json',
 	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
-		var data = JSON.parse(data).neural_programmer;
+		var data = data.neural_programmer;
 		console.log(data);
 		data = data.replace(/True/g, true);
 		data = data.replace(/False/g, false);

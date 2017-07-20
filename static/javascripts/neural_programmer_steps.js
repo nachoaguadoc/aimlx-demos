@@ -141,7 +141,7 @@ function clean_table() {
 
 function new_neural_programmer_answer(np, debug) {
 	//$('#answer_np').text(np);
-	if (!isNaN(np)) np = str(parseInt(np))
+	if (!isNaN(np)) np = parseInt(np)
 	answers_tour.end();
 	$("#answer_np").css('visibility', 'visible');
 	var steps = "";
@@ -363,7 +363,7 @@ function submit(input_text) {
 	  contentType: 'application/json',
 	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
-		var data = JSON.parse(data).neural_programmer;
+		var data = data.neural_programmer;
 		console.log(data);
 		data = data.replace(/True/g, true);
 		data = data.replace(/False/g, false);

@@ -66,8 +66,7 @@ function submit(input_text) {
 	  contentType: 'application/json',
 	  data: JSON.stringify(data, null, '\t'),
 	  success: function(data) {
-	  	answer = JSON.parse(data);
-        labels = answer['labels'];
+        labels = data['labels'];
 	  	new_ner_answer(input_text, labels)
 	  }
 	});

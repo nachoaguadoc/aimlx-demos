@@ -24,7 +24,6 @@ function submit(input_text) {
       contentType: 'application/json',
       data: JSON.stringify(data, null, '\t'),
       success: function(data) {
-        data = JSON.parse(data);
         var text = data.text;
         var summary = data.summary;
         console.log('>>>')
