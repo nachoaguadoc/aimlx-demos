@@ -255,12 +255,11 @@ def getKP():
 @app.route('/kp', methods=['POST'])
 def submitKP():
     if request.method == 'POST':
-        post_parameters = request.get_json(force=True).to_dict()
-        print(post_parameters)
-
+        post_parameters = request.get_json(force=True)
+        for r in post_parameters:
+            post_parameters[r] = str(post_parameters[r])
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
         result_dict = result.json()
-
         return render_template('kpboard.html', html_doc=post_process(result_dict['processed_text']), list_kp=result_dict['list_kp'])
 
 
