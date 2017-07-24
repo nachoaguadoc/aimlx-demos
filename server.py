@@ -279,7 +279,7 @@ def submitKP_API():
         for r in post_parameters:
             post_parameters[r] = str(post_parameters[r])
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
-        return result
+        return jsonify(result.json())
 
 def read_file(path):
     with open(path, 'r') as f:
