@@ -62,7 +62,9 @@ def getChatbot(demo):
 
 @app.route('/chatbot/<demo>', methods=['POST'])
 def submitChatbot(demo):
-    question = request.get_json(force=True)['question']
+    parameters = request.get_json(force=True)
+    print("Demo Ubuntu Chatbot:", parameters)
+    question = parameters['question']
     print("Question:", question)
     if request.method == 'POST':
         if demo=='ubuntu':
@@ -122,16 +124,18 @@ def getNeuralProgrammer(demo):
 
 @app.route('/neural_programmer/<demo>', methods=['POST'])
 def submitNeuralProgrammer(demo):
+    parameters = request.get_json(force=True)
+    print("Demo Neural Programmer:", parameters)
     if (demo == "feedback"):
         print("Feedback received")
-        debugging = json.loads(request.get_json(force=True)['debugging'])
+        debugging = json.loads(parameters['debugging'])
         feedback_id = feedback_coll.insert_one(debugging).inserted_id
         print("Debug:", debugging)
         return "Feedback " + str(feedback_id) + " sent!"
     
     elif (demo == "demo_question"):
-        tokens = request.get_json(force=True)['question']
-        table_key = request.get_json(force=True)['table_key']
+        tokens = parameters['question']
+        table_key = parameters['table_key']
         print("Question:", tokens, "Table:", table_key)
         if request.method == 'POST':
             socket_address = conf.neural_programmer['socket_address']
@@ -145,12 +149,12 @@ def submitNeuralProgrammer(demo):
             return jsonify({'neural_programmer':answer})
 
     elif (demo == "question"):     
-        tokens = request.get_json(force=True)['question']
-        table_key = request.get_json(force=True)['table_key']
-        user_id = request.get_json(force=True)['user_id']
-        timestamp = request.get_json(force=True)['timestamp']
-        question_id = request.get_json(force=True)['question_id']
-        demo = request.get_json(force=True)['demo']
+        tokens = parameters['question']
+        table_key = parameters['table_key']
+        user_id = parameters['user_id']
+        timestamp = parameters['timestamp']
+        question_id = parameters['question_id']
+        demo = parameters['demo']
 
         info = {"question": tokens, "table_key": table_key, "user_id": user_id, "timestamp": timestamp, "demo": demo, "question_id": question_id}
         feedback_id = use_coll.insert_one(info).inserted_id
@@ -191,7 +195,9 @@ def getOpinion():
 
 @app.route('/opinion', methods=['POST'])
 def submitOpinion():
-    input = request.get_json(force=True)['input']
+    parameters = request.get_json(force=True)
+    print("Demo Opinion:", parameters)
+    input = parameters['input']
     learning_type = request.get_json(force=True)["learning"]
     if request.method == 'POST':
         if learning_type == "supervised":
@@ -235,7 +241,9 @@ def getNER():
 
 @app.route('/ner', methods=['POST'])
 def submitNER():
-    input = request.get_json(force=True)['input']
+    parameters = request.get_json(force=True)
+    print("Demo NER:", parameters)
+    input = parameters['input']
     if request.method == 'POST':
         script_dir = conf.ner['path'] + 'run_demo.py'
         predict_dir = conf.ner['path'] + 'predictions/predictions.txt'
@@ -256,6 +264,7 @@ def getKP():
 def submitKP():
     if request.method == 'POST':
         post_parameters = request.get_json(force=True)
+        print("Demo KP:", post_parameters)
         for r in post_parameters:
             post_parameters[r] = str(post_parameters[r])
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
@@ -263,9 +272,10 @@ def submitKP():
         return render_template('kpboard.html', html_doc=post_process(result_dict['processed_text']), list_kp=result_dict['list_kp'])
 
 @app.route('/kp_api', methods=['POST'])
-def submitKP():
+def submitKP_API():
     if request.method == 'POST':
         post_parameters = request.get_json(force=True)
+        print("Demo KP:", post_parameters)
         for r in post_parameters:
             post_parameters[r] = str(post_parameters[r])
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
