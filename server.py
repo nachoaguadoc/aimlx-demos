@@ -1,22 +1,22 @@
+import json
+import re
+import select
+import socket
+import subprocess
+import sys
+import xmlrpc.client
+from multiprocessing import Value
+
+import requests
 from flask import Flask
+from flask import jsonify
 from flask import render_template
 from flask import request
-from flask import jsonify
-
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
+from nltk.tokenize.moses import MosesTokenizer
+from pymongo import MongoClient
 
 import config as conf
-import subprocess
-import os
-import re
-import socket
-import select
-import sys
-import tensorflow as tf
-import json
-import requests
-from multiprocessing import Value
-from pymongo import MongoClient
 
 if (conf.neural_programmer['mongo']):
     client = MongoClient(conf.neural_programmer['mongo_address'], conf.neural_programmer['mongo_port'], connect=False)
@@ -30,35 +30,39 @@ users = {}
 app = Flask(__name__)
 CORS(app)
 
+
 def encode_sth(item):
-    coding=['iso-8859-1','utf8','latin1','ascii']
+    coding = ['iso-8859-1', 'utf8', 'latin1', 'ascii']
     for coding_format in coding:
         try:
-            coded=item.encode(coding_format)
+            coded = item.encode(coding_format)
             return coded
         except:
             continue
-    raise Exception('Unable to encode',item)
+    raise Exception('Unable to encode', item)
+
 
 def decode_sth(item):
-    coding=['iso-8859-1','utf8','latin1','ascii']
+    coding = ['iso-8859-1', 'utf8', 'latin1', 'ascii']
     for coding_format in coding:
         try:
-            coded=item.decode(coding_format)
+            coded = item.decode(coding_format)
             return coded
         except:
             continue
-    raise Exception('Unable to decode',item)
+    raise Exception('Unable to decode', item)
+
 
 # Chatbot route handling
 @app.route('/chatbot/<demo>')
 def getChatbot(demo):
-    if demo=='ubuntu':
+    if demo == 'ubuntu':
         return render_template('chatbot_ubuntu.html')
-    elif demo=='swisscom':
+    elif demo == 'swisscom':
         return render_template('chatbot_swisscom.html')
-    elif demo=='ubuntuseq2seq':
+    elif demo == 'ubuntuseq2seq':
         return render_template('chatbot_seq2seq_ubuntu.html')
+
 
 @app.route('/chatbot/<demo>', methods=['POST'])
 def submitChatbot(demo):
@@ -67,15 +71,15 @@ def submitChatbot(demo):
     question = parameters['question']
     print("Question:", question)
     if request.method == 'POST':
-        if demo=='ubuntu':
+        if demo == 'ubuntu':
             predict_dir = conf.chatbot_ubuntu['path']
             model_id = conf.chatbot_ubuntu['model_id']
             python_env = conf.chatbot_ubuntu['python_env']
-        elif demo=='swisscom':
+        elif demo == 'swisscom':
             predict_dir = conf.chatbot_swisscom['path']
             model_id = conf.chatbot_swisscom['model_id']
             python_env = conf.chatbot_swisscom['python_env']
-        elif demo=='ubuntuseq2seq':
+        elif demo == 'ubuntuseq2seq':
             socket_address = conf.chatbot_ubuntu_seq2seq['socket_address']
             socket_port = conf.chatbot_ubuntu_seq2seq['socket_port']
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -83,10 +87,11 @@ def submitChatbot(demo):
             s.sendall(question.encode())
             answer = s.recv(1024).decode("utf-8")
             s.close()
-            return jsonify({'seq2seq':answer})
-        
+            return jsonify({'seq2seq': answer})
+
         model_dir = predict_dir + 'runs/' + model_id
-        subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir, '--raw_query=' + "'" + question + "'"])
+        subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir,
+                         '--raw_query=' + "'" + question + "'"])
         # Generate answer here
         with open(predict_dir + "answers.txt", "r") as text_file:
             answer = text_file.readlines()[0]
@@ -94,33 +99,38 @@ def submitChatbot(demo):
         encoder = answer[0].split('___***___');
         solr = answer[1].split('___***___');
         encoder = answer[0].split('___***___');
-        answer = {'solr':solr, 'encoder': encoder}
+        answer = {'solr': solr, 'encoder': encoder}
         return jsonify(answer)
+
 
 # Chatbot route handling
 @app.route('/neural_programmer')
 def getLandingNeuralProgrammer():
     return render_template('neural_programmer_landing.html')
+
+
 # Chatbot route handling
 @app.route('/neural_programmer/')
 def getLanding2NeuralProgrammer():
     return render_template('neural_programmer_landing.html')
 
+
 # Chatbot route handling
 @app.route('/neural_programmer/<demo>')
 def getNeuralProgrammer(demo):
-    if demo=='':
+    if demo == '':
         return render_template('neural_programmer_landing.html')
-    elif demo=='football':
+    elif demo == 'football':
         return render_template('neural_programmer_football.html')
-    elif demo=='swisscom':
+    elif demo == 'swisscom':
         return render_template('neural_programmer_swisscom.html')
-    elif demo=='tutorial':
+    elif demo == 'tutorial':
         return render_template('neural_programmer_tutorial.html')
-    elif demo=='steps':
+    elif demo == 'steps':
         return render_template('neural_programmer_steps.html')
-    elif demo=="simple":
+    elif demo == "simple":
         return render_template('neural_programmer_simple.html')
+
 
 @app.route('/neural_programmer/<demo>', methods=['POST'])
 def submitNeuralProgrammer(demo):
@@ -132,7 +142,7 @@ def submitNeuralProgrammer(demo):
         feedback_id = feedback_coll.insert_one(debugging).inserted_id
         print("Debug:", debugging)
         return "Feedback " + str(feedback_id) + " sent!"
-    
+
     elif (demo == "demo_question"):
         tokens = parameters['question']
         table_key = parameters['table_key']
@@ -146,9 +156,9 @@ def submitNeuralProgrammer(demo):
             s.sendall(msg.encode())
             answer = s.recv(1024).decode("utf-8")
             s.close()
-            return jsonify({'neural_programmer':answer})
+            return jsonify({'neural_programmer': answer})
 
-    elif (demo == "question"):     
+    elif (demo == "question"):
         tokens = parameters['question']
         table_key = parameters['table_key']
         user_id = parameters['user_id']
@@ -156,9 +166,11 @@ def submitNeuralProgrammer(demo):
         question_id = parameters['question_id']
         demo = parameters['demo']
 
-        info = {"question": tokens, "table_key": table_key, "user_id": user_id, "timestamp": timestamp, "demo": demo, "question_id": question_id}
+        info = {"question": tokens, "table_key": table_key, "user_id": user_id, "timestamp": timestamp, "demo": demo,
+                "question_id": question_id}
         feedback_id = use_coll.insert_one(info).inserted_id
-        print("Question ID", question_id, "with text", tokens, "about table", table_key, "from user", user_id, "using the", demo, "demo")
+        print("Question ID", question_id, "with text", tokens, "about table", table_key, "from user", user_id,
+              "using the", demo, "demo")
         print("Question stored:", feedback_id)
 
         if request.method == 'POST':
@@ -170,11 +182,12 @@ def submitNeuralProgrammer(demo):
             s.sendall(msg.encode())
             answer = s.recv(1024).decode("utf-8")
             s.close()
-            return jsonify({'neural_programmer':answer})
+            return jsonify({'neural_programmer': answer})
+
 
 # Opinion target route handling
 def parse_output(output_path):
-    f = open(output_path,'r')
+    f = open(output_path, 'r')
     pred_labels = []
     for line in f:
         line = line.strip()
@@ -183,15 +196,18 @@ def parse_output(output_path):
             pred_labels.append(pred_label)
     return " ".join(pred_labels)
 
+
 def parse_input(input, file):
     f = open(file, "w")
     tokens = [token for token in input.split()]
     for token in tokens:
         f.write(token + " O\n")
 
+
 @app.route('/opinion')
 def getOpinion():
     return render_template('opinion_target.html')
+
 
 @app.route('/opinion', methods=['POST'])
 def submitOpinion():
@@ -205,7 +221,7 @@ def submitOpinion():
             predict_dir = conf.ate['path'] + 'predictions/predictions.txt'
             python_env = conf.ate['python_env']
             response = ""
-            subprocess.call([python_env, script_dir, '--sentence', '"'+ input + '"'])
+            subprocess.call([python_env, script_dir, '--sentence', '"' + input + '"'])
             answer = parse_output(predict_dir)
             print("Question received for ATE project", answer)
             answer = {'labels': answer}
@@ -215,29 +231,31 @@ def submitOpinion():
             predict_dir = conf.unsupervisedate['path'] + 'predictions/predictions.txt'
             python_env = conf.unsupervisedate['python_env']
             response = ""
-            subprocess.call([python_env, script_dir, '--sentence', '"'+ input + '"'])
+            subprocess.call([python_env, script_dir, '--sentence', '"' + input + '"'])
             answer = parse_output(predict_dir)
             print("Question received for ATE project", answer)
             answer = {'labels': answer}
             return jsonify(answer)
-            #current_dir = os.path.dirname(os.path.realpath(__file__))
-            #parse_input(input, conf.neuroate["path"] + "data/server/input.txt")
-            #script_dir = conf.neuroate['path'] + 'src/'
-            #predict_dir = conf.neuroate['path'] + 'output/predictions/100_test.txt'
-            #python_env = conf.neuroate['python_env']
-            #response = ""
-            #os.chdir(script_dir)
-            #subprocess.call([python_env, "predict.py"])
-            #os.chdir(current_dir)
-            #answer = parse_output(predict_dir)
-            #print("Question received for ATE project", answer)
-            #answer = {'labels': answer}
-            #return jsonify(answer)
+            # current_dir = os.path.dirname(os.path.realpath(__file__))
+            # parse_input(input, conf.neuroate["path"] + "data/server/input.txt")
+            # script_dir = conf.neuroate['path'] + 'src/'
+            # predict_dir = conf.neuroate['path'] + 'output/predictions/100_test.txt'
+            # python_env = conf.neuroate['python_env']
+            # response = ""
+            # os.chdir(script_dir)
+            # subprocess.call([python_env, "predict.py"])
+            # os.chdir(current_dir)
+            # answer = parse_output(predict_dir)
+            # print("Question received for ATE project", answer)
+            # answer = {'labels': answer}
+            # return jsonify(answer)
+
 
 # NER route handling
 @app.route('/ner')
 def getNER():
     return render_template('ner.html')
+
 
 @app.route('/ner', methods=['POST'])
 def submitNER():
@@ -249,16 +267,18 @@ def submitNER():
         predict_dir = conf.ner['path'] + 'predictions/predictions.txt'
         python_env = conf.ner['python_env']
         response = ""
-        subprocess.call([python_env, script_dir, '--sentence', '"'+ input + '"'])
+        subprocess.call([python_env, script_dir, '--sentence', '"' + input + '"'])
         answer = parse_output(predict_dir)
         print("Question received for NER project", answer)
         answer = {'labels': answer}
         return jsonify(answer)
 
+
 # KP Extraction route handling
 @app.route('/kp')
 def getKP():
     return render_template('kp_extraction.html')
+
 
 @app.route('/kp', methods=['POST'])
 def submitKP():
@@ -269,7 +289,9 @@ def submitKP():
             post_parameters[r] = str(post_parameters[r])
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
         result_dict = result.json()
-        return render_template('kpboard.html', html_doc=post_process(result_dict['processed_text']), list_kp=result_dict['list_kp'])
+        return render_template('kpboard.html', html_doc=post_process(result_dict['processed_text']),
+                               list_kp=result_dict['list_kp'])
+
 
 @app.route('/kp_api', methods=['POST'])
 def submitKP_API():
@@ -280,6 +302,7 @@ def submitKP_API():
             post_parameters[r] = str(post_parameters[r])
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
         return jsonify(result.json())
+
 
 def read_file(path):
     with open(path, 'r') as f:
@@ -292,7 +315,7 @@ def write_file(path, s):
 
 
 def post_process(processed_text):
-    processed_text = re.sub('\n+', '\n', processed_text) #Multiple jumplines into 1 jumpline
+    processed_text = re.sub('\n+', '\n', processed_text)  # Multiple jumplines into 1 jumpline
     html_doc = processed_text.replace('\n', '</div><div class=start></br>')
     html_doc = html_doc.replace('<phrase>', '<span class=kp>')
     html_doc = html_doc.replace('</phrase>', '</span>')
@@ -300,63 +323,99 @@ def post_process(processed_text):
 
     return html_doc
 
+
 @app.route('/summary')
 def getSummary():
     return getSummaryURL()
 
-@app.route('/summary',methods=['POST'])
+
+@app.route('/summary', methods=['POST'])
 def submitSummary():
     return submitSummary()
+
 
 @app.route('/summary_url')
 def getSummaryURL():
     return render_template('summary_url.html')
 
-@app.route('/summary_url',methods=['POST'])
-def submitSummaryURL():
-    input=request.get_json(force=True)['inp_url']
-    model_type=request.get_json(force=True)['model_type']
-    url=input.rstrip('\n')
-    if request.method=='POST':
-        if model_type=='extractive':
-            host=conf.summary['e_host']
-            port=conf.summary['e_port']
-        elif model_type=='abstractive':
-            host=conf.summary['a_host']
-            port=conf.summary['a_port']
-        elif model_type=='mixed':
-            host=conf.summary['m_host']
-            port=conf.summary['m_port']
-        else:
-            return jsonify({'text':'Unrecognized model_type: %s'%model_type,'summary':'Unrecognized model_type: %s'%model_type})
 
-        client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+@app.route('/summary_url', methods=['POST'])
+def submitSummaryURL():
+    input = request.get_json(force=True)['inp_url']
+    model_type = request.get_json(force=True)['model_type']
+    url = input.rstrip('\n')
+    if request.method == 'POST':
+        if model_type == 'extractive':
+            host = conf.summary['e_host']
+            port = conf.summary['e_port']
+        elif model_type == 'abstractive':
+            host = conf.summary['a_host']
+            port = conf.summary['a_port']
+        elif model_type == 'mixed':
+            host = conf.summary['m_host']
+            port = conf.summary['m_port']
+        else:
+            return jsonify({'text': 'Unrecognized model_type: %s' % model_type,
+                            'summary': 'Unrecognized model_type: %s' % model_type})
+
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.settimeout(2)
 
         try:
-            client.connect((host,port))
-            print('Socket established on %s:%d!'%(host,port))
+            client.connect((host, port))
+            print('Socket established on %s:%d!' % (host, port))
         except:
-            return jsonify({'text':'Unable to connect the server','summary':'Unable to connect the server'})
+            return jsonify({'text': 'Unable to connect the server', 'summary': 'Unable to connect the server'})
 
-        socket_list=[client,sys.stdin]
+        socket_list = [client, sys.stdin]
         client.send(encode_sth(url))
 
-        print('Start analyzing %s'%url)
+        print('Start analyzing %s' % url)
         while True:
-            ready2read,ready2write,in_err=select.select(socket_list,[],[])
+            ready2read, ready2write, in_err = select.select(socket_list, [], [])
             for sock in ready2read:
-                if sock==client:
-                    response=decode_sth(sock.recv(65536))
+                if sock == client:
+                    response = decode_sth(sock.recv(65536))
                     if not response:
-                        return jsonify({'text':'Unable to connect the server','summary':'Unable to connect the server'})
+                        return jsonify(
+                            {'text': 'Unable to connect the server', 'summary': 'Unable to connect the server'})
                     else:
-                        parts=response.split('@@@@@')
-                        if len(parts)==1:
-                            return jsonify({'text':parts[0],'summary':parts[0]})
+                        parts = response.split('@@@@@')
+                        if len(parts) == 1:
+                            return jsonify({'text': parts[0], 'summary': parts[0]})
                         else:
-                            return jsonify({'text':parts[0],'summary':parts[1]})
+                            return jsonify({'text': parts[0], 'summary': parts[1]})
+
+
+@app.route('/gsw')
+def get_gsw2de():
+    return render_template('gswjs.html')
+
+
+@app.route('/gsw', methods=['POST'])
+def submit_gsw2de():
+    if request.method == 'POST':
+        post_parameters = request.get_json(force=True)
+        print("Demo GSW:", post_parameters)
+        text = post_parameters['text']
+        json_result = _translate_helper(text)
+        return jsonify(json_result)
+
+
+PERIOD_RE = re.compile('(\\S+)\\.(\\s+|$)')
+
+
+def _translate_helper(text):
+    tokenizer = MosesTokenizer('de')
+    tokenized_text = tokenizer.tokenize(text, agressive_dash_splits=True, return_str=True)
+    # Moses tokenizer doesn't split periods…
+    period_separated = PERIOD_RE.sub('\\1 . ', tokenized_text)
+    params = {'text': period_separated}
+
+    moses = xmlrpc.client.ServerProxy(conf.gsw_translator['moses_rpc'])
+    result = moses.translate(params)
+    return result
 
 
 if __name__ == '__main__':
-    app.run(host= '127.0.0.1')
+    app.run(host='127.0.0.1')
