@@ -39,3 +39,6 @@ neural_programmer = {
 	'mongo_feedback_coll': '',
 	'mongo_use_coll': ''
 }
+gsw_translator = {
+    'moses_rpc': '',
+}
