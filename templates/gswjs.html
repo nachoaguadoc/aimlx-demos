@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/gsw.css') }}">
+
+</head>
+<body>
+<div class="container">
+
+    {# Header with Swisscom logo #}
+    <div class="row" id="banner_row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div style="text-align: center;"><img id=banner
+                                                  src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    {# Translation input and output #}
+    <div class="row" id="search_row">
+        {# Source text #}
+        <div style="display: inline-block;" class="col-md-6">
+            <label for="sourceLang">From:</label>
+            <select name="sourceLang" id="sourceLang">
+                <option value="gsw">Swiss German</option>
+            </select>
+            <br/>
+            <textarea rows="10" cols="40" id="input_text" name="text"></textarea>
+        </div>
+
+        {# Target text and Button #}
+        <div style="display: inline-block;" class="col-md-6">
+            <label for="targetLang">To: </label>
+            <select name="targetLang">
+                <option value="de">German</option>
+            </select>
+            <button id="search_button" class="btn btn-info btn-xs" type="button">
+                Translate
+            </button>
+            <br/>
+            <textarea rows="10" cols="40" readonly="yes" name="translated_text" id="translated_text"></textarea>
+        </div>
+    </div>
+</div>
+
+{# Footer with IDIAP and EPFL logos#}
+<div style="text-align: center; margin-top: 20px">
+    <p> In collaboration with
+        <img width="100px" style="margin: 10px"
+             src='{{ url_for('static', filename='assets/Idiap-logo-E-small.gif') }}'/>
+        and
+        <img width="100px" style="margin: 10px"
+             src='{{ url_for('static', filename='assets/epfl_logo.gif') }}'/>
+    </p>
+</div>
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+<script type=text/javascript src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='javascripts/gsw.js') }}"></script>
+</body>
+</html>
