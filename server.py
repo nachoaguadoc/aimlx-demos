@@ -138,10 +138,11 @@ def submitNeuralProgrammer(demo):
     print("Demo Neural Programmer:", parameters)
     if (demo == "feedback"):
         print("Feedback received")
-        debugging = json.loads(parameters['debugging'])
-        feedback_id = feedback_coll.insert_one(debugging).inserted_id
-        print("Debug:", debugging)
-        return "Feedback " + str(feedback_id) + " sent!"
+        feedback_id = feedback_coll.insert_one(parameters).inserted_id
+        print("Debug:", parameters)
+        print("ID:", feedback_id)
+        answer =  "Feedback " + str(feedback_id) + " sent!"
+        return jsonify({'answer': answer})
 
     elif (demo == "demo_question"):
         tokens = parameters['question']
