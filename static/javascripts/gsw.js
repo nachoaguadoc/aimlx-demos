@@ -1,12 +1,22 @@
 //suggestions = ['The food is tasty', 'The restaurant was very expensive', 'I think the steak was not very good', 'The fish was ok, but I the salad was better', 'The breakfast was delicious!', 'How much does these oranges cost?']
 var suggestions = [];
 
+function start_spinner() {
+    $('#div_result').append('<i class="fa fa-spinner fa-spin" id="spinner"></i>');
+    // $('#summarized_text').append('<i class="fa fa-spinner fa-spin" id="spinner"></i>');
+}
+
+function stop_spinner() {
+	$('#spinner').remove();
+}
+
 
 function answer(request_data) {
+    stop_spinner();
     var oovs = request_data['oovs'];
     var translated_text = request_data['translated'];
     $('#translated_text').text(translated_text);
-    var table = "<table>\n" +
+    var table = '<table border="1" width="200px">\n' +
         "<thead>\n" +
         "<tr>\n" +
         '<th class="padded">Input OOV</th>\n' +
@@ -22,8 +32,15 @@ function answer(request_data) {
 }
 
 
+function cleanup() {
+    $('#oov').hide();
+     $('#translated_text').text('');
+}
+
 function submit(input_text, oov_method) {
     data = {"text": input_text, 'oov_method': oov_method};
+    start_spinner();
+    cleanup();
     url = "gsw";
     $.ajax({
         type: "POST",
