@@ -395,12 +395,14 @@ function submit_feedback(feedback) {
 	feedback.demo = "steps";
 
 	console.log("User:", feedback.user_id, "with timestamp:", feedback.timestamp);
-	data = {"debugging": JSON.stringify(feedback)}
+        $('#feedback').html("Thank you for your feedback! Ask another question :)");
+        $('#feedback').addClass("feedback")
+        $("#input_text").focus();
 	$.ajax({
 	  type: "POST",
 	  url: url,
-	  data: data,
-	  dataType: 'text',
+	  data: JSON.stringify(feedback, null, '\t'),
+	  dataType: 'application/json',
 	  success: function(data) {
 	  	console.log(data);
 	  	if (feedback.correct) {
