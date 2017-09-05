@@ -300,6 +300,10 @@ def submitKP_API():
         print("Demo KP:", post_parameters)
         for r in post_parameters:
             post_parameters[r] = str(post_parameters[r])
+        if 'window_size' not in post_parameters:
+            post_parameters['window_size'] = '5'
+        if 'ilp' not in post_parameters:
+            post_parameters['ilp'] = 'True'
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
         return jsonify(result.json())
 
