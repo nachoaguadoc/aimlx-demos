@@ -1,29 +1,39 @@
 //suggestions = ['The food is tasty', 'The restaurant was very expensive', 'I think the steak was not very good', 'The fish was ok, but I the salad was better', 'The breakfast was delicious!', 'How much does these oranges cost?']
 var suggestions = [];
-function new_question(question) {
-    start_spinner();
-}
 
-function answer(input_text, translated_text) {
+
+function answer(request_data) {
+    var oovs = request_data['oovs'];
+    var translated_text = request_data['translated'];
     $('#translated_text').text(translated_text);
-	stop_spinner();
+    var table = "<table>\n" +
+        "<thead>\n" +
+        "<tr>\n" +
+        '<th class="padded">Input OOV</th>\n' +
+        '<th class=\"padded\">Translated OOV</th>\n' +
+        "</thead>\n" +
+        "</tr>\n";
+    for (var key in oovs) {
+        table += '<tr><td class="padded">' + key + "</td><td>" + oovs[key] + "</td></tr>\n";
+    }
+    table += "</table>";
+    $('#oov_inner').html(table);
+    $('#oov').show();
 }
 
 
-function submit(input_text) {
-	new_question(input_text);
-	data = {"text": input_text};
-	url = "gsw";
-	$.ajax({
-	  type: "POST",
-	  url: url,
-	  contentType: 'application/json',
-	  data: JSON.stringify(data, null, '\t'),
-	  success: function(data) {
-        translated_text = data['text'];
-	  	answer(input_text, translated_text)
-	  }
-	});
+function submit(input_text, oov_method) {
+    data = {"text": input_text, 'oov_method': oov_method};
+    url = "gsw";
+    $.ajax({
+        type: "POST",
+        url: url,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (data) {
+            answer(data);
+        }
+    });
 }
 
 // function load_suggestions(suggestions){
@@ -54,18 +64,19 @@ function submit(input_text) {
 // }
 
 
-$(document).ready(function(){
-	$('#question_row').hide();
+$(document).ready(function () {
+    $('#question_row').hide();
+    $('#oov').hide();
+    // $.getJSON("../static/javascripts/lists/ner.json", function(json) {
+    // 	suggestions = json.candidates;
+    // 	suggestions_random = get_random_suggestions(suggestions);
+    //     load_suggestions(suggestions_random);
+    // });
 
-	// $.getJSON("../static/javascripts/lists/ner.json", function(json) {
-	// 	suggestions = json.candidates;
-	// 	suggestions_random = get_random_suggestions(suggestions);
-	//     load_suggestions(suggestions_random);
-	// });
-
-	$('#search_button').click(function(e){
-		input_text = $('#input_text').val();
-	    if (input_text != '') submit(input_text);
-	})
+    $('#search_button').click(function (e) {
+        input_text = $('#input_text').val();
+        oov_method = $('#oov_method').val();
+        if (input_text != '') submit(input_text, oov_method);
+    })
 });
 

@@ -4,8 +4,8 @@ import select
 import socket
 import subprocess
 import sys
-import xmlrpc.client
 from multiprocessing import Value
+from nltk.tokenize.moses import MosesDetokenizer
 
 import requests
 from flask import Flask
@@ -398,23 +398,41 @@ def submit_gsw2de():
         post_parameters = request.get_json(force=True)
         print("Demo GSW:", post_parameters)
         text = post_parameters['text']
-        json_result = _translate_helper(text)
+        oov_method = post_parameters['oov_method']
+        json_result = _translate_helper(text, oov_method)
         return jsonify(json_result)
 
 
 PERIOD_RE = re.compile('(\\S+)\\.(\\s+|$)')
+DOUBLE_SPACE_RE = re.compile('\\s+')
+
+def _clean_text(tokenized_text):
+    detok = MosesDetokenizer('de')
+    no_escape_slash = tokenized_text.replace('\\', ' ')
+    no_escapes = detok.unescape_xml(no_escape_slash)
+    no_double_spaces = DOUBLE_SPACE_RE.sub(' ', no_escapes)
+    return no_double_spaces
 
 
-def _translate_helper(text):
+def _translate_helper(text, oov_method):
     tokenizer = MosesTokenizer('de')
-    tokenized_text = tokenizer.tokenize(text, agressive_dash_splits=True, return_str=True)
+    tokenized_text = _clean_text(tokenizer.tokenize(text, agressive_dash_splits=True, return_str=True))
+
     # Moses tokenizer doesn't split periods…
     period_separated = PERIOD_RE.sub('\\1 . ', tokenized_text)
-    params = {'text': period_separated}
+    data = {'text': period_separated}
 
-    moses = xmlrpc.client.ServerProxy(conf.gsw_translator['moses_rpc'])
-    result = moses.translate(params)
-    return result
+    if oov_method == 'pbsmt_ortho':
+        r = requests.post(conf.gsw_translator['pbsmt_ortho_url'], json=data)
+    elif oov_method == 'pbsmt_phono':
+        r = requests.post(conf.gsw_translator['pbsmt_phono_url'], json=data)
+    elif oov_method == 'pbsmt_cbnmt':
+        r = requests.post(conf.gsw_translator['pbsmt_cbnmt_url'], json=data)
+    else:
+        print('asking the service')
+        r = requests.post(conf.gsw_translator['pbsmt_only_url'], json=data)
+        print(r.json())
+    return r.json()
 
 
 if __name__ == '__main__':
