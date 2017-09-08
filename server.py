@@ -4,7 +4,6 @@ import select
 import socket
 import subprocess
 import sys
-import xmlrpc.client
 from multiprocessing import Value
 
 import requests
@@ -13,7 +12,6 @@ from flask import jsonify
 from flask import render_template
 from flask import request
 from flask_cors import CORS
-from nltk.tokenize.moses import MosesTokenizer
 from pymongo import MongoClient
 
 import config as conf
@@ -403,23 +401,23 @@ def submit_gsw2de():
         post_parameters = request.get_json(force=True)
         print("Demo GSW:", post_parameters)
         text = post_parameters['text']
-        json_result = _translate_helper(text)
+        oov_method = post_parameters['oov_method']
+        json_result = _translate_helper(text, oov_method)
         return jsonify(json_result)
 
 
-PERIOD_RE = re.compile('(\\S+)\\.(\\s+|$)')
-
-
-def _translate_helper(text):
-    tokenizer = MosesTokenizer('de')
-    tokenized_text = tokenizer.tokenize(text, agressive_dash_splits=True, return_str=True)
-    # Moses tokenizer doesn't split periods…
-    period_separated = PERIOD_RE.sub('\\1 . ', tokenized_text)
-    params = {'text': period_separated}
-
-    moses = xmlrpc.client.ServerProxy(conf.gsw_translator['moses_rpc'])
-    result = moses.translate(params)
-    return result
+def _translate_helper(text, oov_method):
+    data = {'text': text}
+    if oov_method == 'pbsmt_ortho':
+        r = requests.post(conf.gsw_translator['pbsmt_ortho_url'], json=data)
+    elif oov_method == 'pbsmt_phono':
+        r = requests.post(conf.gsw_translator['pbsmt_phono_url'], json=data)
+    elif oov_method == 'pbsmt_cbnmt':
+        r = requests.post(conf.gsw_translator['pbsmt_cbnmt_url'], json=data)
+    else:
+        print('asking the service')
+        r = requests.post(conf.gsw_translator['pbsmt_only_url'], json=data)
+    return r.json()
 
 
 if __name__ == '__main__':

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/gsw.css') }}">
-
 </head>
 <body>
 <div class="container">
@@ -29,25 +28,35 @@
     <div class="row" id="search_row">
         {# Source text #}
         <div style="display: inline-block;" class="col-md-6">
-            <label for="sourceLang">From:</label>
-            <select name="sourceLang" id="sourceLang">
-                <option value="gsw">Swiss German</option>
-            </select>
-            <br/>
+            <p>From: <b>Swiss German (BE)</b></p>
             <textarea rows="10" cols="40" id="input_text" name="text"></textarea>
         </div>
 
         {# Target text and Button #}
-        <div style="display: inline-block;" class="col-md-6">
-            <label for="targetLang">To: </label>
-            <select name="targetLang">
-                <option value="de">German</option>
-            </select>
-            <button id="search_button" class="btn btn-info btn-xs" type="button">
-                Translate
-            </button>
-            <br/>
+        <div style="display: inline-block;" class="col-md-6" id="div_result">
+            <p>To: <b>German</b>
+                <select id="oov_method">
+                    <option value="pbsmt" selected="selected">PBSMT</option>
+                    <option value="pbsmt_ortho">PBSMT + Orthographic</option>
+                    <option value="pbsmt_phono">PBSMT + Phonetic</option>
+                    <option value="pbsmt_cbnmt">PBSMT + CBNMT</option>
+                </select>
+                <button id="search_button" class="btn btn-info btn-xs" type="button">Translate</button>
+            </p>
             <textarea rows="10" cols="40" readonly="yes" name="translated_text" id="translated_text"></textarea>
+        </div>
+    </div>
+    {# OOV words#}
+    <div class="row" id="oov">
+        <div style="display: inline-block;" id="oov_inner" class="col-md-12">
+            <table width="100%">
+                <thead>
+                <tr>
+                    <th>Input OOV</th>
+                    <th>Translated OOV</th>
+                </thead>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
