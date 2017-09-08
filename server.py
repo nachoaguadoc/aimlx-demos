@@ -5,7 +5,6 @@ import socket
 import subprocess
 import sys
 from multiprocessing import Value
-from nltk.tokenize.moses import MosesDetokenizer
 
 import requests
 from flask import Flask
@@ -13,7 +12,6 @@ from flask import jsonify
 from flask import render_template
 from flask import request
 from flask_cors import CORS
-from nltk.tokenize.moses import MosesTokenizer
 from pymongo import MongoClient
 
 import config as conf
@@ -403,25 +401,8 @@ def submit_gsw2de():
         return jsonify(json_result)
 
 
-PERIOD_RE = re.compile('(\\S+)\\.(\\s+|$)')
-DOUBLE_SPACE_RE = re.compile('\\s+')
-
-def _clean_text(tokenized_text):
-    detok = MosesDetokenizer('de')
-    no_escape_slash = tokenized_text.replace('\\', ' ')
-    no_escapes = detok.unescape_xml(no_escape_slash)
-    no_double_spaces = DOUBLE_SPACE_RE.sub(' ', no_escapes)
-    return no_double_spaces
-
-
 def _translate_helper(text, oov_method):
-    tokenizer = MosesTokenizer('de')
-    tokenized_text = _clean_text(tokenizer.tokenize(text, agressive_dash_splits=True, return_str=True))
-
-    # Moses tokenizer doesn't split periods…
-    period_separated = PERIOD_RE.sub('\\1 . ', tokenized_text)
-    data = {'text': period_separated}
-
+    data = {'text': text}
     if oov_method == 'pbsmt_ortho':
         r = requests.post(conf.gsw_translator['pbsmt_ortho_url'], json=data)
     elif oov_method == 'pbsmt_phono':
@@ -431,7 +412,6 @@ def _translate_helper(text, oov_method):
     else:
         print('asking the service')
         r = requests.post(conf.gsw_translator['pbsmt_only_url'], json=data)
-        print(r.json())
     return r.json()
 
 
