@@ -2,7 +2,7 @@
 var suggestions = [];
 
 function start_spinner() {
-    $('#div_result').append('<i class="fa fa-spinner fa-spin" id="spinner"></i>');
+    $('#topar').append('<i class="fa fa-spinner fa-spin" id="spinner"></i>');
     // $('#summarized_text').append('<i class="fa fa-spinner fa-spin" id="spinner"></i>');
 }
 
