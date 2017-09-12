@@ -28,37 +28,32 @@
     <div class="row" id="search_row">
         {# Source text #}
         <div style="display: inline-block;" class="col-md-6">
-            <p>From: <b>Swiss German (BE)</b></p>
-            <textarea rows="10" cols="40" id="input_text" name="text"></textarea>
+            <p>From: <b>French</b></p>
+            <textarea rows="10" cols="40" id="input_text" name="text" style="width: 100%"></textarea>
         </div>
 
         {# Target text and Button #}
         <div style="display: inline-block;" class="col-md-6" id="div_result">
             <p id="topar">To: <b>German</b>
-                <select id="oov_method">
-                    <option value="pbsmt" selected="selected">PBSMT</option>
-                    <option value="pbsmt_ortho">PBSMT + Orthographic</option>
-                    <option value="pbsmt_phono">PBSMT + Phonetic</option>
-                    <option value="pbsmt_cbnmt">PBSMT + CBNMT</option>
-                </select>
                 <button id="search_button" class="btn btn-info btn-xs" type="button">Translate</button>
             </p>
-            <textarea rows="10" cols="40" readonly="yes" name="translated_text" id="translated_text"></textarea>
+            <textarea rows="10" cols="40" readonly="yes" name="translated_text" id="translated_text"
+                      style="width: 100%"></textarea>
         </div>
     </div>
     {# OOV words#}
-    <div class="row" id="oov">
-        <div style="display: inline-block;" id="oov_inner" class="col-md-12">
-            <table width="100%">
-                <thead>
-                <tr>
-                    <th>Input OOV</th>
-                    <th>Translated OOV</th>
-                </thead>
-                </tr>
-            </table>
-        </div>
-    </div>
+    {#    <div class="row" id="oov">#}
+    {#        <div style="display: inline-block;" id="oov_inner" class="col-md-12">#}
+    {#            <table width="100%">#}
+    {#                <thead>#}
+    {#                <tr>#}
+    {#                    <th>Input OOV</th>#}
+    {#                    <th>Translated OOV</th>#}
+    {#                </thead>#}
+    {#                </tr>#}
+    {#            </table>#}
+    {#        </div>#}
+    {#    </div>#}
 </div>
 
 {# Footer with IDIAP and EPFL logos#}
@@ -81,6 +76,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
 <script type=text/javascript src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
-<script type=text/javascript src="{{ url_for('static', filename='javascripts/gsw.js') }}"></script>
+<script type=text/javascript
+        src="{{ url_for('static', filename='javascripts/machine_translation_stdlangs.js') }}"></script>
 </body>
 </html>

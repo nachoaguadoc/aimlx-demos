@@ -7,41 +7,26 @@ function start_spinner() {
 }
 
 function stop_spinner() {
-	$('#spinner').remove();
+    $('#spinner').remove();
 }
 
 
 function answer(request_data) {
     stop_spinner();
-    var oovs = request_data['oovs'];
-    var translated_text = request_data['translated'];
+    var translated_text = request_data['translated_text'];
     $('#translated_text').text(translated_text);
-    var table = '<table border="1" width="200px">\n' +
-        "<thead>\n" +
-        "<tr>\n" +
-        '<th class="padded">Input OOV</th>\n' +
-        '<th class=\"padded\">Translated OOV</th>\n' +
-        "</thead>\n" +
-        "</tr>\n";
-    for (var key in oovs) {
-        table += '<tr><td class="padded">' + key + "</td><td>" + oovs[key] + "</td></tr>\n";
-    }
-    table += "</table>";
-    $('#oov_inner').html(table);
-    $('#oov').show();
 }
 
 
 function cleanup() {
-    $('#oov').hide();
-     $('#translated_text').text('');
+    $('#translated_text').text('');
 }
 
-function submit(input_text, oov_method) {
-    data = {"text": input_text, 'oov_method': oov_method};
+function submit(input_text, src, tgt) {
+    data = {"text": input_text, "src": src, "tgt": tgt};
     start_spinner();
     cleanup();
-    url = "gsw";
+    url = "translate";
     $.ajax({
         type: "POST",
         url: url,
@@ -83,7 +68,6 @@ function submit(input_text, oov_method) {
 
 $(document).ready(function () {
     $('#question_row').hide();
-    $('#oov').hide();
     // $.getJSON("../static/javascripts/lists/ner.json", function(json) {
     // 	suggestions = json.candidates;
     // 	suggestions_random = get_random_suggestions(suggestions);
@@ -92,8 +76,10 @@ $(document).ready(function () {
 
     $('#search_button').click(function (e) {
         input_text = $('#input_text').val();
-        oov_method = $('#oov_method').val();
-        if (input_text != '') submit(input_text, oov_method);
+        //TODO Alberto: add elements to let users select source and target lang
+        src = 'fr';
+        tgt = 'de';
+        if (input_text != '') submit(input_text, src, tgt);
     })
 });
 

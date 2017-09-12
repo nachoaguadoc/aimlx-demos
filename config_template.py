@@ -45,3 +45,6 @@ gsw_translator = {
     'pbsmt_ortho_url': '',
     'pbsmt_cbnmt_url': ''
 }
+machine_translation_stdlangs = {
+    'base_url': ''
+}
