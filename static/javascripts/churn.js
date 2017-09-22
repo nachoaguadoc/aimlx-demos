@@ -7,8 +7,14 @@ function new_question(question) {
 }
 
 function new_chatbot_answer(churn) {
-	if (churn == 'churn') $('#churn').addClass('selected');
-	else $('#non-churn').addClass('selected')
+	if (churn == 'churn') {
+		$('#churn').addClass('selected');
+		$('#non-churn').removeClass('selected');
+	}
+	else {
+		$('#non-churn').addClass('selected');
+		$('#churn').removeClass('selected');
+	}
 	//suggestions_random = get_random_suggestions(suggestions);
     //load_suggestions(suggestions_random);
 	stop_spinner();
