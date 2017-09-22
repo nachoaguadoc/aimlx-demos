@@ -48,3 +48,9 @@ gsw_translator = {
 machine_translation_stdlangs = {
     'base_url': ''
 }
+churn = {
+    'path' : '',
+    'python_env': '',
+    'e_host':'',
+    'e_port': 
+}
