@@ -242,7 +242,7 @@ def getChurn():
 @app.route('/churn', methods=['POST'])
 def submitChurn():
     parameters = request.get_json(force=True)
-    print("Demo Opinion:", parameters)
+    print("Demo Churn:", parameters)
     tweet = parameters['input']
     # learning_type = request.get_json(force=True)["learning"]
     port = conf.churn['e_port']
