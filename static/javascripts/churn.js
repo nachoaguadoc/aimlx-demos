@@ -1,4 +1,6 @@
 function new_question(question) {
+	$('#non-churn').removeClass('selected');
+	$('#churn').removeClass('selected');
 	$('#question').text(question);
 	$('#answer_seq2seq').text('');
 	$('#suggestions').text('');	
@@ -7,7 +9,7 @@ function new_question(question) {
 }
 
 function new_chatbot_answer(churn) {
-	if (churn == 'churn') {
+	if (churn == 'churny') {
 		$('#churn').addClass('selected');
 		$('#non-churn').removeClass('selected');
 	}
