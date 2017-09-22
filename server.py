@@ -235,6 +235,10 @@ def submitOpinion():
             answer = {'labels': answer}
             return jsonify(answer)
 
+@app.route('/churn')
+def getChurn():
+    return render_template('churn.html')
+
 @app.route('/churn', methods=['POST'])
 def submitChurn():
     parameters = request.get_json(force=True)
@@ -251,10 +255,11 @@ def submitChurn():
             sent = sock.sendto(tweet.encode(), server_address)
             print('waiting to receive')
             data, server = sock.recvfrom(4096)
+            answer = {'answer': data.decode()}
             print(data.decode())
         finally:
             sock.close()
-        return jsonify(data.decode())
+        return jsonify(answer)
 
 # NER route handling
 @app.route('/ner')
