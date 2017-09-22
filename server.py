@@ -234,20 +234,27 @@ def submitOpinion():
             print("Question received for ATE project", answer)
             answer = {'labels': answer}
             return jsonify(answer)
-            # current_dir = os.path.dirname(os.path.realpath(__file__))
-            # parse_input(input, conf.neuroate["path"] + "data/server/input.txt")
-            # script_dir = conf.neuroate['path'] + 'src/'
-            # predict_dir = conf.neuroate['path'] + 'output/predictions/100_test.txt'
-            # python_env = conf.neuroate['python_env']
-            # response = ""
-            # os.chdir(script_dir)
-            # subprocess.call([python_env, "predict.py"])
-            # os.chdir(current_dir)
-            # answer = parse_output(predict_dir)
-            # print("Question received for ATE project", answer)
-            # answer = {'labels': answer}
-            # return jsonify(answer)
 
+@app.route('/churn', methods=['POST'])
+def submitChurn():
+    parameters = request.get_json(force=True)
+    print("Demo Opinion:", parameters)
+    tweet = parameters['input']
+    # learning_type = request.get_json(force=True)["learning"]
+    port = conf.churn['e_port']
+    ip = conf.churn['e_host']
+    if request.method == 'POST':
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        server_address = (ip, port)
+        try:
+            print('sending "%s"' % tweet)
+            sent = sock.sendto(tweet.encode(), server_address)
+            print('waiting to receive')
+            data, server = sock.recvfrom(4096)
+            print(data.decode())
+        finally:
+            sock.close()
+        return jsonify(data.decode())
 
 # NER route handling
 @app.route('/ner')
