@@ -26,8 +26,14 @@
 .step {
   padding: 8px 20px;
   line-height: 26px;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 5px;
+  border-color: black;
   position: relative;
-  color: #003366;
+  text-align: center;
+}
+
+.selected {
+  background-color: rgb(234, 182, 191);
+  font-weight: bold;
 }

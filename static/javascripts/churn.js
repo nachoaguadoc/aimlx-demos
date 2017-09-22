@@ -6,8 +6,9 @@ function new_question(question) {
 	start_spinner();
 }
 
-function new_chatbot_answer(seq2seq) {
-	$('#answer_seq2seq').text(seq2seq);
+function new_chatbot_answer(churn) {
+	if (churn == 'churn') $('#churn').addClass('selected');
+	else $('#non-churn').addClass('selected')
 	//suggestions_random = get_random_suggestions(suggestions);
     //load_suggestions(suggestions_random);
 	stop_spinner();
