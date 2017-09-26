@@ -1,0 +1,39 @@
+#question {
+    font-size: 18px;
+    margin: 20px;
+    padding-left: 80px;
+}
+
+.robot{
+	display: block;
+    margin: 0 auto;
+}
+
+#suggestions {
+	margin-left: 0px;
+}
+.suggestion {
+    border-color: rgba(119, 185, 248, 0.45);
+    font-size: 13px;
+}
+.suggestion_box {
+    padding-left: 0;
+}
+.suggestion .panel-body {
+	background: rgba(119, 185, 248, 0.2);
+	cursor: pointer;
+}
+.step {
+  padding: 8px 20px;
+  line-height: 26px;
+  font-size: 20px;
+  border-radius: 5px;
+  border-color: black;
+  position: relative;
+  text-align: center;
+}
+
+.selected {
+  background-color: rgb(234, 182, 191);
+  font-weight: bold;
+}

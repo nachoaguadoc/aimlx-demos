@@ -1,19 +1,16 @@
-import json
 import re
 import select
 import socket
 import subprocess
 import sys
-import xmlrpc.client
 from multiprocessing import Value
 
 import requests
-from flask import Flask
+from flask import Flask, abort
 from flask import jsonify
 from flask import render_template
 from flask import request
 from flask_cors import CORS
-from nltk.tokenize.moses import MosesTokenizer
 from pymongo import MongoClient
 
 import config as conf
@@ -141,7 +138,7 @@ def submitNeuralProgrammer(demo):
         feedback_id = feedback_coll.insert_one(parameters).inserted_id
         print("Debug:", parameters)
         print("ID:", feedback_id)
-        answer =  "Feedback " + str(feedback_id) + " sent!"
+        answer = "Feedback " + str(feedback_id) + " sent!"
         return jsonify({'answer': answer})
 
     elif (demo == "demo_question"):
@@ -237,20 +234,32 @@ def submitOpinion():
             print("Question received for ATE project", answer)
             answer = {'labels': answer}
             return jsonify(answer)
-            # current_dir = os.path.dirname(os.path.realpath(__file__))
-            # parse_input(input, conf.neuroate["path"] + "data/server/input.txt")
-            # script_dir = conf.neuroate['path'] + 'src/'
-            # predict_dir = conf.neuroate['path'] + 'output/predictions/100_test.txt'
-            # python_env = conf.neuroate['python_env']
-            # response = ""
-            # os.chdir(script_dir)
-            # subprocess.call([python_env, "predict.py"])
-            # os.chdir(current_dir)
-            # answer = parse_output(predict_dir)
-            # print("Question received for ATE project", answer)
-            # answer = {'labels': answer}
-            # return jsonify(answer)
 
+@app.route('/churn')
+def getChurn():
+    return render_template('churn.html')
+
+@app.route('/churn', methods=['POST'])
+def submitChurn():
+    parameters = request.get_json(force=True)
+    print("Demo Churn:", parameters)
+    tweet = parameters['input']
+    # learning_type = request.get_json(force=True)["learning"]
+    port = conf.churn['e_port']
+    ip = conf.churn['e_host']
+    if request.method == 'POST':
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        server_address = (ip, port)
+        try:
+            print('sending "%s"' % tweet)
+            sent = sock.sendto(tweet.encode(), server_address)
+            print('waiting to receive')
+            data, server = sock.recvfrom(4096)
+            answer = {'answer': data.decode()}
+            print(data.decode())
+        finally:
+            sock.close()
+        return jsonify(answer)
 
 # NER route handling
 @app.route('/ner')
@@ -428,23 +437,45 @@ def submit_gsw2de():
         post_parameters = request.get_json(force=True)
         print("Demo GSW:", post_parameters)
         text = post_parameters['text']
-        json_result = _translate_helper(text)
+        oov_method = post_parameters['oov_method']
+        json_result = _translate_helper(text, oov_method)
         return jsonify(json_result)
 
 
-PERIOD_RE = re.compile('(\\S+)\\.(\\s+|$)')
+def _translate_helper(text, oov_method):
+    data = {'text': text}
+    if oov_method == 'pbsmt_ortho':
+        r = requests.post(conf.gsw_translator['pbsmt_ortho_url'], json=data)
+    elif oov_method == 'pbsmt_phono':
+        r = requests.post(conf.gsw_translator['pbsmt_phono_url'], json=data)
+    elif oov_method == 'pbsmt_cbnmt':
+        r = requests.post(conf.gsw_translator['pbsmt_cbnmt_url'], json=data)
+    else:
+        print('asking the service')
+        r = requests.post(conf.gsw_translator['pbsmt_only_url'], json=data)
+    return r.json()
 
 
-def _translate_helper(text):
-    tokenizer = MosesTokenizer('de')
-    tokenized_text = tokenizer.tokenize(text, agressive_dash_splits=True, return_str=True)
-    # Moses tokenizer doesn't split periods…
-    period_separated = PERIOD_RE.sub('\\1 . ', tokenized_text)
-    params = {'text': period_separated}
+@app.route('/translate', methods=['GET'])
+def translate_stdlangs():
+    return render_template('machine_translation_stdlangs.html')
 
-    moses = xmlrpc.client.ServerProxy(conf.gsw_translator['moses_rpc'])
-    result = moses.translate(params)
-    return result
+
+@app.route('/translate', methods=['POST'])
+def submit_translate_stdlangs():
+    if request.method == 'POST':
+        post_parameters = request.get_json(force=True)
+        print("Demo MT standard languages:", post_parameters)
+        text = post_parameters['text']
+        data = {'text': text}
+        src = post_parameters['src']
+        tgt = post_parameters['tgt']
+        url = conf.machine_translation_stdlangs['base_url'] + '/' + src + '/' + tgt
+        r = requests.post(url, json=data)
+        if not r.ok:
+            abort(400)
+        print(r.json())
+        return jsonify(r.json())
 
 
 if __name__ == '__main__':
