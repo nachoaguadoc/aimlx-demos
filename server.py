@@ -308,6 +308,31 @@ def submitKP_API():
         result = requests.post(conf.kpextract['api_url'], json=post_parameters)
         return jsonify(result.json())
 
+@app.route('/kp_emb')
+def getKP_emb():
+    return render_template('kp_extraction_emb.html')
+
+@app.route('/kp_emb', methods=['POST'])
+def submitKP_emb():
+    if request.method == 'POST':
+        post_parameters = request.get_json(force=True)
+        print('Demo KP embedding', post_parameters)
+        for r in post_parameters:
+            post_parameters[r] = str(post_parameters[r])
+        result = requests.post(conf.kpextract['api_emb_url'], json=post_parameters)
+        result_dict = result.json()
+        process_api_result = []
+
+        for e in result_dict['api_result']:
+            e['relevance'] = round(e['relevance'] * 100)
+            process_api_result.append(e)
+
+        process_api_result = sorted(process_api_result, key=lambda k: k['relevance'], reverse=True)
+
+        return render_template('kpboard_emb.html', html_doc=post_process(result_dict['processed_text']),
+                               list_kp=process_api_result)
+
+
 
 def read_file(path):
     with open(path, 'r') as f:

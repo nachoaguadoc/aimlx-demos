@@ -1,0 +1,95 @@
+        <style>
+        #doc_block{
+          width: 50%;
+          float:left;
+        }
+        #html_doc{
+          position: relative;
+          height: 600px;
+          color: rgba(0, 0, 0, 0.2);
+          overflow: scroll;
+          }
+
+
+        #div_list_kp{
+            float:right;
+            width:50%
+        }
+
+    .kp{
+        position: relative;
+        color:rgba(255, 0, 0, 0.5);
+        font-weight: bold;
+        display:inline;
+     }
+
+
+    .start:hover{
+        color:black;
+    }
+
+    .start:hover .kp{
+        color:rgba(255, 0, 0, 1);
+    }
+
+    .just-padding {
+      padding: 15px;
+    }
+
+    .list-group.list-group-root {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .list-group.list-group-root .list-group {
+      margin-bottom: 0;
+    }
+
+    .list-group.list-group-root .list-group-item {
+      border-radius: 0;
+      border-width: 1px 0 0 0;
+    }
+
+    .list-group.list-group-root > .list-group-item:first-child {
+      border-top-width: 0;
+    }
+
+    .list-group.list-group-root > .list-group > .list-group-item {
+      padding-left: 30px;
+    }
+
+    .list-group.list-group-root > .list-group > .list-group > .list-group-item {
+      padding-left: 45px;
+    }
+    </style>
+
+    <div class="container">
+        <div id="doc_block" class="col-xs-6">
+            <div id="html_doc">
+                {{ html_doc|safe }}
+            </div>
+            <div id="next_kp"></div>
+        </div>
+
+        <div id="div_list_kp" class="col-xs-6">
+            <div class="just-padding">
+            <div id="list_kp" class="list-group list-group-root well">
+
+            {% for keyphrase in list_kp %}
+                <a href="#" class="list-group-item"
+                    style="background: linear-gradient(90deg, #90EE90 {{keyphrase['relevance']}}%, #FFFFFF 0%); text-shadow: none">
+                    {{keyphrase['label']}}
+                </a>
+
+                {% if keyphrase['aliases']|length > 0 %}
+                <div class="list-group">
+                    {% for alias in keyphrase['aliases'] %}
+                    <a href="#" class="list-group-item">{{alias}}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+    </div>

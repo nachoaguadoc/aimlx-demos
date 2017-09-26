@@ -27,7 +27,8 @@ ner = {
 kpextract = {
 	'path': '',
 	'fetcher_path': '',
-	'python_env': ''
+	'python_env': '',
+	'api_emb_url':''
 }
 neural_programmer = {
 	'socket_address': '',
