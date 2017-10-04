@@ -501,7 +501,7 @@ def submitSlotfilling():
     parameters = request.get_json(force=True)
     print("Demo slot filling:", parameters)
     if request.method == 'POST':
-        result = requests.post(cconf.slotfilling['url'], json=parameters)
+        result = requests.post(conf.slotfilling['url'], json=parameters)
         resultdict = result.json()
 
         return jsonify(resultdict)    
