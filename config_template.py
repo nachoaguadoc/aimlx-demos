@@ -12,6 +12,12 @@ chatbot_ubuntu_seq2seq = {
     'socket_address': '',
     'socket_port': ''
 }
+
+chatbot_goaloriented = {
+    'socket_address': '127.0.0.1',
+    'socket_port': 8889
+}
+
 ate = {
     'path': '',
     'python_env': ''
@@ -53,5 +59,5 @@ churn = {
     'path' : '',
     'python_env': '',
     'e_host':'',
-    'e_port': 
+    'e_port': ''
 }
