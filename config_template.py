@@ -58,3 +58,7 @@ churn = {
 argumentation = {
     'url': ''
 }
+
+slotfilling = {
+    'url': ''
+}

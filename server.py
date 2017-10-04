@@ -491,6 +491,20 @@ def submitArgumentation():
         resultdict = result.json()
 
         return jsonify(resultdict)
+    
+@app.route('/slotfilling')
+def getArgumentation():
+    return render_template('slotfilling.html')
+
+@app.route('/slotfilling', methods=['POST'])
+def submitArgumentation():
+    parameters = request.get_json(force=True)
+    print("Demo slot filling:", parameters)
+    if request.method == 'POST':
+        result = requests.post(cconf.slotfilling['url'], json=parameters)
+        resultdict = result.json()
+
+        return jsonify(resultdict)    
 
 
 if __name__ == '__main__':
