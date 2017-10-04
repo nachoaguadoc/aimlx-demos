@@ -55,3 +55,6 @@ churn = {
     'e_host':'',
     'e_port': 
 }
+argumentation = {
+    'url': ''
+}
