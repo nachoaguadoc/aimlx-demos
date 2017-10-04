@@ -82,7 +82,7 @@ def submitChatbot(demo):
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((socket_address, socket_port))
             s.sendall(question.encode())
-            answer = s.recv(1024).decode("utf-8")
+            answer = s.recv(2048).decode("utf-8")
             s.close()
             return jsonify({'seq2seq': answer})
 
@@ -152,7 +152,7 @@ def submitNeuralProgrammer(demo):
             s.connect((socket_address, socket_port))
             msg = table_key + '****----****' + tokens
             s.sendall(msg.encode())
-            answer = s.recv(1024).decode("utf-8")
+            answer = s.recv(2048).decode("utf-8")
             s.close()
             return jsonify({'neural_programmer': answer})
 
@@ -178,7 +178,7 @@ def submitNeuralProgrammer(demo):
             s.connect((socket_address, socket_port))
             msg = table_key + '****----****' + tokens
             s.sendall(msg.encode())
-            answer = s.recv(1024).decode("utf-8")
+            answer = s.recv(2048).decode("utf-8")
             s.close()
             return jsonify({'neural_programmer': answer})
 
