@@ -493,11 +493,11 @@ def submitArgumentation():
         return jsonify(resultdict)
     
 @app.route('/slotfilling')
-def getArgumentation():
+def getSlotfilling():
     return render_template('slotfilling.html')
 
 @app.route('/slotfilling', methods=['POST'])
-def submitArgumentation():
+def submitSlotfilling():
     parameters = request.get_json(force=True)
     print("Demo slot filling:", parameters)
     if request.method == 'POST':
