@@ -1,0 +1,33 @@
+#question {
+    font-size: 18px;
+    margin: 20px 0 20px 0;
+    padding: 0 15px 0 15px;
+}
+
+.answer_model {
+	font-size: 18px;
+	text-align: center;
+	margin: 30px 0 30px 0;
+}
+
+#suggestions {
+	margin-left: 0px;
+}
+.suggestion {
+    border-color: rgba(119, 185, 248, 0.45);
+    font-size: 13px;
+}
+.suggestion_box {
+    padding-left: 0;
+}
+.suggestion .panel-body {
+	background: rgba(119, 185, 248, 0.2);
+	cursor: pointer;
+}
+
+#refresh_button {
+	font-size: 23px;
+}
+.learning_label {
+	font-weight: normal;
+}

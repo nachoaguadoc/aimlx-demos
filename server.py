@@ -477,6 +477,21 @@ def submit_translate_stdlangs():
         print(r.json())
         return jsonify(r.json())
 
+@app.route('/argumentation')
+def getArgumentation():
+    return render_template('argumentation.html')
+    
+
+@app.route('/argumentation', methods=['POST'])
+def submitArgumentation():
+    parameters = request.get_json(force=True)
+    print("Demo argumentation:", parameters)
+    if request.method == 'POST':
+        result = requests.post(conf.argumentation['url'], json=parameters)
+        resultdict = result.json()
+
+        return jsonify(resultdict)
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
