@@ -4,6 +4,7 @@ import socket
 import subprocess
 import sys
 from multiprocessing import Value
+import json
 
 import requests
 from flask import Flask, abort
@@ -13,7 +14,9 @@ from flask import request
 from flask_cors import CORS
 from pymongo import MongoClient
 
-import config as conf
+import config_template as conf
+
+socket_goal_chatbot = None
 
 if (conf.neural_programmer['mongo']):
     client = MongoClient(conf.neural_programmer['mongo_address'], conf.neural_programmer['mongo_port'], connect=False)
@@ -59,6 +62,14 @@ def getChatbot(demo):
         return render_template('chatbot_swisscom.html')
     elif demo == 'ubuntuseq2seq':
         return render_template('chatbot_seq2seq_ubuntu.html')
+    elif demo == 'goaloriented':
+        global socket_goal_chatbot
+        socket_address = conf.chatbot_goaloriented['socket_address']
+        socket_port = conf.chatbot_goaloriented['socket_port']
+        socket_goal_chatbot = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket_goal_chatbot.connect((socket_address, socket_port))
+        user_goal = json.loads(socket_goal_chatbot.recv(1024).decode("utf-8"))
+        return render_template('chatbot_goaloriented.html', request_slots=user_goal['user_goal']['request_slots'], inform_slots=user_goal['user_goal']['inform_slots'])
 
 
 @app.route('/chatbot/<demo>', methods=['POST'])
@@ -85,6 +96,11 @@ def submitChatbot(demo):
             answer = s.recv(1024).decode("utf-8")
             s.close()
             return jsonify({'seq2seq': answer})
+        elif demo == 'goaloriented':
+            global socket_goal_chatbot
+            socket_goal_chatbot.sendall(question.encode())
+            answer = socket_goal_chatbot.recv(1024).decode("utf-8")
+            return jsonify({'chatbot_reply': answer})
 
         model_dir = predict_dir + 'runs/' + model_id
         subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir,
