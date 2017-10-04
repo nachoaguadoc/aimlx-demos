@@ -1,3 +1,6 @@
+#PyCharm
+.idea
+
 models/chatbot_swisscom
 models/chatbot_ubuntu
 .DS_Store
