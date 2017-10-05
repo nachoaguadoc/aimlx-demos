@@ -32,6 +32,7 @@ function new_opinion_answer(original, original_no_punctuation, labels, intent) {
 	for (var l in labels_model) {
 		l = labels_model[l].split(" ");
 		var original_splitted = original.split(" ");
+        var original_splitted_np = original_no_punctuation.split(" ");
 		var formatted_text = '';
         if (intent=='restaurant') {
             intent = 'restaurants and food';
@@ -43,15 +44,21 @@ function new_opinion_answer(original, original_no_punctuation, labels, intent) {
             intent = 'flights';
         }
         formatted_text = decorate_intent(intent)+ '<br><br>';
-        var key_words = '';
+        var json_like = '';
 		for (i = 0; i < l.length; i++) {
 			if (l[i] == "O") {
 				formatted_text += '<span>' + original_splitted[i] + ' </span>';
 			} else {
-				formatted_text += '<b>' + original_splitted[i] + ' </b>' + '<span style="color:Orchid">' + ' (' +  l[i].toLowerCase().substring(2, l[i].length)  + ') ' + ' </span>';
+				formatted_text += '<b>' + original_splitted[i] + ' </b>';
+                if (l[i].toLowerCase().substring(0,1)=='b') {
+                    json_like += '<br> <span style="color:Orchid">' +  l[i].toLowerCase().substring(2, l[i].length)  + '  :  ' + ' </span><b>' + original_splitted_np[i] + ' </b>';
+                    }
+                else {
+                    json_like += '<b>' + original_splitted_np[i] + ' </b>';
+                }
 			}
 		}
-		formatted_texts.push(formatted_text);
+		formatted_texts.push(formatted_text + '<br> <p align="left">'+ json_like + '<p>');
 	}
 	$('#question_row').hide();
 	$('#question').text('');
