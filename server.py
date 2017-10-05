@@ -14,7 +14,7 @@ from flask import request
 from flask_cors import CORS
 from pymongo import MongoClient
 
-import config_template as conf
+import config as conf
 
 socket_goal_chatbot = None
 
