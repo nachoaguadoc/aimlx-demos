@@ -67,3 +67,7 @@ argumentation = {
 slotfilling = {
     'url': ''
 }
+
+sfid = {
+    'url': ''
+}
