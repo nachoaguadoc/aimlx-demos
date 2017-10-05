@@ -12,6 +12,12 @@ chatbot_ubuntu_seq2seq = {
     'socket_address': '',
     'socket_port': ''
 }
+
+chatbot_goaloriented = {
+    'socket_address': '',
+    'socket_port': ''
+}
+
 ate = {
     'path': '',
     'python_env': ''
@@ -53,12 +59,11 @@ churn = {
     'path' : '',
     'python_env': '',
     'e_host':'',
-    'e_port': 
+    'e_port': ''
 }
 argumentation = {
     'url': ''
 }
-
 slotfilling = {
     'url': ''
 }
