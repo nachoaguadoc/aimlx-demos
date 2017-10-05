@@ -71,3 +71,10 @@ slotfilling = {
 sfid = {
     'url': ''
 }
+
+grocery = {
+    'host': '',
+    'port': ,
+    'url':'',
+    'dir': ''
+}
