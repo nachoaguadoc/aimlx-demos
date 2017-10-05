@@ -75,7 +75,7 @@ def getChatbot(demo):
 @app.route('/chatbot/<demo>', methods=['POST'])
 def submitChatbot(demo):
     parameters = request.get_json(force=True)
-    print("Demo Ubuntu Chatbot:", parameters)
+    print("Demos Chatbot:", parameters)
     question = parameters['question']
     print("Question:", question)
     if request.method == 'POST':
