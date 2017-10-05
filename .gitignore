@@ -1,6 +1,9 @@
 #PyCharm
 .idea
 
+models/grocery
+static/assets/grocery_images
+
 models/chatbot_swisscom
 models/chatbot_ubuntu
 .DS_Store
