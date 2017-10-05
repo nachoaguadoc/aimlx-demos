@@ -69,7 +69,7 @@ def getChatbot(demo):
         socket_goal_chatbot = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         socket_goal_chatbot.connect((socket_address, socket_port))
         user_goal = json.loads(socket_goal_chatbot.recv(1024).decode("utf-8"))
-        return render_template('chatbot_goaloriented.html', request_slots=user_goal['user_goal']['request_slots'], inform_slots=user_goal['user_goal']['inform_slots'])
+        return render_template('chatbot_goaloriented.html', request_slots=user_goal['request_slots'], inform_slots=user_goal['inform_slots'])
 
 
 @app.route('/chatbot/<demo>', methods=['POST'])

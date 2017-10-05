@@ -49,6 +49,14 @@ function insertChat(who, text, time = 0){
 
 }
 
+
+function endChat(time){
+    setTimeout(
+        function(){
+            window.alert("The chat has ended, please refresh the page");
+        }, time);
+}
+
 function insertUserAction(user_action, time = 0){
     console.log("Call insert user action");
     console.log(user_action);
@@ -75,8 +83,15 @@ function submit(input_text) {
         var chatbot_reply = JSON.parse(data.chatbot_reply);
         console.log(chatbot_reply);
         console.log(chatbot_reply.system_action_nl);
-	  	insertChat("chatbot", chatbot_reply.system_action_nl, 1000);
-	  	insertUserAction(chatbot_reply.user_action, 1000);
+        chat_ended = chatbot_reply.chat_ended;
+
+        insertChat("chatbot", chatbot_reply.system_action_nl, 1000);
+        insertUserAction(chatbot_reply.user_action, 1000);
+
+	  	if(chat_ended == true){
+            endChat(1200);
+        }
+
 	  }
 	});
 }
