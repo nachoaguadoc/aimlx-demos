@@ -506,6 +506,20 @@ def submitSlotfilling():
 
         return jsonify(resultdict)    
 
+@app.route('/sfid')
+def getSFID():
+    return render_template('sfid.html')
+
+@app.route('/sfid', methods=['POST'])
+def submitSFID():
+    parameters = request.get_json(force=True)
+    print("Demo slot filling and intent detection:", parameters)
+    if request.method == 'POST':
+        result = requests.post(conf.sfid['url'], json=parameters)
+        resultdict = result.json()
+
+        return jsonify(resultdict)    
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
