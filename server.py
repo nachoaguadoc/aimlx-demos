@@ -93,7 +93,7 @@ def submitChatbot(demo):
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((socket_address, socket_port))
             s.sendall(question.encode())
-            answer = s.recv(1024).decode("utf-8")
+            answer = s.recv(2048).decode("utf-8")
             s.close()
             return jsonify({'seq2seq': answer})
         elif demo == 'goaloriented':
@@ -168,7 +168,7 @@ def submitNeuralProgrammer(demo):
             s.connect((socket_address, socket_port))
             msg = table_key + '****----****' + tokens
             s.sendall(msg.encode())
-            answer = s.recv(1024).decode("utf-8")
+            answer = s.recv(2048).decode("utf-8")
             s.close()
             return jsonify({'neural_programmer': answer})
 
@@ -194,7 +194,7 @@ def submitNeuralProgrammer(demo):
             s.connect((socket_address, socket_port))
             msg = table_key + '****----****' + tokens
             s.sendall(msg.encode())
-            answer = s.recv(1024).decode("utf-8")
+            answer = s.recv(2048).decode("utf-8")
             s.close()
             return jsonify({'neural_programmer': answer})
 
@@ -492,6 +492,35 @@ def submit_translate_stdlangs():
             abort(400)
         print(r.json())
         return jsonify(r.json())
+
+@app.route('/argumentation')
+def getArgumentation():
+    return render_template('argumentation.html')
+    
+
+@app.route('/argumentation', methods=['POST'])
+def submitArgumentation():
+    parameters = request.get_json(force=True)
+    print("Demo argumentation:", parameters)
+    if request.method == 'POST':
+        result = requests.post(conf.argumentation['url'], json=parameters)
+        resultdict = result.json()
+
+        return jsonify(resultdict)
+    
+@app.route('/slotfilling')
+def getSlotfilling():
+    return render_template('slotfilling.html')
+
+@app.route('/slotfilling', methods=['POST'])
+def submitSlotfilling():
+    parameters = request.get_json(force=True)
+    print("Demo slot filling:", parameters)
+    if request.method == 'POST':
+        result = requests.post(conf.slotfilling['url'], json=parameters)
+        resultdict = result.json()
+
+        return jsonify(resultdict)    
 
 
 if __name__ == '__main__':
