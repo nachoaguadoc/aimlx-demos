@@ -12,8 +12,8 @@ function new_question(question) {
 
 
 function decorate_intent(intent) {
-    var list = ['I love your questions about <span class="blue"><intent></span>... :-)', 
-                'Did you know that answering <span class="blue"><intent></span>  questions is my specialty ? ;-)', 
+    var list = ['Did you know that answering <span class="blue"><intent></span>  questions is my specialty ? ;-)', 
+                'I love your questions about <span class="blue"><intent></span>... :-)', 
                 'This is like the zillion-th question you ask me about <span class="blue"><intent></span> ...', 
                 'Huh... this is the strangest question about <span class="blue"><intent></span> I have ever been asked...'];
     var random_number = Math.ceil(Math.random()*(list.length-1));
