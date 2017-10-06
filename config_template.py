@@ -78,3 +78,7 @@ grocery = {
     'url':'',
     'dir': ''
 }
+ emotions = {
+    'url': '',
+    'img_path': ''
+ }
