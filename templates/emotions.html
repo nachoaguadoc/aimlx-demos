@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+<!--link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/chatbot.css') }}"-->
+
+<style>
+
+.sidebysideimages { display: flex; margin-bottom: 1rem; } 
+.sidebysideimages img { width: 100%; }
+.sidebysideimages .left { flex:1; padding-right:5px; } 
+.sidebysideimages .right { flex:1; padding-left:5px; }
+
+.twobuttons { display: flex; margin-bottom: 1rem; } 
+.twobuttons img { width: 100%; }
+.twobuttons .left { flex:1; padding-right:5px; } 
+.twobuttons .right { flex:1; padding-left:5px; }
+
+
+</style>
+
+
+
+
+<title>Snapshot</title>
+
+<link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+        <div class="row" id="banner_row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10"><center><img id=banner src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img></center></div>
+            <div class="col-md-1"></div>
+        </div>
+</div>
+
+<br />
+
+
+<div class="twobuttons">
+	<div class="left">
+		<button id="snap">Snap Photo</button>
+	</div>
+</div>
+
+
+
+<div class="sidebysideimages">
+	<div class="left">
+		<video id="video" width="640" height="480" autoplay></video>
+	</div>
+	<div class="right">
+		<canvas id="canvas" width="640" height="480"></canvas>
+		<img id='processed_img'>
+	</div>
+</div>
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/javascripts/emotions.js"></script>
+
+</body>
+
+</html>

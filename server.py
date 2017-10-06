@@ -626,7 +626,22 @@ def get_gallery():
     print(image_names)
     return render_template("grocery_gallery.html", image_names=image_names)
 
+@app.route('/')
+def index():
+    return render_template('emotions.html')
 
+@app.route('/capture', methods=['POST'])
+def submitCapture():
+    parameters = request.get_json(force=True)
+    image_url = parameters['image'].encode('utf-8')
+    image_path =  conf.emotions["img_path"] + "temp.jpeg"
+    fh = open(image_path, "wb")
+    fh.write(base64.b64decode(image_url))
+    fh.close()
+    request_json = {'image_path': image_path}
+    answer_path = requests.post(conf.emotions["url"], json=request_json).json()
+    print(answer_path)
+    return jsonify(answer_path)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
