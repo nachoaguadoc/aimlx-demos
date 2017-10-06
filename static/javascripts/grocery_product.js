@@ -180,7 +180,13 @@ $(document).ready(function(){
 	    }
 	});
 
-
+	$("#banner").click(function(){
+		window.location.replace("/grocery");
+	})
+	
+	$("#home_button span").click(function(){
+		window.location.replace("/grocery");
+	})
 	$('#refresh_button').click(function(e){
 		refresh();
 	});
