@@ -5,7 +5,7 @@ import subprocess
 import sys
 from multiprocessing import Value
 import json
-
+import base64
 import requests
 from flask import Flask, abort
 from flask import jsonify
@@ -14,9 +14,9 @@ from flask import request,send_from_directory
 from flask_cors import CORS
 from pymongo import MongoClient
 import os
-import jsonpickle,json
+import json
 import config as conf
-
+import jsonpickle
 socket_goal_chatbot = None
 
 if (conf.neural_programmer['mongo']):
@@ -626,11 +626,11 @@ def get_gallery():
     print(image_names)
     return render_template("grocery_gallery.html", image_names=image_names)
 
-@app.route('/')
+@app.route('/emotion')
 def index():
     return render_template('emotions.html')
 
-@app.route('/capture', methods=['POST'])
+@app.route('/emotion', methods=['POST'])
 def submitCapture():
     parameters = request.get_json(force=True)
     image_url = parameters['image'].encode('utf-8')

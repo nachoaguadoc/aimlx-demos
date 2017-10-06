@@ -21,7 +21,7 @@ document.getElementById("snap").addEventListener("click", function() {
     var dataURL = canvas.toDataURL("image/png");
     dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/,"");
 	var data = {"image": dataURL};
-	url = "/capture"
+	url = "/emotion"
 	$.ajax({
 	  type: "POST",
 	  url: url,
