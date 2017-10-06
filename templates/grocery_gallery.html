@@ -17,8 +17,7 @@
         <div class="col-md-1"></div>
     </div>
     <div class="row" id="answer_row">
-        <div class="col-md-1" id="home_button"><span class="fa fa-2x fa-arrow-left"></span></div>
-Back</button><p>Green Regions show Detected Products on the shelf</p>
+        <div class="col-md-1" id="home_button"><span class="fa fa-2x fa-arrow-left"></span></div><p>Green Regions show Detected Products on the shelf</p>
         <hr>
         {% for image_name in image_names %}
         <div class="col-lg-3 col-md-5 col-xs-6 thumb">
@@ -27,6 +26,8 @@ Back</button><p>Green Regions show Detected Products on the shelf</p>
         {% endfor %}
     </div>
 </div>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='javascripts/grocery_product.js') }}"></script>
+
 </body>
 </html>
