@@ -35,3 +35,13 @@
 	font-weight: normal;
 }
 
+#answer_row {
+	margin-top: 60px;
+}
+
+#gallery img {
+	cursor: pointer;
+}
+a {
+  text-decoration:none;
+}

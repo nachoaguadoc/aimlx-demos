@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Grocery Product Detection Demo</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/css/bootstrap-tour-standalone.css">  
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/grocery.css') }}"> 
 </head>
 <body>
 <div class="container">
-
-    <div class="row">
-
-        <div class="col-lg-12">
-            <h1 class="page-header">Product BBox Detection</h1>
-        </div>
+    <div class="row" id="banner_row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10"><center><img id="banner" src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img></center></div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row" id="answer_row">
+        <a id="home_button" href="/grocery"><span class="fa fa-2x fa-arrow-left"></span></a>
         <p>Green Regions show Detected Products on the shelf</p>
         <hr>
         {% for image_name in image_names %}
@@ -24,9 +27,8 @@
         {% endfor %}
     </div>
 </div>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='javascripts/grocery_product.js') }}"></script>
 
 </body>
 </html>
