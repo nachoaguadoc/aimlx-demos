@@ -4,8 +4,9 @@ from flask import jsonify
 from flask import render_template
 from flask import request,send_from_directory
 
+import subprocess
 import config as conf
-import helpers
+from helpers import *
 
 opinion_target_api = Blueprint('opinion_target_api', __name__)
 

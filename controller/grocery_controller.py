@@ -3,7 +3,8 @@ from flask import Flask, abort
 from flask import jsonify
 from flask import render_template
 from flask import request,send_from_directory
-
+import jsonpickle
+import json
 import requests
 import config as conf
 import helpers
@@ -82,11 +83,12 @@ def for_static():
     im_name = os.path.basename(destination)
     im_name_out = im_name.split('.')[0] + '_out.jpg'
     processed_images = [im_name, im_name_out]
+    print("********************")
     return render_template("grocery/grocery_gallery.html", image_names=processed_images)
 
 @grocery_api.route('/processed')
 def show_processed():
-    return render_template("grocery_gallery.html", image_names=processed_images)
+    return render_template("grocery/grocery_gallery.html", image_names=processed_images)
 
 
 @grocery_api.route('/upload/<filename>')
