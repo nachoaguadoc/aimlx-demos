@@ -6,17 +6,17 @@ from flask import request,send_from_directory
 
 import config as conf
 import helpers
-import request
+import requests
 
 kp_extraction_api = Blueprint('kp_extraction_api', __name__)
 
 # KP Extraction route handling
-@kp_extraction_api.route('/')
+@kp_extraction_api.route('')
 def getKP():
     return render_template('kp_extraction/kp_extraction.html')
 
 
-@kp_extraction_api.route('/', methods=['POST'])
+@kp_extraction_api.route('', methods=['POST'])
 def submitKP():
     if request.method == 'POST':
         post_parameters = request.get_json(force=True)

@@ -10,12 +10,12 @@ import helpers
 
 argumentation_api = Blueprint('argumentation_api', __name__)
 
-@argumentation_api.route('/')
+@argumentation_api.route('')
 def getArgumentation():
     return render_template('argumentation/argumentation.html')
     
 
-@argumentation_api.route('/', methods=['POST'])
+@argumentation_api.route('', methods=['POST'])
 def submitArgumentation():
     parameters = request.get_json(force=True)
     print("Demo argumentation:", parameters)

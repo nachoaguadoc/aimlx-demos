@@ -10,12 +10,12 @@ import helpers
 
 machine_translation_api = Blueprint('machine_translation_api', __name__)
 
-@machine_translation_api.route('/', methods=['GET'])
+@machine_translation_api.route('', methods=['GET'])
 def translate_stdlangs():
     return render_template('machine_translation/machine_translation_stdlangs.html')
 
 
-@machine_translation_api.route('/', methods=['POST'])
+@machine_translation_api.route('', methods=['POST'])
 def submit_translate_stdlangs():
     if request.method == 'POST':
         post_parameters = request.get_json(force=True)

@@ -10,11 +10,11 @@ import helpers
 
 emotion_api = Blueprint('emotion_api', __name__)
 
-@emotion_api.route('/')
+@emotion_api.route('')
 def index():
     return render_template('/emotion/emotions.html')
 
-@emotion_api.route('/', methods=['POST'])
+@emotion_api.route('', methods=['POST'])
 def submitCapture():
     parameters = request.get_json(force=True)
     image_url = parameters['image'].encode('utf-8')

@@ -10,11 +10,11 @@ import helpers
 
 churn_api = Blueprint('churn_api', __name__)
 
-@churn_api.route('/')
+@churn_api.route('')
 def getChurn():
     return render_template('churn/churn.html')
 
-@churn_api.route('/', methods=['POST'])
+@churn_api.route('', methods=['POST'])
 def submitChurn():
     parameters = request.get_json(force=True)
     print("Demo Churn:", parameters)

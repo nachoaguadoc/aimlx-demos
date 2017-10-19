@@ -10,11 +10,11 @@ import helpers
 
 slot_filling_api = Blueprint('slot_filling_api', __name__)
     
-@slot_filling_api.route('/')
+@slot_filling_api.route('')
 def getSlotfilling():
     return render_template('slotfilling/slotfilling.html')
 
-@slot_filling_api.route('/', methods=['POST'])
+@slot_filling_api.route('', methods=['POST'])
 def submitSlotfilling():
     parameters = request.get_json(force=True)
     print("Demo slot filling:", parameters)

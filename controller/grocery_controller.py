@@ -12,7 +12,7 @@ import os
 grocery_api = Blueprint('grocery_api', __name__)
 
 
-@grocery_api.route('/', methods=['GET'])
+@grocery_api.route('', methods=['GET'])
 def ask_for_image():
     return render_template('grocery/grocery.html')
 

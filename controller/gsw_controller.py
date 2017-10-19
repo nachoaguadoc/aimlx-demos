@@ -23,12 +23,12 @@ def _translate_helper(text, oov_method):
         r = requests.post(conf.gsw_translator['pbsmt_only_url'], json=data)
     return r.json()
     
-@gsw_api.route('/')
+@gsw_api.route('')
 def get_gsw2de():
     return render_template('gsw/gswjs.html')
 
 
-@gsw_api.route('/', methods=['POST'])
+@gsw_api.route('', methods=['POST'])
 def submit_gsw2de():
     if request.method == 'POST':
         post_parameters = request.get_json(force=True)

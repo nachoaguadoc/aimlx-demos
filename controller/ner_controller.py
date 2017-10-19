@@ -10,12 +10,12 @@ import helpers
 ner_api = Blueprint('ner_api', __name__)
 
 # NER route handling
-@ner_api.route('/')
+@ner_api.route('')
 def getNER():
     return render_template('ner/ner.html')
 
 
-@ner_api.route('/', methods=['POST'])
+@ner_api.route('', methods=['POST'])
 def submitNER():
     parameters = request.get_json(force=True)
     print("Demo NER:", parameters)

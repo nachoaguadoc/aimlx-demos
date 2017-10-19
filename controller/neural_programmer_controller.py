@@ -19,7 +19,7 @@ if (conf.neural_programmer['mongo']):
     use_coll = db[conf.neural_programmer['mongo_use_coll']]
 
 # Chatbot route handling
-@neural_programmer_api.route('/')
+@neural_programmer_api.route('')
 def getLandingNeuralProgrammer():
     return render_template('neural_programmer/neural_programmer_landing.html')
 

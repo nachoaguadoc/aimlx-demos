@@ -10,11 +10,11 @@ import helpers
 
 sfid_api = Blueprint('sfid_api', __name__)
 
-@sfid_api.route('/')
+@sfid_api.route('')
 def getSFID():
     return render_template('sfid/sfid.html')
 
-@sfid_api.route('/', methods=['POST'])
+@sfid_api.route('', methods=['POST'])
 def submitSFID():
     parameters = request.get_json(force=True)
     print("Demo slot filling and intent detection:", parameters)

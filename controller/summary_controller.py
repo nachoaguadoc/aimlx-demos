@@ -10,12 +10,12 @@ import helpers
 
 summary_api = Blueprint('summary_api', __name__)
 
-@summary_api.route('/')
+@summary_api.route('')
 def getSummary():
     return getSummaryURL()
 
 
-@summary_api.route('/', methods=['POST'])
+@summary_api.route('', methods=['POST'])
 def submitSummary():
     return submitSummary()
 

@@ -9,12 +9,12 @@ import helpers
 
 opinion_target_api = Blueprint('opinion_target_api', __name__)
 
-@opinion_target_api.route('/')
+@opinion_target_api.route('')
 def getOpinion():
     return render_template('opinion_target/opinion_target.html')
 
 
-@opinion_target_api.route('/', methods=['POST'])
+@opinion_target_api.route('', methods=['POST'])
 def submitOpinion():
     parameters = request.get_json(force=True)
     print("Demo Opinion:", parameters)
