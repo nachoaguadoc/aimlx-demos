@@ -4,6 +4,7 @@ from flask import jsonify
 from flask import render_template
 from flask import request,send_from_directory
 
+import socket
 import config as conf
 import helpers
 from pymongo import MongoClient
@@ -79,10 +80,11 @@ def submitNeuralProgrammer(demo):
 
         info = {"question": tokens, "table_key": table_key, "user_id": user_id, "timestamp": timestamp, "demo": demo,
                 "question_id": question_id}
-        feedback_id = use_coll.insert_one(info).inserted_id
+        if conf.neural_programmer['mongo']:
+            feedback_id = use_coll.insert_one(info).inserted_id
         print("Question ID", question_id, "with text", tokens, "about table", table_key, "from user", user_id,
               "using the", demo, "demo")
-        print("Question stored:", feedback_id)
+        #print("Question stored:", feedback_id)
 
         if request.method == 'POST':
             socket_address = conf.neural_programmer['socket_address']

@@ -6,6 +6,7 @@ from flask import request,send_from_directory
 
 import config as conf
 import helpers
+import request
 
 kp_extraction_api = Blueprint('kp_extraction_api', __name__)
 

@@ -17,7 +17,7 @@ from flask_cors import CORS
 import json
 import config as conf
 import jsonpickle
-import controller.helpers 
+import helpers 
 
 from controller.chatbot_controller import chatbot_api
 from controller.churn_controller import churn_api
