@@ -37,22 +37,3 @@ def parse_input(input, file):
     for token in tokens:
         f.write(token + " O\n")
 
-
-def read_file(path):
-    with open(path, 'r') as f:
-        return f.read()
-
-
-def write_file(path, s):
-    with open(path, 'w') as f:
-        f.write(s)
-
-
-def post_process(processed_text):
-    processed_text = re.sub('\n+', '\n', processed_text)  # Multiple jumplines into 1 jumpline
-    html_doc = processed_text.replace('\n', '</div><div class=start></br>')
-    html_doc = html_doc.replace('<phrase>', '<span class=kp>')
-    html_doc = html_doc.replace('</phrase>', '</span>')
-    html_doc = '<div class=start>' + html_doc + '</div>'
-
-    return html_doc
