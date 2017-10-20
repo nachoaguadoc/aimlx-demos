@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/index.css') }}">
+  </head>
+  <body>
+    <div class="container">
+        <div class="row" id="banner_row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10"><center><img id=banner src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img></center></div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row" id="error_row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10"><center><span id="welcome">Welcome to the AIMLX Swisscom demos!</span></center></div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row" id="index_row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="demo">Chatbot Ubuntu - Retrieval: <a href="/chatbot/ubuntu">/chatbot/ubuntu</a></div>
+                <div class="demo">Chatbot Ubuntu - Generative: <a href="/chatbot/ubuntuseq2seq">/chatbot/ubuntuseq2seq</a></div>
+                <div class="demo">Neural Programmer Football: <a href="/neural_programmer/steps">/neural_programmer/steps</a></div>
+                <div class="demo">Neural Programmer Swisscom: <a href="/neural_programmer/swisscom">/neural_programmer/swisscom</a></div>
+                <div class="demo">Name Entity Recognition (NER): <a href="/ner">/ner</a></div>
+                <div class="demo">Opinion Target: <a href="/opinion">/opinion</a></div>
+                <div class="demo">Key Phrase Extraction: <a href="/kp/emb">/kp/emb</a></div>
+                <div class="demo">Summarization: <a href="/summary">/summary</a></div>
+                <div class="demo">Chatbot Goal Oriented: <a href="/chatbot/goaloriented">/chatbot/goaloriented</a></div>
+                <div class="demo">Argumentation: <a href="/argumentation">/argumentation</a></div>
+                <div class="demo">CHURN: <a href="/churn">/churn</a></div>
+                <div class="demo">Emotion Recognition: <a href="/emotion">/emotion</a></div>
+                <div class="demo">Grocery Identification: <a href="/grocery">/grocery</a></div>
+                <div class="demo">GSW: <a href="/gsw">/gsw</a></div>
+                <div class="demo">Machine Translation: <a href="/translate">/translate</a></div>
+                <div class="demo">SFID: <a href="/sfid">/sfid</a></div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
+  </body>
+</html>

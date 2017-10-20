@@ -53,6 +53,14 @@ app.register_blueprint(sfid_api, url_prefix='/sfid')
 app.register_blueprint(grocery_api, url_prefix='/grocery')
 app.register_blueprint(emotion_api, url_prefix='/emotion')
 
+@app.route('/')
+def getIndex():
+    return render_template('index.html')
+    
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html'), 404
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
