@@ -4,12 +4,33 @@ from flask import jsonify
 from flask import render_template
 from flask import request,send_from_directory
 
+import select
+import sys
 import socket
 import config as conf
 import helpers
 
 summary_api = Blueprint('summary_api', __name__)
+def encode_sth(item):
+    coding = ['iso-8859-1', 'utf8', 'latin1', 'ascii']
+    for coding_format in coding:
+        try:
+            coded = item.encode(coding_format)
+            return coded
+        except:
+            continue
+    raise Exception('Unable to encode', item)
 
+
+def decode_sth(item):
+    coding = ['iso-8859-1', 'utf8', 'latin1', 'ascii']
+    for coding_format in coding:
+        try:
+            coded = item.decode(coding_format)
+            return coded
+        except:
+            continue
+    raise Exception('Unable to decode', item)
 @summary_api.route('')
 def getSummary():
     return getSummaryURL()

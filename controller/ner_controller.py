@@ -4,10 +4,29 @@ from flask import jsonify
 from flask import render_template
 from flask import request,send_from_directory
 
+import subprocess
 import config as conf
 import helpers
 
 ner_api = Blueprint('ner_api', __name__)
+
+# Opinion target route handling
+def parse_output(output_path):
+    f = open(output_path, 'r')
+    pred_labels = []
+    for line in f:
+        line = line.strip()
+        if len(line.split()) == 3:
+            pred_label = line.split()[2]
+            pred_labels.append(pred_label)
+    return " ".join(pred_labels)
+
+
+def parse_input(input, file):
+    f = open(file, "w")
+    tokens = [token for token in input.split()]
+    for token in tokens:
+        f.write(token + " O\n")
 
 # NER route handling
 @ner_api.route('')
