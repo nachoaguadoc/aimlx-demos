@@ -48,7 +48,7 @@ function submit(input_text,id) {
 	$('#input_text').val('');
 	new_question(input_text);
 	url = "/grocery/static";
-	var data = {"image_list": '../../static/assets/grocery_images/'+id+'.jpg'};
+	var data = {"image_list": id+'.jpg'};
 	$.ajax({
 	  type: "POST",
 	  url: url,
