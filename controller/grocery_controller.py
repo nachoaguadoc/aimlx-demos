@@ -57,8 +57,9 @@ def upload():
     print(json.loads(response.text))
 
     im_name = os.path.basename(destination)
-    im_name_out = im_name.split('.')[0]+'_out.jpg'
-    processed_images = [im_name, im_name_out]
+    im_name_out1 = im_name.split('.')[0]+'_out1.jpg'
+    im_name_out2 = im_name.split('.')[0]+'_out2.jpg'
+    processed_images = [im_name, im_name_out1, im_name_out2]
     return render_template("grocery/grocery_gallery.html",image_names=processed_images)
 
 @grocery_api.route('/static', methods=['POST'])
@@ -67,6 +68,10 @@ def for_static():
     r = request
     data = r.data
 
+    destination = jsonpickle.decode(data.decode('utf-8'))['image_list']
+
+    data = {'image_list': os.path.join(conf.grocery['dir'], destination)}
+    
     test_url = conf.grocery['url']
 
     # prepare headers for http request
@@ -75,14 +80,15 @@ def for_static():
 
 
     # send http request with image and receive response
-    response = requests.post(test_url, data=data, headers=headers)
+    response = requests.post(test_url, data=jsonpickle.encode(data), headers=headers)
     # decode response
     print(json.loads(response.text))
 
-    destination = jsonpickle.decode(data.decode('utf-8'))['image_list']
+
     im_name = os.path.basename(destination)
-    im_name_out = im_name.split('.')[0] + '_out.jpg'
-    processed_images = [im_name, im_name_out]
+    im_name_out1 = im_name.split('.')[0]+'_out1.jpg'
+    im_name_out2 = im_name.split('.')[0]+'_out2.jpg'
+    processed_images = [im_name, im_name_out1, im_name_out2]
     print("********************")
     return render_template("grocery/grocery_gallery.html", image_names=processed_images)
 
@@ -95,10 +101,3 @@ def show_processed():
 def send_image(filename):
     return send_from_directory(conf.grocery['dir'], filename)
 
-
-@grocery_api.route('/gallery')
-def get_gallery():
-    image_names = os.listdir(conf.grocery['dir'])
-    image_names = [image_name for image_name in image_names if not image_name.startswith('.')]
-    print(image_names)
-    return render_template("grocery/grocery_gallery.html", image_names=image_names)
