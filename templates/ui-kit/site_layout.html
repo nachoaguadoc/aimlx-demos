@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags always come first -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    {% block head %}
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <!-- Swisscom SDX CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/sdx/css/sdx.min.css') }}">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/site_layout.css') }}">
+        <!-- Swisscom SDX CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/sdx/css/sdx.min.css') }}">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/site_layout.css') }}">
+        <title>Swisscom AI Research Demo</title>
+    {% endblock %}
 </head>
 <body>
 <div class="site-wrapper">
@@ -24,9 +27,8 @@
                 <div class="header__container">
                     <img class="avatar" src="{{ url_for('static', filename='ui-kit/assets/research-icon.svg') }}">
                     <div class="title-container">
-                        <div class="main-title">Anonymizer</div>
-                        <div class="sub-title">Instantly detects and hides sensitive data in any text.</div>
-
+                        <div class="main-title">{% block title %}{% endblock %}</div>
+                        <div class="sub-title">{% block description %}{% endblock %}</div>
                     </div>
                 </div>
             </header>
@@ -34,7 +36,8 @@
         <div class="content-area">
             <div class="colored-background"></div>
             <div class="content-stage">
-                <!--content of actual demo -->
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
     </div>
@@ -53,8 +56,9 @@
         </div>
     </div>
 </div>
-
-<!-- Swisscom SDX JS Library -->
-<script src="{{ url_for('static', filename='ui-kit/sdx/js/sdx.min.js') }}"></script>
+{% block scripts %}
+    <!-- Swisscom SDX JS Library -->
+    <script src="{{ url_for('static', filename='ui-kit/sdx/js/sdx.min.js') }}"></script>
+{% endblock %}
 </body>
 </html>
