@@ -11,13 +11,14 @@ import requests
 from flask import Flask, abort
 from flask import jsonify
 from flask import render_template
-from flask import request,send_from_directory
+from flask import request, send_from_directory
 from flask_cors import CORS
+from flask_scss import Scss
 
 import json
 import config as conf
 import jsonpickle
-import helpers 
+import helpers
 
 from controller.chatbot_controller import chatbot_api
 from controller.churn_controller import churn_api
@@ -34,9 +35,9 @@ from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.summary_controller import summary_api
 
-
 app = Flask(__name__)
 CORS(app)
+Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
 
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
 app.register_blueprint(neural_programmer_api, url_prefix='/neural_programmer')
@@ -53,14 +54,16 @@ app.register_blueprint(sfid_api, url_prefix='/sfid')
 app.register_blueprint(grocery_api, url_prefix='/grocery')
 app.register_blueprint(emotion_api, url_prefix='/emotion')
 
+
 @app.route('/')
 def getIndex():
     return render_template('index.html')
-    
+
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html'), 404
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
