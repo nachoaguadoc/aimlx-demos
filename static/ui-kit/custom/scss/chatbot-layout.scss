@@ -1,7 +1,98 @@
 @import 'common/variables';
-@import 'common/bem';
+@import './common/_bem.scss';
 
 .chat-area {
+  display: flex;
+  flex-direction: column;
   background-color: $light-blue;
-  height: 470px;
+  height: 560px;
+  padding: $padding-medium;
+  border-radius: 5px;
+
+}
+
+.chat-area__history {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+}
+
+.chat-area__input {
+  display: flex;
+  margin-top: $padding-medium;
+}
+
+.chat-area__input > input {
+  margin-top: 0 !important;
+}
+
+.send-button {
+  display: flex;
+  justify-content: center;
+  min-width: 64px !important;
+  padding: 0;
+  margin-left: $padding-medium;
+}
+
+.send-button > img {
+  width: 26px;
+  height: auto;
+}
+
+.speech-buble {
+  display: flex;
+  flex-direction: column;
+  padding: $padding-medium $padding-large;
+  background-color: white;
+  margin-bottom: $padding-medium;
+  border-radius: 0 10px 10px 10px;
+  width: 420px;
+
+}
+
+.speech-buble > p {
+  font-size: 24px !important;
+  line-height: 34px !important;
+  letter-spacing: -0.35px !important;
+  font-weight: 300 !important;
+  margin: 0;
+
+}
+
+.speech-buble--user {
+  align-self: flex-end;
+  background-color: $blue;
+  color: #fff;
+  border-radius: 10px 0 10px 10px;
+  width: 400px;
+
+}
+
+.speech-buble--user > p {
+  text-align: right;
+}
+
+.text-height {
+  font-weight: 700;
+}
+
+.text-label {
+  margin-bottom: 8px;
+  font-size: 14px;
+
+}
+
+.detected-information {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.detected-information > P {
+  font-size: 24px !important;
+  line-height: 34px !important;
+  letter-spacing: -0.35px !important;
+  font-weight: 300 !important;
+  margin: 0;
 }

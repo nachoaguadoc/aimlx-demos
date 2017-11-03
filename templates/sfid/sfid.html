@@ -1,21 +1,10 @@
 {% extends "ui-kit/site_layout.html" %}
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/sfid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">
 {% endblock %}
 {% block scripts %}
     {{ super() }}
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
-    <script src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
     <script src="{{ url_for('static', filename='javascripts/sfid.js') }}"></script>
 {% endblock %}
 {% block title %}
@@ -27,74 +16,35 @@
 
 
 {% block content %}
-    <div class="container">
-        <div class="row" id="banner_row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <center><img id=banner src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img>
-                </center>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-        <div class="row" id="search_row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div id="custom-search-input">
-                    <div class="input-group col-md-12">
-                        <input type="text" id="input_text" class="form-control input-lg"
-                               placeholder="Type something or choose between one of our suggestions :)"/>
-                        <span class="input-group-btn">
-                                <button id="refresh_button" class="btn btn-info btn-lg" type="button">
-                                    <i class="glyphicon glyphicon-refresh"></i>
-                                </button>
-                                <button id="search_button" class="btn btn-info btn-lg" type="button">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="chat-area">
+                <div class="chat-area__history">
+                    <div class="speech-buble">
+                        <p>Type a question or choose from one of our suggestions…</p>
+                    </div>
+                    <div class="speech-buble speech-buble--user">
+                        <p>Who played Kyle Reese in Terminator?</p>
+                    </div>
+                    <div class="speech-buble">
+                        <p>I love your questions about <span class="text-height">movies</span> ...</p>
+                        <div class="detected-information">
+                            <span class="text-label">Detected information</span>
+                            <p>Character: <span class="text-height">Kyle Reese</span></p>
+                            <p>Title: <span class="text-height">Terminator</span></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-        <div class="row" id="search_row">
-            <div class="col-md-1"></div>
-            <!--     <div class="col-md-5 learning_type">
-                     <label class='learning_label'>
-                     <input type="radio" id="supervised" name="learning" value="supervised" checked /> Supervised</label>
-                 </div>
-                 <div class="col-md-5 learning_type">
-                     <label class='learning_label'>
-                     <input type="radio" id="unsupervised" name="learning" value="unsupervised" /> Unsupervised</label>
-                 </div> -->
-            <div class="col-md-1"></div>
-        </div>
-        <div class="row" id="question_row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div id="question"></div>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-        <div class="row" id="answer_row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div class="col-md-12 answer_model">
-                    <div id="answer_embeddings"></div>
-                </div>
-                <div class="col-md-12 answer_model">
-                    <div id="answer_baseline"></div>
+                <div class="input-field input-field--static-label chat-area__input" data-init="auto">
+                    <input type="text" id="static-label-input-1" placeholder="Ask a question">
+                    <button class="button button--primary send-button ">
+                        <img src="{{ url_for('static', filename='ui-kit/custom/assets/send.svg') }}"/>
+                    </button>
                 </div>
             </div>
-            <div class="col-md-1"></div>
         </div>
-        <div class="row" id="suggestions_row">
-
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div class="row" id="suggestions"></div>
-            </div>
-            <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <div style="background-color: yellow">Test</div>
         </div>
-
     </div>
 {% endblock %}
