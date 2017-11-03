@@ -25,7 +25,7 @@
             </nav>
             <header>
                 <div class="header__container">
-                    <img class="avatar" src="{{ url_for('static', filename='ui-kit/assets/research-icon.svg') }}">
+                    <img class="avatar" src="{{ url_for('static', filename='ui-kit/custom/assets/research-icon.svg') }}">
                     <div class="title-container">
                         <div class="main-title">{% block title %}{% endblock %}</div>
                         <div class="sub-title">{% block description %}{% endblock %}</div>
@@ -35,7 +35,7 @@
         </div>
         <div class="content-area">
             <div class="colored-background"></div>
-            <div class="content-stage">
+            <div class="content-stage container">
                 {% block content %}
                 {% endblock %}
             </div>

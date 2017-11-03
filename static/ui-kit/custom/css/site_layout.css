@@ -13,7 +13,7 @@ body {
 }
 
 .header__container {
-    background-color: #19657A;
+    background-color: #5C5C5C;
 }
 
 nav {
@@ -93,7 +93,7 @@ header {
 }
 
 .colored-background {
-    background-color: #19657A;
+    background-color: #5C5C5C;
     height: 56px;
     width: 100%;
     z-index: -1;
