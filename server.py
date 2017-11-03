@@ -55,7 +55,7 @@ app.register_blueprint(emotion_api, url_prefix='/emotion')
 
 @app.route('/')
 def getIndex():
-    return render_template('index.html')
+    return render_template('_site_layout.html')
     
 
 @app.errorhandler(404)
