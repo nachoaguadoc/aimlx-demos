@@ -66,6 +66,7 @@ var ChatbotLayout = {
                 this.addBotSpeechBuble(messageData);
                 break;
         }
+        $("#chat-data").animate({scrollTop: $("#chat-data")[0].scrollHeight}, 500);
     },
     addBotSpeechBuble: function (messageData) {
         $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble"><p>' + messageData + '</p></div></div></div>');
