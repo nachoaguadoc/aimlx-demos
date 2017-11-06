@@ -5,7 +5,18 @@
 {% endblock %}
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('static', filename='javascripts/sfid.js') }}"></script>
+    <script src="{{ url_for('static', filename='ui-kit/custom/js/chatbot-layout.js') }}"></script>
+    <script>
+        ChatbotLayout.config(
+            {
+                sampleLink: 'http://127.0.0.1:5000/static/javascripts/lists/sfid.json',
+                chatbotVocabulary: {
+                    startingConversation: '', answeringQuestion: []
+                },
+                numberOfSamples: 8
+            }
+        )
+    </script>
 {% endblock %}
 {% block title %}
     Slot Filling and Intent Detection
@@ -69,33 +80,11 @@
             <div class="sample-container">
                 <div class="sample-container__header">
                     <h4>Suggested sample questions</h4>
-                    <i class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal" aria-hidden="true"></i>
+                    <i class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
+                       aria-hidden="true"></i>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="sample-box">Who played Kyle Reese in Terminator?</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="sample-box">3 lines of text Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="sample-box">Who played Kyle Reese in Terminator?</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="sample-box">Who played Kyle Reese in Terminator?</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="sample-box">Who played Kyle Reese in Terminator?</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="sample-box">Who played Kyle Reese in Terminator?</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="sample-box">Who played Kyle Reese in Terminator?</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="sample-box">Who played Kyle Reese in Terminator?</div>
-                    </div>
+                <div id="sample-data" class="row">
+
                 </div>
             </div>
         </div>
