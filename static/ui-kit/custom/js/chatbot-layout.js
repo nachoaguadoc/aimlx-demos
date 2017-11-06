@@ -7,27 +7,30 @@ var ChatbotLayout = {
         startingConversation: '',
         answeringQuestion: []
     },
-    apiUrl: '',
+    submitFunction: function (data) {
+        console.log(data)
+    },
     config: function (options) {
         this.sampleLink = options.sampleLink;
         this.chatbotVocabulary = options.chatbotVocabulary;
         this.numberOfSamples = options.numberOfSamples;
         this.loadSamples();
+        this.initializeUiEventHandler();
     },
     loadSamples: function () {
         var self = this;
         $.getJSON(this.sampleLink, function (json) {
             self.samples = json.candidates;
-            self.samplesDisplay = self.getRandomSamples(self.samples, self.numberOfSamples);
+            self.samplesDisplay = self.getRandomSamples();
             self.pushMessage(self.chatbotVocabulary.startingConversation, 'bot')
         });
     },
-    getRandomSamples: function (samples, numberOfSamples) {
+    getRandomSamples: function () {
         this.samplesDisplay = [];
-        if (samples.length > numberOfSamples) {
+        if (this.samples.length > this.numberOfSamples) {
             var randomIndexes = [];
-            while (randomIndexes.length < numberOfSamples) {
-                var randomNumber = Math.ceil(Math.random() * numberOfSamples);
+            while (randomIndexes.length < this.numberOfSamples) {
+                var randomNumber = Math.ceil(Math.random() * this.numberOfSamples);
                 if (randomIndexes.indexOf(randomNumber) > -1) continue;
                 randomIndexes[randomIndexes.length] = randomNumber;
             }
@@ -40,10 +43,14 @@ var ChatbotLayout = {
         this.showSamples();
     },
     showSamples: function () {
+        $('#sample-data').empty();
         for (var i in this.samplesDisplay) {
+            var self = this;
             $('#sample-data').append('<div class="col-md-6"><div id="sample-' + [i] + '" class="sample-box">' + this.samplesDisplay[i] + '</div></div>');
-            $('#sample-data').on('click', '#sample-' + [i], function (e) {
-                console.log($(e.target).text())
+            $('#sample-' + [i]).on('click', function (e) {
+                var data = $(e.target).text();
+                self.pushMessage(data, 'client');
+                self.submitFunction(data);
             });
         }
     },
@@ -65,5 +72,30 @@ var ChatbotLayout = {
     },
     addClientSpeechBuble: function (messageData) {
         $('#chat-data').append('<div class="speech-buble speech-buble--user"><p>' + messageData + '</p></div>');
+    },
+    initializeUiEventHandler: function () {
+        var self = this;
+
+        function submit() {
+            var input = $('#input-submit').val();
+            if (input) {
+                self.pushMessage(input, 'client');
+                self.submitFunction(input);
+                $('#input-submit').val('')
+            }
+        }
+
+        $('#btn-refresh').on('click', function () {
+            self.getRandomSamples()
+        });
+        $('#btn-submit').on('click', function () {
+            submit()
+        });
+        $('#input-submit').keypress(function (e) {
+            if (e.which == 13) {
+                submit();
+                return false;
+            }
+        })
     }
 };

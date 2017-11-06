@@ -34,8 +34,8 @@
                     {# Samples will be added here#}
                 </div>
                 <div class="input-field input-field--static-label chat-area__input" data-init="auto">
-                    <input type="text" id="static-label-input-1" placeholder="Ask a question">
-                    <button class="button button--primary send-button ">
+                    <input id="input-submit" type="text" id="static-label-input-1" placeholder="Ask a question">
+                    <button id="btn-submit" class="button button--primary send-button ">
                         <img src="{{ url_for('static', filename='ui-kit/custom/assets/send.svg') }}"/>
                     </button>
                 </div>
@@ -45,7 +45,7 @@
             <div class="sample-container">
                 <div class="sample-container__header">
                     <h4>Suggested sample questions</h4>
-                    <i class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
+                    <i id="btn-refresh" class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
                        aria-hidden="true"></i>
                 </div>
                 <div id="sample-data" class="row">
