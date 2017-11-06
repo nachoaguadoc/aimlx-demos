@@ -19,6 +19,7 @@ var ChatbotLayout = {
         $.getJSON(this.sampleLink, function (json) {
             self.samples = json.candidates;
             self.samplesDisplay = self.getRandomSamples(self.samples, self.numberOfSamples);
+            self.pushMessage(self.chatbotVocabulary.startingConversation, 'bot')
         });
     },
     getRandomSamples: function (samples, numberOfSamples) {
@@ -46,4 +47,23 @@ var ChatbotLayout = {
             });
         }
     },
+    pushMessage: function (messageData, type) {
+        switch (type) {
+            case 'client':
+                this.addClientSpeechBuble(messageData);
+                break;
+            case 'bot':
+                this.addBotSpeechBuble(messageData);
+                break;
+            default:
+                this.addBotSpeechBuble(messageData);
+                break;
+        }
+    },
+    addBotSpeechBuble: function (messageData) {
+        $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble"><p>' + messageData + '</p></div></div></div>');
+    },
+    addClientSpeechBuble: function (messageData) {
+        $('#chat-data').append('<div class="speech-buble speech-buble--user"><p>' + messageData + '</p></div>');
+    }
 };
