@@ -1,6 +1,45 @@
 @import 'common/variables';
 @import './common/_bem.scss';
 
+/*
+* Samples start
+*/
+
+.sample-container {
+  padding: $padding-large;
+}
+
+.sample-container__header {
+  display: flex;
+  > h4 {
+    font-weight: 600;
+    flex-grow: 1;
+  }
+}
+
+.sample-box {
+  padding: $padding-medium;
+  font-size: 14px;
+  line-height: 18px;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  height: 88px;
+  margin-bottom: $padding-medium;
+  cursor: pointer;
+
+  &:hover{
+    background-color: $light-blue;
+  }
+}
+
+.btn-sample-refresh {
+  cursor: pointer;
+}
+
+/*
+* Samples start
+*/
+
 .chat-area {
   display: flex;
   flex-direction: column;
@@ -91,7 +130,7 @@
 }
 
 .text-height {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .text-label {
@@ -113,3 +152,7 @@
   font-weight: 300 !important;
   margin: 0;
 }
+
+/*
+* Chatbot layout end
+*/
