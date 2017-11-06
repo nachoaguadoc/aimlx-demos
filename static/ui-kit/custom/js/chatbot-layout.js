@@ -3,17 +3,14 @@ var ChatbotLayout = {
     sampleLink: '',
     numberOfSamples: 8,
     samplesDisplay: [],
-    chatbotVocabulary: {
-        startingConversation: '',
-        answeringQuestion: []
-    },
+    textStartingConversation: '',
     submitFunction: function (data) {
         console.log(data)
     },
     config: function (options) {
         this.sampleLink = options.sampleLink;
-        this.chatbotVocabulary = options.chatbotVocabulary;
-        this.numberOfSamples = options.numberOfSamples;
+        this.textStartingConversation = options.textStartingConversation;
+        this.submitFunction = options.submitFunction;
         this.loadSamples();
         this.initializeUiEventHandler();
     },
@@ -22,7 +19,7 @@ var ChatbotLayout = {
         $.getJSON(this.sampleLink, function (json) {
             self.samples = json.candidates;
             self.samplesDisplay = self.getRandomSamples();
-            self.pushMessage(self.chatbotVocabulary.startingConversation, 'bot')
+            self.pushMessage(self.textStartingConversation, 'bot')
         });
     },
     getRandomSamples: function () {

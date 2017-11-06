@@ -27,7 +27,7 @@
   margin-bottom: $padding-medium;
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     background-color: $light-blue;
   }
 }
@@ -107,7 +107,7 @@
 
 }
 
-.speech-buble > p {
+.speech-buble > p, .speech-buble-text {
   font-size: 24px !important;
   line-height: 34px !important;
   letter-spacing: -0.35px !important;
@@ -129,7 +129,7 @@
   text-align: right;
 }
 
-.text-height {
+.text-highlight {
   font-weight: 600;
 }
 
@@ -143,14 +143,6 @@
   display: flex;
   flex-direction: column;
   margin-top: $padding-medium;
-}
-
-.detected-information > P {
-  font-size: 24px !important;
-  line-height: 34px !important;
-  letter-spacing: -0.35px !important;
-  font-weight: 300 !important;
-  margin: 0;
 }
 
 /*
