@@ -166,23 +166,22 @@
 }
 
 .ellipsis-loader {
-
-  > span {
-    display: inline-flex;
+    display: flex;
+  > div {
     animation-name: blink;
     animation-duration: 1.6s;
     animation-iteration-count: infinite;
     animation-fill-mode: both;
-    margin-right: 2px;
-    font-weight: 500;
-    font-size: 64px;
-    line-height: 0px;
-    color: $blue-gray;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background-color: $blue-gray;
   }
-  > span:nth-child(2) {
+  > div:nth-child(2) {
     animation-delay: 0.2s;
   }
-  > span:nth-child(3) {
+  > div:nth-child(3) {
     animation-delay: 0.4s;
   }
 }

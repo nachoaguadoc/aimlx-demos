@@ -58,7 +58,7 @@ var ChatbotLayout = {
     setLoadingState: function () {
         this.isLoading = true;
         $('#btn-submit').addClass('disabled');
-        this.addBotSpeechBuble('<span class="ellipsis-loader"><span>.</span><span>.</span><span>.</span></span>')
+        this.addBotSpeechBuble('<div class="ellipsis-loader"><div></div><div></div><div></div></div>')
     },
     pushMessage: function (messageData, type) {
         switch (type) {
