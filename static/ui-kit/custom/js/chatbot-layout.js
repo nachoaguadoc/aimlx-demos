@@ -19,7 +19,7 @@ var ChatbotLayout = {
         var self = this;
         self.showSampleLoader();
         $.getJSON(this.sampleLink, function (json) {
-            self.samples = json.candidates;
+            self.samples = json.samples;
             self.getRandomSamples();
             self.pushMessage(self.textStartingConversation, 'bot');
             self.hideSampleLoader();

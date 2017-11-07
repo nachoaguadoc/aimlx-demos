@@ -1,48 +1,90 @@
-{% extends "ui-kit/site_layout.html" %}
-{% block head %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">
-{% endblock %}
-{% block title %}
-    Slot Filling and Intent Detection
-{% endblock %}
-{% block description %}
-    This is a demo description.
-{% endblock %}
-{% block content %}
-    <div class="row">
-        <div class="col-md-6">
-            <div class="chat-area">
-                <div id="chat-data" class="chat-area__history">
-                    {# Speech bubbles will be added here#}
-                </div>
-                <div class="input-field input-field--static-label chat-area__input" data-init="auto">
-                    <input id="input-submit" type="text" id="static-label-input-1" placeholder="Ask a question">
-                    <button id="btn-submit" class="button button--primary send-button ">
-                        <img src="{{ url_for('static', filename='ui-kit/custom/assets/send.svg') }}"/>
-                    </button>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/sfid.css') }}">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" id="banner_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10"><center><img id=banner src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img></center></div>
+                <div class="col-md-1"></div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="sample-container">
-                <div class="sample-container__header">
-                    <h4>Suggested sample questions</h4>
-                    <i id="btn-refresh" class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
-                       aria-hidden="true"></i>
+            <div class="row" id="search_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-12">
+                            <input type="text" id="input_text" class="form-control input-lg" placeholder="Type something or choose between one of our suggestions :)" />
+                            <span class="input-group-btn">
+                                <button id="refresh_button" class="btn btn-info btn-lg" type="button">
+                                    <i class="glyphicon glyphicon-refresh"></i>
+                                </button>
+                                <button id="search_button" class="btn btn-info btn-lg" type="button">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="sample-data-loader">
-                    <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
-                </div>
-                <div id="sample-data" class="row">
-                    {# Samples will be added here#}
-                </div>
+                <div class="col-md-1"></div>
             </div>
+            <div class="row" id="search_row">
+                <div class="col-md-1"></div>
+           <!--     <div class="col-md-5 learning_type">
+                    <label class='learning_label'>
+                    <input type="radio" id="supervised" name="learning" value="supervised" checked /> Supervised</label>
+                </div>
+                <div class="col-md-5 learning_type">
+                    <label class='learning_label'>
+                    <input type="radio" id="unsupervised" name="learning" value="unsupervised" /> Unsupervised</label>
+                </div> -->
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="question_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div id="question"></div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="answer_row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="col-md-12 answer_model">
+                        <div id="answer_embeddings"></div>
+                    </div>
+                    <div class="col-md-12 answer_model">
+                        <div id="answer_baseline"></div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row" id="suggestions_row">
+
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="row" id="suggestions"></div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
         </div>
-    </div>
-{% endblock %}
-{% block scripts %}
-    {{ super() }}
-    <script src="{{ url_for('static', filename='ui-kit/custom/js/chatbot-layout.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascripts/sfid.js') }}"></script>
-{% endblock %}
+
+        <!-- jQuery first, then Tether, then Bootstrap JS. -->
+        <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+        <script src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
+        <script src="{{ url_for('static', filename='javascripts/sfid.js') }}"></script>
+    </body>
+</html>
