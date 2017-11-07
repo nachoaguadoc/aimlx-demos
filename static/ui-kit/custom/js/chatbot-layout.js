@@ -19,7 +19,7 @@ var ChatbotLayout = {
         var self = this;
         $.getJSON(this.sampleLink, function (json) {
             self.samples = json.candidates;
-            self.samplesDisplay = self.getRandomSamples();
+            self.getRandomSamples();
             self.pushMessage(self.textStartingConversation, 'bot')
         });
     },
@@ -43,11 +43,17 @@ var ChatbotLayout = {
     showSamples: function () {
         $('#sample-data').empty();
         for (var i in this.samplesDisplay) {
+            var maxLenght = 100;
             var self = this;
-            $('#sample-data').append('<div class="col-md-6"><div id="sample-' + [i] + '" class="sample-box">' + this.samplesDisplay[i] + '</div></div>');
+            var sampleText = this.samplesDisplay[i];
+            if (sampleText.length > maxLenght) {
+                sampleText = sampleText.substring(0, maxLenght) + ' ...'
+            }
+            $('#sample-data').append('<div class="col-md-6"><div id="sample-' + [i] + '" data-index="' + [i] + '" class="sample-box">' + sampleText + '</div></div>');
+
             $('#sample-' + [i]).on('click', function (e) {
                 if (!self.isLoading) {
-                    var data = $(e.target).text();
+                    var data = self.samplesDisplay[$(e.target).data('index')];
                     self.pushMessage(data, 'client');
                     self.submitFunction(data);
                     self.setLoadingState();
@@ -109,7 +115,7 @@ var ChatbotLayout = {
             submit()
         });
         $('#input-submit').keypress(function (e) {
-            if (e.which == 13) {
+            if (e.which === 13) {
                 submit();
                 return false;
             }
