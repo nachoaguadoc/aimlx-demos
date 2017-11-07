@@ -103,7 +103,7 @@
   background-color: white;
   margin-bottom: $padding-medium;
   border-radius: 0 10px 10px 10px;
-  max-width: 420px;
+  max-width: 440px;
 
 }
 
@@ -147,4 +147,46 @@
 
 /*
 * Chatbot layout end
+*/
+
+/*
+* Ellipsis loader start
+*/
+
+@keyframes blink {
+  0% {
+    opacity: 0.3;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.ellipsis-loader {
+
+  > span {
+    display: inline-flex;
+    animation-name: blink;
+    animation-duration: 1.6s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    margin-right: 2px;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 0px;
+    color: $blue-gray;
+  }
+  > span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  > span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
+
+/*
+* Ellipsis loader end
 */

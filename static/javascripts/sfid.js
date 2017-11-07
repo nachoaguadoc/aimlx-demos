@@ -18,7 +18,7 @@ function submit(input) {
             labels = data['labels'];
             intent = data['intent'];
             var formatedAnswer = formatAnswer(input, removePunctuation(input).toLowerCase(), labels, intent);
-            ChatbotLayout.pushMessage(formatedAnswer);
+            ChatbotLayout.pushMessage(formatedAnswer, 'bot');
 
         }
     });
@@ -73,7 +73,7 @@ function decorateMainText(intent) {
     var answerList = [
         'Did you know that answering ' + markupHighlightedIntent + ' questions is my specialty? ;-)',
         'I love your question about ' + markupHighlightedIntent + ' ... :-)',
-        'This is like the zillion-th question you ask me about ' + markupHighlightedIntent + '...',
+        'This is like the zillion-th question you ask me about ' + markupHighlightedIntent + ' ...',
         'Huh... this is the strangest question about ' + markupHighlightedIntent + ' I have ever been asked ...'
     ];
     var randomNumber = Math.ceil(Math.random() * (answerList.length - 1));

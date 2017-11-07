@@ -4,6 +4,7 @@ var ChatbotLayout = {
     numberOfSamples: 8,
     samplesDisplay: [],
     textStartingConversation: '',
+    isLoading: false,
     submitFunction: function (data) {
         console.log(data)
     },
@@ -45,11 +46,19 @@ var ChatbotLayout = {
             var self = this;
             $('#sample-data').append('<div class="col-md-6"><div id="sample-' + [i] + '" class="sample-box">' + this.samplesDisplay[i] + '</div></div>');
             $('#sample-' + [i]).on('click', function (e) {
-                var data = $(e.target).text();
-                self.pushMessage(data, 'client');
-                self.submitFunction(data);
+                if (!self.isLoading) {
+                    var data = $(e.target).text();
+                    self.pushMessage(data, 'client');
+                    self.submitFunction(data);
+                    self.setLoadingState();
+                }
             });
         }
+    },
+    setLoadingState: function () {
+        this.isLoading = true;
+        $('#btn-submit').addClass('disabled');
+        this.addBotSpeechBuble('<span class="ellipsis-loader"><span>.</span><span>.</span><span>.</span></span>')
     },
     pushMessage: function (messageData, type) {
         switch (type) {
@@ -57,7 +66,11 @@ var ChatbotLayout = {
                 this.addClientSpeechBuble(messageData);
                 break;
             case 'bot':
-                this.addBotSpeechBuble(messageData);
+                if (this.isLoading) {
+                    this.updateBotSpeechBuble(messageData);
+                } else {
+                    this.addBotSpeechBuble(messageData);
+                }
                 break;
             default:
                 this.addBotSpeechBuble(messageData);
@@ -65,8 +78,13 @@ var ChatbotLayout = {
         }
         $("#chat-data").animate({scrollTop: $("#chat-data")[0].scrollHeight}, 500);
     },
+    updateBotSpeechBuble: function (messageData) {
+        this.isLoading = false;
+        $('#chat-data .speech-buble').last().empty().append(messageData);
+        $('#btn-submit').removeClass('disabled');
+    },
     addBotSpeechBuble: function (messageData) {
-        $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble"><p>' + messageData + '</p></div></div></div>');
+        $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble">' + messageData + '</div></div></div>');
     },
     addClientSpeechBuble: function (messageData) {
         $('#chat-data').append('<div class="speech-buble speech-buble--user"><p>' + messageData + '</p></div>');
@@ -76,9 +94,10 @@ var ChatbotLayout = {
 
         function submit() {
             var input = $('#input-submit').val();
-            if (input) {
+            if (input && !self.isLoading) {
                 self.pushMessage(input, 'client');
                 self.submitFunction(input);
+                self.setLoadingState();
                 $('#input-submit').val('')
             }
         }
