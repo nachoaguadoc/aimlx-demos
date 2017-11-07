@@ -17,10 +17,12 @@ var ChatbotLayout = {
     },
     loadSamples: function () {
         var self = this;
+        self.showSampleLoader();
         $.getJSON(this.sampleLink, function (json) {
             self.samples = json.candidates;
             self.getRandomSamples();
-            self.pushMessage(self.textStartingConversation, 'bot')
+            self.pushMessage(self.textStartingConversation, 'bot');
+            self.hideSampleLoader();
         });
     },
     getRandomSamples: function () {
@@ -120,5 +122,11 @@ var ChatbotLayout = {
                 return false;
             }
         })
+    },
+    showSampleLoader: function () {
+        $('.sample-data-loader').show();
+    },
+    hideSampleLoader: function () {
+        $('.sample-data-loader').hide();
     }
 };
