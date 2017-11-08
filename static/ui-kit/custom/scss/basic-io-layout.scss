@@ -1,8 +1,61 @@
 @import 'common/variables';
 
+/*
+* Samples start
+*/
+
+.sample-container {
+  padding: $padding-large;
+}
+
+.sample-container__header {
+  display: flex;
+  > h4 {
+    font-weight: 600;
+    flex-grow: 1;
+  }
+}
+
+.sample-box {
+  padding: $padding-medium;
+  font-size: 14px;
+  line-height: 18px;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  height: 88px;
+  margin-bottom: $padding-medium;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light-blue;
+  }
+}
+
+.btn-sample-refresh {
+  cursor: pointer;
+}
+
+/*
+* Samples end
+*/
+
+/*
+* Sample loader start
+ */
+.sample-data-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 416px;
+}
+
 .aix-tab-menu > li > a {
   padding-top: 0 !important;
 
+}
+
+#tab-results {
+  display: none;
 }
 
 .aix-textarea {

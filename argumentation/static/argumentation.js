@@ -1,1 +1,4 @@
-BasicIoLayout.config();
+BasicIoLayout.config({
+    sampleLink: "argumentation/static/samples.json"
+    //submitFunction: submit
+});

@@ -16,12 +16,24 @@
     <div id="tab-input" class="row aix-tab-content">
         <div class="col-md-6">
             <div class="input-field input-multiline aix-textarea">
-                <textarea id="multiline-2" placeholder="Enter a text or choose one of our samples."></textarea>
+                <textarea id="input-submit" placeholder="Enter a text or choose one of our samples."></textarea>
             </div>
-            <input class="button button--primary button--full" type="submit" value="Submit">
+            <input id="btn-submit" class="button button--primary button--full" type="submit" value="Submit">
         </div>
         <div class="col-md-6">
-            Tab input B
+            <div class="sample-container">
+                <div class="sample-container__header">
+                    <h4>Suggested sample questions</h4>
+                    <i id="btn-refresh" class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
+                       aria-hidden="true"></i>
+                </div>
+                <div class="sample-data-loader">
+                    <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
+                </div>
+                <div id="sample-data" class="row">
+                    {#Samples will be added here automatically#}
+                </div>
+            </div>
         </div>
     </div>
     <div id="tab-results" class="row aix-tab-content">
@@ -32,32 +44,6 @@
             Tab results B
         </div>
     </div>
-
-
-
-
-
-
-    {#    <div class="row">#}
-    {#        <div class="col-md-6">#}
-    {#            test#}
-    {#        </div>#}
-    {#        <div class="col-md-6">#}
-    {#            <div class="sample-container">#}
-    {#                <div class="sample-container__header">#}
-    {#                    <h4>Suggested sample questions</h4>#}
-    {#                    <i id="btn-refresh" class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"#}
-    {#                       aria-hidden="true"></i>#}
-    {#                </div>#}
-    {#                <div class="sample-data-loader">#}
-    {#                    <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>#}
-    {#                </div>#}
-    {#                <div id="sample-data" class="row">#}
-    {# Samples will be added here automatically#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
 {% endblock %}
 {% block scripts %}
     {{ super() }}
