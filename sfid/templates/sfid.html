@@ -1,7 +1,6 @@
-{% extends "ui-kit/site_layout.html" %}
+{% extends "ui-kit/chatbot_layout.html" %}
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">
 {% endblock %}
 {% block title %}
     Slot Filling and Intent Detection
@@ -9,40 +8,7 @@
 {% block description %}
     This is a demo description.
 {% endblock %}
-{% block content %}
-    <div class="row">
-        <div class="col-md-6">
-            <div class="chat-area">
-                <div id="chat-data" class="chat-area__history">
-                    {# Speech bubbles will be added here#}
-                </div>
-                <div class="input-field input-field--static-label chat-area__input" data-init="auto">
-                    <input id="input-submit" type="text" id="static-label-input-1" placeholder="Ask a question">
-                    <button id="btn-submit" class="button button--primary send-button ">
-                        <img src="{{ url_for('static', filename='ui-kit/custom/assets/send.svg') }}"/>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="sample-container">
-                <div class="sample-container__header">
-                    <h4>Suggested sample questions</h4>
-                    <i id="btn-refresh" class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
-                       aria-hidden="true"></i>
-                </div>
-                <div class="sample-data-loader">
-                    <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
-                </div>
-                <div id="sample-data" class="row">
-                    {# Samples will be added here#}
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('static', filename='ui-kit/custom/js/chatbot-layout.js') }}"></script>
     <script src="{{ url_for('sfid.static', filename='sfid.js') }}"></script>
 {% endblock %}

@@ -2,21 +2,14 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">
-    {# Add custom styles here.
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/yourdemo.css') }}">#}
-{% endblock %}
-{% block title %}
-    {# Enter here your demo title. Keep it short. There is extra space for a description below. #}
-{% endblock %}
-{% block description %}
-    This is a demo description.
+    {# Child template header information #}
 {% endblock %}
 {% block content %}
     <div class="row">
         <div class="col-md-6">
             <div class="chat-area">
                 <div id="chat-data" class="chat-area__history">
-                    {# Speech bubbles will be added here#}
+                    {# Speech bubbles will be added here automatically.#}
                 </div>
                 <div class="input-field input-field--static-label chat-area__input" data-init="auto">
                     <input id="input-submit" type="text" id="static-label-input-1" placeholder="Ask a question">
@@ -37,7 +30,7 @@
                     <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
                 </div>
                 <div id="sample-data" class="row">
-                    {# Samples will be added here#}
+                    {# Samples will be added here automatically#}
                 </div>
             </div>
         </div>
@@ -46,5 +39,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('static', filename='ui-kit/custom/js/chatbot-layout.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascripts/sfid.js') }}"></script>
+    {# Child template scripts #}
 {% endblock %}
