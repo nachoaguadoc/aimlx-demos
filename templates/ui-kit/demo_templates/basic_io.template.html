@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}">#}
 {% endblock %}
 {% block title %}
-    Argumentation
+    {# Enter here your demo title. Keep it short. There is extra space for a description below. #}
 {% endblock %}
 {% block description %}
-    Detects arguments in your text.
+    {# One line for for demo description #}
 {% endblock %}
 {% block content_results %}
     {# Put here your markup for displaying the results. #}
@@ -18,5 +18,6 @@
 {% endblock %}
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('argumentation.static', filename='argumentation.js') }}"></script>
+    {# Add custom styles here.
+    <script src="{{ url_for('yourdemo.static', filename='yourdemo.js') }}"></script>#}
 {% endblock %}
