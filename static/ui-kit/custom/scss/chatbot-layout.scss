@@ -1,0 +1,201 @@
+@import 'common/variables';
+@import './common/_bem.scss';
+
+/*
+* Samples start
+*/
+
+.sample-container {
+  padding: $padding-large;
+}
+
+.sample-container__header {
+  display: flex;
+  > h4 {
+    font-weight: 600;
+    flex-grow: 1;
+  }
+}
+
+.sample-box {
+  padding: $padding-medium;
+  font-size: 14px;
+  line-height: 18px;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  height: 88px;
+  margin-bottom: $padding-medium;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light-blue;
+  }
+}
+
+.btn-sample-refresh {
+  cursor: pointer;
+}
+
+/*
+* Samples start
+*/
+
+.chat-area {
+  display: flex;
+  flex-direction: column;
+  background-color: $light-blue;
+  height: 560px;
+  border-radius: 5px;
+
+}
+
+.chat-area__history {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0 $padding-medium;
+
+}
+
+.chat-area__input {
+  display: flex;
+  min-height: 48px;
+  margin: $padding-medium !important;
+
+}
+
+.chat-area__input > input {
+  margin-top: 0 !important;
+}
+
+.send-button {
+  display: flex;
+  justify-content: center;
+  min-width: 64px !important;
+  padding: 0;
+  margin-left: $padding-medium;
+}
+
+.send-button > img {
+  width: 26px;
+  height: auto;
+}
+
+.bot-buble-container {
+  displa: block;
+}
+
+.bot-buble-container__inner {
+  display: flex;
+  > img {
+    align-self: flex-start;
+    margin-right: $padding-medium;
+  }
+
+  &:first-of-type {
+    margin-top: $padding-medium;
+  }
+}
+
+.speech-buble {
+  padding: $padding-medium $padding-large;
+  background-color: white;
+  margin-bottom: $padding-medium;
+  border-radius: 0 10px 10px 10px;
+  max-width: 440px;
+
+}
+
+.speech-buble > p, .speech-buble-text {
+  font-size: 24px !important;
+  line-height: 34px !important;
+  letter-spacing: -0.35px !important;
+  font-weight: 300 !important;
+  margin: 0;
+
+}
+
+.speech-buble--user {
+  align-self: flex-end;
+  background-color: $blue;
+  color: #fff;
+  border-radius: 10px 0 10px 10px;
+  max-width: 400px;
+
+}
+
+.speech-buble--user > p {
+  text-align: right;
+}
+
+.text-highlight {
+  font-weight: 600;
+}
+
+.text-label {
+  margin-bottom: $padding-small;
+  font-size: 14px;
+
+}
+
+.detected-information {
+  display: flex;
+  flex-direction: column;
+  margin-top: $padding-medium;
+}
+
+/*
+* Chatbot layout end
+*/
+
+/*
+* Ellipsis loader start
+*/
+
+@keyframes blink {
+  0% {
+    opacity: 0.3;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.ellipsis-loader {
+  display: flex;
+  > div {
+    animation-name: blink;
+    animation-duration: 1.6s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background-color: $blue-gray;
+  }
+  > div:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  > div:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
+
+/*
+* Ellipsis loader end
+*/
+
+/*
+* Sample loader start
+ */
+.sample-data-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 416px;
+}

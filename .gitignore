@@ -98,3 +98,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# compiled css files
+static/ui-kit/custom/css
+static/ui-kit/custom/scss/**/*.css
