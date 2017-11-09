@@ -5,26 +5,22 @@
     {# Child template header information #}
 {% endblock %}
 {% block content %}
-    <ul class="tabs tabs--big tabs--long aix-tab-menu">
-        <li class="tab">
-            <a href="#tab-input" class="tab-link">Input</a>
-        </li>
-        <li class="tab">
-            <a id="tab-results-link" href="#tab-results" class="tab-link disabled">Results</a>
-        </li>
-    </ul>
-    <div class="loader-spinner loader-spinner--small loader-spinner--plain aix-loader aix-invisible"></div>
-    <div id="tab-input" class="row aix-row aix-tab-content">
+    <div id="tab-input" class="row aix-row">
         <div class="col-lg-6">
-            <div class="aix-data-input-content">
-                <div class="input-field input-multiline aix-textarea">
-                    <textarea id="input-submit" placeholder=""></textarea>
-                </div>
-                <input id="btn-submit" class="button button--primary button--full" type="submit" value="">
+            <div class="input-field input-multiline aix-textarea">
+                <textarea id="input-submit" placeholder=""></textarea>
             </div>
+            <button id="btn-submit" class="aix-button button button--primary button--full disabled">
+                <span></span>
+                <div class="ellipsis-loader aix-invisible">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </button>
         </div>
         <div class="col-lg-6">
-            <div class="sample-container aix-data-input-content aix-invisible">
+            <div class="sample-container aix-invisible">
                 <div class="sample-container__header">
                     <h4>Samples</h4>
                     <i id="btn-refresh" class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
@@ -39,19 +35,16 @@
             </div>
         </div>
     </div>
-    <div id="tab-results" class="row aix-row aix-tab-content aix-invisible">
+    <div id="tab-results" class="row aix-row aix-invisible">
         <div class="col-lg-6">
             <div class="aix-result-content">
-                <div class="aix-result-content-inner">
-                    {% block content_result_data %}{% endblock %}
-                </div>
+                {% block content_result_data %}{% endblock %}
             </div>
+            <button id="btn-try-another" class="button button--secondary button--full">Try another text</button>
         </div>
         <div class="col-lg-6">
-            <div class="aix-result-content">
-                <div class="aix-result-content-inner--legend">
-                    {% block content_result_legend %}{% endblock %}
-                </div>
+            <div class="aix-result-content--legend">
+                {% block content_result_legend %}{% endblock %}
             </div>
         </div>
     </div>

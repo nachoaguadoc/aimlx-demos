@@ -4,6 +4,8 @@ var BasicIoLayout = {
     numberOfSamples: 8,
     samplesDisplay: [],
     isLoading: false,
+    dataInput: '',
+    minInputLength: 2,
     inputPlaceholderText: 'Enter a text or choose one of our samples.',
     submitButtonText: 'Submit',
     submitFunction: function (data) {
@@ -69,68 +71,66 @@ var BasicIoLayout = {
                 if (!self.isLoading) {
                     var data = self.samplesDisplay[$(e.target).data('index')];
                     $('#input-submit').val(data);
-                    self.submitFunction(data);
-                    self.setLoadingState();
+                    $('#btn-submit').removeClass('disabled');
+                    self.dataInput = data;
                 }
             });
         }
     },
     setLoadingState: function () {
         this.isLoading = true;
-        $('#btn-submit').addClass('disabled');
-        $('.aix-loader').removeClass('aix-invisible');
-        $('#tab-results-link').addClass('disabled');
+        $('#btn-submit').addClass('disabled aix-button--processing');
+        $('#btn-submit span').text('');
+        $('.ellipsis-loader').show();
         $('#input-submit').prop('disabled', true);
     },
     showResults: function () {
         if (this.isLoading) {
             this.isLoading = false;
-            $('#btn-submit').removeClass('disabled');
-            $('.aix-loader').addClass('aix-invisible');
-            var content = $('#tab-results-link').attr('href');
-            $('#tab-results-link').removeClass('disabled').addClass('active')
-                .parent().siblings().children().removeClass('active');
-            $(content).show();
-            $(content).siblings('.aix-tab-content').hide();
-            $('#input-submit').prop('disabled', false).val('')
+            $('#btn-submit').val(this.submitButtonText).removeClass('aix-button--processing');
+            $('#tab-results').show();
+            $('#tab-input').hide();
+            $('#input-submit').prop('disabled', false).val('');
+            $('#btn-submit span').text(this.submitButtonText);
+            $('.ellipsis-loader').hide();
+        }
+    },
+    submit: function () {
+        if (this.dataInput.length > this.minInputLength && !this.isLoading) {
+            this.submitFunction(this.dataInput);
+            this.setLoadingState();
         }
     },
     initializeUiElements: function () {
-        this.initializeTabs();
         var self = this;
-
-        function submit() {
-            var input = $('#input-submit').val();
-            if (input && !self.isLoading) {
-                self.submitFunction(input);
-                self.setLoadingState();
-            }
-        }
 
         $('#btn-refresh').on('click', function () {
             self.getRandomSamples()
         });
-        $('#btn-submit').val(this.submitButtonText).on('click', function () {
-            submit()
+        $('#btn-submit').on('click', function () {
+            self.submit()
+        });
+        $('#btn-submit span').text(this.submitButtonText);
+        $('#btn-try-another').on('click', function () {
+            $('#tab-input').show();
+            $('#tab-results').hide();
         });
         $('#input-submit').attr("placeholder", this.inputPlaceholderText).keypress(function (e) {
             if (e.which === 13) {
-                submit();
+                self.submit();
                 return false;
             }
-        })
-    },
-    initializeTabs: function () {
-        $('.aix-tab-content').slice(1).removeClass('aix-invisible').hide();
-        $('.aix-tab-menu li a').eq(0).addClass('active');
-        $('.aix-tab-menu li a').click(function (e) {
-            e.preventDefault();
-            var content = $(this).attr('href');
-            $(this).addClass('active');
-            $(this).parent().siblings().children().removeClass('active');
-            $(content).show();
-            $(content).siblings('.aix-tab-content').hide();
-        });
+        }).on('input', function () {
+                self.dataInput = this.value;
+                if (self.dataInput.length > self.minInputLength) {
+                    $('#btn-submit').removeClass('disabled');
+                } else {
+                    $('#btn-submit').addClass('disabled')
+                }
+            }
+        );
+        $('#tab-results').removeClass('aix-invisible').hide();
+        $('.ellipsis-loader').removeClass('aix-invisible').hide()
     },
     showSampleLoader: function () {
         $('.sample-data-loader').show();
@@ -139,5 +139,3 @@ var BasicIoLayout = {
         $('.sample-data-loader').hide();
     }
 };
-
-
