@@ -5,7 +5,7 @@ BasicIoLayout.config({
 
 function submit(input) {
     console.log("Argumentation input:", input);
-    url = "/sfid";
+    url = "/argumentation";
     var data = {"input": input};
     $.ajax({
         type: "POST",

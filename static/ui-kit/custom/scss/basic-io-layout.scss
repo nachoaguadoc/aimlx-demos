@@ -116,6 +116,10 @@
     letter-spacing: -1px;
     line-height: 48px;
     font-weight: 300;
+    &:disabled {
+      background-color: white;
+      color: $dark-gray;
+    }
   }
 }
 

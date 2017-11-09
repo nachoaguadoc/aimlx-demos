@@ -60,6 +60,7 @@ var BasicIoLayout = {
             $('#sample-' + [i]).on('click', function (e) {
                 if (!self.isLoading) {
                     var data = self.samplesDisplay[$(e.target).data('index')];
+                    $('#input-submit').val(data);
                     self.submitFunction(data);
                     self.setLoadingState();
                 }
@@ -71,6 +72,7 @@ var BasicIoLayout = {
         $('#btn-submit').addClass('disabled');
         $('.aix-loader').removeClass('aix-invisible');
         $('#tab-results-link').addClass('disabled');
+        $('#input-submit').prop('disabled', true);
     },
     showResults: function () {
         if (this.isLoading) {
@@ -82,6 +84,7 @@ var BasicIoLayout = {
                 .parent().siblings().children().removeClass('active');
             $(content).show();
             $(content).siblings('.aix-tab-content').hide();
+            $('#input-submit').prop('disabled', false).val('')
         }
     },
     initializeUiElements: function () {
@@ -91,9 +94,7 @@ var BasicIoLayout = {
         function submit() {
             var input = $('#input-submit').val();
             if (input && !self.isLoading) {
-                self.submitFunction(input);
                 self.setLoadingState();
-                $('#input-submit').val('')
             }
         }
 
