@@ -5,13 +5,20 @@ var BasicIoLayout = {
     samplesDisplay: [],
     isLoading: false,
     submitFunction: function (data) {
-        console.log(data)
+
     },
     config: function (options) {
-        this.sampleLink = options.sampleLink;
-        this.loadSamples();
-        //this.submitFunction = options.submitFunction;
         this.initializeUiElements();
+        if (options.sampleLink) {
+            $('.sample-container').removeClass('aix-invisible');
+            this.sampleLink = options.sampleLink;
+            this.loadSamples();
+        }
+        if (options.submitFunction) {
+            this.submitFunction = options.submitFunction;
+        } else {
+            throw "SubmitFunction is not defined in config method.";
+        }
     },
     loadSamples: function () {
         var self = this;
@@ -27,7 +34,7 @@ var BasicIoLayout = {
         if (this.samples.length > this.numberOfSamples) {
             var randomIndexes = [];
             while (randomIndexes.length < this.numberOfSamples) {
-                var randomNumber = Math.ceil(Math.random() * (this.samples.length-1));
+                var randomNumber = Math.ceil(Math.random() * (this.samples.length - 1));
                 if (randomIndexes.indexOf(randomNumber) > -1) continue;
                 randomIndexes[randomIndexes.length] = randomNumber;
             }
@@ -42,7 +49,6 @@ var BasicIoLayout = {
     showSamples: function () {
         $('#sample-data').empty();
         for (var i in this.samplesDisplay) {
-            console.log([i], 'is okay');
             var maxLenght = 100;
             var self = this;
             var sampleText = this.samplesDisplay[i];
@@ -63,6 +69,20 @@ var BasicIoLayout = {
     setLoadingState: function () {
         this.isLoading = true;
         $('#btn-submit').addClass('disabled');
+        $('.aix-loader').removeClass('aix-invisible');
+        $('#tab-results-link').addClass('disabled');
+    },
+    showResults: function () {
+        if (this.isLoading) {
+            this.isLoading = false;
+            $('#btn-submit').removeClass('disabled');
+            $('.aix-loader').addClass('aix-invisible');
+            var content = $('#tab-results-link').attr('href');
+            $('#tab-results-link').removeClass('disabled').addClass('active')
+                .parent().siblings().children().removeClass('active');
+            $(content).show();
+            $(content).siblings('.aix-tab-content').hide();
+        }
     },
     initializeUiElements: function () {
         this.initializeTabs();
@@ -91,7 +111,7 @@ var BasicIoLayout = {
         })
     },
     initializeTabs: function () {
-        $('.aix-tab-content').slice(1).hide();
+        $('.aix-tab-content').slice(1).removeClass('aix-invisible').hide();
         $('.aix-tab-menu li a').eq(0).addClass('active');
         $('.aix-tab-menu li a').click(function (e) {
             e.preventDefault();

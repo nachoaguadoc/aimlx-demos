@@ -10,18 +10,21 @@
             <a href="#tab-input" class="tab-link">Input</a>
         </li>
         <li class="tab">
-            <a href="#tab-results" class="tab-link">Results</a>
+            <a id="tab-results-link" href="#tab-results" class="tab-link disabled">Results</a>
         </li>
     </ul>
-    <div id="tab-input" class="row aix-tab-content">
-        <div class="col-md-6">
-            <div class="input-field input-multiline aix-textarea">
-                <textarea id="input-submit" placeholder="Enter a text or choose one of our samples."></textarea>
+    <div class="loader-spinner loader-spinner--small loader-spinner--plain aix-loader aix-invisible"></div>
+    <div id="tab-input" class="row aix-row aix-tab-content">
+        <div class="col-lg-6">
+            <div class="aix-data-input-content">
+                <div class="input-field input-multiline aix-textarea">
+                    <textarea id="input-submit" placeholder="Enter a text or choose one of our samples."></textarea>
+                </div>
+                <input id="btn-submit" class="button button--primary button--full" type="submit" value="Submit">
             </div>
-            <input id="btn-submit" class="button button--primary button--full" type="submit" value="Submit">
         </div>
-        <div class="col-md-6">
-            <div class="sample-container">
+        <div class="col-lg-6">
+            <div class="sample-container aix-data-input-content aix-invisible">
                 <div class="sample-container__header">
                     <h4>Suggested sample questions</h4>
                     <i id="btn-refresh" class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
@@ -36,12 +39,20 @@
             </div>
         </div>
     </div>
-    <div id="tab-results" class="row aix-tab-content">
-        <div class="col-md-6">
-            Tab results A
+    <div id="tab-results" class="row aix-row aix-tab-content aix-invisible">
+        <div class="col-lg-6">
+            <div class="aix-result-content">
+                <div class="aix-result-content-inner">
+                    {% block content_result_data %}{% endblock %}
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            Tab results B
+        <div class="col-lg-6">
+            <div class="aix-result-content">
+                <div class="aix-result-content-inner--legend">
+                    {% block content_result_legend %}{% endblock %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
