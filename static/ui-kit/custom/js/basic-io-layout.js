@@ -4,10 +4,18 @@ var BasicIoLayout = {
     numberOfSamples: 8,
     samplesDisplay: [],
     isLoading: false,
+    inputPlaceholderText: 'Enter a text or choose one of our samples.',
+    submitButtonText: 'Submit',
     submitFunction: function (data) {
 
     },
     config: function (options) {
+        if (options.inputPlaceholderText) {
+            this.inputPlaceholderText = options.inputPlaceholderText;
+        }
+        if (options.submitButtonText) {
+            this.submitButtonText = options.submitButtonText;
+        }
         this.initializeUiElements();
         if (options.sampleLink) {
             $('.sample-container').removeClass('aix-invisible');
@@ -94,6 +102,7 @@ var BasicIoLayout = {
         function submit() {
             var input = $('#input-submit').val();
             if (input && !self.isLoading) {
+                self.submitFunction(input);
                 self.setLoadingState();
             }
         }
@@ -101,10 +110,10 @@ var BasicIoLayout = {
         $('#btn-refresh').on('click', function () {
             self.getRandomSamples()
         });
-        $('#btn-submit').on('click', function () {
+        $('#btn-submit').val(this.submitButtonText).on('click', function () {
             submit()
         });
-        $('#input-submit').keypress(function (e) {
+        $('#input-submit').attr("placeholder", this.inputPlaceholderText).keypress(function (e) {
             if (e.which === 13) {
                 submit();
                 return false;

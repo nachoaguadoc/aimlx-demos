@@ -1,4 +1,6 @@
 BasicIoLayout.config({
+    inputPlaceholderText: "Please enter a text or choose one of our samples.",
+    submitButtonText: "Process",
     sampleLink: "argumentation/static/samples.json",
     submitFunction: submit
 });
