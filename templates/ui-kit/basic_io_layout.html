@@ -8,10 +8,11 @@
     <div id="tab-input" class="row aix-row">
         <div class="col-lg-6">
             <div class="input-field input-multiline aix-textarea">
-                <textarea id="input-submit" placeholder=""></textarea>
+                <textarea id="input-submit"
+                          placeholder="{% block input_placeholder_text %}Enter a text or choose one of our samples.{% endblock %}"></textarea>
             </div>
             <button id="btn-submit" class="aix-button button button--primary button--full disabled">
-                <span></span>
+                <span>{% block submit_button_text %}{% endblock %}</span>
                 <div class="ellipsis-loader aix-invisible">
                     <div></div>
                     <div></div>

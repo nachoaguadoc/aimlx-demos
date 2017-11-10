@@ -1,24 +1,33 @@
 {% extends "ui-kit/basic_io_layout.html" %}
+
 {% block head %}
     {{ super() }}
-    {# Add custom styles here.
-    <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}">#}
 {% endblock %}
+
 {% block title %}
     Argumentation
 {% endblock %}
+
 {% block description %}
     Detects arguments in your text.
 {% endblock %}
+
+{% block input_placeholder_text %}Enter a text or choose one of our samples.{% endblock %}
+
+{% block submit_button_text %}Submit{% endblock %}
+
 {% block samples %}
     {{ super() }}
 {% endblock %}
+
 {% block content_result_data %}
     <p> Data a</p>
 {% endblock %}
+
 {% block content_result_legend %}
     <h4>Suggested sample questions</h4>
 {% endblock %}
+
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('argumentation.static', filename='argumentation.js') }}"></script>

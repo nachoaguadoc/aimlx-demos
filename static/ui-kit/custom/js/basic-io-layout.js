@@ -6,18 +6,10 @@ var BasicIoLayout = {
     isLoading: false,
     dataInput: '',
     minInputLength: 2,
-    inputPlaceholderText: 'Enter a text or choose one of our samples.',
-    submitButtonText: 'Submit',
     submitFunction: function (data) {
 
     },
     config: function (options) {
-        if (options.inputPlaceholderText) {
-            this.inputPlaceholderText = options.inputPlaceholderText;
-        }
-        if (options.submitButtonText) {
-            this.submitButtonText = options.submitButtonText;
-        }
         this.initializeUiElements();
         if (options.sampleLink) {
             $('.sample-container').removeClass('aix-invisible');
@@ -80,18 +72,18 @@ var BasicIoLayout = {
     setLoadingState: function () {
         this.isLoading = true;
         $('#btn-submit').addClass('disabled aix-button--processing');
-        $('#btn-submit span').text('');
+        $('#btn-submit span').hide();
         $('.ellipsis-loader').show();
         $('#input-submit').prop('disabled', true);
     },
     showResults: function () {
         if (this.isLoading) {
             this.isLoading = false;
-            $('#btn-submit').val(this.submitButtonText).removeClass('aix-button--processing');
+            $('#btn-submit').removeClass('aix-button--processing');
             $('#tab-results').show();
             $('#tab-input').hide();
             $('#input-submit').prop('disabled', false).val('');
-            $('#btn-submit span').text(this.submitButtonText);
+            $('#btn-submit span').show();
             $('.ellipsis-loader').hide();
         }
     },
@@ -110,12 +102,11 @@ var BasicIoLayout = {
         $('#btn-submit').on('click', function () {
             self.submit()
         });
-        $('#btn-submit span').text(this.submitButtonText);
         $('#btn-try-another').on('click', function () {
             $('#tab-input').show();
             $('#tab-results').hide();
         });
-        $('#input-submit').attr("placeholder", this.inputPlaceholderText).keypress(function (e) {
+        $('#input-submit').keypress(function (e) {
             if (e.which === 13) {
                 self.submit();
                 return false;

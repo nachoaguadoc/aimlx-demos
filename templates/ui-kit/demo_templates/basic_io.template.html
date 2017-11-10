@@ -1,15 +1,24 @@
 {% extends "ui-kit/basic_io_layout.html" %}
+
 {% block head %}
     {{ super() }}
     {# Add custom styles here.
     <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}">#}
 {% endblock %}
+
 {% block title %}
     {# Enter here your demo title. Keep it short. There is extra space for a description below. #}
 {% endblock %}
+
 {% block description %}
     {# One line for for demo description #}
 {% endblock %}
+
+{% block input_placeholder_text %}Enter a text or choose one of our samples.{#
+     Customize the input field placeholder text. #}{% endblock %}
+
+{% block submit_button_text %}Submit{# Customize the submit button text. #}{% endblock %}
+
 {% block samples %}
     {{ super() }}
     {# Remove «{{ super() }}» and you custom makrup if you want show something different than the default sample list. There is a sample markup below  #}
@@ -22,12 +31,15 @@
         </div>
     </div>#}
 {% endblock %}
+
 {% block content_result_data %}
     {# Put here your markup for displaying the results. #}
 {% endblock %}
+
 {% block content_result_legend %}
     {# Put here your markup for a legend or description of the result. #}
 {% endblock %}
+
 {% block scripts %}
     {{ super() }}
     {# Add custom styles here.
