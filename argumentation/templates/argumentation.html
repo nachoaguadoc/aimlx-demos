@@ -5,21 +5,15 @@
     <link rel="stylesheet" href="{{ url_for('argumentation.static', filename='argumentation.css') }}">
 {% endblock %}
 
-{% block title %}
-    Argumentation
-{% endblock %}
+{% block title %}Argumentation{% endblock %}
 
-{% block description %}
-    Detects and analysis argumentations in your text.
-{% endblock %}
+{% block description %}Detects and analysis argumentations in your text.{% endblock %}
 
 {% block input_placeholder_text %}Please enter a text including an argumentation or choose one of our samples.{% endblock %}
 
 {% block submit_button_text %}Analyse text{% endblock %}
 
-{% block samples %}
-    {{ super() }}
-{% endblock %}
+{% block samples %}{{ super() }}{% endblock %}
 
 {% block content_result_legend %}
     <h4>Claim or Premise</h4>
