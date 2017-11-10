@@ -3,7 +3,7 @@
 {% block head %}
     {{ super() }}
     {# Add custom styles here.
-    <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}">#}
+    <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}"> #}
 {% endblock %}
 
 {% block title %}
@@ -14,22 +14,21 @@
     {# One line for for demo description #}
 {% endblock %}
 
-{% block input_placeholder_text %}Enter a text or choose one of our samples.{#
-     Customize the input field placeholder text. #}{% endblock %}
+{% block input_placeholder_text %}{# Customize the input field placeholder text. #}{% endblock %}
 
-{% block submit_button_text %}Submit{# Customize the submit button text. #}{% endblock %}
+{% block submit_button_text %}{# Customize the submit button text. #}{% endblock %}
 
 {% block samples %}
     {{ super() }}
-    {# Remove «{{ super() }}» and you custom makrup if you want show something different than the default sample list. There is a sample markup below  #}
+    {# Remove «{{ super() }}» and add you custom makrup if you want to show something different than the default sample list. There is a sample markup below #}
     {#<div class="sample-container">
         <div class="sample-container__header">
             <h4>Samples</h4>
         </div>
         <div id="sample-data" class="row">
-            Sample data
+            <p>Sample data</p>
         </div>
-    </div>#}
+    </div> #}
 {% endblock %}
 
 {% block content_result_legend %}
@@ -80,5 +79,5 @@
 {% block scripts %}
     {{ super() }}
     {# Add custom styles here.
-    <script src="{{ url_for('yourdemo.static', filename='yourdemo.js') }}"></script>#}
+    <script src="{{ url_for('yourdemo.static', filename='yourdemo.js') }}"></script> #}
 {% endblock %}
