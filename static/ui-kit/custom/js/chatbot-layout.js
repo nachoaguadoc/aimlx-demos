@@ -3,17 +3,27 @@ var ChatbotLayout = {
     sampleLink: '',
     numberOfSamples: 8,
     samplesDisplay: [],
-    textStartingConversation: '',
     isLoading: false,
+    dataInput: '',
+    textStartingConversation: 'Ask me question.',
+    minInputLength: 2,
     submitFunction: function (data) {
-        console.log(data)
     },
     config: function (options) {
-        this.sampleLink = options.sampleLink;
-        this.textStartingConversation = options.textStartingConversation;
-        this.submitFunction = options.submitFunction;
-        this.loadSamples();
         this.initializeUiEventHandler();
+        if (options.sampleLink) {
+            $('.sample-container').removeClass('aix-invisible');
+            this.sampleLink = options.sampleLink;
+            this.loadSamples();
+        }
+        if (options.submitFunction) {
+            this.submitFunction = options.submitFunction;
+        } else {
+            throw "SubmitFunction is not defined in config method.";
+        }
+        if (options.textStartingConversation) {
+            this.textStartingConversation = options.textStartingConversation;
+        }
     },
     loadSamples: function () {
         var self = this;
@@ -30,7 +40,7 @@ var ChatbotLayout = {
         if (this.samples.length > this.numberOfSamples) {
             var randomIndexes = [];
             while (randomIndexes.length < this.numberOfSamples) {
-                var randomNumber = Math.ceil(Math.random() * this.numberOfSamples);
+                var randomNumber = Math.ceil(Math.random() * (this.samples.length - 1));
                 if (randomIndexes.indexOf(randomNumber) > -1) continue;
                 randomIndexes[randomIndexes.length] = randomNumber;
             }
@@ -56,9 +66,9 @@ var ChatbotLayout = {
             $('#sample-' + [i]).on('click', function (e) {
                 if (!self.isLoading) {
                     var data = self.samplesDisplay[$(e.target).data('index')];
-                    self.pushMessage(data, 'client');
-                    self.submitFunction(data);
-                    self.setLoadingState();
+                    $('#input-submit').val(data);
+                    $('#btn-submit').removeClass('disabled');
+                    self.dataInput = data;
                 }
             });
         }
@@ -89,7 +99,6 @@ var ChatbotLayout = {
     updateBotSpeechBuble: function (messageData) {
         this.isLoading = false;
         $('#chat-data .speech-buble').last().empty().append(messageData);
-        $('#btn-submit').removeClass('disabled');
     },
     addBotSpeechBuble: function (messageData) {
         $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble">' + messageData + '</div></div></div>');
@@ -97,31 +106,37 @@ var ChatbotLayout = {
     addClientSpeechBuble: function (messageData) {
         $('#chat-data').append('<div class="speech-buble speech-buble--user"><p>' + messageData + '</p></div>');
     },
+    submit: function () {
+        if (this.dataInput.length > this.minInputLength && !this.isLoading) {
+            this.pushMessage(this.dataInput, 'client');
+            this.submitFunction(this.dataInput);
+            this.setLoadingState();
+            $('#input-submit').val('')
+        }
+    },
     initializeUiEventHandler: function () {
         var self = this;
-
-        function submit() {
-            var input = $('#input-submit').val();
-            if (input && !self.isLoading) {
-                self.pushMessage(input, 'client');
-                self.submitFunction(input);
-                self.setLoadingState();
-                $('#input-submit').val('')
-            }
-        }
 
         $('#btn-refresh').on('click', function () {
             self.getRandomSamples()
         });
         $('#btn-submit').on('click', function () {
-            submit()
+            self.submit()
         });
         $('#input-submit').keypress(function (e) {
             if (e.which === 13) {
-                submit();
+                self.submit();
                 return false;
             }
-        })
+        }).on('input', function () {
+                self.dataInput = this.value;
+                if (self.dataInput.length > self.minInputLength) {
+                    $('#btn-submit').removeClass('disabled');
+                } else {
+                    $('#btn-submit').addClass('disabled')
+                }
+            }
+        )
     },
     showSampleLoader: function () {
         $('.sample-data-loader').show();

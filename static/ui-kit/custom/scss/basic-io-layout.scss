@@ -1,15 +1,15 @@
 @import 'common/variables';
 
-/*
-* Layout start
-*/
-
 .aix-row > div {
   padding-right: 16px;
   &:last-of-type {
     padding-left: 16px;
   }
 }
+
+/*
+* Basic IO Layout start
+*/
 
 .aix-result-content {
   padding: $padding-small $padding-medium $padding-small $padding-medium;
@@ -41,8 +41,36 @@
   display: none !important;
 }
 
+.aix-textarea {
+  margin-bottom: $padding-medium;
+  height: 470px !important;
+  > textarea {
+    margin-top: 0 !important;
+    padding: $padding-small $padding-medium $padding-small $padding-medium;
+    height: 470px !important;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: 48px;
+    font-weight: 300;
+    &:disabled {
+      background-color: white;
+      color: $dark-gray;
+    }
+  }
+}
+
+.aix-button {
+  height: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+.aix-button--processing {
+  background-color: #1781e3 !important;
+}
+
 /*
-* Layout end
+* Basic IO Layout end
 */
 
 /*
@@ -81,14 +109,6 @@
   cursor: pointer;
 }
 
-/*
-* Samples end
-*/
-
-/*
-* Sample loader start
-*/
-
 .sample-data-loader {
   display: flex;
   justify-content: center;
@@ -96,45 +116,12 @@
   min-height: 416px;
 }
 
-.aix-tab-menu > li > a {
-  padding-top: 0 !important;
-
-}
-
-.aix-textarea {
-  margin-bottom: $padding-medium;
-  height: 470px !important;
-  > textarea {
-    margin-top: 0 !important;
-    padding: $padding-small $padding-medium $padding-small $padding-medium;
-    height: 470px !important;
-    font-size: 32px;
-    letter-spacing: -1px;
-    line-height: 48px;
-    font-weight: 300;
-    &:disabled {
-      background-color: white;
-      color: $dark-gray;
-    }
-  }
-}
-
-.aix-button {
-  height: 48px;
-  display: flex;
-  justify-content: center;
-}
-
-.aix-button--processing {
-  background-color: #1781e3 !important;
-}
-
 /*
-* Sample loader end
+* Samples end
 */
 
 /*
-* Ellipsis loader start
+* Ellipsis loader  in button  start
 */
 
 @keyframes blink {
@@ -172,12 +159,13 @@
 }
 
 /*
-* Ellipsis loader end
+* Ellipsis loader in button end
 */
 
 /*
-* Legend
+* Legend start
 */
+
 .aix-legend {
   font-size: 18px;
   margin-bottom: $padding-medium;
@@ -195,5 +183,6 @@
   padding-left: 28px;
 }
 
-
-
+/*
+* Legend end
+*/

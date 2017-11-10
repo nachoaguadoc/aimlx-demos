@@ -7,7 +7,6 @@ var BasicIoLayout = {
     dataInput: '',
     minInputLength: 2,
     submitFunction: function (data) {
-
     },
     config: function (options) {
         this.initializeUiElements();

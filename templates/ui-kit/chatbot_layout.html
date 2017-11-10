@@ -5,7 +5,7 @@
     {# Child template header information #}
 {% endblock %}
 {% block content %}
-    <div class="row">
+    <div class="row aix-row">
         <div class="col-md-6">
             <div class="chat-area">
                 <div id="chat-data" class="chat-area__history">
@@ -13,17 +13,17 @@
                 </div>
                 <div class="input-field input-field--static-label chat-area__input" data-init="auto">
                     <input id="input-submit" type="text" id="static-label-input-1" placeholder="{% block input_placeholder_text %}Ask me a question.{% endblock %}">
-                    <button id="btn-submit" class="button button--primary send-button ">
+                    <button id="btn-submit" class="button button--primary send-button disabled">
                         <img src="{{ url_for('static', filename='ui-kit/custom/assets/send.svg') }}"/>
                     </button>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
             {% block samples %}
-                <div class="sample-container">
+                <div class="sample-container aix-invisible">
                     <div class="sample-container__header">
-                        <h4>Suggested sample questions</h4>
+                        <h4>Samples</h4>
                         <i id="btn-refresh"
                            class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
                            aria-hidden="true"></i>
