@@ -20,19 +20,22 @@
             </button>
         </div>
         <div class="col-lg-6">
-            <div class="sample-container aix-invisible">
-                <div class="sample-container__header">
-                    <h4>Samples</h4>
-                    <i id="btn-refresh" class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
-                       aria-hidden="true"></i>
+            {% block samples %}
+                <div class="sample-container aix-invisible">
+                    <div class="sample-container__header">
+                        <h4>Samples</h4>
+                        <i id="btn-refresh"
+                           class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
+                           aria-hidden="true"></i>
+                    </div>
+                    <div class="sample-data-loader">
+                        <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
+                    </div>
+                    <div id="sample-data" class="row">
+                        {#Samples will be added here automatically#}
+                    </div>
                 </div>
-                <div class="sample-data-loader">
-                    <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
-                </div>
-                <div id="sample-data" class="row">
-                    {#Samples will be added here automatically#}
-                </div>
-            </div>
+            {% endblock %}
         </div>
     </div>
     <div id="tab-results" class="row aix-row aix-invisible">

@@ -10,6 +10,18 @@
 {% block description %}
     {# One line for for demo description #}
 {% endblock %}
+{% block samples %}
+    {{ super() }}
+    {# Remove «{{ super() }}» and you custom makrup if you want show something different than the default sample list. There is a sample markup below  #}
+    {#<div class="sample-container">
+        <div class="sample-container__header">
+            <h4>Samples</h4>
+        </div>
+        <div id="sample-data" class="row">
+            Sample data
+        </div>
+    </div>#}
+{% endblock %}
 {% block content_result_data %}
     {# Put here your markup for displaying the results. #}
 {% endblock %}
