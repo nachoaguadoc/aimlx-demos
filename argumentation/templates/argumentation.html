@@ -2,6 +2,7 @@
 
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('argumentation.static', filename='argumentation.css') }}">
 {% endblock %}
 
 {% block title %}
@@ -9,23 +10,28 @@
 {% endblock %}
 
 {% block description %}
-    Detects arguments in your text.
+    Detects and analysis argumentations in your text.
 {% endblock %}
 
-{% block input_placeholder_text %}Enter a text or choose one of our samples.{% endblock %}
+{% block input_placeholder_text %}Please enter a text including an argumentation or choose one of our samples.{% endblock %}
 
-{% block submit_button_text %}Submit{% endblock %}
+{% block submit_button_text %}Analyse text{% endblock %}
 
 {% block samples %}
     {{ super() }}
 {% endblock %}
 
-{% block content_result_data %}
-    <p> Data a</p>
-{% endblock %}
-
 {% block content_result_legend %}
-    <h4>Suggested sample questions</h4>
+    <h4>Claim or Premise</h4>
+    <div class="row">
+        <div class="col-xs-12 argumentation-legend">
+            <span>The <span class="font--semi-bold int-blue">highlighted</span> parts represent the claim and premise of the argumentation.</span>
+            <span class="font--semi-bold argumentation-title">Premise: </span>
+            <span>Something assumed as the basis of further argument.</span>
+            <span class="font--semi-bold argumentation-title">Claim: </span>
+            <span>A new statement of something you believed to be the truth, usually when the statement has yet to be verified or without valid evidence provided.</span>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}

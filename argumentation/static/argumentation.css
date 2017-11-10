@@ -1,0 +1,8 @@
+.argumentation-legend {
+    display: flex;
+    flex-direction: column;
+}
+
+.argumentation-title {
+    margin-top: 16px;
+}

@@ -17,7 +17,8 @@
   border-radius: 4px;
   height: 470px;
   margin-bottom: $padding-medium;
-  > p {
+  overflow-y: auto;
+  & p {
     font-size: 32px;
     letter-spacing: -1px;
     line-height: 48px;
@@ -29,7 +30,7 @@
   background-color: $light-gray;
   padding: $padding-large;
   border: none;
-  > h4 {
+  & h4 {
     font-weight: 600;
     flex-grow: 1;
     margin-bottom: $padding-medium;
@@ -37,7 +38,7 @@
 }
 
 .aix-invisible {
-  display: none!important;
+  display: none !important;
 }
 
 /*
@@ -173,3 +174,26 @@
 /*
 * Ellipsis loader end
 */
+
+/*
+* Legend
+*/
+.aix-legend {
+  font-size: 18px;
+  margin-bottom: $padding-medium;
+  > span {
+    display: flex;
+    align-items: center;
+  }
+  i {
+    font-size: 20px;
+    padding-right: $padding-small;
+  }
+}
+
+.aix-legend-item-description {
+  padding-left: 28px;
+}
+
+
+

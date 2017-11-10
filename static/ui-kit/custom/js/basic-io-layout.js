@@ -76,9 +76,10 @@ var BasicIoLayout = {
         $('.ellipsis-loader').show();
         $('#input-submit').prop('disabled', true);
     },
-    showResults: function () {
+    showResults: function (data) {
         if (this.isLoading) {
             this.isLoading = false;
+            $('#aix-result-data').append(data);
             $('#btn-submit').removeClass('aix-button--processing');
             $('#tab-results').show();
             $('#tab-input').hide();
@@ -105,6 +106,7 @@ var BasicIoLayout = {
         $('#btn-try-another').on('click', function () {
             $('#tab-input').show();
             $('#tab-results').hide();
+            $('#aix-result-data').empty();
         });
         $('#input-submit').keypress(function (e) {
             if (e.which === 13) {
