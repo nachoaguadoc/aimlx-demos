@@ -72,6 +72,11 @@ var ChatbotLayout = {
                 }
             });
         }
+        if (this.samples.length > this.numberOfSamples) {
+            $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
+                self.getRandomSamples()
+            });
+        }
     },
     setLoadingState: function () {
         this.isLoading = true;
@@ -117,9 +122,6 @@ var ChatbotLayout = {
     initializeUiEventHandler: function () {
         var self = this;
 
-        $('#btn-refresh').on('click', function () {
-            self.getRandomSamples()
-        });
         $('#btn-submit').on('click', function () {
             self.submit()
         });

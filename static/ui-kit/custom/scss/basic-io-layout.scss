@@ -7,6 +7,10 @@
   }
 }
 
+.aix-invisible {
+  display: none !important;
+}
+
 /*
 * Basic IO Layout start
 */
@@ -35,10 +39,6 @@
     flex-grow: 1;
     margin-bottom: $padding-medium;
   }
-}
-
-.aix-invisible {
-  display: none !important;
 }
 
 .aix-textarea {
