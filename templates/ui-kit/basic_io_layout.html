@@ -2,7 +2,7 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/basic-io-layout.css') }}">
-    {# Child template header information#}
+    {#Child template header information#}
 {% endblock %}
 {% block content %}
     <div id="tab-input" class="row aix-row">
@@ -56,5 +56,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('static', filename='ui-kit/custom/js/basic-io-layout.js') }}"></script>
-    {# Child template scripts#}
+    {#Child template scripts#}
 {% endblock %}
