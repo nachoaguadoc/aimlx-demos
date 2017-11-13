@@ -10,7 +10,7 @@
 
 {% block description %}{#One line for for demo description#}{% endblock %}
 
-{% block input_placeholder_text %}{#Customize the input field placeholder text.#}{% endblock %}
+{% block input_placeholder_text %}{{ super() }}{#Customize the input field placeholder text by removing {{ super() }} and entering your own.#}{% endblock %}
 
 {% block samples %}
     {{ super() }}

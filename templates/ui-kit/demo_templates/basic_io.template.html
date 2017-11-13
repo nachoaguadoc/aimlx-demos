@@ -10,9 +10,9 @@
 
 {% block description %}{#One line for for demo description#}{% endblock %}
 
-{% block input_placeholder_text %}{#Customize the input field placeholder text.#}{% endblock %}
+{% block input_placeholder_text %}{{ super() }}{#Customize the input field placeholder text by removing {{ super() }} and entering your own.#}{% endblock %}
 
-{% block submit_button_text %}{#Customize the submit button text.#}{% endblock %}
+{% block submit_button_text %}{{ super() }}{#Customize the submit button text by removing {{ super() }} and entering your own.#}{% endblock %}
 
 {% block samples %}
     {{ super() }}
