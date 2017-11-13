@@ -35,6 +35,7 @@ from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.summary_controller import summary_api
 from sfid import sfid
+from argumentation import argumentation
 
 app = Flask(__name__)
 CORS(app)
@@ -49,7 +50,8 @@ app.register_blueprint(kp_extraction_api, url_prefix='/kp')
 app.register_blueprint(summary_api, url_prefix='/summary')
 app.register_blueprint(machine_translation_api, url_prefix='/translate')
 app.register_blueprint(gsw_api, url_prefix='/gsw')
-app.register_blueprint(argumentation_api, url_prefix='/argumentation')
+app.register_blueprint(argumentation, url_prefix='/argumentation')
+app.register_blueprint(argumentation_api, url_prefix='/argumentation_old')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 app.register_blueprint(sfid, url_prefix='/sfid')
 app.register_blueprint(sfid_api, url_prefix='/sfid_old')

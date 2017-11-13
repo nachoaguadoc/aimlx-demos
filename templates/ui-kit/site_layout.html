@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     {% block head %}
-        <!-- Required meta tags always come first -->
+        {#Required meta tags always come first#}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <!-- Swisscom SDX CSS -->
+        {#Swisscom SDX CSS#}
         <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/sdx/css/sdx.min.css') }}">
-        <!-- Custom CSS -->
+        {#Custom CSS #}
         <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/site-layout.css') }}">
         <title>Swisscom AI Research Demo</title>
     {% endblock %}
@@ -25,7 +25,8 @@
             </nav>
             <header>
                 <div class="header__container">
-                    <img class="avatar" src="{{ url_for('static', filename='ui-kit/custom/assets/research-icon.svg') }}">
+                    <img class="avatar"
+                         src="{{ url_for('static', filename='ui-kit/custom/assets/research-icon.svg') }}">
                     <div class="title-container">
                         <div class="main-title">{% block title %}{% endblock %}</div>
                         <div class="sub-title">{% block description %}{% endblock %}</div>
@@ -57,7 +58,7 @@
     </div>
 </div>
 {% block scripts %}
-    <!-- Swisscom SDX JS Library -->
+    {#Swisscom SDX JS Library#}
     <script src="{{ url_for('static', filename='ui-kit/sdx/js/sdx.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">

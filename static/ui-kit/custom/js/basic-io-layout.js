@@ -1,11 +1,10 @@
-var ChatbotLayout = {
+var BasicIoLayout = {
     samples: [],
     sampleLink: '',
     numberOfSamples: 8,
     samplesDisplay: [],
     isLoading: false,
     dataInput: '',
-    textStartingConversation: 'Ask me question.',
     minInputLength: 2,
     submitFunction: function (data) {
     },
@@ -15,14 +14,11 @@ var ChatbotLayout = {
         } else {
             throw "SubmitFunction is not defined in config method.";
         }
-        this.initializeUiEventHandler();
+        this.initializeUiElements();
         if (options.sampleLink) {
             $('.sample-container').removeClass('aix-invisible');
             this.sampleLink = options.sampleLink;
             this.loadSamples();
-        }
-        if (options.textStartingConversation) {
-            this.textStartingConversation = options.textStartingConversation;
         }
     },
     loadSamples: function () {
@@ -31,7 +27,6 @@ var ChatbotLayout = {
         $.getJSON(this.sampleLink, function (json) {
             self.samples = json.samples;
             self.getRandomSamples();
-            self.pushMessage(self.textStartingConversation, 'bot');
             self.hideSampleLoader();
         });
     },
@@ -80,50 +75,39 @@ var ChatbotLayout = {
     },
     setLoadingState: function () {
         this.isLoading = true;
-        $('#btn-submit').addClass('disabled');
-        this.addBotSpeechBuble('<div class="ellipsis-loader"><div></div><div></div><div></div></div>')
+        $('#btn-submit').addClass('disabled aix-button--processing');
+        $('#btn-submit span').hide();
+        $('.ellipsis-loader').show();
+        $('#input-submit').prop('disabled', true);
     },
-    pushMessage: function (messageData, type) {
-        switch (type) {
-            case 'client':
-                this.addClientSpeechBuble(messageData);
-                break;
-            case 'bot':
-                if (this.isLoading) {
-                    this.updateBotSpeechBuble(messageData);
-                } else {
-                    this.addBotSpeechBuble(messageData);
-                }
-                break;
-            default:
-                this.addBotSpeechBuble(messageData);
-                break;
+    showResults: function (data) {
+        if (this.isLoading) {
+            this.isLoading = false;
+            $('#aix-result-data').append(data);
+            $('#btn-submit').removeClass('aix-button--processing');
+            $('#tab-results').show();
+            $('#tab-input').hide();
+            $('#input-submit').prop('disabled', false).val('');
+            $('#btn-submit span').show();
+            $('.ellipsis-loader').hide();
         }
-        $("#chat-data").animate({scrollTop: $("#chat-data")[0].scrollHeight}, 500);
-    },
-    updateBotSpeechBuble: function (messageData) {
-        this.isLoading = false;
-        $('#chat-data .speech-buble').last().empty().append(messageData);
-    },
-    addBotSpeechBuble: function (messageData) {
-        $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble">' + messageData + '</div></div></div>');
-    },
-    addClientSpeechBuble: function (messageData) {
-        $('#chat-data').append('<div class="speech-buble speech-buble--user"><p>' + messageData + '</p></div>');
     },
     submit: function () {
         if (this.dataInput.length > this.minInputLength && !this.isLoading) {
-            this.pushMessage(this.dataInput, 'client');
             this.submitFunction(this.dataInput);
             this.setLoadingState();
-            $('#input-submit').val('')
         }
     },
-    initializeUiEventHandler: function () {
+    initializeUiElements: function () {
         var self = this;
 
         $('#btn-submit').on('click', function () {
             self.submit()
+        });
+        $('#btn-try-another').on('click', function () {
+            $('#tab-input').show();
+            $('#tab-results').hide();
+            $('#aix-result-data').empty();
         });
         $('#input-submit').keypress(function (e) {
             if (e.which === 13) {
@@ -138,7 +122,9 @@ var ChatbotLayout = {
                     $('#btn-submit').addClass('disabled')
                 }
             }
-        )
+        );
+        $('#tab-results').removeClass('aix-invisible').hide();
+        $('.ellipsis-loader').removeClass('aix-invisible').hide()
     },
     showSampleLoader: function () {
         $('.sample-data-loader').show();

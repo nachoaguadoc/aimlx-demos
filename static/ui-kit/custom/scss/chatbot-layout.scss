@@ -1,50 +1,25 @@
 @import 'common/variables';
-@import './common/_bem.scss';
 
-/*
-* Samples start
-*/
-
-.sample-container {
-  padding: $padding-large;
-}
-
-.sample-container__header {
-  display: flex;
-  > h4 {
-    font-weight: 600;
-    flex-grow: 1;
+.aix-row > div {
+  padding-right: 16px;
+  &:last-of-type {
+    padding-left: 16px;
   }
 }
 
-.sample-box {
-  padding: $padding-medium;
-  font-size: 14px;
-  line-height: 18px;
-  border: 1px solid $gray;
-  border-radius: 5px;
-  height: 88px;
-  margin-bottom: $padding-medium;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $light-blue;
-  }
-}
-
-.btn-sample-refresh {
-  cursor: pointer;
+.aix-invisible {
+  display: none !important;
 }
 
 /*
-* Samples start
+* Chatbot layout start
 */
 
 .chat-area {
   display: flex;
   flex-direction: column;
   background-color: $light-blue;
-  height: 560px;
+  height: 534px;
   border-radius: 5px;
 
 }
@@ -150,6 +125,53 @@
 */
 
 /*
+* Samples start
+*/
+
+.sample-container {
+  padding: $padding-large $padding-large 0 $padding-large;
+}
+
+.sample-container__header {
+  display: flex;
+  > h4 {
+    font-weight: 600;
+    flex-grow: 1;
+    margin-bottom: $padding-medium;
+  }
+}
+
+.sample-box {
+  padding: $padding-medium;
+  font-size: 14px;
+  line-height: 18px;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  height: 88px;
+  margin-bottom: $padding-medium;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light-blue;
+  }
+}
+
+.btn-sample-refresh {
+  cursor: pointer;
+}
+
+.sample-data-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 416px;
+}
+
+/*
+* Samples end
+*/
+
+/*
 * Ellipsis loader start
 */
 
@@ -189,13 +211,3 @@
 /*
 * Ellipsis loader end
 */
-
-/*
-* Sample loader start
- */
-.sample-data-loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 416px;
-}
