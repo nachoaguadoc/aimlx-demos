@@ -1,7 +1,7 @@
 ChatbotLayout.config(
     {
         sampleLink: "sfid/static/samples.json",
-        textStartingConversation: 'Type a question or choose one from of our samples.',
+        textStartingConversation: 'Type a question or choose one of our samples.',
         submitFunction: submit
     }
 );

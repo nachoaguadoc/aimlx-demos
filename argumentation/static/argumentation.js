@@ -4,7 +4,6 @@ BasicIoLayout.config({
 });
 
 function submit(input) {
-    console.log("Argumentation input:", input);
     var url = "/argumentation";
     var data = {"input": input};
     $.ajax({
@@ -15,7 +14,6 @@ function submit(input) {
         success: function (data) {
             labels = data['labels'];
             text = data['text'];
-            console.log(labels);
             var formattedAnswer = formatAnswer(text, labels);
             BasicIoLayout.showResults(formattedAnswer);
         }

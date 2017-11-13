@@ -9,16 +9,16 @@ var BasicIoLayout = {
     submitFunction: function (data) {
     },
     config: function (options) {
+        if (options.submitFunction) {
+            this.submitFunction = options.submitFunction;
+        } else {
+            throw "SubmitFunction is not defined in config method.";
+        }
         this.initializeUiElements();
         if (options.sampleLink) {
             $('.sample-container').removeClass('aix-invisible');
             this.sampleLink = options.sampleLink;
             this.loadSamples();
-        }
-        if (options.submitFunction) {
-            this.submitFunction = options.submitFunction;
-        } else {
-            throw "SubmitFunction is not defined in config method.";
         }
     },
     loadSamples: function () {

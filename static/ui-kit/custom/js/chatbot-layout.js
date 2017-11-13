@@ -10,16 +10,16 @@ var ChatbotLayout = {
     submitFunction: function (data) {
     },
     config: function (options) {
+        if (options.submitFunction) {
+            this.submitFunction = options.submitFunction;
+        } else {
+            throw "SubmitFunction is not defined in config method.";
+        }
         this.initializeUiEventHandler();
         if (options.sampleLink) {
             $('.sample-container').removeClass('aix-invisible');
             this.sampleLink = options.sampleLink;
             this.loadSamples();
-        }
-        if (options.submitFunction) {
-            this.submitFunction = options.submitFunction;
-        } else {
-            throw "SubmitFunction is not defined in config method.";
         }
         if (options.textStartingConversation) {
             this.textStartingConversation = options.textStartingConversation;
