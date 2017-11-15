@@ -65,6 +65,8 @@ var ChatbotLayout = {
 
             $('#sample-' + [i]).on('click', function (e) {
                 if (!self.isLoading) {
+                    $('.sample-box--selected').removeClass('sample-box--selected');
+                    $(this).addClass('sample-box--selected');
                     var data = self.samplesDisplay[$(e.target).data('index')];
                     $('#input-submit').val(data);
                     $('#btn-submit').removeClass('disabled');
@@ -103,6 +105,7 @@ var ChatbotLayout = {
     },
     updateBotSpeechBuble: function (messageData) {
         this.isLoading = false;
+        $('.sample-box--selected').removeClass('sample-box--selected');
         $('#chat-data .speech-buble').last().empty().append(messageData);
     },
     addBotSpeechBuble: function (messageData) {

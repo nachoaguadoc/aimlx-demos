@@ -60,6 +60,8 @@ var BasicIoLayout = {
 
             $('#sample-' + [i]).on('click', function (e) {
                 if (!self.isLoading) {
+                    $('.sample-box--selected').removeClass('sample-box--selected');
+                    $(this).addClass('sample-box--selected');
                     var data = self.samplesDisplay[$(e.target).data('index')];
                     $('#input-submit').val(data);
                     $('#btn-submit').removeClass('disabled');
@@ -90,6 +92,7 @@ var BasicIoLayout = {
             $('#input-submit').prop('disabled', false).val('');
             $('#btn-submit span').show();
             $('.ellipsis-loader').hide();
+            $('.sample-box--selected').removeClass('sample-box--selected');
         }
     },
     submit: function () {
