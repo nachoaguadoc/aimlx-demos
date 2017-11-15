@@ -37,11 +37,13 @@
   display: flex;
   min-height: 48px;
   margin: $padding-medium !important;
-
 }
 
 .chat-area__input > input {
   margin-top: 0 !important;
+  &:disabled {
+    background-color: white!important;
+  }
 }
 
 .send-button {
