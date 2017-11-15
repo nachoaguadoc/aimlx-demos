@@ -190,3 +190,22 @@ header {
         border-radius: 1px;
     }
 }
+
+.aix-desktop-only{
+    display: block;
+    text-align: center;
+}
+
+.aix-demo-content {
+    display: none;
+}
+
+@media only screen and (min-width: 1024px) {
+    .aix-desktop-only{
+    display: none;
+}
+
+.aix-demo-content {
+    display: block;
+}
+}
