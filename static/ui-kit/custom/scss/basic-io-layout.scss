@@ -22,6 +22,7 @@
   height: 470px;
   margin-bottom: $padding-medium;
   overflow-y: auto;
+  overflow-x: hidden;
   & p {
     font-size: 32px;
     letter-spacing: -1px;
