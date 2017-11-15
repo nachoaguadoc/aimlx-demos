@@ -84,6 +84,7 @@ var ChatbotLayout = {
         this.isLoading = true;
         $('#btn-submit').addClass('disabled');
         this.addBotSpeechBuble('<div class="ellipsis-loader"><div></div><div></div><div></div></div>')
+        $('#input-submit').prop('disabled', true);
     },
     pushMessage: function (messageData, type) {
         switch (type) {
@@ -107,6 +108,7 @@ var ChatbotLayout = {
         this.isLoading = false;
         $('.sample-box--selected').removeClass('sample-box--selected');
         $('#chat-data .speech-buble').last().empty().append(messageData);
+        $('#input-submit').prop('disabled', false);
     },
     addBotSpeechBuble: function (messageData) {
         $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble">' + messageData + '</div></div></div>');
