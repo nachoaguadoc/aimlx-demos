@@ -28,6 +28,11 @@ var BasicIoLayout = {
             self.samples = json.samples;
             self.getRandomSamples();
             self.hideSampleLoader();
+            if (self.samples.length > self.numberOfSamples) {
+                $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
+                    self.getRandomSamples()
+                });
+            }
         });
     },
     getRandomSamples: function () {
@@ -67,11 +72,6 @@ var BasicIoLayout = {
                     $('#btn-submit').removeClass('disabled');
                     self.dataInput = data;
                 }
-            });
-        }
-        if (this.samples.length > this.numberOfSamples) {
-            $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
-                self.getRandomSamples()
             });
         }
     },
