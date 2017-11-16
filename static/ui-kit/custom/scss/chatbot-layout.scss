@@ -48,6 +48,8 @@
 
 .send-button {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   min-width: 64px !important;
   padding: 0;
