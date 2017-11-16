@@ -60,11 +60,8 @@
 }
 
 .bot-buble-container {
-  displa: block;
-}
-
-.bot-buble-container__inner {
   display: flex;
+  flex-shrink: 0;
   > img {
     align-self: flex-start;
     margin-right: $padding-medium;
@@ -99,6 +96,8 @@
   color: #fff;
   border-radius: 10px 0 10px 10px;
   max-width: 400px;
+  display: flex;
+  flex-shrink: 0;
 
 }
 

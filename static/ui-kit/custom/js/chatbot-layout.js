@@ -31,7 +31,7 @@ var ChatbotLayout = {
         $.getJSON(this.sampleLink, function (json) {
             self.samples = json.samples;
             self.getRandomSamples();
-            self.pushMessage(self.textStartingConversation, 'bot');
+            self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
             self.hideSampleLoader();
             if (self.samples.length > self.numberOfSamples) {
                 $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
@@ -111,7 +111,7 @@ var ChatbotLayout = {
         $('#input-submit').prop('disabled', false);
     },
     addBotSpeechBuble: function (messageData) {
-        $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble">' + messageData + '</div></div></div>');
+        $('#chat-data').append('<div class="bot-buble-container"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble">' + messageData + '</div></div>');
     },
     addClientSpeechBuble: function (messageData) {
         $('#chat-data').append('<div class="speech-buble speech-buble--user"><p>' + messageData + '</p></div>');
