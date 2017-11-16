@@ -150,13 +150,20 @@
   line-height: 18px;
   border: 1px solid $gray;
   border-radius: 5px;
-  height: 88px;
+  height: 104px;
   margin-bottom: $padding-medium;
   cursor: pointer;
 
   &:hover {
     background-color: $light-blue;
   }
+}
+
+@media only screen and (min-width: 1320px) {
+  .sample-box {
+    height: 88px;
+  }
+
 }
 
 .sample-box--selected {

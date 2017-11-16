@@ -55,11 +55,11 @@ var BasicIoLayout = {
     showSamples: function () {
         $('#sample-data').empty();
         for (var i in this.samplesDisplay) {
-            var maxLenght = 100;
+            var maxLenght = 90;
             var self = this;
             var sampleText = this.samplesDisplay[i];
             if (sampleText.length > maxLenght) {
-                sampleText = sampleText.substring(0, maxLenght) + ' ...'
+                sampleText = sampleText.substring(0, (maxLenght-3)) + '...'
             }
             $('#sample-data').append('<div class="col-md-6"><div id="sample-' + [i] + '" data-index="' + [i] + '" class="sample-box">' + sampleText + '</div></div>');
 
