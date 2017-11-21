@@ -36,6 +36,7 @@ from controller.slot_filling_controller import slot_filling_api
 from controller.summary_controller import summary_api
 from sfid import sfid
 from argumentation import argumentation
+from summarization import summarization
 
 app = Flask(__name__)
 CORS(app)
@@ -54,6 +55,7 @@ app.register_blueprint(argumentation, url_prefix='/argumentation')
 app.register_blueprint(argumentation_api, url_prefix='/argumentation_old')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 app.register_blueprint(sfid, url_prefix='/sfid')
+app.register_blueprint(summarization, url_prefix='/summarization')
 app.register_blueprint(sfid_api, url_prefix='/sfid_old')
 app.register_blueprint(grocery_api, url_prefix='/grocery')
 app.register_blueprint(emotion_api, url_prefix='/emotion')
