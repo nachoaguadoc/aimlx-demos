@@ -1,0 +1,75 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+
+{% endblock %}
+
+{% block title %}Product Identification{% endblock %}
+
+{% block description %}Using image recognition identify the product on the shelf{% endblock %}
+
+{% block content %}
+    <div class="row row-special" id="search_row">
+                <div class="col-xs col-lg-2"></div>
+                <div class="col-xs col-lg-6">
+
+                    <div class="input-field input-field--fixed" data-init="auto">
+                        <input type="text" id="input_text" placeholder="Upload Image or Select from samples below :)" readonly>
+                        <div class="row row-special" >
+
+                            <input type="file" id="input_file" class="form-control input-lg col-xs col-lg-8" accept="image/*" />
+
+                            <button id="upload_button" class="button button--primary col-xs col-lg-1" for="input_file" >
+                                <i class="icon icon-087-upload icon--s5" aria-hidden="true"></i>
+                                Upload
+                            </button>
+                        <div class="col-xs col-lg-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs col-lg-3"></div>
+            </div>
+
+
+
+            <div class="row row-special" id="question_row">
+                <div class="col-xs col-lg-1"></div>
+                <div class="col-xs col-lg-10">
+                    <div class="row row-special">
+                        <div class="col-xs-12 col-md-auto" id="question"></div>
+                        <div class="loader-spinner loader-spinner--small " id="spinner"></div>
+                    </div>
+                </div>
+                <div class="col-xs col-lg-1"></div>
+            </div>
+
+            <div class="row row-special flex-items-xs-top" id="suggestions_row">
+
+                <div class="col-xs col-lg-1"></div>
+                <img class="col-xs col-lg-3" id=img_sug1 src='{{ url_for('static', filename='assets/grocery_images/small_static_8.jpg') }}' vspace="20"></img>
+                <img class="col-xs col-lg-3" id=img_sug2 src='{{ url_for('static', filename='assets/grocery_images/small_static_14.jpg') }}' vspace="20"></img>
+                <img class="col-xs col-lg-3" id=img_sug3 src='{{ url_for('static', filename='assets/grocery_images/small_static_17.jpg') }}' vspace="20"></img>
+                <div class="col-xs col-lg-1"></div>
+
+
+            </div>
+
+            <div class="row row-special flex-items-xs-bottom" >
+
+                <div class="col-xs col-lg-1"></div>
+                <img class="col-xs col-lg-3" id=img_sug4 src='{{ url_for('static', filename='assets/grocery_images/small_static_8.jpg') }}'></img>
+                <img class="col-xs col-lg-3" id=img_sug5 src='{{ url_for('static', filename='assets/grocery_images/small_static_14.jpg') }}'></img>
+                <img class="col-xs col-lg-3" id=img_sug6 src='{{ url_for('static', filename='assets/grocery_images/small_static_17.jpg') }}'></img>
+                <div class="col-xs col-lg-1"></div>
+
+            </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script src="{{ url_for('grocery.static', filename='grocery_product.js') }}"></script>
+{% endblock %}
