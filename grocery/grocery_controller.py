@@ -58,7 +58,8 @@ def upload():
     im_name_out1 = im_name.split('.')[0] + '_out1.jpg'
     im_name_out2 = im_name.split('.')[0] + '_out2.jpg'
     processed_images = [im_name, im_name_out1, im_name_out2]
-    return render_template("grocery_gallery.html", image_names=processed_images)
+    # return render_template("grocery_gallery.html", image_names=processed_images)
+    return json.dumps({'list':processed_images})
 
 
 @grocery.route('/static', methods=['POST'])
@@ -87,15 +88,9 @@ def for_static():
     im_name_out2 = im_name.split('.')[0] + '_out2.jpg'
     processed_images = [im_name, im_name_out1, im_name_out2]
     print("********************")
-    return render_template("grocery_gallery.html", image_names=processed_images)
+    # return render_template("grocery_gallery.html", image_names=processed_images)
+    return json.dumps({'list':processed_images})
 
 
-@grocery.route('/processed')
-def show_processed():
-    return render_template("grocery_gallery.html", image_names=processed_images)
 
-
-@grocery.route('/upload/<filename>')
-def send_image(filename):
-    return send_from_directory(conf.grocery['dir'], filename)
 
