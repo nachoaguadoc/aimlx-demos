@@ -37,15 +37,19 @@
   display: flex;
   min-height: 48px;
   margin: $padding-medium !important;
-
 }
 
 .chat-area__input > input {
   margin-top: 0 !important;
+  &:disabled {
+    background-color: white!important;
+  }
 }
 
 .send-button {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   min-width: 64px !important;
   padding: 0;
@@ -58,11 +62,8 @@
 }
 
 .bot-buble-container {
-  displa: block;
-}
-
-.bot-buble-container__inner {
   display: flex;
+  flex-shrink: 0;
   > img {
     align-self: flex-start;
     margin-right: $padding-medium;
@@ -97,6 +98,8 @@
   color: #fff;
   border-radius: 10px 0 10px 10px;
   max-width: 400px;
+  display: flex;
+  flex-shrink: 0;
 
 }
 
@@ -147,13 +150,24 @@
   line-height: 18px;
   border: 1px solid $gray;
   border-radius: 5px;
-  height: 88px;
+  height: 104px;
   margin-bottom: $padding-medium;
   cursor: pointer;
 
   &:hover {
     background-color: $light-blue;
   }
+}
+
+@media only screen and (min-width: 1320px) {
+  .sample-box {
+    height: 88px;
+  }
+
+}
+
+.sample-box--selected {
+  background-color: $light-blue;
 }
 
 .btn-sample-refresh {

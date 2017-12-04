@@ -22,6 +22,7 @@
   height: 470px;
   margin-bottom: $padding-medium;
   overflow-y: auto;
+  overflow-x: hidden;
   & p {
     font-size: 32px;
     letter-spacing: -1px;
@@ -96,13 +97,24 @@
   line-height: 18px;
   border: 1px solid $gray;
   border-radius: 5px;
-  height: 88px;
+  height: 104px;
   margin-bottom: $padding-medium;
   cursor: pointer;
 
   &:hover {
     background-color: $light-blue;
   }
+}
+
+@media only screen and (min-width: 1320px) {
+  .sample-box {
+    height: 88px;
+  }
+
+}
+
+.sample-box--selected {
+  background-color: $light-blue;
 }
 
 .btn-sample-refresh {

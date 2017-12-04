@@ -5,11 +5,11 @@ body {
 .site-wrapper {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .content-wrapper {
-    flex: 1;
+    flex-grow: 1;
 }
 
 .header__container {
@@ -189,4 +189,23 @@ header {
     .content-stage {
         border-radius: 1px;
     }
+}
+
+.aix-desktop-only{
+    display: block;
+    text-align: center;
+}
+
+.aix-demo-content {
+    display: none;
+}
+
+@media only screen and (min-width: 1024px) {
+    .aix-desktop-only{
+    display: none;
+}
+
+.aix-demo-content {
+    display: block;
+}
 }
