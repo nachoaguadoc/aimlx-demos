@@ -4,6 +4,14 @@
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        {#Swisscom SDX CSS#}
+        <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/sdx/css/sdx.min.css') }}">
+        {#Custom CSS #}
+        <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/site-layout.css') }}">
+        <title>Swisscom AI Research Demo</title>
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,13 +21,35 @@
 
     </head>
     <body>
-        <div class="container">
-            <div class="row" id="banner_row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10"><center><img id=banner src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img></center></div>
-                <div class="col-md-1"></div>
-            </div>
-            <div class="row" id="search_row">
+    <div class="site-wrapper">
+    <div class="content-wrapper">
+        <div class="header__container">
+            <nav>
+                <div class="nav__container ">
+                    <div>Swisscom AI Research Demo</div>
+                </div>
+            </nav>
+            <header>
+                <div class="header__container">
+                    <img class="avatar"
+                         src="{{ url_for('static', filename='ui-kit/custom/assets/research-icon.svg') }}">
+                    <div class="title-container">
+                        <div class="main-title">Product Identification</div>
+                        <div class="sub-title">Using image recognition identify the product on the shelf</div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="content-area">
+            <div class="colored-background"></div>
+            <div class="content-stage container">
+                <div class="container">
+            <!--<div class="row" id="banner_row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10"><center><img id=banner src='{{ url_for('static', filename='assets/swisscom-logo.png') }}'></img></center></div>-->
+                <!--<div class="col-md-1"></div>-->
+            <!--</div>-->
+            <div class="row aix-row" id="search_row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <div id="custom-search-input">
@@ -56,14 +86,14 @@
                 <!--</div>-->
                 <!--<div class="col-md-1"></div>-->
             <!--</div>-->
-            <div class="row" id="question_row">
+            <div class="row aix-row" id="question_row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <div id="question"></div>
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            <div class="row" id="answer_row">
+            <div class="row aix-row" id="answer_row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <div class="col-md-12 answer_model">
@@ -72,26 +102,45 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            <div class="row" id="suggestions_row">
+            <div class="row aix-row" id="suggestions_row">
 
                 <div class="col-md-1"></div>
-                <div class="row" class="col-md-10" id="gallery">
+                <div class="row aix-row" class="col-lg-10" id="gallery">
                     <div class="row" id="suggestions"></div>
-                    <img class="col-md-3" id=img_sug1 src='{{ url_for('static', filename='assets/grocery_images/small_static_8.jpg') }}'  vspace="20" ></img>
-                    <img class="col-md-3" id=img_sug2 src='{{ url_for('static', filename='assets/grocery_images/small_static_14.jpg') }}' vspace="20"></img>
-                    <img class="col-md-3" id=img_sug3 src='{{ url_for('static', filename='assets/grocery_images/small_static_17.jpg') }}' vspace="20"></img>
-                    <img class="col-md-3" id=img_sug4 src='{{ url_for('static', filename='assets/grocery_images/small_static_73.jpg') }}' vspace="20"></img>
-                    <div class="row" id="suggestions1"></div>
-                    <img class="col-md-3" id=img_sug5 src='{{ url_for('static', filename='assets/grocery_images/small_static_6.jpg') }}'  vspace="20"></img>
-                    <img class="col-md-3" id=img_sug6 src='{{ url_for('static', filename='assets/grocery_images/small_static_13.jpg') }}' vspace="20"></img>
-                    <img class="col-md-3" id=img_sug7 src='{{ url_for('static', filename='assets/grocery_images/small_static_5.jpg') }}' vspace="20"></img>
-                    <img class="col-md-3" id=img_sug8 src='{{ url_for('static', filename='assets/grocery_images/small_static_16.jpg') }}' vspace="20"></img>
+                    <img class="col-lg-2" id=img_sug1 src='{{ url_for('static', filename='assets/grocery_images/small_static_8.jpg') }}'  vspace="20" ></img>
+                    <img class="col-lg-2" id=img_sug2 src='{{ url_for('static', filename='assets/grocery_images/small_static_14.jpg') }}' vspace="20"></img>
+                    <img class="col-lg-2" id=img_sug3 src='{{ url_for('static', filename='assets/grocery_images/small_static_17.jpg') }}' vspace="20"></img>
+                    <!--<img class="col-md-2" id=img_sug4 src='{{ url_for('static', filename='assets/grocery_images/small_static_73.jpg') }}' vspace="20"></img>-->
+                    <div class="row aix-row" id="suggestions1"></div>
+                    <img class="col-lg-2" id=img_sug5 src='{{ url_for('static', filename='assets/grocery_images/small_static_6.jpg') }}'  vspace="20"></img>
+                    <img class="col-lg-2" id=img_sug6 src='{{ url_for('static', filename='assets/grocery_images/small_static_13.jpg') }}' vspace="20"></img>
+                    <img class="col-lg-2" id=img_sug7 src='{{ url_for('static', filename='assets/grocery_images/small_static_5.jpg') }}' vspace="20"></img>
+                    <!--<img class="col-md-2" id=img_sug8 src='{{ url_for('static', filename='assets/grocery_images/small_static_16.jpg') }}' vspace="20"></img>-->
 
                 </div>
                 <div class="col-md-1"></div>
             </div>
 
         </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-outer">
+        <div class="footer footer--compact footer--light footer-inner">
+            <a class="logo">
+                <span class="logo-lifeform" aria-label="Swisscom Logo"/>
+            </a>
+            <ul class="nav-items">
+                <li class="nav-item">
+                    <a href="https://swisscom.ch/ai" class="nav-link" target="_blank">
+                        AI for your business?
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
 
         <!-- jQuery first, then Tether, then Bootstrap JS. -->
         <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
@@ -100,7 +149,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
         <script src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
         <script src="{{ url_for('static', filename='javascripts/grocery_product.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='ui-kit/sdx/js/sdx.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+    </script>
         <!--<script src="../static/grocery_product.js"></script>-->
     </body>
 </html>
