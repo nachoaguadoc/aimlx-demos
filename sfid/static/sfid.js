@@ -81,5 +81,5 @@ function decorateMainText(intent) {
 }
 
 function decorateInfo(data) {
-    return '<div class="detected-information"><p class="text-label">Detected information' + data + '</div>'
+    return '<div class="detected-information"><p class="text-label">I will make an API call with this detected information' + data + '</div>'
 }
