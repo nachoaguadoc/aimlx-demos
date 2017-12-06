@@ -74,11 +74,11 @@ sfid = {
 
 grocery = {
     'host': '',
-    'port': ,
+    'port': 1999,
     'url':'',
     'dir': ''
 }
- emotions = {
-    'url': '',
-    'img_path': ''
- }
+emotions = {
+'url': '',
+'img_path': ''
+}
