@@ -1,5 +1,6 @@
 //suggestions = ['The food is tasty', 'The restaurant was very expensive', 'I think the steak was not very good', 'The fish was ok, but I the salad was better', 'The breakfast was delicious!', 'How much does these oranges cost?']
 var suggestions = [];
+
 function new_question(question) {
 	$('#question_row').show();
 	$('#question').text(question);
@@ -119,6 +120,8 @@ $.ajax({
        }
     });
 }
+
+
 $(document).ready(function(){
 	$('#question_row').hide();
 	learning_type = 'supervised'

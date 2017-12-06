@@ -37,6 +37,7 @@ from controller.summary_controller import summary_api
 from sfid import sfid
 from argumentation import argumentation
 from grocery import grocery
+from material import material
 
 app = Flask(__name__)
 CORS(app)
@@ -57,7 +58,7 @@ app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 app.register_blueprint(sfid, url_prefix='/sfid')
 app.register_blueprint(sfid_api, url_prefix='/sfid_old')
 app.register_blueprint(grocery, url_prefix='/grocery')
-# app.register_blueprint(grocery_api, url_prefix='/grocery')
+app.register_blueprint(material, url_prefix='/material')
 app.register_blueprint(emotion_api, url_prefix='/emotion')
 
 
