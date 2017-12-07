@@ -1,7 +1,7 @@
-var static_img = ["static_8","static_14","static_17","static_6","static_13","static_5"];
-var img_path = '/static/assets/grocery_images/';
+var static_img = ["00009608_037", "static_14","static_17","static_6","static_13","static_5"];
+var img_path = '/static/assets/chestxray_images/';
 
-// TODO Clean the grocery to chestxray, with the hand-picked ID as well as other information
+// TODO Clean the chestxray to chestxray, with the hand-picked ID as well as other information
 
 function new_message(message) {
     $('#upload_row').hide();
@@ -20,11 +20,15 @@ function show_output(list){
     $('#message').text('Green and Blue Regions show groups and individual product detected');
     $('#suggestions_row1').hide();
     $('#suggestions_row3').hide();
-    $('#suggestions_row2').show();
+    $('#suggestions_row2').hide();
+    $('#result_row1').show();
+    $('#result_row2').show();
 
-    $('#img_in').attr('src',img_path.concat(list[0]));
-    $('#img_out1').attr('src',img_path.concat(list[1]));
-    $('#img_out2').attr('src',img_path.concat(list[2]));
+
+    $('#result_img0').attr('src',img_path.concat(list[0]));
+    $('#result_img1').attr('src',img_path.concat(list[1]));
+    $('#result_img2').attr('src',img_path.concat(list[2]));
+    $('#result_img3').attr('src',img_path.concat(list[3]));
 
 }
 
@@ -34,8 +38,8 @@ function submit(input_text,id) {
 
     id = static_img[parseInt(id)-1]
 	new_message(input_text);
-	url = "/grocery/static";
-    var data = {"image_list": id+'.jpg'};
+	url = "/chestxray/static";
+    var data = {"image_list": id+'.png'};
 
 	$.ajax({
 	  type: "POST",
@@ -59,13 +63,15 @@ function refresh() {
 	$('#suggestions_row1').show();
     $('#suggestions_row3').show();
     $('#suggestions_row2').hide();
+    $('#result_row1').hide();
+    $('#result_row2').hide();
 }
 
 function upload(formData){
     new_message('Uploading and Processing Image... Get a coffee :P');
 
 $.ajax({
-       url: "/grocery/upload",
+       url: "/chestxray/upload",
        type: "POST",
        data: formData,
        processData: false,

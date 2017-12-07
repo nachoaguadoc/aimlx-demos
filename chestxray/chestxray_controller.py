@@ -56,11 +56,13 @@ def upload():
     print(json.loads(response.text))
 
     im_name = os.path.basename(destination)
+    im_name_out0 = im_name.split('.')[0] + '_out0.jpg'
     im_name_out1 = im_name.split('.')[0] + '_out1.jpg'
     im_name_out2 = im_name.split('.')[0] + '_out2.jpg'
-    processed_images = [im_name, im_name_out1, im_name_out2]
-    # return render_template("chestxray_gallery.html", image_names=processed_images)
-    return json.dumps({'list':processed_images})
+    im_name_out3 = im_name.split('.')[0] + '_out3.jpg'
+    processed_images = [im_name_out3, im_name_out0, im_name_out1, im_name_out2]
+    # return render_template("grocery_gallery.html", image_names=processed_images)
+    return json.dumps({'list': processed_images})
 
 
 @chestxray.route('/static', methods=['POST'])
@@ -82,15 +84,16 @@ def for_static():
     # send http request with image and receive response
     response = requests.post(test_url, data=jsonpickle.encode(data), headers=headers)
     # decode response
-    print(json.loads(response.text))
+    print("for static decode response ", json.loads(response.text))
 
     im_name = os.path.basename(destination)
+    im_name_out0 = im_name.split('.')[0] + '_out0.jpg'
     im_name_out1 = im_name.split('.')[0] + '_out1.jpg'
     im_name_out2 = im_name.split('.')[0] + '_out2.jpg'
-    processed_images = [im_name, im_name_out1, im_name_out2]
-    print("********************")
-    # return render_template("chestxray_gallery.html", image_names=processed_images)
-    return json.dumps({'list':processed_images})
+    im_name_out3 = im_name.split('.')[0] + '_out3.jpg'
+    processed_images = [im_name_out3, im_name_out0, im_name_out1, im_name_out2]
+    # return render_template("grocery_gallery.html", image_names=processed_images)
+    return json.dumps({'list': processed_images})
 
 
 

@@ -116,6 +116,13 @@ def process_image_and_display_result(image):
     x = preprocess_image_for_minc(img)
 
     # Save the preprocessed image and original image into
+    f, ax = plt.subplots(1, 1)
+    ax.imshow(original_resize)
+    ax.set_title("Original image", fontsize='x-large')
+    output_path = image.split('.')[0] + '_out3.jpg'
+    plt.savefig(output_path)
+
+    # Save the preprocessed image and original image into
     f, ax = plt.subplots(1,1)
     ax.imshow(x)
     ax.set_title("Preprocessed image", fontsize='x-large')
@@ -140,6 +147,7 @@ def process_image_and_display_result(image):
         fo_result[1][0][-1]),
         fontsize='x-large'
     )
+    ax.set_xlabel("Baseline")
     # ax.set_title("Label: {} \n Prob: {}".format(
     #     decode_minc_nnid(fo_result[0][0][-1]),
     #     fo_result[1][0][-1])
@@ -157,6 +165,7 @@ def process_image_and_display_result(image):
         decode_minc_nnid(so_result[0][0][-1]),
         so_result[1][0][-1]), fontsize='x-large'
     )
+    ax.set_xlabel("Ours")
     output_path = image.split('.')[0] + '_out2.jpg'
     plt.savefig(output_path)
     return fo_result, so_result

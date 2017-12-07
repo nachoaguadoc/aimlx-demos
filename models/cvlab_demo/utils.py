@@ -6,6 +6,36 @@ from kyu.utils.image import ImageDataGeneratorAdvanced
 from vis.visualization import visualize_cam, overlay
 import matplotlib.cm as cm
 import os
+import keras.backend as K
+
+
+def preprocess_image_for_chestxray(img):
+    """
+        Preprocess Image for CUB dataset
+
+        ,
+        ,
+        108.68376923,
+        :param img: ndarray with rank 3
+        :return: img: ndarray with same shape
+
+        """
+    mean = 108
+    data_format = K.image_data_format()
+    assert data_format in {'channels_last', 'channels_first'}
+    x = img
+    if data_format == 'channels_first':
+        # Zero-center by mean pixel
+        x[0, :, :] -= mean
+        x[1, :, :] -= mean
+        x[2, :, :] -= mean
+    else:
+        # Zero-center by mean pixel
+        x[:, :, 0] -= mean
+        x[:, :, 1] -= mean
+        x[:, :, 2] -= mean
+    return x
+
 
 def get_top_k_classification(model, seed_input, k=5):
     """

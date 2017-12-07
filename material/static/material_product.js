@@ -20,11 +20,15 @@ function show_output(list){
     $('#message').text('Show the following material classification output');
     $('#suggestions_row1').hide();
     $('#suggestions_row3').hide();
-    $('#suggestions_row2').show();
+    $('#suggestions_row2').hide();
+    $('#result_row1').show();
+    $('#result_row2').show();
 
-    $('#img_in').attr('src',img_path.concat(list[0]));
-    $('#img_out1').attr('src',img_path.concat(list[1]));
-    $('#img_out2').attr('src',img_path.concat(list[2]));
+
+    $('#result_img0').attr('src',img_path.concat(list[0]));
+    $('#result_img1').attr('src',img_path.concat(list[1]));
+    $('#result_img2').attr('src',img_path.concat(list[2]));
+    $('#result_img3').attr('src',img_path.concat(list[3]));
 
 }
 
@@ -58,6 +62,8 @@ function refresh() {
 	$('#suggestions_row1').show();
     $('#suggestions_row3').show();
     $('#suggestions_row2').hide();
+    $('#result_row1').hide();
+    $('#result_row2').hide();
 }
 
 
