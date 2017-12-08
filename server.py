@@ -16,7 +16,7 @@ from flask_cors import CORS
 
 import json
 import config as conf
-import jsonpickle
+#import jsonpickle
 import helpers 
 
 from controller.chatbot_controller import chatbot_api
@@ -33,6 +33,7 @@ from controller.opinion_target_controller import opinion_target_api
 from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.summary_controller import summary_api
+from controller.seq2sql_controller import seq2sql_api
 
 
 app = Flask(__name__)
@@ -52,6 +53,7 @@ app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 app.register_blueprint(sfid_api, url_prefix='/sfid')
 app.register_blueprint(grocery_api, url_prefix='/grocery')
 app.register_blueprint(emotion_api, url_prefix='/emotion')
+app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 
 @app.route('/')
 def getIndex():

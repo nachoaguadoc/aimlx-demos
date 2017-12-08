@@ -78,7 +78,12 @@ grocery = {
     'url':'',
     'dir': ''
 }
- emotions = {
-    'url': '',
-    'img_path': ''
- }
+emotions = {
+'url': '',
+'img_path': ''
+}
+
+seq2seq = {
+    'socket_address': '',
+    'socket_port': ''
+}
