@@ -129,6 +129,7 @@ class ChestXray14Inference(ClassificationImageData):
             self.nb_class = len(self.category_dict)
         else:
             raise NotImplementedError
+        self.category_dict['Infiltrate'] = 8
         return self.category_dict
 
     def absolute_image_path(self, path):
@@ -179,11 +180,13 @@ class ChestXray14Inference(ClassificationImageData):
         -------
 
         """
+        if not image_id.endswith('.png'):
+            image_id = image_id + '.png'
         try:
             bb_list = [self.boundingbox_entry[e]for e in self.id_bbindex[image_id].value]
             img_entry = self.image_entry[self.id_entryindex[image_id].value]
 
-            img_width ,img_height = float(img_entry[7]), float(img_entry[8])
+            img_width, img_height = float(img_entry[7]), float(img_entry[8])
             result = []
             labels = []
             for bb in bb_list:
@@ -197,7 +200,7 @@ class ChestXray14Inference(ClassificationImageData):
                 labels.append(bb[1])
                 result.append(bbox)
 
-        except ValueError as e:
+        except KeyError as e:
             print(e)
             return None, None, None
         return result, labels

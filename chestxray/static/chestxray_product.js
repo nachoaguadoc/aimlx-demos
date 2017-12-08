@@ -1,7 +1,5 @@
-var static_img = ["00009608_037", "static_14","static_17","static_6","static_13","static_5"];
+var static_img = ["00003064_035", "00009669_003","00000740_000","00004344_014","00010381_000","00000506_013", "00012141_013"];
 var img_path = '/static/assets/chestxray_images/';
-
-// TODO Clean the chestxray to chestxray, with the hand-picked ID as well as other information
 
 function new_message(message) {
     $('#upload_row').hide();
@@ -17,7 +15,7 @@ function show_output(list){
     $('#upload_row').hide();
     $('#spinner').hide();
     $('#back_button').show();
-    $('#message').text('Green and Blue Regions show groups and individual product detected');
+    $('#message').text('Localization heatmap');
     $('#suggestions_row1').hide();
     $('#suggestions_row3').hide();
     $('#suggestions_row2').hide();
@@ -96,7 +94,7 @@ $(document).ready(function(){
     img_sug = '#img_sug';
     for (var i = 1; i <= 6; i++) {
         var elem = img_sug.concat(i.toString());
-        $(elem).attr('src', img_path.concat('small_',static_img[i-1],'.jpg'));
+        $(elem).attr('src', img_path.concat(static_img[i-1],'.png'));
         $(elem).click(function(e){
             console.log("Image clicked!!");
             var name = e.target.id;
@@ -113,13 +111,10 @@ $(document).ready(function(){
             upload(formData);
         }
     });
-
-
 	
 	$("#back_button").click(function(){
 		refresh();
 	})
-
 
 });
 
