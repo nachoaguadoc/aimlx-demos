@@ -70,7 +70,9 @@ def for_static():
 
     destination = jsonpickle.decode(data.decode('utf-8'))['image_list']
 
+
     data = {'image_list': os.path.join(conf.grocery['dir'], destination)}
+    print(os.path.join(conf.grocery['dir'], destination))
 
     test_url = conf.grocery['url']
 
@@ -90,6 +92,7 @@ def for_static():
     print("********************")
     # return render_template("grocery_gallery.html", image_names=processed_images)
     return json.dumps({'list':processed_images})
+
 
 
 

@@ -3,6 +3,7 @@
 
 models/grocery
 static/assets/grocery_images
+grocery/static/grocery_images
 
 models/chatbot_swisscom
 models/chatbot_ubuntu
