@@ -1,5 +1,5 @@
-var static_img = ["static_8","static_14","static_17","static_6","static_13","static_5"];
-var img_path = '/static/assets/grocery_images/';
+var static_img = ["static_8","static_s1_14","static_17","static_s2_55","static_s3_91","static_s3_2"];
+var img_path = '/grocery/static/grocery_images/';
 
 function new_message(message) {
     $('#upload_row').hide();
