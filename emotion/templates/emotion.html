@@ -1,0 +1,41 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+
+{% endblock %}
+
+{% block title %}Emotion Recognition{% endblock %}
+
+{% block description %}{% endblock %}
+
+{% block content %}
+
+<div class="button-group">
+	<button class="button button--primary" id='snap'>Snap Photo</button>
+</div>
+
+<br>
+
+<figure class="half" style="display:flex">
+<video id="video" width="500px" height="375px" autoplay style="margin-left: 10px"></video>
+<canvas id="canvas" width="500px" height="375px" style="margin-left: 20px"></canvas>
+<img id='processed_img' style="margin-left: 20px">
+</figure>
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script src="{{ url_for('static', filename='ui-kit/sdx/js/sdx.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+    </script>
+    <!--script type="text/javascript" src="static/javascripts/image.js"></script-->
+    <script src="{{ url_for('emotion.static', filename='image.js') }}"></script>
+{% endblock %}
