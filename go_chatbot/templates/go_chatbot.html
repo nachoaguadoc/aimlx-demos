@@ -1,0 +1,16 @@
+{% extends "ui-kit/chatbot_layout.html" %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block title %}Goal-Oriented Chatbot{% endblock %}
+
+{% block description %}Goal-Oriented Chatbot that helps users book a movie tickets{% endblock %}
+
+{% block input_placeholder_text %}{{ super() }}{% endblock %}
+
+{% block samples %}{{ super() }}{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('go_chatbot.static', filename='go_chatbot.js') }}"></script>
+{% endblock %}
