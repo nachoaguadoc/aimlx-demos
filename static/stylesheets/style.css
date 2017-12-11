@@ -72,7 +72,10 @@
     color: #348edd;
     font-weight: bold;
 }
-
+.green {
+    color: green;
+    font-weight: bold;
+}
 #banner {
     width: 50%;
     margin-top: 5%;

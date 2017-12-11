@@ -34,6 +34,7 @@ from controller.opinion_target_controller import opinion_target_api
 from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.summary_controller import summary_api
+from controller.seq2sql_controller import seq2sql_api
 from sfid import sfid
 from argumentation import argumentation
 from grocery import grocery
@@ -69,7 +70,6 @@ def getIndex():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html'), 404
-
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Demo simple</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/css/bootstrap-tour-standalone.css">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/seq2sql.css') }}">
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" id="search_row">
+            <div class="col-md-1" id="home_button"><span class="fa fa-2x fa-arrow-left"></span></div>
+            <div class="col-md-10">
+                <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                        <span id="swisscom-logo" class="input-group-btn"><img id=banner src='{{ url_for('static', filename='assets/swisscom.png') }}'></img></span>
+                        <input type="text" id="input_text" class="form-control input-lg" placeholder="Ask me something!" />
+                        <span class="input-group-btn">
+                            <button id="search_button" class="btn btn-info btn-lg" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+      </div>
+
+      <div class="row" id="dialog_row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <ul class="chat-ul">
+                  <li>
+                    <div id="question" class="message you-message"></div>
+                  </li>
+                </ul>
+
+			     <div id="answer"></div>
+
+            </div>
+            <div class="col-md-1"></div>
+      </div>
+      <div class="row" id="table_row">
+            <div class="col-md-12">
+                <div id="table_container"></div>
+            </div>
+       </div>
+      <div class="row" id="suggestions_row">
+
+        <div class="col-md-12">
+            <div class="row" id="suggestions"></div>
+        </div>
+    </div>
+    </div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script  src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.11.0/js/bootstrap-tour-standalone.js"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='javascripts/common.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='javascripts/seq2sql.js') }}"></script>
+  </body>
+</html>
