@@ -27,9 +27,8 @@ def submitSeq2SQL():
         s.connect((socket_address, socket_port))
         msg = parameters['question']
         print(msg)
-        print("*********")
         s.sendall(msg.encode())
         answer = s.recv(2048).decode("utf-8")
-        print("ANSWER:", answer)
+        print("Question {} --- Answer: {}".format(msg, answer))
         s.close()
         return jsonify({'seq2sql': answer})
