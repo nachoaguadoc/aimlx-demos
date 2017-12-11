@@ -57,6 +57,7 @@ app.register_blueprint(argumentation_api, url_prefix='/argumentation_old')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 
 app.register_blueprint(sfid, url_prefix='/sfid')
+app.register_blueprint(go_chatbot, url_prefix='/go_chatbot')
 app.register_blueprint(summarization, url_prefix='/summarization')
 app.register_blueprint(sfid_api, url_prefix='/sfid_old')
 app.register_blueprint(grocery, url_prefix='/grocery')
