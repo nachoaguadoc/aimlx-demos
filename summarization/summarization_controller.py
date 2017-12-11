@@ -5,14 +5,24 @@ from . import summarization
 
 
 @summarization.route('')
-def showSfidPage():
-    return render_template('sfid.html')
+def showSummarizationPage():
+    return render_template('summarization.html')
 
 
-@summarization.route('', methods=['POST'])
-def submitSummarization():
+@summarization.route('/ext', methods=['POST'])
+def submitSummarization_ext():
     parameters = request.get_json(force=True)
     if request.method == 'POST':
-        result = requests.post(conf.summarization['url'], json=parameters)
+        result = requests.post(conf.summarization['url_ext'], json=parameters)
         resultdict = result.json()
+        print(resultdict)
+        return jsonify(resultdict)
+
+@summarization.route('/gen', methods=['POST'])
+def submitSummarization_gen():
+    parameters = request.get_json(force=True)
+    if request.method == 'POST':
+        result = requests.post(conf.summarization['url_gen'], json=parameters)
+        resultdict = result.json()
+        print(resultdict)
         return jsonify(resultdict)
