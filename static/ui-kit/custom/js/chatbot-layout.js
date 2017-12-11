@@ -31,8 +31,13 @@ var ChatbotLayout = {
         $.getJSON(this.sampleLink, function (json) {
             self.samples = json.samples;
             self.getRandomSamples();
-            self.pushMessage(self.textStartingConversation, 'bot');
+            self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
             self.hideSampleLoader();
+            if (self.samples.length > self.numberOfSamples) {
+                $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
+                    self.getRandomSamples()
+                });
+            }
         });
     },
     getRandomSamples: function () {
@@ -55,16 +60,18 @@ var ChatbotLayout = {
     showSamples: function () {
         $('#sample-data').empty();
         for (var i in this.samplesDisplay) {
-            var maxLenght = 100;
+            var maxLenght = 90;
             var self = this;
             var sampleText = this.samplesDisplay[i];
             if (sampleText.length > maxLenght) {
-                sampleText = sampleText.substring(0, maxLenght) + ' ...'
+                sampleText = sampleText.substring(0, (maxLenght-3)) + '...'
             }
             $('#sample-data').append('<div class="col-md-6"><div id="sample-' + [i] + '" data-index="' + [i] + '" class="sample-box">' + sampleText + '</div></div>');
 
             $('#sample-' + [i]).on('click', function (e) {
                 if (!self.isLoading) {
+                    $('.sample-box--selected').removeClass('sample-box--selected');
+                    $(this).addClass('sample-box--selected');
                     var data = self.samplesDisplay[$(e.target).data('index')];
                     $('#input-submit').val(data);
                     $('#btn-submit').removeClass('disabled');
@@ -72,16 +79,12 @@ var ChatbotLayout = {
                 }
             });
         }
-        if (this.samples.length > this.numberOfSamples) {
-            $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
-                self.getRandomSamples()
-            });
-        }
     },
     setLoadingState: function () {
         this.isLoading = true;
         $('#btn-submit').addClass('disabled');
         this.addBotSpeechBuble('<div class="ellipsis-loader"><div></div><div></div><div></div></div>')
+        $('#input-submit').prop('disabled', true);
     },
     pushMessage: function (messageData, type) {
         switch (type) {
@@ -103,10 +106,12 @@ var ChatbotLayout = {
     },
     updateBotSpeechBuble: function (messageData) {
         this.isLoading = false;
+        $('.sample-box--selected').removeClass('sample-box--selected');
         $('#chat-data .speech-buble').last().empty().append(messageData);
+        $('#input-submit').prop('disabled', false);
     },
     addBotSpeechBuble: function (messageData) {
-        $('#chat-data').append('<div class="bot-buble-container"><div class="bot-buble-container__inner"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble">' + messageData + '</div></div></div>');
+        $('#chat-data').append('<div class="bot-buble-container"><img src="../static/ui-kit/custom/assets/bot.svg"/><div class="speech-buble">' + messageData + '</div></div>');
     },
     addClientSpeechBuble: function (messageData) {
         $('#chat-data').append('<div class="speech-buble speech-buble--user"><p>' + messageData + '</p></div>');

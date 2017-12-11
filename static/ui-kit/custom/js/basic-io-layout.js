@@ -28,6 +28,11 @@ var BasicIoLayout = {
             self.samples = json.samples;
             self.getRandomSamples();
             self.hideSampleLoader();
+            if (self.samples.length > self.numberOfSamples) {
+                $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
+                    self.getRandomSamples()
+                });
+            }
         });
     },
     getRandomSamples: function () {
@@ -50,26 +55,23 @@ var BasicIoLayout = {
     showSamples: function () {
         $('#sample-data').empty();
         for (var i in this.samplesDisplay) {
-            var maxLenght = 100;
+            var maxLenght = 90;
             var self = this;
             var sampleText = this.samplesDisplay[i];
             if (sampleText.length > maxLenght) {
-                sampleText = sampleText.substring(0, maxLenght) + ' ...'
+                sampleText = sampleText.substring(0, (maxLenght-3)) + '...'
             }
             $('#sample-data').append('<div class="col-md-6"><div id="sample-' + [i] + '" data-index="' + [i] + '" class="sample-box">' + sampleText + '</div></div>');
 
             $('#sample-' + [i]).on('click', function (e) {
                 if (!self.isLoading) {
+                    $('.sample-box--selected').removeClass('sample-box--selected');
+                    $(this).addClass('sample-box--selected');
                     var data = self.samplesDisplay[$(e.target).data('index')];
                     $('#input-submit').val(data);
                     $('#btn-submit').removeClass('disabled');
                     self.dataInput = data;
                 }
-            });
-        }
-        if (this.samples.length > this.numberOfSamples) {
-            $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
-                self.getRandomSamples()
             });
         }
     },
@@ -90,6 +92,7 @@ var BasicIoLayout = {
             $('#input-submit').prop('disabled', false).val('');
             $('#btn-submit span').show();
             $('.ellipsis-loader').hide();
+            $('.sample-box--selected').removeClass('sample-box--selected');
         }
     },
     submit: function () {
