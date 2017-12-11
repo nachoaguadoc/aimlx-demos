@@ -22,7 +22,7 @@ import helpers
 
 from controller.chatbot_controller import chatbot_api
 from controller.churn_controller import churn_api
-from controller.emotion_controller import emotion_api
+#from controller.emotion_controller import emotion_api
 from controller.argumentation_controller import argumentation_api
 # from controller.grocery_controller import grocery_api
 from controller.kp_extraction_controller import kp_extraction_api
@@ -39,6 +39,7 @@ from sfid import sfid
 from argumentation import argumentation
 from summarization import summarization
 from grocery import grocery
+from emotion import emotion
 
 app = Flask(__name__)
 CORS(app)
@@ -61,8 +62,9 @@ app.register_blueprint(sfid, url_prefix='/sfid')
 app.register_blueprint(summarization, url_prefix='/summarization')
 app.register_blueprint(sfid_api, url_prefix='/sfid_old')
 app.register_blueprint(grocery, url_prefix='/grocery')
+app.register_blueprint(emotion, url_prefix='/emotion')
 # app.register_blueprint(grocery_api, url_prefix='/grocery')
-app.register_blueprint(emotion_api, url_prefix='/emotion')
+#app.register_blueprint(emotion_api, url_prefix='/emotion')
 
 
 @app.route('/')
