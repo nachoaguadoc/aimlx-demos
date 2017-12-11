@@ -43,6 +43,7 @@ app = Flask(__name__)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
 
+app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
 app.register_blueprint(neural_programmer_api, url_prefix='/neural_programmer')
 app.register_blueprint(opinion_target_api, url_prefix='/opinion')
