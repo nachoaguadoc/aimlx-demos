@@ -1,0 +1,70 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    {#Add custom styles here.
+    <link rel="stylesheet" href="{{ url_for('summarization.static', filename='summarization.css') }}">#}
+{% endblock %}
+
+{% block title %}Summarization{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
+
+{% block description %}Using deep neural networks, produce a summary from a news article{#One line for for demo description#}{% endblock %}
+
+{% block content %}
+    <div id="tab-input" class="row row-special">
+        <div class="col-xs col-md-10">
+            <div class="input-field input-field--static-label" data-init="auto">
+                <input type="text" id="url-submit" placeholder="Url Input">
+                <label for="url-submit">Enter an article from an url</label>
+            </div>
+
+        </div>
+        <div class="col-xs flex-xs-bottom col-md-1">
+            <button id="btn-submit" class="aix-button button button--primary button--full disabled">
+                <span>{% block submit_button_text %}Submit{% endblock %}</span>
+            </button>
+
+        </div>
+     <div id="tab-output" class="col">
+         <div class="input-field" data-init="auto">
+
+         </div>
+     </div>
+
+    </div>
+    <form>
+    <div class="form-group form-inline validate invalid" role="radiogroup">
+        <label>Mode selection</label>
+            <div class="radio">
+                <input type='radio' name='dummy' id='radio-ext'>
+                <label for='radio-ext'>Extractive model</label>
+            </div>
+            <div class="radio">
+                <input type='radio' name='dummy' id='radio-gen'>
+                <label for='radio-gen'>Generative model</label>
+            </div>
+            <div class="message" id="error-message">
+                <i class="icon icon-026-exclamation-mark-circle" aria-hidden="true"></i>
+                Please select a mode
+            </div>
+        </div>
+    </form>
+    <div id="tab-results" class="row aix-row aix-invisible">
+        <div class="col-lg-6">
+            <div id="aix-result-document" class="aix-result-content">
+                No document yet.
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div id="aix-result-summary" class="aix-result-content">
+                No summary yet.
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('summarization.static', filename='summarization.js') }}"></script>
+{% endblock %}

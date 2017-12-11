@@ -74,14 +74,19 @@ sfid = {
 
 grocery = {
     'host': '',
-    'port': ,
-    'url':'',
+    'port': '',
+    'url': '',
     'dir': ''
 }
+
 emotions = {
-'url': '',
-'img_path': ''
+    'url': '',
+    'img_path': ''
 }
+
+summarization = {
+    'url_gen': '',
+    'url_ext': ''
 
 seq2seq = {
     'socket_address': '',
