@@ -1,6 +1,6 @@
 from flask import jsonify, request, render_template
 import requests
-import config_template as conf
+import config as conf
 from . import go_chatbot
 
 @go_chatbot.route('')

@@ -38,7 +38,7 @@ from argumentation import argumentation
 from summarization import summarization
 from grocery import grocery
 from emotion import emotion
-
+from go_chatbot import go_chatbot
 app = Flask(__name__)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
@@ -53,7 +53,6 @@ app.register_blueprint(kp_extraction_api, url_prefix='/kp')
 app.register_blueprint(machine_translation_api, url_prefix='/translate')
 app.register_blueprint(gsw_api, url_prefix='/gsw')
 app.register_blueprint(argumentation, url_prefix='/argumentation')
-app.register_blueprint(argumentation_api, url_prefix='/argumentation_old')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 
 app.register_blueprint(sfid, url_prefix='/sfid')
@@ -62,8 +61,6 @@ app.register_blueprint(summarization, url_prefix='/summarization')
 app.register_blueprint(sfid_api, url_prefix='/sfid_old')
 app.register_blueprint(grocery, url_prefix='/grocery')
 app.register_blueprint(emotion, url_prefix='/emotion')
-# app.register_blueprint(grocery_api, url_prefix='/grocery')
-#app.register_blueprint(emotion_api, url_prefix='/emotion')
 
 
 @app.route('/')

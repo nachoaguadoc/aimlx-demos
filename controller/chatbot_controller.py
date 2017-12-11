@@ -23,14 +23,6 @@ def getChatbot(demo):
         return render_template('chatbot_swisscom/chatbot_swisscom.html')
     elif demo == 'ubuntuseq2seq':
         return render_template('chatbot_ubuntu/chatbot_seq2seq_ubuntu.html')
-    elif demo == 'goaloriented':
-        global socket_goal_chatbot
-        socket_address = conf.chatbot_goaloriented['socket_address']
-        socket_port = conf.chatbot_goaloriented['socket_port']
-        socket_goal_chatbot = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket_goal_chatbot.connect((socket_address, socket_port))
-        user_goal = json.loads(socket_goal_chatbot.recv(1024).decode("utf-8"))
-        return render_template('chatbot_goaloriented/chatbot_goaloriented.html', request_slots=user_goal['request_slots'], inform_slots=user_goal['inform_slots'])
 
 
 @chatbot_api.route('/<demo>', methods=['POST'])
@@ -57,11 +49,6 @@ def submitChatbot(demo):
             answer = s.recv(2048).decode("utf-8")
             s.close()
             return jsonify({'seq2seq': answer})
-        elif demo == 'goaloriented':
-            global socket_goal_chatbot
-            socket_goal_chatbot.sendall(question.encode())
-            answer = socket_goal_chatbot.recv(1024).decode("utf-8")
-            return jsonify({'chatbot_reply': answer})
 
         model_dir = predict_dir + 'runs/' + model_id
         subprocess.call([python_env, predict_dir + 'demo_prediction.py', '--model_dir=' + model_dir,
