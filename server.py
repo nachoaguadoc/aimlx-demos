@@ -33,7 +33,7 @@ from controller.neural_programmer_controller import neural_programmer_api
 from controller.opinion_target_controller import opinion_target_api
 from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
-from controller.summary_controller import summary_api
+#from controller.summary_controller import summary_api
 from sfid import sfid
 from argumentation import argumentation
 from summarization import summarization
