@@ -1,0 +1,164 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
+
+.container {
+  width: 90% !important;
+}
+#question {
+    font-size: 16px;
+    margin: 20px 20px 30px 0px;
+    visibility: hidden;
+}
+
+#answer_np {
+  visibility: hidden;
+  margin-bottom: 0px;
+}
+
+#suggestions {
+	margin-left: 0px;
+}
+.suggestion {
+    border-color: rgba(119, 185, 248, 0.45);
+    font-size: 13px;
+}
+.suggestion_box {
+    padding-left: 0;
+}
+.suggestion .panel-body {
+	background: rgba(119, 185, 248, 0.2);
+	cursor: pointer;
+}
+#table {
+	text-align: center;
+}
+.table th {
+   text-align: center;
+}
+
+#answers {
+   padding-left: 0;
+   padding-right: 0;
+}
+
+
+#answer {
+  text-align: center;
+  visibility: hidden;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 23px;
+}
+
+#answer_benchmark, #answer_chatbot {
+    font-size: 18px;
+    margin: 20px;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    text-align: right;
+}
+
+.highlighted {
+  background-color: #ffa;
+}
+
+.result {
+  background-color: #faa !important;
+}
+
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.message {
+  color: white;
+  padding: 8px 20px;
+  line-height: 26px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+
+}
+.message:after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    border-width: 0 15px 15px;
+    border-style: solid;
+    border-color: #CCDBDC transparent;
+    display: block;
+    width: 0;
+}
+.you-message {
+  background: #CCDBDC;
+  color:#003366;
+}
+.me-message {
+  background: #348edd;
+  text-align: right;
+}
+.me-message:after {
+    border-color: #348edd transparent;
+    right: 20px;
+    top: -15px;
+    left: auto;
+    bottom:auto;
+}
+
+.step {
+  padding: 8px 20px;
+  line-height: 26px;
+  font-size: 16px;
+  border-radius: 5px;
+  position: relative;
+  color: #003366;
+}
+
+.debug-message:hover {
+  background: #348edd;
+  color: white;
+}
+
+.chat-ul li{
+    list-style-type: none;
+}
+.chat-ul {
+  padding-left: 0;
+}
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.float-right {
+  float: right;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+#swisscom-logo {
+   width: 30px;
+}
+
+#banner {
+    width: 100% !important;
+    margin: 5% !important;
+}
+
+#search_row {
+    margin-top: 80px !important;
+}
