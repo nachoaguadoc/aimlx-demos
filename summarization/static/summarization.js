@@ -70,7 +70,7 @@ var SummarizationLayout = {
         $('#radio-gen').on('click', function () {
             self.mode_select(2);
         });
-        $('#radio-gen').on('click', function () {
+        $('#radio-gen-old').on('click', function () {
             self.mode_select(3);
         });
         $('#url-submit').keypress(function (e) {
