@@ -70,6 +70,9 @@ var SummarizationLayout = {
         $('#radio-gen').on('click', function () {
             self.mode_select(2);
         });
+        $('#radio-gen').on('click', function () {
+            self.mode_select(3);
+        });
         $('#url-submit').keypress(function (e) {
             if (e.which === 13) {
                 self.submit();
@@ -94,7 +97,7 @@ function submit(input, mode) {
     var url = "";
     if(mode == 1) {
         url = "/summarization/ext";
-    }else if(mode == 2){
+    }else if(mode >= 2){
         url = "/summarization/gen";
     }
 
