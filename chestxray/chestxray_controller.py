@@ -83,8 +83,9 @@ def for_static():
 
     # send http request with image and receive response
     response = requests.post(test_url, data=jsonpickle.encode(data), headers=headers)
-    # decode response
-    print("for static decode response ", json.loads(response.text))
+    if response is not None:
+        # decode response
+        print("for static decode response ", json.loads(response.text))
 
     im_name = os.path.basename(destination)
     im_name_out0 = im_name.split('.')[0] + '_out0.jpg'

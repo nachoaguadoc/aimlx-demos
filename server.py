@@ -38,6 +38,8 @@ from sfid import sfid
 from argumentation import argumentation
 from grocery import grocery
 from material import material
+from chestxray import chestxray
+
 
 app = Flask(__name__)
 CORS(app)
@@ -59,6 +61,7 @@ app.register_blueprint(sfid, url_prefix='/sfid')
 app.register_blueprint(sfid_api, url_prefix='/sfid_old')
 app.register_blueprint(grocery, url_prefix='/grocery')
 app.register_blueprint(material, url_prefix='/material')
+app.register_blueprint(chestxray, url_prefix='/chestxray')
 app.register_blueprint(emotion_api, url_prefix='/emotion')
 
 

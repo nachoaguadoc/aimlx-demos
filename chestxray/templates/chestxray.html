@@ -5,9 +5,12 @@
 
 {% endblock %}
 
-{% block title %}Product Identification{% endblock %}
+{% block title %}Disease Localization{% endblock %}
 
-{% block description %}Using image recognition to identify the product on the shelf{% endblock %}
+{% block description %}
+    <p> Kaicheng Yu, Mathieu Salzmann, CVLab, EPFL </p>
+    Using image recognition to identify the common lung diseases
+{% endblock %}
 
 {% block content %}
     <div class="row row-special" id="upload_row">
@@ -79,6 +82,27 @@
         <div class="col-xs col-lg-1"></div>
 
     </div>
+
+
+    <div class="row row-special flex-items-xs-bottom" id="result_row1" >
+
+        <div class="col-xs col-lg-1"></div>
+        <img class="col-xs col-lg-3" id=result_img0  vspace="20"></img>
+        <img class="col-xs col-lg-3" id=result_img1  vspace="20"></img>
+        <div class="col-xs col-lg-1"></div>
+
+    </div>
+
+
+    <div class="row row-special flex-items-xs-bottom" id="result_row2" >
+
+        <div class="col-xs col-lg-1"></div>
+        <img class="col-xs col-lg-3" id=result_img2  vspace="20"></img>
+        <img class="col-xs col-lg-3" id=result_img3  vspace="20"></img>
+        <div class="col-xs col-lg-1"></div>
+
+    </div>
+
 
 {% endblock %}
 
