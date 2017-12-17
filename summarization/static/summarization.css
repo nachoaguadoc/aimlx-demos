@@ -1,0 +1,8 @@
+.summarization-legend {
+    display: flex;
+    flex-direction: column;
+}
+
+.summarization-title {
+    margin-top: 16px;
+}

@@ -3,6 +3,7 @@
 
 models/grocery
 static/assets/grocery_images
+grocery/static/grocery_images
 
 models/chatbot_swisscom
 models/chatbot_ubuntu
@@ -98,3 +99,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# compiled css files
+static/ui-kit/custom/css
+static/ui-kit/custom/scss/**/*.css

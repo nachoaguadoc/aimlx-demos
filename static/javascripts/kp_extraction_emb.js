@@ -2,7 +2,7 @@ function submit(input_text, number_keyphrases) {
 	$("#last_group").append('<i class="fa fa-spinner fa-spin" id="spinner"></i>');
 	console.log("url input: ", input_text, 'number keyphrases', number_keyphrases);
 	$('#input_text').val('');
-	url = "/kp_emb";
+	url = "/kp/emb";
 	data = {'inp_url' : input_text,
 	  'nbkp' : number_keyphrases
 	  };

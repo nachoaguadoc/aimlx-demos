@@ -1,0 +1,63 @@
+#index_row {
+	text-align: center;
+}
+
+#welcome {
+	font-weight: 200;
+	font-size: 40px;
+}
+
+h1 {
+	font-weight: 100;
+}
+
+#working .demo_name {
+	font-size: 20px;
+    font-weight: 400;
+    margin: 5px;
+    text-align: right;
+}
+#previous .demo_name {
+	font-size: 20px;
+    font-weight: 200;
+    margin: 5px;
+    text-align: right;
+}
+#working .demo_url {
+	font-size: 20px;
+    font-weight: 400;
+    margin: 5px;
+    text-align: left;
+}
+
+#previous .demo_url {
+	font-size: 20px;
+    font-weight: 200;
+    margin: 5px;
+    text-align: left;
+}
+
+#banner_row {
+	margin-bottom: 20px;
+}
+
+#error404 {
+	font-size: 50px;
+	font-weight: bold;
+}
+
+#error_row {
+	margin-bottom: 20px;
+}
+
+.group_title {
+	font-size: 24px;
+    font-weight: 400;
+    margin: 20px 0 5px 0;
+	text-align: center;
+}
+
+#welcome {
+	font-weight: 200;
+	font-size: 40px;
+}

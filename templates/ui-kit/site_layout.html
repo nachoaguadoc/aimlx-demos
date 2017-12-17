@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        {#Required meta tags always come first#}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        {#Swisscom SDX CSS#}
+        <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/sdx/css/sdx.min.css') }}">
+        {#Custom CSS #}
+        <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/site-layout.css') }}">
+        <title>Swisscom AI Research Demo</title>
+    {% endblock %}
+</head>
+<body>
+<div class="site-wrapper">
+    <div class="content-wrapper">
+        <div class="header__container">
+            <nav>
+                <div class="nav__container ">
+                    <div>Swisscom AI Research Demo</div>
+                </div>
+            </nav>
+            <header>
+                <div class="header__container">
+                    <img class="avatar"
+                         src="{{ url_for('static', filename='ui-kit/custom/assets/research-icon.svg') }}">
+                    <div class="title-container">
+                        <div class="main-title">{% block title %}{% endblock %}</div>
+                        <div class="sub-title">{% block description %}{% endblock %}</div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="content-area">
+            <div class="colored-background"></div>
+            <div class="content-stage container">
+            <div class="aix-desktop-only">This demo is only available on larger screens.</div>
+            <div class="aix-demo-content">
+                {% block content %}
+                {% endblock %}
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-outer">
+        <div class="footer footer--compact footer--light footer-inner">
+            <a class="logo">
+                <span class="logo-lifeform" aria-label="Swisscom Logo"/>
+            </a>
+            <ul class="nav-items">
+                <li class="nav-item">
+                    <a href="https://swisscom.ch/ai" class="nav-link" target="_blank">
+                        AI for your business?
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% block scripts %}
+    {#Swisscom SDX JS Library#}
+    <script src="{{ url_for('static', filename='ui-kit/sdx/js/sdx.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+    </script>
+{% endblock %}
+</body>
+</html>

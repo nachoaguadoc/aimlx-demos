@@ -1,0 +1,21 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    {#Add custom styles here.
+    <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}">#}
+{% endblock %}
+
+{% block title %}{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
+
+{% block description %}{#One line for for demo description#}{% endblock %}
+
+{% block content %}
+    {#Put here your demo markup.#}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {#Add custom styles here.
+    <script src="{{ url_for('yourdemo.static', filename='yourdemo.js') }}"></script>#}
+{% endblock %}

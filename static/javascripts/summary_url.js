@@ -16,7 +16,7 @@ function answer(text, summary) {
 function submit(input_text) {
     // $('#input_text').val('');
     start_spinner();
-    url = "/summary_url"
+    url = "/summary/url"
     var data = {'inp_url':input_text,'model_type':model_type};
     $.ajax({
       type: "POST",

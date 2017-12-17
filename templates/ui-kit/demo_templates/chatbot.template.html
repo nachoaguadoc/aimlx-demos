@@ -1,0 +1,32 @@
+{% extends "ui-kit/chatbot_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    {#Add custom styles here.
+    <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}">#}
+{% endblock %}
+
+{% block title %}{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
+
+{% block description %}{#One line for for demo description#}{% endblock %}
+
+{% block input_placeholder_text %}{{ super() }}{#Customize the input field placeholder text by removing {{ super() }} and entering your own.#}{% endblock %}
+
+{% block samples %}
+    {{ super() }}
+    {#Remove «{{ super() }}» and add you custom makrup if you want to show something different than the default sample list. There is a sample markup below#}
+    {#<div class="sample-container">
+        <div class="sample-container__header">
+            <h4>Samples</h4>
+        </div>
+        <div id="sample-data" class="row">
+            <p>Sample data</p>
+        </div>
+    </div>#}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {#Add custom styles here.
+    <script src="{{ url_for('yourdemo.static', filename='yourdemo.js') }}"></script>#}
+{% endblock %}

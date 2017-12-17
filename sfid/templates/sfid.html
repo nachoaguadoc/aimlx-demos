@@ -1,0 +1,16 @@
+{% extends "ui-kit/chatbot_layout.html" %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block title %}Slot Filling & Intent Detection{% endblock %}
+
+{% block description %}This is a demo description.{% endblock %}
+
+{% block input_placeholder_text %}{{ super() }}{% endblock %}
+
+{% block samples %}{{ super() }}{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('sfid.static', filename='sfid.js') }}"></script>
+{% endblock %}
