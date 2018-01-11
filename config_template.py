@@ -14,8 +14,8 @@ chatbot_ubuntu_seq2seq = {
 }
 
 chatbot_goaloriented = {
-    'socket_address': '',
-    'socket_port': ''
+    'url_get': '',
+    'url_post': ''
 }
 
 ate = {
