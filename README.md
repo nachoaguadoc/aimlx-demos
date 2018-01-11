@@ -23,6 +23,7 @@ export FLASK_APP=server.py
 If it's the first time running, you need to compile .scss files into .css files. To do that, you have to run the following commands:
 ```
 cd static/ui-kit/custom/
+mkdir css
 sass scss/chatbot-layout.scss > css/chatbot-layout.css
 sass scss/site-layout.scss > css/site-layout.css
 sass scss/basic-io-layout.scss > css/basic-io-layout.css
