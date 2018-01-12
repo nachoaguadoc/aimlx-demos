@@ -5,6 +5,9 @@ models/grocery
 static/assets/grocery_images
 grocery/static/grocery_images
 
+static/assets/chestxray_images
+static/assets/material_images
+
 models/chatbot_swisscom
 models/chatbot_ubuntu
 .DS_Store
