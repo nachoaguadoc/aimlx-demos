@@ -79,6 +79,19 @@ grocery = {
     'dir': ''
 }
 emotions = {
-'url': '',
-'img_path': ''
+    'url': '',
+    'img_path': ''
+}
+
+material = {
+    'host': '',
+    'port': '' ,
+    'url': '',
+    'dir': ''
+}
+chestxray = {
+    'host': '',
+    'port': '',
+    'url': '',
+    'dir': ''
 }
