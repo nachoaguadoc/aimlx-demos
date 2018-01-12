@@ -39,9 +39,14 @@ from summarization import summarization
 from grocery import grocery
 from emotion import emotion
 from go_chatbot import go_chatbot
+from material import material
+from chestxray import chestxray
+
+
 app = Flask(__name__)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
+
 
 app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
@@ -62,6 +67,9 @@ app.register_blueprint(sfid_api, url_prefix='/sfid_old')
 app.register_blueprint(grocery, url_prefix='/grocery')
 app.register_blueprint(emotion, url_prefix='/emotion')
 
+app.register_blueprint(material, url_prefix='/material')
+app.register_blueprint(chestxray, url_prefix='/chestxray')
+
 
 @app.route('/')
 def getIndex():
@@ -71,6 +79,7 @@ def getIndex():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html'), 404
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')

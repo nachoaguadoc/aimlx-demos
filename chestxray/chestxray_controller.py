@@ -9,19 +9,19 @@ import requests
 import config as conf
 import helpers
 import os
-from . import grocery
+from . import chestxray
 
 
-@grocery.route('', methods=['GET'])
+@chestxray.route('', methods=['GET'])
 def ask_for_image():
-    return render_template('grocery.html')
+    return render_template('chestxray.html')
 
 
-@grocery.route('/upload', methods=['POST'])
+@chestxray.route('/upload', methods=['POST'])
 def upload():
     global processed_images
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-    target = os.path.join(APP_ROOT, conf.grocery['dir'])
+    target = os.path.join(APP_ROOT, conf.chestxray['dir'])
 
     if not os.path.isdir(target):
         os.mkdir(target)
@@ -42,7 +42,7 @@ def upload():
         # print(upload.read())
         upload.save(destination)
 
-    test_url = conf.grocery['url']
+    test_url = conf.chestxray['url']
 
     # prepare headers for http request
     content_type = 'application/json'
@@ -56,14 +56,16 @@ def upload():
     print(json.loads(response.text))
 
     im_name = os.path.basename(destination)
+    im_name_out0 = im_name.split('.')[0] + '_out0.jpg'
     im_name_out1 = im_name.split('.')[0] + '_out1.jpg'
     im_name_out2 = im_name.split('.')[0] + '_out2.jpg'
-    processed_images = [im_name, im_name_out1, im_name_out2]
+    im_name_out3 = im_name.split('.')[0] + '_out3.jpg'
+    processed_images = [im_name_out3, im_name_out0, im_name_out1, im_name_out2]
     # return render_template("grocery_gallery.html", image_names=processed_images)
-    return json.dumps({'list':processed_images})
+    return json.dumps({'list': processed_images})
 
 
-@grocery.route('/static', methods=['POST'])
+@chestxray.route('/static', methods=['POST'])
 def for_static():
     global processed_images
     r = request
@@ -71,11 +73,9 @@ def for_static():
 
     destination = jsonpickle.decode(data.decode('utf-8'))['image_list']
 
+    data = {'image_list': os.path.join(conf.chestxray['dir'], destination)}
 
-    data = {'image_list': os.path.join(conf.grocery['dir'], destination)}
-    print(os.path.join(conf.grocery['dir'], destination))
-
-    test_url = conf.grocery['url']
+    test_url = conf.chestxray['url']
 
     # prepare headers for http request
     content_type = 'application/json'
@@ -83,17 +83,18 @@ def for_static():
 
     # send http request with image and receive response
     response = requests.post(test_url, data=jsonpickle.encode(data), headers=headers)
-    # decode response
-    print(json.loads(response.text))
+    if response is not None:
+        # decode response
+        print("for static decode response ", json.loads(response.text))
 
     im_name = os.path.basename(destination)
+    im_name_out0 = im_name.split('.')[0] + '_out0.jpg'
     im_name_out1 = im_name.split('.')[0] + '_out1.jpg'
     im_name_out2 = im_name.split('.')[0] + '_out2.jpg'
-    processed_images = [im_name, im_name_out1, im_name_out2]
-    print("********************")
+    im_name_out3 = im_name.split('.')[0] + '_out3.jpg'
+    processed_images = [im_name_out3, im_name_out0, im_name_out1, im_name_out2]
     # return render_template("grocery_gallery.html", image_names=processed_images)
-    return json.dumps({'list':processed_images})
-
+    return json.dumps({'list': processed_images})
 
 
 
