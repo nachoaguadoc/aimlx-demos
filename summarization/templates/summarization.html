@@ -2,70 +2,73 @@
 
 {% block head %}
     {{ super() }}
-    {#Add custom styles here.
-    <link rel="stylesheet" href="{{ url_for('summarization.static', filename='summarization.css') }}">#}
+
+    {#Add custom styles here.#}
+    <link rel="stylesheet" href="{{ url_for('summarization.static', filename='summarization.css') }}">
+
 {% endblock %}
 
 {% block title %}Summarization{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
 
-{% block description %}Using deep neural networks, produce a summary from a news article{#One line for for demo description#}{% endblock %}
+{% block description %}Using deep neural networks to produce a summary from a text such as news articles.{#One line for for demo description#}{% endblock %}
 
 {% block content %}
-    <div id="tab-input" class="row row-special">
-        <div class="col-xs col-md-10">
-            <div class="input-field input-field--static-label" data-init="auto">
-                <input type="text" id="url-submit" placeholder="Url Input">
-                <label for="url-submit">Enter an article from an url</label>
-            </div>
-
-        </div>
-        <div class="col-xs flex-xs-bottom col-md-1">
-            <button id="btn-submit" class="aix-button button button--primary button--full disabled">
-                <span>{% block submit_button_text %}Submit{% endblock %}</span>
-            </button>
-
-        </div>
-     <div id="tab-output" class="col">
-         <div class="input-field" data-init="auto">
-
-         </div>
-     </div>
-
-    </div>
-    <form>
-    <div class="form-group form-inline validate invalid" role="radiogroup">
-        <label>Mode selection</label>
+    <div class="row flex-items-xs-center">
+        <div class="form col-md-8 form-inline">
             <div class="radio">
-                <input type='radio' name='dummy' id='radio-ext'>
+                <input type='radio' name='dummy' id='radio-ext' checked>
                 <label for='radio-ext'>Extractive model</label>
             </div>
             <div class="radio">
                 <input type='radio' name='dummy' id='radio-gen'>
-                <label for='radio-gen'>Generative model (diverse beam search</label>
+                <label for='radio-gen'>Generative model</label>
             </div>
             <div class="radio">
                 <input type='radio' name='dummy' id='radio-gen-old'>
-                <label for='radio-gen-old'>Old Generative model (classic beam search)</label>
-            </div>
-            <div class="message" id="error-message">
-                <i class="icon icon-026-exclamation-mark-circle" aria-hidden="true"></i>
-                Please select a mode
+                <label for='radio-gen-old'>Old generative model</label>
             </div>
         </div>
-    </form>
+    </div>
+
+    <div class="row flex-items-xs-center">
+        <div class="col-md-6" id="model-description">
+            <p>Key paragraphs from the original text are extracted to create the summary.</p>
+        </div>
+    </div>
+
+
+
+    <div id="tab-input" class="row row-special flex-items-xs-bottom flex-items-xs-center input-url">
+        <div class="col-xs col-md-8">
+            <div class="input-field input-field-url" data-init="auto">
+                <input type="text" id="url-submit" placeholder="Enter the URL (e.g. of an article) to create a summary of it.">
+                <label for="url-submit">Enter the URL</label>
+            </div>
+        </div>
+        <div class="col-xs col-md-2">
+            <button id="btn-submit" class="aix-button button button--primary button--full disabled">
+                <span>{% block submit_button_text %}Summarize{% endblock %}</span>
+                <div id ="loader"class="ellipsis-loader aix-invisible">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </button>
+        </div>
+    </div>
     <div id="tab-results" class="row aix-row aix-invisible">
         <div class="col-lg-6">
+            <div id="aix-show-source" class="aix-show-source"></div>
             <div id="aix-result-document" class="aix-result-content">
                 No document yet.
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 summary-container">
             <div id="aix-result-summary" class="aix-result-content">
                 No summary yet.
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block scripts %}

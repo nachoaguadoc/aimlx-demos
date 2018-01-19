@@ -6,3 +6,98 @@
 .summarization-title {
     margin-top: 16px;
 }
+
+.form{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 48px;
+}
+
+#model-description{
+    height: 72px;
+    text-align: center;
+    padding-top: 24px;
+}
+
+#model-description > p{
+    text-align: center;
+    font-weight: 300;
+}
+
+.input-field-url{
+    margin-top: 32px;
+}
+
+/*
+* Ellipsis loader in button start
+*/
+
+#loader{
+    display: none;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.3;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.aix-button--processing {
+  background-color: #1781e3 !important;
+}
+
+.ellipsis-loader {
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ellipsis-loader > div {
+    animation-name: blink;
+    animation-duration: 1.6s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    line-height: 24px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #fff;
+}
+
+.ellipsis-loader > div:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.ellipsis-loader > div:nth-child(3) {
+    animation-delay: 0.4s;
+    margin: 0;
+}
+
+/*
+* Ellipsis loader in button end
+*/
+
+#tab-results{
+    padding-top: 64px;
+}
+
+.aix-show-source {
+    display: flex;
+    font-size: 24px;
+}
+
+.aix-show-source > p {
+   font-weight: 600;
+   margin-bottom: 0px;
+}
+
+.summary-container{
+    background-color: #F8FAFB;
+}
