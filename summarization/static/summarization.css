@@ -32,10 +32,6 @@
 * Ellipsis loader in button start
 */
 
-#loader{
-    display: none;
-}
-
 @keyframes blink {
   0% {
     opacity: 0.3;
@@ -53,6 +49,7 @@
 }
 
 .ellipsis-loader {
+    display: flex;
     height: 24px;
     justify-content: center;
     align-items: center;
@@ -90,7 +87,6 @@
 
 .aix-show-source {
     display: flex;
-    font-size: 24px;
 }
 
 .aix-show-source > p {
@@ -98,6 +94,40 @@
    margin-bottom: 0px;
 }
 
+.aix-show-source > a{
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0px 24px 24px 0;
+    margin: 0px;
+}
+
+.aix-result-document span p{
+    padding
+}
+
 .summary-container{
+    padding: 24px;
     background-color: #F8FAFB;
+}
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------  */
+
+.aix-invisible{
+    display: none;
 }

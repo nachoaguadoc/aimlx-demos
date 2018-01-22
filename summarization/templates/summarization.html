@@ -48,7 +48,7 @@
         <div class="col-xs col-md-2">
             <button id="btn-submit" class="aix-button button button--primary button--full disabled">
                 <span>{% block submit_button_text %}Summarize{% endblock %}</span>
-                <div id ="loader"class="ellipsis-loader aix-invisible">
+                <div id ="loader" class="ellipsis-loader aix-invisible">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -57,13 +57,14 @@
         </div>
     </div>
     <div id="tab-results" class="row aix-row aix-invisible">
-        <div class="col-lg-6">
+        <div class="col-lg-6 article-container">
             <div id="aix-show-source" class="aix-show-source"></div>
             <div id="aix-result-document" class="aix-result-content">
                 No document yet.
             </div>
         </div>
         <div class="col-lg-6 summary-container">
+            <p class="title">Summary</p>
             <div id="aix-result-summary" class="aix-result-content">
                 No summary yet.
             </div>

@@ -24,10 +24,11 @@
             this.isLoading = true;
             this.changeStateButton();
             $('#url-submit').prop('disabled', true);
-            $('#tab-results').hide();
+            $('#tab-results').addClass("aix-invisible");
+            $('#aix-show-source').empty();
             $('#aix-result-document').empty();
             $('#aix-result-summary').empty();
-            $('#loader').css("display", "flex");
+            $('#loader').removeClass("aix-invisible");
         },
 
         showResults: function (doc, summary) {
@@ -35,11 +36,12 @@
                 this.isLoading = false;
                 this.changeStateButton();
                 $('#url-submit').prop('disabled', false).val('');
-                $('#loader').css("display", "none");
-                $('#aix-show-source').append('<p>Extracted text from &nbsp;</p><a href="' + this.dataInput + '" target="_blank">' + this.dataInput + '</a>');
+                $('#loader').addClass("aix-invisible");
+                $('.aix-show-source').append('<p>Extracted text from &nbsp;</p><a href="' + this.dataInput + '" target="_blank">' + this.dataInput + '</a>');
                 $('#aix-result-document').append(doc);
                 $('#aix-result-summary').append(summary);
-                $('#tab-results').show();
+                $('#aix-result-document').append(doc);
+                $('#tab-results').removeClass("aix-invisible");
                 this.dataInput = "";
                 this.changeStateButton();
             }
@@ -78,7 +80,7 @@
 
         initializeUiElements: function() {
             var self = this;
-            $('#tab-results').hide();
+            $('#tab-results').addClass("aix-invisible");
             $('#aix-result-document').empty();
             $('#aix-result-summary').empty();
 
@@ -139,17 +141,34 @@
                 summary = data['summary'];
                 var formattedDocument = formatDocument(doc);
                 var formattedSummary = formatSummary(summary);
+                //var formattedDocument = convertDocObject(doc);
+                //var formattedSummary = convertSummaryObject(summary);
                 SummarizationLayout.showResults(formattedDocument, formattedSummary);
             }
         });
     }
 
+
     function formatDocument(doc) {
-        var formattedText = (/*'<p>' + '<span>'+ */doc/* + '</span>' + '</p>'*/)
+        var formattedText = ('<span>' + doc + '</span>');
         return formattedText
     }
 
     function formatSummary(summary) {
-        var formattedText = (/*'<p>' + '<span>'+ */summary/* + '</span>' + '</p>'*/)
+        var formattedText = ('<span>' + summary + '</span>')
         return formattedText
     }
+
+/*
+    function convertDocObject(doc) {
+        var docObject = JSON.parse(doc);
+        console.log(docObject);
+        return docObject;
+    }
+
+    function convertSummaryObject(summary) {
+        var summaryObject = JSON.parse(summary);
+        console.log(summaryObject);
+        return summaryObject;
+    }
+*/
