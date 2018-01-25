@@ -95,10 +95,10 @@ def _get_predictions(model_endpoint: str, input_text: str, use_gazetteers: bool 
 def submitNER():
     parameters = request.get_json(force=True)
     print("Demo NER:", parameters)
-    input = parameters['input']
+    txt = parameters['input']
     if request.method == 'POST':
         try:
-            language = _get_language(input)
+            language = _get_language(txt)
             model_endpoint = _get_endpoint(language)
             annotations = _get_predictions(model_endpoint, input, use_gazetteers=True)
             return jsonify(annotations)
