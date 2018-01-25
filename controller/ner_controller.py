@@ -1,14 +1,23 @@
+from typing import Optional
+
+import requests
 from flask import Blueprint
-from flask import Flask, abort
 from flask import jsonify
 from flask import render_template
-from flask import request,send_from_directory
+from flask import request
 
-import subprocess
 import config as conf
-import helpers
 
 ner_api = Blueprint('ner_api', __name__)
+
+NER_ENDPOINT_MOLD = 'http://127.0.0.1:{}/compute/'
+MODEL_PORTS = {
+    'en': int(conf.ner['en_model_port']),
+    'it': int(conf.ner['it_model_port']),
+    'fr': int(conf.ner['fr_model_port']),
+    'de': int(conf.ner['de_model_port'])
+}
+
 
 # Opinion target route handling
 def parse_output(output_path):
@@ -22,16 +31,64 @@ def parse_output(output_path):
     return " ".join(pred_labels)
 
 
-def parse_input(input, file):
-    f = open(file, "w")
-    tokens = [token for token in input.split()]
-    for token in tokens:
-        f.write(token + " O\n")
-
 # NER route handling
 @ner_api.route('')
 def getNER():
     return render_template('ner/ner.html')
+
+
+def _get_language(input: str) -> Optional[str]:
+    """
+    Calls the AIKO api to detect the language of the input text.
+    :param input:
+    :return:
+    """
+    headers = {
+        'Accept': 'application/vnd.sca.langdetect.v1+json',
+        'Content-Type': 'application/json',
+        'AI-Enabler-Tenant': conf.ner['aiko_tenant'],
+        'Authorization': conf.ner['aiko_token']
+    }
+    body = {'text': input}
+    r = requests.post(conf.ner['aiko_langdetect_endpoint'], headers=headers, json=body)
+    if not r.ok:
+        message = f'ERROR: AIKO language detect did not answer. Response code: "{r.status_code}"; ' + \
+                  f'Response body: "{r.raw}"'
+        raise SystemError(message)
+    return r.json()['language']
+
+
+def _get_endpoint(language: str) -> str:
+    """
+    There are 4 docker container listening to 4 different ports, one per language.
+    This function returns the right port number for the input language.
+    See the initialization script for more info.
+    :param language:
+    :return:
+    """
+    if language not in MODEL_PORTS:
+        raise ValueError(f'unknown language: "{language}"')
+    return NER_ENDPOINT_MOLD.format(MODEL_PORTS[language])
+
+
+def _get_predictions(model_endpoint: str, input_text: str, use_gazetteers: bool = True):
+    """
+    Asks the container pointed by model_endpoint for predictions.
+    :param model_endpoint:
+    :param input_text:
+    :param use_gazetteers:
+    :return:
+    """
+    headers = {'Content-Type': 'application/json'}
+    body = {
+        'text': input_text
+    }
+    r = requests.post(model_endpoint, headers=headers, json=body)
+    if not r.ok:
+        message = f'Something went wrong: the docker container {model_endpoint} did not answer'
+        raise SystemError(message)
+    print(r.json())
+    return r.json()
 
 
 @ner_api.route('', methods=['POST'])
@@ -40,12 +97,10 @@ def submitNER():
     print("Demo NER:", parameters)
     input = parameters['input']
     if request.method == 'POST':
-        script_dir = conf.ner['path'] + 'run_demo.py'
-        predict_dir = conf.ner['path'] + 'predictions/predictions.txt'
-        python_env = conf.ner['python_env']
-        response = ""
-        subprocess.call([python_env, script_dir, '--sentence', '"' + input + '"'])
-        answer = parse_output(predict_dir)
-        print("Question received for NER project", answer)
-        answer = {'labels': answer}
-        return jsonify(answer)
+        try:
+            language = _get_language(input)
+            model_endpoint = _get_endpoint(language)
+            annotations = _get_predictions(model_endpoint, input, use_gazetteers=True)
+            return jsonify(annotations)
+        except Exception as e:
+            print(e)
