@@ -111,18 +111,39 @@ function submit(input, mode) {
             doc = data['document'];
             summary = data['summary'];
             var formattedDocument = formatDocument(doc);
-            var formattedSummary = formatSummary(summary)
+            var formattedSummary = formatSummary(summary, mode)
             SummarizationLayout.showResults(formattedDocument, formattedSummary);
         }
     });
 }
 
 function formatDocument(doc) {
-    var formattedText = ('<p>' + '<span>'+ doc + '</span>' + '</p>')
-    return formattedText
+    var array_length = doc.length;
+    var text = '<p>' + '<span>'
+    for(var i = 0; i < array_length; i++){
+        text = text + doc[i]
+    }
+    text = text + '</span>' + '</p>'
+   // var formattedText = ('<p>' + '<span>'+ doc + '</span>' + '</p>')
+    return text
 }
 
-function formatSummary(summary) {
-    var formattedText = ('<p>' + '<span>'+ summary + '</span>' + '</p>')
-    return formattedText
+function formatSummary(summary, mode) {
+    var text = '<p>' + '<span>'
+    if (mode >= 2){
+        for(var i = 0; i < summary.length; i++){
+            text = text + summary[i]
+        }
+    }
+    else {
+        for(var i = 0; i < summary.length; i++){
+            current = summary[i]
+            text = text + '['+current['index'] + '] (' + current['prediction'] + ') ' + current['text']
+            text = text + '<br>'
+         }
+    }
+    text = text + '</span>' + '</p>'
+    //var formattedText = ('<p>' + '<span>'+ summary + '</span>' + '</p>')
+    //return formattedText
+    return text
 }
