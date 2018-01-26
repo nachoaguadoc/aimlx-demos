@@ -27,14 +27,19 @@ neuroate = {
     'python_env': ''
 }
 ner = {
-    'path': '',
-    'python_env': ''
+    'it_model_port': '',
+    'en_model_port': '',
+    'fr_model_port': '',
+    'de_model_port': '',
+    'aiko_langdetect_endpoint': '',
+    'aiko_token': '',
+    'aiko_tenant': '',
 }
 kpextract = {
-	'path': '',
-	'fetcher_path': '',
-	'python_env': '',
-	'api_emb_url':''
+    'path': '',
+    'fetcher_path': '',
+    'python_env': '',
+    'api_emb_url': ''
 }
 neural_programmer = {
     'socket_address': '',
@@ -56,9 +61,9 @@ machine_translation_stdlangs = {
     'base_url': ''
 }
 churn = {
-    'path' : '',
+    'path': '',
     'python_env': '',
-    'e_host':'',
+    'e_host': '',
     'e_port': ''
 }
 argumentation = {
