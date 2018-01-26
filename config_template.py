@@ -27,10 +27,10 @@ neuroate = {
     'python_env': ''
 }
 ner = {
-    'it_model_port': '',
-    'en_model_port': '',
-    'fr_model_port': '',
-    'de_model_port': '',
+    'it_model_port': 0000,
+    'en_model_port': 0000,
+    'fr_model_port': 0000,
+    'de_model_port': 0000,
     'aiko_langdetect_endpoint': '',
     'aiko_token': '',
     'aiko_tenant': '',
