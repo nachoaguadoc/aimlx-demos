@@ -52,7 +52,7 @@ def _get_language(input: str) -> Optional[str]:
     body = {'text': input}
     r = requests.post(conf.ner['aiko_langdetect_endpoint'], headers=headers, json=body)
     if not r.ok:
-        message = ('ERROR: AIKO language detect did not answer. Response code: "{}"; ' +
+        message = ('ERROR: AIKO language detect did not answer. Response code: "{r.status_code}"; ' +
                    'Response body: "{}"').format(r.status_code, r.raw)
         raise SystemError(message)
     return r.json()['language']
@@ -87,7 +87,6 @@ def _get_predictions(model_endpoint: str, input_text: str, use_gazetteers: bool 
     if not r.ok:
         message = 'Something went wrong: the docker container {} did not answer'.format(model_endpoint)
         raise SystemError(message)
-    print(r.json())
     return r.json()
 
 

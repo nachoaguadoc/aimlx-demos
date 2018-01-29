@@ -1,13 +1,24 @@
-{ "candidates" : ["Republican John McCain defeated Democrat Barack Obama in Alaska 59.49% to 37.83%",
-	"Paris Hilton visited the Paris Hilton",
-	"Pablo Picasso painted his mural sized Guernica to commemorate the horrors of the bombing",
-	"The former Soviet republic was playing in an Asian Cup finals tie for the first time",
-	"Genève est situé à l' extrémité ouest de la Suisse et du lac Léman et entouré presque entièrement par la France",
-	"Wimbledon débute près d'un mois après le tournoi de Roland-Garros",
-	"Le soir de Noël Louis Martin et ses filles assistent à la messe de minuit",
-	"Le Cervin est une montagne Suisse",
-	"Grächen ist im Gegensatz zu Zermatt und Saas-Fee nicht vollständig autofrei",
-	"Alain Sutter ( 22. Januar 1968 in Bern ) ist ein ehemaliger Schweizer Fußballspieler",
-	"Michael wohnt in Berlin - die Hauptstadt von Deutschland",
-	"Sie müssen Santorini in Griechenland besuchen"]
+{
+  "candidates": [
+    "The former Soviet republic was playing in an Asian Cup finals tie for the first time",
+    "EPFL, the second largest university in Switzerland, will organize an event called Applied Machine Learning days at the end of January.",
+    "Lac Leman is a natural boarder between Switzerland and France.",
+    "Swiss and Aegean Airlines are part of Star Alliance and collaborate in offering flights between Geneva and Athens.",
+    "Freddie Mercury, the singer of the rock band Queen, settled in Montreux where the group had bought Mountain Recording Studio and where he learnt to appreciate the peace and quiet.",
+    "Genève est situé à l' extrémité ouest de la Suisse et du lac Léman et entouré presque entièrement par la France",
+    "Le soir de Noël , Louis Martin et ses filles assistent à la messe de ",
+    "Le Cervin est une montagne Suisse",
+    "Microsoft , Apple , Google , ainsi que tous les géant du l'intelligence artificielle , lancent de nouveaux produits aux États - Unis et en Europe .",
+    "Dans la région genevoise , hormis le projet d’extension entre Genève Aéroport et le Vengeron , l’ élargissement à six voies des tronçons entre Perly et la jonction de Nyon devraient être entrepris",
+    "Grächen ist im Gegensatz zu Zermatt und Saas-Fee nicht vollständig autofrei",
+    "Alain Sutter ( 22. Januar 1968 in Bern ) ist ein ehemaliger Schweizer Fußballspieler",
+    "David wohnt in Berlin - die Hauptstadt von Deutschland",
+    "Sie müssen Santorini in Griechenland besuchen",
+    "Ich heiße Thomas Müller und meine neue Adresse ist Bahnhofstrasse 123, 8000, Zürich.",
+    "Chamonix und Zermatt sind zwei sehr bekannte Wintersportorte im Europa.",
+    "Du kannst Geschäft für Rolex, Tissot und IWC in der Bahnhofstr. 91, 8000 Zürich finden",
+    "Friburgo, che si può scrivere anche \"Friborgo\", è un meraviglioso villaggio vicino al cantone di Vaud, nella Confederazione Elvetica.",
+    "L'aeroporto di Berna, convenientemente situato a Belp, si trova in Flugplatzstrasse 31, 3123 Belp, il suo codice è BRN (come BeRNa) ",
+    "Davos e Lax ospitano gli impianti sciistici più conosciuti delle Alpi Svizzere."
+  ]
 }
