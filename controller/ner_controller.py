@@ -52,8 +52,8 @@ def _get_language(input: str) -> Optional[str]:
     body = {'text': input}
     r = requests.post(conf.ner['aiko_langdetect_endpoint'], headers=headers, json=body)
     if not r.ok:
-        message = f'ERROR: AIKO language detect did not answer. Response code: "{r.status_code}"; ' + \
-                  f'Response body: "{r.raw}"'
+        message = ('ERROR: AIKO language detect did not answer. Response code: "{r.status_code}"; ' +
+                   'Response body: "{}"').format(r.status_code, r.raw)
         raise SystemError(message)
     return r.json()['language']
 
@@ -67,7 +67,7 @@ def _get_endpoint(language: str) -> str:
     :return:
     """
     if language not in MODEL_PORTS:
-        raise ValueError(f'unknown language: "{language}"')
+        raise ValueError('unknown language: "{}"'.format(language))
     return NER_ENDPOINT_MOLD.format(MODEL_PORTS[language])
 
 
@@ -85,9 +85,8 @@ def _get_predictions(model_endpoint: str, input_text: str, use_gazetteers: bool 
     }
     r = requests.post(model_endpoint, headers=headers, json=body)
     if not r.ok:
-        message = f'Something went wrong: the docker container {model_endpoint} did not answer'
+        message = 'Something went wrong: the docker container {} did not answer'.format(model_endpoint)
         raise SystemError(message)
-    print(r.json())
     return r.json()
 
 
@@ -100,7 +99,7 @@ def submitNER():
         try:
             language = _get_language(txt)
             model_endpoint = _get_endpoint(language)
-            annotations = _get_predictions(model_endpoint, input, use_gazetteers=True)
+            annotations = _get_predictions(model_endpoint, txt, use_gazetteers=True)
             return jsonify(annotations)
         except Exception as e:
             print(e)
