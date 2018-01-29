@@ -31,16 +31,15 @@
             $('#loader').removeClass("aix-invisible");
         },
 
-        showResults: function (doc, summary) {
+        showResults: function (docs, summary) {
             if (this.isLoading) {
                 this.isLoading = false;
                 this.changeStateButton();
                 $('#url-submit').prop('disabled', false).val('');
                 $('#loader').addClass("aix-invisible");
                 $('.aix-show-source').append('<p>Extracted text from &nbsp;</p><a href="' + this.dataInput + '" target="_blank">' + this.dataInput + '</a>');
-                $('#aix-result-document').append(doc);
                 $('#aix-result-summary').append(summary);
-                $('#aix-result-document').append(doc);
+                $('#aix-result-document').append(docs);
                 $('#tab-results').removeClass("aix-invisible");
                 this.dataInput = "";
                 this.changeStateButton();
@@ -137,38 +136,122 @@
             contentType: 'application/json',
             data: JSON.stringify(data, null, '\t'),
             success: function (data) {
-                doc = data['document'];
-                summary = data['summary'];
-                var formattedDocument = formatDocument(doc);
-                var formattedSummary = formatSummary(summary);
-                //var formattedDocument = convertDocObject(doc);
-                //var formattedSummary = convertSummaryObject(summary);
-                SummarizationLayout.showResults(formattedDocument, formattedSummary);
+                docs = data['document'];
+                summaries = data['summary'];
+
+                /*  RESULT FOR THE EXTRACTIVE MODEL   */
+
+                if(mode == 1){
+                    let docsWithSummaryInfo = addSummaryInfo(docs, summaries);
+                    formattedDocument = formatDocument(docsWithSummaryInfo);
+                    formattedSummary = formatSummary(summaries, docs);
+                    SummarizationLayout.showResults(formattedDocument, formattedSummary);
+                }else{
+
+                /*  RESULT FOR THE GENERATIVE MODELS   */
+
+                    formattedDocumentGen = formatDocumentGen(docs);
+                    formattedSummaryGen = formatSummaryGen(summaries);
+                    SummarizationLayout.showResults(formattedDocumentGen, formattedSummaryGen);
+                }
             }
         });
     }
 
 
-    function formatDocument(doc) {
-        var formattedText = ('<span>' + doc + '</span>');
-        return formattedText
-    }
 
-    function formatSummary(summary) {
-        var formattedText = ('<span>' + summary + '</span>')
-        return formattedText
-    }
 
-/*
-    function convertDocObject(doc) {
-        var docObject = JSON.parse(doc);
-        console.log(docObject);
-        return docObject;
-    }
+        /* -----------------------------        EXTRACTIVE MODEL        -----------------------------   */
 
-    function convertSummaryObject(summary) {
-        var summaryObject = JSON.parse(summary);
-        console.log(summaryObject);
-        return summaryObject;
-    }
-*/
+
+        /*  Adding some info to paragraphs  */
+
+        function addSummaryInfo (docs, summaries){
+            let docsWithSummaryInfo = docs.map(function(doc) {
+                return {
+                    text: doc
+                }
+            });
+            summaries.forEach(function(summary){
+                    docsWithSummaryInfo[summary.index].inSummary = true
+            });
+            return docsWithSummaryInfo
+        }
+
+        /*   END    */
+
+
+        /*  Functions for article paragraphs result   */
+
+        function formatDocument(docs) {
+            var formattedDocument = '';
+            for (i = 0; i < docs.length; i++) {
+                formattedDocument += paragraphConstructor(docs, i);
+            }
+            return formattedDocument;
+        }
+
+        function paragraphConstructor (docs, i) {
+            let indexClass = (docs[i].inSummary === true) ? "index special-index":"index";
+            var paragraph = '<div class="paragraph-container"><div class="' + indexClass + '"><p>' + i + '</p></div><div class="paragraph"><p>' + docs[i].text  + '</p></div></div>';
+            return paragraph;
+        }
+
+        /*      END       */
+
+
+        /*  Functions for summary result   */
+
+        function formatSummary(summaries, docs) {
+            var formattedSummary = '';
+            for (i = 0; i < summaries.length; i++) {
+                summary = summaries[i];
+                index = summary['index'];
+                prediction = summary['prediction'];
+                formattedSummary += summaryConstructor(summary, index, prediction, docs);
+            }
+            return formattedSummary;
+        }
+
+        function summaryConstructor(summary, index, prediction, docs) {
+            // rounding off the numbers to three decimal places
+            confidence = Math.round(prediction*1000)/1000;
+
+            // Result structure of summaries
+            var paragraph = ('<div class="summary-container"><div class="index special-index"><p>' + index + '</p></div><div class="summary-paragraph"><p>' + docs[index] + '&nbsp;<span class="confidence">(Score: ' + confidence + ')</span></p></div></div>');
+            return paragraph;
+        }
+
+        /* -----------------------------        END EXTRACTIVE MODEL        -----------------------------   */
+
+
+
+        /* -----------------------------        GENERATIVE MODELS        -----------------------------   */
+
+
+        /*  Functions for article paragraphs result   */
+
+        function formatDocumentGen(docs) {
+            var formattedDocumentGen = '';
+            for (i = 0; i < docs.length; i++) {
+                formattedDocumentGen += paragraphConstructorGen(docs, i);
+            }
+            return formattedDocumentGen;
+        }
+
+        function paragraphConstructorGen (docs, i) {
+            var paragraph = '<div class="paragraph-container"><div class="paragraph"><p>' + docs[i]  + '</p></div></div>';
+            return paragraph;
+        }
+
+        /*      END       */
+
+
+        /*  Functions for summary result   */
+
+        function formatSummaryGen(summaries) {
+            var formattedSummaryGen = ('<div class="summary-container"><div class="summary-paragraph"><p>' + summaries +'</p></div></div>');
+            return formattedSummaryGen;
+        }
+
+        /* -----------------------------        END GENERATIVE MODEL        -----------------------------   */

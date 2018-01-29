@@ -1,11 +1,10 @@
 {% extends "ui-kit/site_layout.html" %}
 
 {% block head %}
-    {{ super() }}
+{{ super() }}
 
-    {#Add custom styles here.#}
+{#Add custom styles here.#}
     <link rel="stylesheet" href="{{ url_for('summarization.static', filename='summarization.css') }}">
-
 {% endblock %}
 
 {% block title %}Summarization{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
@@ -13,6 +12,8 @@
 {% block description %}Using deep neural networks to produce a summary from a text such as news articles.{#One line for for demo description#}{% endblock %}
 
 {% block content %}
+
+    <!-- Select the model for the summarization -->
     <div class="row flex-items-xs-center">
         <div class="form col-md-8 form-inline">
             <div class="radio">
@@ -30,14 +31,14 @@
         </div>
     </div>
 
+    <!-- Description of the selected model -->
     <div class="row flex-items-xs-center">
         <div class="col-md-6" id="model-description">
             <p>Key paragraphs from the original text are extracted to create the summary.</p>
         </div>
     </div>
 
-
-
+    <!-- Input an URL for the summarization -->
     <div id="tab-input" class="row row-special flex-items-xs-bottom flex-items-xs-center input-url">
         <div class="col-xs col-md-8">
             <div class="input-field input-field-url" data-init="auto">
@@ -56,23 +57,27 @@
             </button>
         </div>
     </div>
+
+    <!-- Displays summarization results -->
     <div id="tab-results" class="row aix-row aix-invisible">
         <div class="col-lg-6 article-container">
-            <div id="aix-show-source" class="aix-show-source"></div>
+            <div id="aix-show-source" class="aix-show-source">
+                No source yet.<!-- Show the source of the article -->
+            </div>
             <div id="aix-result-document" class="aix-result-content">
-                No document yet.
+                No document yet. <!-- Contain all paragraphs of the article -->
             </div>
         </div>
-        <div class="col-lg-6 summary-container">
-            <p class="title">Summary</p>
+        <div class="col-lg-6 summaries-container">
+            <p class="title-summary">Summary</p>
             <div id="aix-result-summary" class="aix-result-content">
-                No summary yet.
+            No summary yet. <!-- Contain the results of the extractive/generative summary -->
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block scripts %}
-    {{ super() }}
+{{ super() }}
     <script src="{{ url_for('summarization.static', filename='summarization.js') }}"></script>
 {% endblock %}
