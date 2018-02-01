@@ -29,7 +29,7 @@
             $('#aix-show-source').empty();
             $('#aix-result-document').empty();
             $('#aix-result-summary').empty();
-            $('.error-container').empty();
+            $('#error').empty();
         },
 
         showResults: function (docs, summary) {
@@ -53,7 +53,7 @@
                 this.changeStateButton();
                 $('#url-submit').prop('disabled', false).val('');
                 $('#loader').addClass("aix-invisible");
-                $('.error-container').append('<p>An error occurred. Please try again later.');
+                $('#error').append('<p>An error occurred. Please try again later.</p>');
                 $('#tab-results').removeClass("aix-invisible");
                 this.dataInput = "";
                 this.changeStateButton();
@@ -127,7 +127,7 @@
                     self.check_completion();
                 }
             );
-         }
+         },
     };
 
     SummarizationLayout.config({
@@ -161,7 +161,7 @@
                     formattedDocument = formatDocument(docsWithSummaryInfo);
                     formattedSummary = formatSummary(summaries, docs);
                     SummarizationLayout.showResults(formattedDocument, formattedSummary);
-                    
+
                 }else{
 
                 /*  RESULT FOR THE GENERATIVE MODELS   */
@@ -197,10 +197,8 @@
             return docsWithSummaryInfo
         }
 
-        /*   END    */
 
-
-        /*  Functions for article paragraphs result   */
+        /*  Functions to create the Document (paragraphs of the article)   */
 
         function formatDocument(docs) {
             var formattedDocument = '';
@@ -216,10 +214,8 @@
             return paragraph;
         }
 
-        /*      END       */
 
-
-        /*  Functions for summary result   */
+        /*  Functions to create the summary   */
 
         function formatSummary(summaries, docs) {
             var formattedSummary = '';
@@ -245,10 +241,14 @@
 
 
 
+
+
+
+
         /* -----------------------------        GENERATIVE MODELS        -----------------------------   */
 
 
-        /*  Functions for article paragraphs result   */
+        /*  Functions to create the Document (paragraphs of the article)   */
 
         function formatDocumentGen(docs) {
             var formattedDocumentGen = '';
@@ -266,7 +266,7 @@
         /*      END       */
 
 
-        /*  Functions for summary result   */
+        /*  Function to create the generative summary   */
 
         function formatSummaryGen(summaries) {
             var formattedSummaryGen = ('<div class="summary-container"><div class="summary-paragraph-gen"><p>' + summaries +'</p></div></div>');
@@ -274,3 +274,5 @@
         }
 
         /* -----------------------------        END GENERATIVE MODEL        -----------------------------   */
+
+
