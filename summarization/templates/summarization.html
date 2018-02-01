@@ -59,20 +59,22 @@
     </div>
 
     <!-- Displays summarization results -->
-    <div id="tab-results" class="row aix-row aix-invisible">
-        <div class="col-lg-6 article-container">
-            <div id="aix-show-source" class="aix-show-source">
-                No source yet.<!-- Show the source of the article -->
+    <div id="tab-results" class="row aix-row aix-invisible result">
+        <div class="col-lg-6 article-container result">
+            <div id="aix-show-source" class="aix-show-source result">
+                <!-- Show the source of the article -->
             </div>
-            <div id="aix-result-document" class="aix-result-content">
-                No document yet. <!-- Contain all paragraphs of the article -->
+            <div id="aix-result-document" class="aix-result-content result">
+                <!-- Contain all paragraphs of the article -->
             </div>
         </div>
-        <div class="col-lg-6 summaries-container">
-            <p class="title-summary">Summary</p>
-            <div id="aix-result-summary" class="aix-result-content">
-            No summary yet. <!-- Contain the results of the extractive/generative summary -->
+        <div class="col-lg-6 summaries-container result">
+            <p class="title-summary result">Summary</p>
+            <div id="aix-result-summary" class="aix-result-content result">
+                <!-- Contain the results of the extractive/generative summary -->
             </div>
+        </div>
+        <div class="col-lg-12 flex-items-xs-center error-container">
         </div>
     </div>
 {% endblock %}

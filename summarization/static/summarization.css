@@ -1,11 +1,4 @@
-.summarization-legend {
-    display: flex;
-    flex-direction: column;
-}
-
-.summarization-title {
-    margin-top: 16px;
-}
+/*  select a model - style  */
 
 .form{
     display: flex;
@@ -24,12 +17,17 @@
     font-weight: 300;
 }
 
+/*  Field to put the URL - button - loader - input field - style  */
+
+/* input field */
+
 .input-field-url{
     margin-top: 32px;
 }
 
 /* Displays loader into the button when the user submit the url */
 
+/* loader */
 
 @keyframes blink {
   0% {
@@ -41,10 +39,6 @@
   100% {
     opacity: 0.2;
   }
-}
-
-.aix-button--processing {
-  background-color: #1781e3 !important;
 }
 
 .ellipsis-loader {
@@ -76,11 +70,28 @@
     margin: 0;
 }
 
-/*  Ellipsis loader in button end   */
+/* Button */
+
+.aix-button--processing {
+  background-color: #1781e3 !important;
+}
+
+
+/*  Results part - Source - Document - Summary - Error - style  */
 
 #tab-results{
     padding-top: 64px;
 }
+
+/* Error */
+
+.error-container > p{
+    line-height: 128px;
+    text-align: center;
+    color: #DD1122;
+}
+
+/* Source */
 
 .aix-show-source {
     width: 100%;
@@ -102,20 +113,15 @@
     text-overflow: ellipsis;
 }
 
-.title-summary{
-    font-size: 24px;
-    font-weight: 600;
-    padding: 16px;
-    margin: 0px;
-}
+
+/* Document */
 
 .aix-result-content{
     padding: 16px;
 }
 
-.summaries-container{
-    height: 100%;
-    background-color: #f8fafb;
+.aix-result-content > div:first-child{
+    padding-top: 0px;
 }
 
 .paragraph-container{
@@ -129,7 +135,7 @@
 }
 
 .special-index{
-    background-color: rgba(214, 214, 214, 0.5);
+    background-color: rgbA(214, 214, 214, 0.5);
 }
 
 .index > p{
@@ -154,6 +160,25 @@
     font-weight: 300;
 }
 
+.paragraph-gen{
+    padding: 12px 0px;
+}
+
+
+/* Summary */
+
+.title-summary{
+    font-size: 24px;
+    font-weight: 600;
+    padding: 16px;
+    margin: 0px;
+}
+
+.summaries-container{
+    height: 100%;
+    background-color: #f8fafb;
+}
+
 .summary-container{
     display: flex;
 }
@@ -161,6 +186,10 @@
 .summary-paragraph{
     text-align: justify;
     padding: 12px 16px;
+}
+
+.summary-paragraph-gen{
+    padding: 0px;
 }
 
 .summary-paragraph > p{
@@ -172,6 +201,7 @@
     color: #ADADAD;
     font-weight: 200;
 }
+
 
 /* -------------------------------------------------------------------------------  */
 

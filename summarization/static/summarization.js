@@ -24,11 +24,12 @@
             this.isLoading = true;
             this.changeStateButton();
             $('#url-submit').prop('disabled', true);
-            $('#tab-results').addClass("aix-invisible");
+            $('.result').addClass("aix-invisible");
+            $('#loader').removeClass("aix-invisible");
             $('#aix-show-source').empty();
             $('#aix-result-document').empty();
             $('#aix-result-summary').empty();
-            $('#loader').removeClass("aix-invisible");
+            $('.error-container').empty();
         },
 
         showResults: function (docs, summary) {
@@ -37,9 +38,22 @@
                 this.changeStateButton();
                 $('#url-submit').prop('disabled', false).val('');
                 $('#loader').addClass("aix-invisible");
+                $('.result').removeClass("aix-invisible");
                 $('.aix-show-source').append('<p>Extracted text from &nbsp;</p><a href="' + this.dataInput + '" target="_blank">' + this.dataInput + '</a>');
                 $('#aix-result-summary').append(summary);
                 $('#aix-result-document').append(docs);
+                this.dataInput = "";
+                this.changeStateButton();
+            }
+        },
+
+        showError: function (err) {
+            if (this.isLoading) {
+                this.isLoading = false;
+                this.changeStateButton();
+                $('#url-submit').prop('disabled', false).val('');
+                $('#loader').addClass("aix-invisible");
+                $('.error-container').append('<p>An error occurred. Please try again later.');
                 $('#tab-results').removeClass("aix-invisible");
                 this.dataInput = "";
                 this.changeStateButton();
@@ -139,13 +153,15 @@
                 docs = data['document'];
                 summaries = data['summary'];
 
-                /*  RESULT FOR THE EXTRACTIVE MODEL   */
-
                 if(mode == 1){
+
+                    /*  RESULT FOR THE EXTRACTIVE MODEL   */
+
                     let docsWithSummaryInfo = addSummaryInfo(docs, summaries);
                     formattedDocument = formatDocument(docsWithSummaryInfo);
                     formattedSummary = formatSummary(summaries, docs);
                     SummarizationLayout.showResults(formattedDocument, formattedSummary);
+                    
                 }else{
 
                 /*  RESULT FOR THE GENERATIVE MODELS   */
@@ -154,6 +170,9 @@
                     formattedSummaryGen = formatSummaryGen(summaries);
                     SummarizationLayout.showResults(formattedDocumentGen, formattedSummaryGen);
                 }
+            },
+            error: function (err) {
+                SummarizationLayout.showError();
             }
         });
     }
@@ -240,7 +259,7 @@
         }
 
         function paragraphConstructorGen (docs, i) {
-            var paragraph = '<div class="paragraph-container"><div class="paragraph"><p>' + docs[i]  + '</p></div></div>';
+            var paragraph = '<div class="paragraph-gen"><p>' + docs[i]  + '</p></div>';
             return paragraph;
         }
 
@@ -250,7 +269,7 @@
         /*  Functions for summary result   */
 
         function formatSummaryGen(summaries) {
-            var formattedSummaryGen = ('<div class="summary-container"><div class="summary-paragraph"><p>' + summaries +'</p></div></div>');
+            var formattedSummaryGen = ('<div class="summary-container"><div class="summary-paragraph-gen"><p>' + summaries +'</p></div></div>');
             return formattedSummaryGen;
         }
 
