@@ -37,6 +37,7 @@
                 this.isLoading = false;
                 this.changeStateButton();
                 $('#url-submit').prop('disabled', false).val('');
+                $('#url-submit').removeClass('is-fixed');
                 $('#loader').addClass("aix-invisible");
                 $('.result').removeClass("aix-invisible");
                 $('.aix-show-source').append('<p>Extracted text from &nbsp;</p><a href="' + this.dataInput + '" target="_blank">' + this.dataInput + '</a>');
