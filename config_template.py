@@ -27,14 +27,19 @@ neuroate = {
     'python_env': ''
 }
 ner = {
-    'path': '',
-    'python_env': ''
+    'it_model_port': 0000,
+    'en_model_port': 0000,
+    'fr_model_port': 0000,
+    'de_model_port': 0000,
+    'aiko_langdetect_endpoint': '',
+    'aiko_token': '',
+    'aiko_tenant': '',
 }
 kpextract = {
-	'path': '',
-	'fetcher_path': '',
-	'python_env': '',
-	'api_emb_url':''
+    'path': '',
+    'fetcher_path': '',
+    'python_env': '',
+    'api_emb_url': ''
 }
 neural_programmer = {
     'socket_address': '',
@@ -56,9 +61,9 @@ machine_translation_stdlangs = {
     'base_url': ''
 }
 churn = {
-    'path' : '',
+    'path': '',
     'python_env': '',
-    'e_host':'',
+    'e_host': '',
     'e_port': ''
 }
 argumentation = {
@@ -74,11 +79,10 @@ sfid = {
 
 grocery = {
     'host': '',
-    'port': '',
-    'url': '',
+    'port': 1999,
+    'url':'',
     'dir': ''
 }
-
 emotions = {
     'url': '',
     'img_path': ''
@@ -92,4 +96,16 @@ summarization = {
 seq2seq = {
     'socket_address': '',
     'socket_port': ''
+
+material = {
+    'host': '',
+    'port': '' ,
+    'url': '',
+    'dir': ''
+}
+chestxray = {
+    'host': '',
+    'port': '',
+    'url': '',
+    'dir': ''
 }
