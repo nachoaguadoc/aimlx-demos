@@ -86,11 +86,11 @@ var SummarizationLayout = {
 
     check_completion: function(){
         if (this.dataInput.length > this.minInputLength) {
-             $('#btn-submit').removeClass('disabled');
-        } else {
-             $('#btn-submit').addClass('disabled');
-         }
-    },
+           $('#btn-submit').removeClass('disabled');
+       } else {
+           $('#btn-submit').addClass('disabled');
+       }
+   },
 
     initializeUiElements: function() {
         var self = this;
@@ -124,11 +124,11 @@ var SummarizationLayout = {
                 return false;
             }
         }).on('input', function () {
-                self.dataInput = this.value;
-                self.check_completion();
-            }
+            self.dataInput = this.value;
+            self.check_completion();
+        }
         );
-     },
+    },
 };
 
 SummarizationLayout.config({
@@ -165,7 +165,7 @@ function submit(input, mode) {
 
             }else{
 
-            /*  RESULT FOR THE GENERATIVE MODELS   */
+                /*  RESULT FOR THE GENERATIVE MODELS   */
 
                 formattedDocumentGen = formatDocumentGen(docs);
                 formattedSummaryGen = formatSummaryGen(summaries);
@@ -177,91 +177,89 @@ function submit(input, mode) {
         }
     });
 }
-    /* -----------------------------        EXTRACTIVE MODEL        -----------------------------   */
+/* -----------------------------        EXTRACTIVE MODEL        -----------------------------   */
 
-    /*  Adding some info to paragraphs  */
+/*  Adding some info to paragraphs  */
 
-    function addSummaryInfo (docs, summaries){
-        let docsWithSummaryInfo = docs.map(function(doc) {
-            return {
-                text: doc
-            }
-        });
-        summaries.forEach(function(summary){
-                docsWithSummaryInfo[summary.index].inSummary = true
-        });
-        return docsWithSummaryInfo
-    }
-
-
-    /*  Functions to create the Document (paragraphs of the article)   */
-
-    function formatDocument(docs) {
-        var formattedDocument = '';
-        for (i = 0; i < docs.length; i++) {
-            formattedDocument += paragraphConstructor(docs, i);
+function addSummaryInfo (docs, summaries){
+    let docsWithSummaryInfo = docs.map(function(doc) {
+        return {
+            text: doc
         }
-        return formattedDocument;
+    });
+    summaries.forEach(function(summary){
+        docsWithSummaryInfo[summary.index].inSummary = true
+    });
+    return docsWithSummaryInfo
+}
+
+
+/*  Functions to create the Document (paragraphs of the article)   */
+
+function formatDocument(docs) {
+    var formattedDocument = '';
+    for (i = 0; i < docs.length; i++) {
+        formattedDocument += paragraphConstructor(docs, i);
     }
+    return formattedDocument;
+}
 
-    function paragraphConstructor (docs, i) {
-        let indexClass = (docs[i].inSummary === true) ? "index special-index":"index";
-        var paragraph = '<div class="paragraph-container"><div class="' + indexClass + '"><p>' + i + '</p></div><div class="paragraph"><p>' + docs[i].text  + '</p></div></div>';
-        return paragraph;
+function paragraphConstructor (docs, i) {
+    let indexClass = (docs[i].inSummary === true) ? "index special-index":"index";
+    var paragraph = '<div class="paragraph-container"><div class="' + indexClass + '"><p>' + i + '</p></div><div class="paragraph"><p>' + docs[i].text  + '</p></div></div>';
+    return paragraph;
+}
+
+
+/*  Functions to create the summary   */
+
+function formatSummary(summaries, docs) {
+    var formattedSummary = '';
+    for (i = 0; i < summaries.length; i++) {
+        summary = summaries[i];
+        index = summary['index'];
+        prediction = summary['prediction'];
+        formattedSummary += summaryConstructor(summary, index, prediction, docs);
     }
+    return formattedSummary;
+}
 
-
-    /*  Functions to create the summary   */
-
-    function formatSummary(summaries, docs) {
-        var formattedSummary = '';
-        for (i = 0; i < summaries.length; i++) {
-            summary = summaries[i];
-            index = summary['index'];
-            prediction = summary['prediction'];
-            formattedSummary += summaryConstructor(summary, index, prediction, docs);
-        }
-        return formattedSummary;
-    }
-
-    function summaryConstructor(summary, index, prediction, docs) {
+function summaryConstructor(summary, index, prediction, docs) {
         // rounding off the numbers to three decimal places
         confidence = Math.round(prediction*1000)/1000;
 
         // Result structure of summaries
         var paragraph = ('<div class="summary-container"><div class="index special-index"><p>' + index + '</p></div><div class="summary-paragraph"><p>' + docs[index] + '&nbsp;<span class="confidence">(Score: ' + confidence + ')</span></p></div></div>');
         return paragraph;
+}
+
+/* -----------------------------        END EXTRACTIVE MODEL        -----------------------------   */
+
+/* -----------------------------        GENERATIVE MODELS        -----------------------------   */
+
+
+/*  Functions to create the Document (paragraphs of the article)   */
+
+function formatDocumentGen(docs) {
+    var formattedDocumentGen = '';
+    for (i = 0; i < docs.length; i++) {
+        formattedDocumentGen += paragraphConstructorGen(docs, i);
     }
+    return formattedDocumentGen;
+}
 
-    /* -----------------------------        END EXTRACTIVE MODEL        -----------------------------   */
+function paragraphConstructorGen (docs, i) {
+    var paragraph = '<div class="paragraph-gen"><p>' + docs[i]  + '</p></div>';
+    return paragraph;
+}
 
-    /* -----------------------------        GENERATIVE MODELS        -----------------------------   */
+/*      END       */
 
+/*  Function to create the generative summary   */
 
-    /*  Functions to create the Document (paragraphs of the article)   */
-
-    function formatDocumentGen(docs) {
-        var formattedDocumentGen = '';
-        for (i = 0; i < docs.length; i++) {
-            formattedDocumentGen += paragraphConstructorGen(docs, i);
-        }
-        return formattedDocumentGen;
-
-  function paragraphConstructorGen (docs, i) {
-        var paragraph = '<div class="paragraph-gen"><p>' + docs[i]  + '</p></div>';
-        return paragraph;
-    }
-
-    /*      END       */
-
-
-    /*  Function to create the generative summary   */
-
-    function formatSummaryGen(summaries) {
-        var formattedSummaryGen = ('<div class="summary-container"><div class="summary-paragraph-gen"><p>' + summaries +'</p></div></div>');
-        return formattedSummaryGen;
-    }
-
+function formatSummaryGen(summaries) {
+    var formattedSummaryGen = ('<div class="summary-container"><div class="summary-paragraph-gen"><p>' + summaries +'</p></div></div>');
+    return formattedSummaryGen;
+}
     /* -----------------------------        END GENERATIVE MODEL        -----------------------------   */
-
 
