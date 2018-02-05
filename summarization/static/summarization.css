@@ -1,8 +1,213 @@
-.summarization-legend {
+/*  select a model - style  */
+
+.form{
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 48px;
 }
 
-.summarization-title {
-    margin-top: 16px;
+#model-description{
+    height: 72px;
+    text-align: center;
+    padding-top: 24px;
+}
+
+#model-description > p{
+    text-align: center;
+    font-weight: 300;
+}
+
+/*  Field to put the URL - button - loader - input field - style  */
+
+/* input field */
+
+.input-field-url{
+    margin-top: 32px;
+}
+
+/* Displays loader into the button when the user submit the url */
+
+/* loader */
+
+@keyframes blink {
+  0% {
+    opacity: 0.3;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.ellipsis-loader {
+    display: flex;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ellipsis-loader > div {
+    animation-name: blink;
+    animation-duration: 1.6s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    line-height: 24px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #fff;
+}
+
+.ellipsis-loader > div:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.ellipsis-loader > div:nth-child(3) {
+    animation-delay: 0.4s;
+    margin: 0;
+}
+
+/* Button */
+
+.aix-button--processing {
+  background-color: #1781e3 !important;
+}
+
+
+/*  Results part - Source - Document - Summary - Error - style  */
+
+#tab-results{
+    padding-top: 64px;
+}
+
+/* Error */
+
+#error > p{
+    line-height: 32px;
+    text-align: center;
+    color: #DD1122;
+    font-weight: 300;
+    padding-bottom: 64px;
+}
+
+/* Source */
+
+.aix-show-source {
+    width: 100%;
+    padding: 4px 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.aix-show-source > p {
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 0px;
+}
+
+.aix-show-source > a{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Document */
+
+.aix-result-content{
+    padding: 16px;
+}
+
+.aix-result-content > div:first-child{
+    padding-top: 0px;
+}
+
+.paragraph-container{
+    position: relative;
+    display: flex;
+}
+
+.index{
+    background-color: #EEF3F6;
+    border-bottom: solid 0.5px #D6D6D6;
+}
+
+.special-index{
+    background-color: rgbA(214, 214, 214, 0.5);
+}
+
+.index > p{
+    width: 40px;
+    color: #474747;
+    text-align: right;
+    font-weight: 500;
+    padding: 12px 7px;
+}
+
+.special-index > p{
+    border-left: solid 2.5px #545454;
+    height: 100%;
+}
+
+.paragraph{
+    padding: 12px 16px;
+}
+
+.paragraph > p{
+    text-align: justify;
+    font-weight: 300;
+}
+
+.paragraph-gen{
+    padding: 12px 0px;
+}
+
+
+/* Summary */
+
+.title-summary{
+    font-size: 24px;
+    font-weight: 600;
+    padding: 12px 16px 8px 16px;
+    margin: 0px;
+}
+
+.summaries-container{
+    height: 100%;
+    background-color: #f8fafb;
+    padding: 12px;
+}
+
+.summary-container{
+    display: flex;
+}
+
+.summary-paragraph{
+    text-align: justify;
+    padding: 12px 16px;
+}
+
+.summary-paragraph-gen{
+    padding: 0px;
+}
+
+.summary-paragraph > p{
+    margin: 0px;
+    font-weight: 300;
+}
+
+.confidence{
+    color: #ADADAD;
+    font-weight: 200;
+}
+
+
+/* -------------------------------------------------------------------------------  */
+
+.aix-invisible{
+    display: none;
 }

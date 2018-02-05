@@ -88,6 +88,15 @@ emotions = {
     'img_path': ''
 }
 
+summarization = {
+    'url_gen': '',
+    'url_ext': ''
+}
+
+seq2seq = {
+    'socket_address': '',
+    'socket_port': ''
+
 material = {
     'host': '',
     'port': '' ,
