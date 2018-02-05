@@ -85,8 +85,8 @@ emotions = {
 }
 
 summarization = {
-    'url_gen': 'http://127.0.0.1:1312/api/arg/gen',
-    'url_ext': 'http://127.0.0.1:1313/api/arg/ext'
+    'url_gen': '',
+    'url_ext': ''
 }
 
 seq2seq = {
