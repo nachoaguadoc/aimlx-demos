@@ -8,7 +8,6 @@ ChatbotLayout.loadSamples = function () {
         self.time = json.time;
         self.city = json.city;
         self.theatre = json.theatre;
-        self.getRandomSamples();
         self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
         self.hideSampleLoader();
         $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
@@ -25,12 +24,11 @@ ChatbotLayout.getRandomSamples = function () {
     var randomNumber = Math.ceil(Math.random() * (this.numberOfSamples));
 
     //  Push data into an array "this.samplesDisplay"
-    this.samplesDisplay.push(this.moviename[randomNumber]);
-    this.samplesDisplay.push(this.nbrPeople[randomNumber]);
-    this.samplesDisplay.push(this.date[randomNumber]);
-    this.samplesDisplay.push(this.time[randomNumber]);
-    this.samplesDisplay.push(this.city[randomNumber]);
-    this.samplesDisplay.push(this.theatre[randomNumber]);
+    var neededInformation = [this.moviename, this.nbrPeople, this.date, this.time, this.city, this.theatre];
+    console.log(neededInformation)
+    for(i = 0; i < neededInformation.length; i++){
+        this.samplesDisplay.push(neededInformation[i][randomNumber]);
+    }
 
     // function call showSamples
     this.showSamples();
