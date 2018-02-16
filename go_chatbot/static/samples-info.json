@@ -41,14 +41,16 @@
     "e.g. Paris",
     "e.g. Budapest",
     "e.g. Oslo",
-    "e.g. Berlin"
+    "e.g. Berlin",
+    "e.g. Barcelona"
   ],
   "theatre": [
-    "e.g. regal meridian 16",
-    "e.g. regal meridian 17",
-    "e.g. regal meridian 19",
-    "e.g. regal meridian 14",
-    "e.g. regal meridian 20",
-    "e.g. regal meridian 21"
+    "e.g. Regal meridian 16",
+    "e.g. Regal meridian 17",
+    "e.g. Regal meridian 19",
+    "e.g. Regal meridian 14",
+    "e.g. Regal meridian 20",
+    "e.g. Regal meridian 21",
+    "e.g. Regal meridian 10"
   ]
 }
