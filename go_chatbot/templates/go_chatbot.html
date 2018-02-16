@@ -1,6 +1,8 @@
 {% extends "ui-kit/chatbot_layout.html" %}
 
-{% block head %}{{ super() }}{% endblock %}
+{% block head %}{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('go_chatbot.static', filename='go_chatbot.css') }}">
+{% endblock %}
 
 {% block title %}Goal-Oriented Chatbot{% endblock %}
 
@@ -8,7 +10,33 @@
 
 {% block input_placeholder_text %}{{ super() }}{% endblock %}
 
-{% block samples %}{{ super() }}{% endblock %}
+{% block samples %}
+    <div class="sample-container aix-invisible">
+        <div class="sample-container__header">
+            <h4>Needed information</h4>
+            <i id="btn-refresh"
+               class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal"
+               aria-hidden="true"></i>
+        </div>
+        <p class="userInstruction">To get a movie ticket you need to inform the chatbot about the following information.</p>
+        <div class="sample-data-loader">
+            <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
+        </div>
+        <div id="data-container" class="row">
+            <div class="col-md-6 information-data">
+                <p class="information">moviename</p>
+                <p class="information">number of people</p>
+                <p class="information">date</p>
+                <p class="information">time</p>
+                <p class="information">city</p>
+                <p class="information">theatre</p>
+            </div>
+            <div id="sample-data" class="col-md-6">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
 {% block scripts %}
     {{ super() }}

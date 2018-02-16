@@ -1,0 +1,45 @@
+{
+  "moviename": [
+    "e.g. Zoolander",
+    "e.g. Star Wars",
+    "e.g. Batman",
+    "e.g. Harry Potter",
+    "e.g. Matrix",
+    "e.g. Inception",
+    "e.g. Pirates of the Caribbean"
+  ],
+  "nbrPeople": [
+    "e.g. 2",
+    "e.g. 4",
+    "e.g. 7",
+    "e.g. 1",
+    "e.g. 5"
+  ],
+  "date": [
+    "e.g. 12 april 2018",
+    "e.g. 30 mai 2018",
+    "e.g. 24 october 2018",
+    "e.g. 24 august 2018",
+    "e.g. 24 january 2018",
+    "e.g. 24 may 2018",
+    "e.g. 24 june 2018"
+  ],
+  "time": [
+    "e.g. 5 PM",
+    "e.g. 8 PM",
+    "e.g. 11 AM"
+  ],
+  "city": [
+    "e.g. London",
+    "e.g. Munich",
+    "e.g. Paris"
+  ],
+  "theatre": [
+    "e.g. regal meridian 16",
+    "e.g. regal meridian 17",
+    "e.g. regal meridian 19",
+    "e.g. regal meridian 14",
+    "e.g. regal meridian 20",
+    "e.g. regal meridian 21"
+  ]
+}
