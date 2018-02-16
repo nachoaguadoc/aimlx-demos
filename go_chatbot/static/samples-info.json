@@ -13,7 +13,9 @@
     "e.g. 4",
     "e.g. 7",
     "e.g. 1",
-    "e.g. 5"
+    "e.g. 5",
+    "e.g. 10",
+    "e.g. 6"
   ],
   "date": [
     "e.g. 12 april 2018",
@@ -27,12 +29,19 @@
   "time": [
     "e.g. 5 PM",
     "e.g. 8 PM",
-    "e.g. 11 AM"
+    "e.g. 11 AM",
+    "e.g. 5 AM",
+    "e.g. 8 AM",
+    "e.g. 4 PM",
+    "e.g. 10 PM"
   ],
   "city": [
     "e.g. London",
-    "e.g. Munich",
-    "e.g. Paris"
+    "e.g. Münich",
+    "e.g. Paris",
+    "e.g. Budapest",
+    "e.g. Oslo",
+    "e.g. Berlin"
   ],
   "theatre": [
     "e.g. regal meridian 16",

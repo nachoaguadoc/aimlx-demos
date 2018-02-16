@@ -2,7 +2,6 @@ ChatbotLayout.loadSamples = function () {
     var self = this;
     self.showSampleLoader();
     $.getJSON(this.sampleLink, function (json) {
-
         self.moviename = json.moviename;
         self.nbrPeople = json.nbrPeople;
         self.date = json.date;
@@ -13,15 +12,16 @@ ChatbotLayout.loadSamples = function () {
         self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
         self.hideSampleLoader();
         $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
-            var samplesDisplay = [];
             self.getRandomSamples();
         });
     });
 }
 
 ChatbotLayout.getRandomSamples = function () {
-    var samplesDisplay = [];
+    $('#sample-data').empty();
+    this.samplesDisplay = [];
     var randomNumber = Math.ceil(Math.random() * (this.numberOfSamples));
+    console.log(randomNumber)
     this.samplesDisplay.push(this.moviename[randomNumber]);
     this.samplesDisplay.push(this.nbrPeople[randomNumber]);
     this.samplesDisplay.push(this.date[randomNumber]);
@@ -33,13 +33,12 @@ ChatbotLayout.getRandomSamples = function () {
 }
 
  ChatbotLayout.showSamples = function () {
-    $('#sample-data').empty();
-    var samplesData = '';
+    var sampleText = '';
     for(i = 0; i < this.samplesDisplay.length; i++){
-        sampleText = '<div>' + this.samplesDisplay[i] + '</div>';
-        console.log(sampleText)
+        sampleText = '<p class="sample-data">' + this.samplesDisplay[i] + '</p>';
+        $('#sample-data').append(sampleText);
     }
-    //$('#sample-data').append(sampleText);
+
 
 }
 
@@ -107,3 +106,11 @@ function refreshSampleData (){
 
 $('.sample-container__header h4').text("Needed Information");
 $('.btn-sample-refresh').removeClass("aix-invisible");
+
+
+/* Function JSON Object bekommen */
+
+//JSON.stringify(response, null, 2)
+
+
+// Function 
