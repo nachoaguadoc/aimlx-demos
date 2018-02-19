@@ -8,6 +8,7 @@ ChatbotLayout.loadSamples = function () {
         self.time = json.time;
         self.city = json.city;
         self.theatre = json.theatre;
+        self.getRandomSamples();
         self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
         self.hideSampleLoader();
         $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
@@ -21,11 +22,9 @@ ChatbotLayout.getRandomSamples = function () {
     this.samplesDisplay = [];
 
     //  A random number to display example data randomly
-    var randomNumber = Math.ceil(Math.random() * (this.numberOfSamples));
-
+    var randomNumber = parseInt(Math.round(Math.random() * (this.numberOfSamples)));
     //  Push data into an array "this.samplesDisplay"
     var neededInformation = [this.moviename, this.nbrPeople, this.date, this.time, this.city, this.theatre];
-    console.log(neededInformation)
     for(i = 0; i < neededInformation.length; i++){
         this.samplesDisplay.push(neededInformation[i][randomNumber]);
     }
@@ -56,7 +55,8 @@ function submit(input) {
             if(chat_ended == true){
                 endChat(1200);
             }
-            ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="#">This is what I understood</a>', 'bot');
+            ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" id="display-json">This is what I understood</a><div id="json-object" class="display-none">' + jsonObject + '</div>', 'bot');
+            toggleJsonObject();
         }
     });
 }
@@ -99,8 +99,20 @@ function endChat(time){
 $('.sample-container__header h4').text("Needed Information");
 $('.btn-sample-refresh').removeClass("aix-invisible");
 
-/* Function JSON Object bekommen */
+var someJson = {movie: "Matrix", nbTickets: 2};
+var str = JSON.stringify(someJson, null, 2);
+var jsonObject = ('<pre><code class="json">' + str + "</code></pre>");
 
-//JSON.stringify(response, null, 2)
-
-// Function
+function toggleJsonObject (){
+    $('#display-json').click(function( event ){
+        event.preventDefault();
+        $("#json-object").toggle();
+        //if($('#display-json').val == 'This is what I understood')
+        var value = $('#display-json').text();
+        if(value == 'This is what I understood'){
+            $('#display-json').text('Hide');
+        }else{
+            $('#display-json').text('This is what I understood');
+        }
+    });
+}

@@ -1,7 +1,7 @@
 var ChatbotLayout = {
     samples: [],
     sampleLink: '',
-    numberOfSamples: 6,
+    numberOfSamples: 8,
     samplesDisplay: [],
     isLoading: false,
     dataInput: '',

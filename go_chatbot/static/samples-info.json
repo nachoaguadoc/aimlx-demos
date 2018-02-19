@@ -6,7 +6,9 @@
     "e.g. Harry Potter",
     "e.g. Matrix",
     "e.g. Inception",
-    "e.g. Pirates of the Caribbean"
+    "e.g. Pirates of the Caribbean",
+    "e.g. Spectre",
+    "e.g. Titanic"
   ],
   "nbrPeople": [
     "e.g. 2",
@@ -15,7 +17,9 @@
     "e.g. 1",
     "e.g. 5",
     "e.g. 10",
-    "e.g. 6"
+    "e.g. 6",
+    "e.g. 8",
+    "e.g. 3"
   ],
   "date": [
     "e.g. 12 april 2018",
@@ -24,7 +28,9 @@
     "e.g. 24 august 2018",
     "e.g. 24 january 2018",
     "e.g. 24 may 2018",
-    "e.g. 24 june 2018"
+    "e.g. 24 june 2018",
+    "e.g. 30 september 2018",
+    "e.g. 17 february 2018"
   ],
   "time": [
     "e.g. 5 PM",
@@ -33,7 +39,9 @@
     "e.g. 5 AM",
     "e.g. 8 AM",
     "e.g. 4 PM",
-    "e.g. 10 PM"
+    "e.g. 10 PM",
+    "e.g. 3 PM",
+    "e.g. 6 PM"
   ],
   "city": [
     "e.g. London",
@@ -42,7 +50,9 @@
     "e.g. Budapest",
     "e.g. Oslo",
     "e.g. Berlin",
-    "e.g. Barcelona"
+    "e.g. Barcelona",
+    "e.g. Vienne",
+    "e.g. Milano"
   ],
   "theatre": [
     "e.g. Regal meridian 16",
@@ -51,6 +61,8 @@
     "e.g. Regal meridian 14",
     "e.g. Regal meridian 20",
     "e.g. Regal meridian 21",
-    "e.g. Regal meridian 10"
+    "e.g. Regal meridian 12",
+    "e.g. Regal meridian 5",
+    "e.g. Regal meridian 8"
   ]
 }

@@ -2,6 +2,7 @@
 
 {% block head %}{{ super() }}
     <link rel="stylesheet" href="{{ url_for('go_chatbot.static', filename='go_chatbot.css') }}">
+    <link rel="stylesheet" href="go_chatbot/static/highlight/styles/default.css">
 {% endblock %}
 
 {% block title %}Goal-Oriented Chatbot{% endblock %}
@@ -40,5 +41,7 @@
 
 {% block scripts %}
     {{ super() }}
+    <script src="go_chatbot/static/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <script src="{{ url_for('go_chatbot.static', filename='go_chatbot.js') }}"></script>
 {% endblock %}

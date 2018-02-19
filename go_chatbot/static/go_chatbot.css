@@ -14,3 +14,13 @@
     color: #858585;
     font-weight: 300;
 }
+
+pre{
+    font-size: 16px;
+    padding: 10px 0px;
+    margin: 0px;
+}
+
+.display-none{
+    display: none;
+}
