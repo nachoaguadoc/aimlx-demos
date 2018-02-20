@@ -16,6 +16,7 @@
 }
 
 pre{
+    overflow: hidden;
     font-size: 16px;
     padding: 10px 0px;
     margin: 0px;

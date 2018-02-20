@@ -21,7 +21,8 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .hljs-addition,
 .hljs-attribute,
 .hljs-link {
-  color: #888;
+  font-weight: 500;
+  color: #551166;
 }
 
 .hljs-comment,

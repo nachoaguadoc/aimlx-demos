@@ -52,10 +52,13 @@ function submit(input) {
         success: function (data) {
             var system_action_nl = data["system_action_nl"];
             var chat_ended = data["chat_ended"];
+            var userDialogueAct = data["user_dia_act"];
+            var jsonObject = JSON.stringify(userDialogueAct, null, 2);
+            var formattedObject = ('<pre><code class="json">' + jsonObject + "</code></pre>");
             if(chat_ended == true){
                 endChat(1200);
             }
-            ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" id="display-json">This is what I understood</a><div id="json-object" class="display-none">' + jsonObject + '</div>', 'bot');
+            ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" class="display-json">This is what I understood</a><div class="json-object display-none">' + formattedObject + '</div>', 'bot');
             toggleJsonObject();
         }
     });
@@ -99,20 +102,15 @@ function endChat(time){
 $('.sample-container__header h4').text("Needed Information");
 $('.btn-sample-refresh').removeClass("aix-invisible");
 
-var someJson = {movie: "Matrix", nbTickets: 2};
-var str = JSON.stringify(someJson, null, 2);
-var jsonObject = ('<pre><code class="json">' + str + "</code></pre>");
-
 function toggleJsonObject (){
-    $('#display-json').click(function( event ){
+    $('.display-json').click(function( event ){
         event.preventDefault();
-        $("#json-object").toggle();
-        //if($('#display-json').val == 'This is what I understood')
-        var value = $('#display-json').text();
+        $(".json-object").toggle();
+        var value = $('.display-json').text();
         if(value == 'This is what I understood'){
-            $('#display-json').text('Hide');
+            $('.display-json').text('Hide');
         }else{
-            $('#display-json').text('This is what I understood');
+            $('.display-json').text('This is what I understood');
         }
     });
 }
