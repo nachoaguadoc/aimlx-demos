@@ -54,12 +54,18 @@ function submit(input) {
             var chat_ended = data["chat_ended"];
             var userDialogueAct = data["user_dia_act"];
             var jsonObject = JSON.stringify(userDialogueAct, null, 2);
-            var formattedObject = ('<pre><code class="json">' + jsonObject + "</code></pre>");
+
+            var randomNumber = Math.floor(Math.random() * Math.floor(500));
+            const id = 'code_highlighting_' + randomNumber;
+            var formattedJsonObject = '<pre id="'+ id +'"><code class="json">' + jsonObject + '</code></pre>';
+
             if(chat_ended == true){
                 endChat(1200);
             }
-            ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" class="display-json">This is what I understood</a><div class="json-object display-none">' + formattedObject + '</div>', 'bot');
-            toggleJsonObject();
+
+            ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" id="display-json-' + id + '">This is what I understood</a><div class="json-object">' + formattedJsonObject + '</div>', 'bot');
+            highlightingBlock(id);
+            toggleJsonObject(id);
         }
     });
 }
@@ -99,18 +105,25 @@ function endChat(time){
     }, time);
 }
 
-$('.sample-container__header h4').text("Needed Information");
-$('.btn-sample-refresh').removeClass("aix-invisible");
+function toggleJsonObject (id){
+    $('#display-json-' + id).next().hide();
 
-function toggleJsonObject (){
-    $('.display-json').click(function( event ){
+    $('#display-json-' + id).click(function( event ){
         event.preventDefault();
-        $(".json-object").toggle();
-        var value = $('.display-json').text();
+        $(this).next().toggle();
+        var value = $(this).text();
         if(value == 'This is what I understood'){
-            $('.display-json').text('Hide');
+            $(this).text('Hide');
         }else{
-            $('.display-json').text('This is what I understood');
+            $(this).text('This is what I understood');
         }
     });
 }
+
+function highlightingBlock(id){
+    var code = document.getElementById(id);
+    hljs.highlightBlock(code);
+}
+
+$('.sample-container__header h4').text("Needed Information");
+$('.btn-sample-refresh').removeClass("aix-invisible");
