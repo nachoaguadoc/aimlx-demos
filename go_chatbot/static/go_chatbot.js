@@ -53,6 +53,7 @@ function submit(input) {
             var system_action_nl = data["system_action_nl"];
             var chat_ended = data["chat_ended"];
             var userDialogueAct = data["user_dia_act"];
+            var information = data["user_dia_act"]["information"];
             var jsonObject = JSON.stringify(userDialogueAct, null, 2);
 
             var randomNumber = Math.floor(Math.random() * Math.floor(500));
@@ -66,6 +67,7 @@ function submit(input) {
             ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" id="display-json-' + id + '">This is what I understood</a><div class="json-object">' + formattedJsonObject + '</div>', 'bot');
             highlightingBlock(id);
             toggleJsonObject(id);
+            checkingChatbotUnderstanding(information);
         }
     });
 }
@@ -127,3 +129,37 @@ function highlightingBlock(id){
 
 $('.sample-container__header h4').text("Needed Information");
 $('.btn-sample-refresh').removeClass("aix-invisible");
+
+
+function checkingChatbotUnderstanding (information) {
+
+    //Array with every keys of the answer JSON object
+    var existingKeys = Object.keys(information);
+    for(i = 0; i < existingKeys.length; i++){
+
+        //Checks whether the element has already been checked
+        var iconSelector = "icon-" + existingKeys[i];
+        var iconElement = document.getElementById(iconSelector);
+
+        if(iconElement === null){
+            $('#' + existingKeys[i]).after('<i id="icon-' + existingKeys[i] + '"class="icon icon-011-check-mark icon--s2 checked" aria-hidden="true"></i>');
+        }else{
+            //Do nothing
+        }
+    }
+}
+//<i class="icon icon-011-check-mark icon--s3" aria-hidden="true"></i>
+/*if(existingKeys[i] === checkInformation[i]){
+
+    }else{
+    //
+    }*/
+
+/*
+    var checkInformation = ["city", "date", "moviename", "numberofpeople","starttime", "theater"];
+    var existingKeys = Object.keys(information);
+    for(i = 0; i < checkInformation.length; i++){
+        console.log(Object.keys(information));
+        //console.log(checkInformation[i]);
+    }
+*/

@@ -28,3 +28,19 @@ pre{
 
 .json-display{
 }
+
+.information-data > div > p{
+    margin-bottom: 32px;
+}
+
+.data-label{
+    display: flex;
+}
+
+.data-label > p{
+    padding-right: 10px;
+}
+
+.checked{
+    color: #25B252;
+}
