@@ -1,3 +1,4 @@
+// Loads sample data to show the user examples for asking a question to the chatbot
 ChatbotLayout.loadSamples = function () {
     var self = this;
     self.showSampleLoader();
@@ -11,12 +12,13 @@ ChatbotLayout.loadSamples = function () {
         self.getRandomSamples();
         self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
         self.hideSampleLoader();
-        $('#btn-refresh').removeClass('aix-invisible').on('click', function () {
+        $('#btn-refresh').on('click', function () {
             self.getRandomSamples();
         });
     });
 }
 
+//Choose sample data randomly
 ChatbotLayout.getRandomSamples = function () {
     $('#sample-data').empty();
     this.samplesDisplay = [];
@@ -33,11 +35,11 @@ ChatbotLayout.getRandomSamples = function () {
     this.showSamples();
 }
 
+//Displays samples on the right side of the demo
 ChatbotLayout.showSamples = function () {
-    var sampleText = '';
     for(i = 0; i < this.samplesDisplay.length; i++){
-        sampleText = '<p class="sample-data"><i>' + this.samplesDisplay[i] + '</i></p>';
-        $('#sample-data').append(sampleText);
+         var samplesData = '<p class="sample-data"><i>' + this.samplesDisplay[i] + '</i></p>';
+        $('#sample-data').append(samplesData);
     }
 }
 
@@ -53,21 +55,26 @@ function submit(input) {
             var system_action_nl = data["system_action_nl"];
             var chat_ended = data["chat_ended"];
             var userDialogueAct = data["user_dia_act"];
-            var information = data["user_dia_act"]["information"];
+            var purpose = userDialogueAct["purpose"];
+            var information = userDialogueAct["information"];
             var jsonObject = JSON.stringify(userDialogueAct, null, 2);
 
+            // Assigning an ID to each JSON object in the speech-bubbles
             var randomNumber = Math.floor(Math.random() * Math.floor(500));
             const id = 'code_highlighting_' + randomNumber;
             var formattedJsonObject = '<pre id="'+ id +'"><code class="json">' + jsonObject + '</code></pre>';
 
-            if(chat_ended == true){
+            /*if(chat_ended == true){
                 endChat(1200);
-            }
+            }*/
 
             ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" id="display-json-' + id + '">This is what I understood</a><div class="json-object">' + formattedJsonObject + '</div>', 'bot');
             highlightingBlock(id);
             toggleJsonObject(id);
             checkingChatbotUnderstanding(information);
+            console.log(purpose);
+            purposeEndChat(purpose, id);
+            $('#input-submit').focus();
         }
     });
 }
@@ -98,68 +105,64 @@ function removePunctuation(input) {
     return input.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()@\+\?><\[\]\+]/g, '');
 }
 
-function endChat(time){
+/*function endChat(time){
     setTimeout(
     function(){
         if(confirm('The dialogue finished')){
             window.location.reload();
         }
     }, time);
-}
+}*/
 
+// Toggle (show/hide) the JSON Object in the speech-bubble
 function toggleJsonObject (id){
     $('#display-json-' + id).next().hide();
 
     $('#display-json-' + id).click(function( event ){
         event.preventDefault();
-        $(this).next().toggle();
         var value = $(this).text();
         if(value == 'This is what I understood'){
+            $(this).next().toggle();
             $(this).text('Hide');
+        }else if(value == 'Book another ticket'){
+            window.location.reload();
         }else{
+            $(this).next().toggle();
             $(this).text('This is what I understood');
         }
     });
 }
 
+// Highlight JSON objects (highlight.js)
 function highlightingBlock(id){
     var code = document.getElementById(id);
     hljs.highlightBlock(code);
 }
 
-$('.sample-container__header h4').text("Needed Information");
-$('.btn-sample-refresh').removeClass("aix-invisible");
-
-
+// Check if the chatbot understood the question and put a checkmark next to the needed Information on the right side
 function checkingChatbotUnderstanding (information) {
 
-    //Array with every keys of the answer JSON object
+    //Array with every keys of the JSON object in the speech-bubble
     var existingKeys = Object.keys(information);
     for(i = 0; i < existingKeys.length; i++){
 
         //Checks whether the element has already been checked
         var iconSelector = "icon-" + existingKeys[i];
-        var iconElement = document.getElementById(iconSelector);
+        var checkMarkIcon = document.getElementById(iconSelector);
 
-        if(iconElement === null){
+        if(checkMarkIcon === null){
             $('#' + existingKeys[i]).after('<i id="icon-' + existingKeys[i] + '"class="icon icon-011-check-mark icon--s2 checked" aria-hidden="true"></i>');
-        }else{
-            //Do nothing
         }
     }
 }
-//<i class="icon icon-011-check-mark icon--s3" aria-hidden="true"></i>
-/*if(existingKeys[i] === checkInformation[i]){
 
-    }else{
-    //
-    }*/
-
-/*
-    var checkInformation = ["city", "date", "moviename", "numberofpeople","starttime", "theater"];
-    var existingKeys = Object.keys(information);
-    for(i = 0; i < checkInformation.length; i++){
-        console.log(Object.keys(information));
-        //console.log(checkInformation[i]);
+function purposeEndChat (purpose, id) {
+    console.log(purpose);
+    if(purpose == "closing"  || purpose  == "thanks"){
+        $('#display-json-' + id).text('Book another ticket');
+        $('#input-submit').prop('disabled', true);
     }
-*/
+}
+
+$('.sample-container__header h4').text("Needed Information");
+$('.btn-sample-refresh').removeClass("aix-invisible");

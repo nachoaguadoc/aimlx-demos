@@ -22,15 +22,15 @@
     "e.g. 3"
   ],
   "date": [
-    "e.g. 12 april 2018",
-    "e.g. 30 mai 2018",
-    "e.g. 24 october 2018",
-    "e.g. 24 august 2018",
-    "e.g. 24 january 2018",
-    "e.g. 24 may 2018",
-    "e.g. 24 june 2018",
-    "e.g. 30 september 2018",
-    "e.g. 17 february 2018"
+    "e.g. tomorrow",
+    "e.g. this sunday",
+    "e.g. this monday",
+    "e.g. this wednesday",
+    "e.g. this friday",
+    "e.g. this tuesday",
+    "e.g. this saturday",
+    "e.g. this thursday",
+    "e.g. next friday"
   ],
   "time": [
     "e.g. 5 PM",

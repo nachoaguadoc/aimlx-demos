@@ -121,7 +121,7 @@ var ChatbotLayout = {
             this.pushMessage(this.dataInput, 'client');
             this.submitFunction(this.dataInput);
             this.setLoadingState();
-            $('#input-submit').val('')
+            $('#input-submit').val('');
         }
     },
     initializeUiEventHandler: function () {

@@ -44,3 +44,8 @@ pre{
 .checked{
     color: #25B252;
 }
+
+.btn-sample-refresh{
+    padding-top: 7px;
+    cursor: pointer;
+}

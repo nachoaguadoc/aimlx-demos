@@ -10,6 +10,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
   padding: 0.5em;
   background: white;
   color: black;
+  font-family: TheSans,sans-serif;
 }
 
 .hljs-string,
@@ -21,8 +22,8 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .hljs-addition,
 .hljs-attribute,
 .hljs-link {
-  font-weight: 500;
-  color: #0EABA9;
+  font-weight: 600;
+  color: #551166;
 }
 
 .hljs-comment,
