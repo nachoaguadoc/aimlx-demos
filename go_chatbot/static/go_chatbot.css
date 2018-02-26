@@ -61,10 +61,10 @@ pre{
     text-overflow: ellipsis;
 }
 
-.test{
-    color: #0EABA9;
+.user-data{
+    color: #0C847E;
 }
 
-.test::first-letter{
+.user-data::first-letter{
     text-transform: capitalize;
 }

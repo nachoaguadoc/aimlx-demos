@@ -10,7 +10,7 @@
     "e.g. Spectre",
     "e.g. Titanic"
   ],
-  "nbrPeople": [
+  "numberofpeople": [
     "e.g. 2",
     "e.g. 4",
     "e.g. 7",
@@ -32,7 +32,7 @@
     "e.g. this thursday",
     "e.g. next friday"
   ],
-  "time": [
+  "starttime": [
     "e.g. 5 PM",
     "e.g. 8 PM",
     "e.g. 11 AM",
@@ -54,7 +54,7 @@
     "e.g. Vienne",
     "e.g. Milano"
   ],
-  "theatre": [
+  "theater": [
     "e.g. Regal meridian 16",
     "e.g. Regal meridian 17",
     "e.g. Regal meridian 19",

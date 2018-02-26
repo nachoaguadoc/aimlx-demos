@@ -1,45 +1,50 @@
 // Loads sample data to show the user examples for asking a question to the chatbot
 ChatbotLayout.loadSamples = function () {
-    var self = this;
+    self = this;
     self.showSampleLoader();
     $.getJSON(this.sampleLink, function (json) {
-        self.moviename = json.moviename;
-        self.nbrPeople = json.nbrPeople;
-        self.date = json.date;
-        self.time = json.time;
-        self.city = json.city;
-        self.theatre = json.theatre;
-        self.getRandomSamples(json);
+        const samples = {};
+        samples.moviename = json.moviename;
+        samples.numberofpeople = json.numberofpeople;
+        samples.date = json.date;
+        samples.starttime = json.starttime;
+        samples.city = json.city;
+        samples.theater = json.theater;
+        self.getRandomSamples(samples);
         self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
         self.hideSampleLoader();
+
         $('#btn-refresh').on('click', function () {
-            self.getRandomSamples();
+            self.getRandomSamples(samples);
         });
     });
 }
 
 //Choose sample data randomly
-ChatbotLayout.getRandomSamples = function (json) {
+ChatbotLayout.getRandomSamples = function (samples) {
     $('#sample-data').empty();
     this.samplesDisplay = [];
+    count();
+    // A random number to display example data randomly
+    //var randomNumber = parseInt(Math.round(Math.random() * (this.numberOfSamples)));
 
-    //  A random number to display example data randomly
-    var randomNumber = parseInt(Math.round(Math.random() * (this.numberOfSamples)));
     //  Push data into an array "this.samplesDisplay"
-    var neededInformation = [this.moviename, this.nbrPeople, this.date, this.time, this.city, this.theatre];
+    var neededInformation = [samples.moviename, samples.numberofpeople, samples.date, samples.starttime, samples.city, samples.theater];
+
+    //Create the array -> insert the selected samples (with randomNumber);
     for(i = 0; i < neededInformation.length; i++){
-        this.samplesDisplay.push(neededInformation[i][randomNumber]);
+        this.samplesDisplay.push(neededInformation[i][num]);
     }
 
     // function call showSamples
-    this.showSamples(json);
+    this.showSamples(samples);
 }
 
 //Displays samples on the right side of the demo
-ChatbotLayout.showSamples = function (json) {
-    var dataKeys = Object.keys(json);
+ChatbotLayout.showSamples = function (samples) {
+    var dataKeys = Object.keys(samples);
     for(i = 0; i < this.samplesDisplay.length; i++){
-         var samplesData = '<p id="data-key-' + dataKeys[i] + '"class="sample-data"><i>' + this.samplesDisplay[i] + '</i></p>';
+        var samplesData = '<p id="data-key-' + dataKeys[i] + '"class="sample-data"><i>' + this.samplesDisplay[i] + '</i></p>';
         $('#sample-data').append(samplesData);
     }
 }
@@ -66,7 +71,7 @@ function submit(input) {
             var formattedJsonObject = '<pre id="'+ id +'"><code class="json">' + jsonObject + '</code></pre>';
 
             /*if(chat_ended == true){
-                endChat(1200);
+            endChat(1200);
             }*/
 
             ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" id="display-json-' + id + '">This is what I understood</a><div class="json-object">' + formattedJsonObject + '</div>', 'bot');
@@ -105,19 +110,9 @@ function removePunctuation(input) {
     return input.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()@\+\?><\[\]\+]/g, '');
 }
 
-/*function endChat(time){
-    setTimeout(
-    function(){
-        if(confirm('The dialogue finished')){
-            window.location.reload();
-        }
-    }, time);
-}*/
-
 // Toggle (show/hide) the JSON Object in the speech-bubble
 function toggleJsonObject (id){
     $('#display-json-' + id).next().hide();
-
     $('#display-json-' + id).click(function( event ){
         event.preventDefault();
         var value = $(this).text();
@@ -154,15 +149,13 @@ function checkingChatbotUnderstanding (information) {
             $('#' + existingKeys[i]).after('<i id="icon-' + existingKeys[i] + '"class="icon icon-011-check-mark icon--s2 checked" aria-hidden="true"></i>');
         }
     }
-
     for(i=0; i < existingKeys.length; i++){
-        $("#data-key-" + existingKeys[i]).html('<p class="test">' + information[existingKeys[i]] + '</p>');
+        $("#data-key-" + existingKeys[i]).html('<p class="user-data">' + information[existingKeys[i]] + '</p>');
     }
-
 }
 
 function purposeEndChat (purpose, id) {
-    if(purpose == "closing"  || purpose  == "thanks"){
+if(purpose == "closing"  || purpose  == "thanks"){
         $('#display-json-' + id).text('Book another ticket');
         $('#input-submit').prop('disabled', true);
     }
@@ -170,3 +163,15 @@ function purposeEndChat (purpose, id) {
 
 $('.sample-container__header h4').text("Needed Information");
 $('.btn-sample-refresh').removeClass("aix-invisible");
+
+
+var num = parseInt(Math.round(Math.random() * (8)));
+
+function count() {
+    if(num >= 8){
+        num = 0;
+    }else{
+        num++;
+    }
+    return num;
+}
