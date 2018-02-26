@@ -11,6 +11,9 @@
 }
 
 .sample-data{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     color: #858585;
     font-weight: 300;
 }
@@ -33,19 +36,35 @@ pre{
     margin-bottom: 32px;
 }
 
+#theater{
+    margin-bottom: 0px;
+}
+
 .data-label{
     display: flex;
 }
 
-.data-label > p{
-    padding-right: 10px;
-}
-
 .checked{
     color: #25B252;
+    padding: 0px 10px;
+    margin-bottom: 32px;
 }
 
 .btn-sample-refresh{
     padding-top: 7px;
     cursor: pointer;
+}
+
+.hljs-string{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.test{
+    color: #0EABA9;
+}
+
+.test::first-letter{
+    text-transform: capitalize;
 }

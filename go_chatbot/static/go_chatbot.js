@@ -9,7 +9,7 @@ ChatbotLayout.loadSamples = function () {
         self.time = json.time;
         self.city = json.city;
         self.theatre = json.theatre;
-        self.getRandomSamples();
+        self.getRandomSamples(json);
         self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
         self.hideSampleLoader();
         $('#btn-refresh').on('click', function () {
@@ -19,7 +19,7 @@ ChatbotLayout.loadSamples = function () {
 }
 
 //Choose sample data randomly
-ChatbotLayout.getRandomSamples = function () {
+ChatbotLayout.getRandomSamples = function (json) {
     $('#sample-data').empty();
     this.samplesDisplay = [];
 
@@ -32,13 +32,14 @@ ChatbotLayout.getRandomSamples = function () {
     }
 
     // function call showSamples
-    this.showSamples();
+    this.showSamples(json);
 }
 
 //Displays samples on the right side of the demo
-ChatbotLayout.showSamples = function () {
+ChatbotLayout.showSamples = function (json) {
+    var dataKeys = Object.keys(json);
     for(i = 0; i < this.samplesDisplay.length; i++){
-         var samplesData = '<p class="sample-data"><i>' + this.samplesDisplay[i] + '</i></p>';
+         var samplesData = '<p id="data-key-' + dataKeys[i] + '"class="sample-data"><i>' + this.samplesDisplay[i] + '</i></p>';
         $('#sample-data').append(samplesData);
     }
 }
@@ -72,7 +73,6 @@ function submit(input) {
             highlightingBlock(id);
             toggleJsonObject(id);
             checkingChatbotUnderstanding(information);
-            console.log(purpose);
             purposeEndChat(purpose, id);
             $('#input-submit').focus();
         }
@@ -154,10 +154,14 @@ function checkingChatbotUnderstanding (information) {
             $('#' + existingKeys[i]).after('<i id="icon-' + existingKeys[i] + '"class="icon icon-011-check-mark icon--s2 checked" aria-hidden="true"></i>');
         }
     }
+
+    for(i=0; i < existingKeys.length; i++){
+        $("#data-key-" + existingKeys[i]).html('<p class="test">' + information[existingKeys[i]] + '</p>');
+    }
+
 }
 
 function purposeEndChat (purpose, id) {
-    console.log(purpose);
     if(purpose == "closing"  || purpose  == "thanks"){
         $('#display-json-' + id).text('Book another ticket');
         $('#input-submit').prop('disabled', true);
