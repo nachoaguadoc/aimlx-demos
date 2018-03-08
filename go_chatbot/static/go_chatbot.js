@@ -75,10 +75,16 @@ function submit(input) {
             }*/
 
             ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" id="display-json-' + id + '">This is what I understood</a><div class="json-object">' + formattedJsonObject + '</div>', 'bot');
+            // Highlight the JSON Object with colors on the chatbot speech-bubble
             highlightingBlock(id);
+            // Display/hide the JSON Object in the chatbot speech-bubble
             toggleJsonObject(id);
+            // Display the informations that the chatbot understood
             checkingChatbotUnderstanding(information);
             purposeEndChat(purpose, id);
+            // Give the user some hint for starting the conversation with the chatbot
+            userInstruction();
+            userQuestionSample();
             $('#input-submit').focus();
         }
     });
@@ -155,7 +161,7 @@ function checkingChatbotUnderstanding (information) {
 }
 
 function purposeEndChat (purpose, id) {
-if(purpose == "closing"  || purpose  == "thanks"){
+    if(purpose == "closing"  || purpose  == "thanks"){
         $('#display-json-' + id).text('Book another ticket');
         $('#input-submit').prop('disabled', true);
     }
@@ -163,7 +169,6 @@ if(purpose == "closing"  || purpose  == "thanks"){
 
 $('.sample-container__header h4').text("Needed Information");
 $('.btn-sample-refresh').removeClass("aix-invisible");
-
 
 var num = parseInt(Math.round(Math.random() * (8)));
 
@@ -174,4 +179,70 @@ function count() {
         num++;
     }
     return num;
+}
+
+
+// Help for the user | The three functions below are used to guide the user to start a conversation with the chatbot
+// Block Part "How to get started
+
+//Instruction & Question Data Object
+var stepsInstruction = {
+    getStarted : 'Find here a sample question to start chatting',
+    neededInformation: 'Ask chatbot the needed information',
+    bookTickets : 'The chatbot can now help you to book tickets',
+    confirmation : 'Confirm your reservation'
+}
+
+var stepsQuestion = {
+    getStarted : 'Which theater is available tomorrow for 3 tickets for Deadpool ?',
+    neededInformation: 'Which start time is available ?',
+    bookTickets : 'Can you please help me book tickets ?',
+    confirmation : 'Okay'
+}
+
+//Add the question in the chatbot input field when the user click on the question sample link (right side)
+$('#hint-question').click(function(){
+    var questionSample;
+    if($('#hint-instruction').text() === stepsInstruction.getStarted){
+        questionSample = stepsQuestion.getStarted;
+    }else if($('#hint-instruction').text() === stepsInstruction.neededInformation){
+        questionSample = stepsQuestion.neededInformation;
+    }else if($('#hint-instruction').text() === stepsInstruction.bookTickets){
+        questionSample = stepsQuestion.bookTickets;
+    }else if($('#hint-instruction').text() === stepsInstruction.confirmation){
+        questionSample = stepsQuestion.confirmation;
+    }
+
+    $('#input-submit').val(questionSample);
+    $('#input-submit').focus();
+    $('#btn-submit').removeClass('disabled');
+});
+
+
+//Display the instructions/hint that help the user to start
+function userInstruction(){
+    var hintInstruction;
+    if($('#hint-instruction').text() === stepsInstruction.getStarted){
+        hintInstruction = stepsInstruction.neededInformation;
+    }else if($('#hint-instruction').text() === stepsInstruction.neededInformation){
+        hintInstruction = stepsInstruction.bookTickets;
+    }else if($('#hint-instruction').text() === stepsInstruction.bookTickets){
+        hintInstruction = stepsInstruction.confirmation;
+    }
+
+    $('#hint-instruction').text(hintInstruction);
+}
+
+//Display the question sample for starting the conversation
+function userQuestionSample(){
+    var hintQuestion;
+    if($('#hint-question p i').text() === stepsQuestion.getStarted){
+        hintQuestion = stepsQuestion.neededInformation;
+    }else if($('#hint-question p i').text() === stepsQuestion.neededInformation){
+        hintQuestion = stepsQuestion.bookTickets;
+    }else if($('#hint-question p i').text() === stepsQuestion.bookTickets){
+        hintQuestion = stepsQuestion.confirmation;
+    }
+
+    $('#hint-question p i').text(hintQuestion);
 }

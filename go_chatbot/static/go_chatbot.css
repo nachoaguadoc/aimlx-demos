@@ -2,11 +2,8 @@
     font-size: 14px;
 }
 
-/*.sample-container__header{
-    display: none;
-}*/
-
 .userInstruction{
+    margin-bottom: 16px;
     font-weight: 300;
 }
 
@@ -16,6 +13,7 @@
     text-overflow: ellipsis;
     color: #858585;
     font-weight: 300;
+    margin-bottom: 24px;
 }
 
 pre{
@@ -29,11 +27,8 @@ pre{
     display: none;
 }
 
-.json-display{
-}
-
 .information-data > div > p{
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 #theater{
@@ -44,10 +39,14 @@ pre{
     display: flex;
 }
 
+#data-container{
+    margin-bottom: 32px;
+}
+
 .checked{
     color: #25B252;
     padding: 0px 10px;
-    margin-bottom: 32px;
+    margin-bottom: 21px;
 }
 
 .btn-sample-refresh{
@@ -67,4 +66,21 @@ pre{
 
 .user-data::first-letter{
     text-transform: capitalize;
+}
+
+#hint-question > p{
+    font-size: 18px;
+    font-weight: 300;
+    color: #1781E3;
+    cursor: pointer;
+}
+
+#hint-question > p:hover{
+    color: #0851DA;
+}
+
+.advice-container__header > h4{
+    font-weight: 600;
+    flex-grow: 1;
+    margin-bottom: 16px;
 }
