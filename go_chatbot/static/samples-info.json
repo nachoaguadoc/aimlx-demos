@@ -1,14 +1,17 @@
 {
   "moviename": [
+    "e.g. Zoolander",
     "e.g. Deadpool",
+    "e.g. Zootopia",
+    "e.g. Hail Caesar",
     "e.g. Star Wars",
-    "e.g. Batman",
-    "e.g. Harry Potter",
-    "e.g. Matrix",
-    "e.g. Inception",
-    "e.g. Pirates of the Caribbean",
-    "e.g. Spectre",
-    "e.g. Titanic"
+    "e.g. Room",
+    "e.g. The Witch",
+    "e.g. The Big Short",
+    "e.g. Young Messiah",
+    "e.g. Eddie the Eagle",
+    "e.g. Risen",
+    "e.g. Avengers"
   ],
   "numberofpeople": [
     "e.g. 2",
@@ -23,14 +26,14 @@
   ],
   "date": [
     "e.g. tomorrow",
-    "e.g. this sunday",
-    "e.g. this monday",
-    "e.g. this wednesday",
+    "e.g. today",
+    "e.g. saturday",
+    "e.g. tonight",
     "e.g. this friday",
-    "e.g. this tuesday",
-    "e.g. this saturday",
-    "e.g. this thursday",
-    "e.g. next friday"
+    "e.g. tomorrow night",
+    "e.g. tomorrow",
+    "e.g. today",
+    "e.g. tonight"
   ],
   "starttime": [
     "e.g. 5 PM",
@@ -44,25 +47,28 @@
     "e.g. 6 PM"
   ],
   "city": [
-    "e.g. London",
-    "e.g. Bern",
-    "e.g. Paris",
-    "e.g. Budapest",
-    "e.g. Oslo",
-    "e.g. Berlin",
-    "e.g. Barcelona",
-    "e.g. Vienne",
-    "e.g. Milano"
+    "e.g. Pittsburgh",
+    "e.g. Chicago",
+    "e.g. Philadelphia",
+    "e.g. Baltimore",
+    "e.g. Portland",
+    "e.g. Miami",
+    "e.g. Los Angeles",
+    "e.g. Atlanta",
+    "e.g. Belleville",
+    "e.g. Nashville",
+    "e.g. Orlando",
+    "e.g. Detroit"
   ],
   "theater": [
     "e.g. Regal meridian 16",
-    "e.g. Pearl theatre",
-    "e.g. Carmike summit 16",
-    "e.g. Regal meridian 14",
-    "e.g. Regal meridian 20",
-    "e.g. Regal meridian 21",
-    "e.g. Regal meridian 12",
-    "e.g. Regal meridian 5",
-    "e.g. Regal meridian 8"
+    "e.g. Mason city IA Cinema West",
+    "e.g. Pacific Science Center",
+    "e.g. Bellevue Lincoln Square",
+    "e.g. Regal South Beach",
+    "e.g. Cinema West",
+    "e.g. Century Eastport 16",
+    "e.g. The Pearl theatre",
+    "e.g. Regal Marysville 14"
   ]
 }

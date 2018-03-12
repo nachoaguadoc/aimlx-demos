@@ -1,4 +1,4 @@
-// Loads sample data to show the user examples for asking a question to the chatbot
+// Load sample data to show the user examples for asking a question to the chatbot
 ChatbotLayout.loadSamples = function () {
     self = this;
     self.showSampleLoader();
@@ -14,6 +14,7 @@ ChatbotLayout.loadSamples = function () {
         self.pushMessage('<p>' + self.textStartingConversation + '</p>', 'bot');
         self.hideSampleLoader();
 
+        //Change the random data when the user click on the refresh button
         $('#btn-refresh').on('click', function () {
             self.getRandomSamples(samples);
         });
@@ -24,9 +25,9 @@ ChatbotLayout.loadSamples = function () {
 ChatbotLayout.getRandomSamples = function (samples) {
     $('#sample-data').empty();
     this.samplesDisplay = [];
+
+    //Create a random number to display randomly
     count();
-    // A random number to display example data randomly
-    //var randomNumber = parseInt(Math.round(Math.random() * (this.numberOfSamples)));
 
     //  Push data into an array "this.samplesDisplay"
     var neededInformation = [samples.moviename, samples.numberofpeople, samples.date, samples.starttime, samples.city, samples.theater];
@@ -40,7 +41,7 @@ ChatbotLayout.getRandomSamples = function (samples) {
     this.showSamples(samples);
 }
 
-//Displays samples on the right side of the demo
+//Display samples on the right side of the demo
 ChatbotLayout.showSamples = function (samples) {
     var dataKeys = Object.keys(samples);
     for(i = 0; i < this.samplesDisplay.length; i++){
@@ -70,10 +71,6 @@ function submit(input) {
             const id = 'code_highlighting_' + randomNumber;
             var formattedJsonObject = '<pre id="'+ id +'"><code class="json">' + jsonObject + '</code></pre>';
 
-            /*if(chat_ended == true){
-            endChat(1200);
-            }*/
-
             ChatbotLayout.pushMessage('<span class="speech-buble-text">' + system_action_nl + '</span><br><a href="" id="display-json-' + id + '">This is what I understood</a><div class="json-object">' + formattedJsonObject + '</div>', 'bot');
             // Highlight the JSON Object with colors on the chatbot speech-bubble
             highlightingBlock(id);
@@ -85,6 +82,7 @@ function submit(input) {
             // Give the user some hint for starting the conversation with the chatbot
             userInstruction();
             userQuestionSample();
+            $('.btn-sample-refresh').addClass("aix-invisible");
             $('#input-submit').focus();
         }
     });
@@ -167,9 +165,9 @@ function purposeEndChat (purpose, id) {
     }
 }
 
-$('.sample-container__header h4').text("Needed Information");
 $('.btn-sample-refresh').removeClass("aix-invisible");
 
+// A random number to display example data randomly
 var num = parseInt(Math.round(Math.random() * (8)));
 
 function count() {
@@ -180,7 +178,6 @@ function count() {
     }
     return num;
 }
-
 
 // Help for the user | The three functions below are used to guide the user to start a conversation with the chatbot
 // Block Part "How to get started

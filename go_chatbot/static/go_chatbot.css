@@ -1,8 +1,15 @@
+pre{
+    overflow: hidden;
+    font-size: 16px;
+    padding: 10px 0px;
+    margin: 0px;
+}
+
 .speech-buble > a {
     font-size: 14px;
 }
 
-.userInstruction{
+.user-instruction{
     margin-bottom: 16px;
     font-weight: 300;
 }
@@ -14,17 +21,6 @@
     color: #858585;
     font-weight: 300;
     margin-bottom: 24px;
-}
-
-pre{
-    overflow: hidden;
-    font-size: 16px;
-    padding: 10px 0px;
-    margin: 0px;
-}
-
-.display-none{
-    display: none;
 }
 
 .information-data > div > p{
@@ -83,4 +79,10 @@ pre{
     font-weight: 600;
     flex-grow: 1;
     margin-bottom: 16px;
+}
+
+/* ------------------------------ */
+
+.display-none{
+    display: none;
 }
