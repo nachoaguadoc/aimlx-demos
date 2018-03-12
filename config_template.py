@@ -96,6 +96,7 @@ summarization = {
 seq2seq = {
     'socket_address': '',
     'socket_port': ''
+}
 
 material = {
     'host': '',

@@ -1,6 +1,9 @@
 {% extends "ui-kit/chatbot_layout.html" %}
 
-{% block head %}{{ super() }}{% endblock %}
+{% block head %}{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('go_chatbot.static', filename='go_chatbot.css') }}">
+    <link rel="stylesheet" href="../go_chatbot/static/highlight/styles/ascetic.css">
+{% endblock %}
 
 {% block title %}Goal-Oriented Chatbot{% endblock %}
 
@@ -8,9 +11,46 @@
 
 {% block input_placeholder_text %}{{ super() }}{% endblock %}
 
-{% block samples %}{{ super() }}{% endblock %}
+{% block samples %}
+    <div class="sample-container aix-invisible">
+        <div class="sample-container__header">
+            <h4>Needed Information</h4>
+            <i id="btn-refresh"
+               class="btn-sample-refresh icon icon-071-retry icon--s2 icon--flip-horizontal"
+               aria-hidden="true"></i>
+        </div>
+        <p class="user-instruction">To get a movie ticket you need to inform the chatbot about the following <strong>needed information</strong>.</p>
+        <div class="sample-data-loader">
+            <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
+        </div>
+        <div id="data-container" class="row">
+            <div class="col-md-6 information-data">
+                <div class="data-label"><p id="moviename">moviename</p></div>
+                <div class="data-label"><p id="numberofpeople">number of people</p></div>
+                <div class="data-label"><p id="date">date</p></div>
+                <div class="data-label"><p id="starttime">time</p></div>
+                <div class="data-label"><p id="city">city</p></div>
+                <div class="data-label"><p id="theater">theatre</p></div>
+            </div>
+            <div id="sample-data" class="col-md-6">
+                <!-- Display Data Sample Randomly -->
+            </div>
+        </div>
+        <div class="useradvice-container">
+            <div class="advice-container__header">
+                <h4>How to get started</h4>
+                <p id="hint-instruction">Find here a sample question to start chatting</p>
+            </div>
+            <div id="hint-question">
+                <p><i>Which theater is available tomorrow for 3 tickets for Deadpool ?</i></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
 {% block scripts %}
     {{ super() }}
+    <script src="../go_chatbot/static/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <script src="{{ url_for('go_chatbot.static', filename='go_chatbot.js') }}"></script>
 {% endblock %}

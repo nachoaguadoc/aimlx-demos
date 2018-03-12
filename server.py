@@ -26,7 +26,7 @@ from controller.argumentation_controller import argumentation_api
 from controller.kp_extraction_controller import kp_extraction_api
 from controller.machine_translation_controller import machine_translation_api
 from controller.gsw_controller import gsw_api
-from controller.ner_controller import ner_api
+#from controller.ner_controller import ner_api
 from controller.neural_programmer_controller import neural_programmer_api
 from controller.opinion_target_controller import opinion_target_api
 from controller.sfid_controller import sfid_api
@@ -53,7 +53,7 @@ app.register_blueprint(chatbot_api, url_prefix='/chatbot')
 app.register_blueprint(neural_programmer_api, url_prefix='/neural_programmer')
 app.register_blueprint(opinion_target_api, url_prefix='/opinion')
 app.register_blueprint(churn_api, url_prefix='/churn')
-app.register_blueprint(ner_api, url_prefix='/ner')
+#app.register_blueprint(ner_api, url_prefix='/ner')
 app.register_blueprint(kp_extraction_api, url_prefix='/kp')
 app.register_blueprint(machine_translation_api, url_prefix='/translate')
 app.register_blueprint(gsw_api, url_prefix='/gsw')
