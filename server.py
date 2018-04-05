@@ -41,6 +41,7 @@ from emotion import emotion
 from go_chatbot import go_chatbot
 from material import material
 from chestxray import chestxray
+from data_selection import data_selection
 
 
 app = Flask(__name__)
@@ -69,6 +70,7 @@ app.register_blueprint(emotion, url_prefix='/emotion')
 
 app.register_blueprint(material, url_prefix='/material')
 app.register_blueprint(chestxray, url_prefix='/chestxray')
+app.register_blueprint(data_selection, url_prefix='/data_selection')
 
 
 @app.route('/')
@@ -83,3 +85,4 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
+    

@@ -1,0 +1,23 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    {#Add custom styles here.
+    <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}">#}
+    <link rel="stylesheet" href="{{ url_for('data_selection.static', filename='data_selection.css') }}">
+{% endblock %}
+
+{% block title %}ASR Data Selection {% endblock %}
+
+{% block description %}Lorem ipsum dolor sit amet, consectetur adipiscing{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {#Add custom styles here.
+    <script src="{{ url_for('yourdemo.static', filename='yourdemo.js') }}"></script>#}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.5/wavesurfer.min.js"></script>
+    <script src="{{ url_for('data_selection.static', filename='data_selection.js') }}"></script>
+{% endblock %}
