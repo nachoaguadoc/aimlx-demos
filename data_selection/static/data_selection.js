@@ -131,7 +131,41 @@ function showCurrentRate() {
   $('#audio-speed-rate').text(audioRate + 'x');  
 }
 
+let dataInput = '';
 
+$('#input-transcription').on('input', function () {
+  dataInput = this.value;
+  console.log(dataInput.length);
+  checkCompletion();
+});
+
+const minInputLength = 9;
+
+function checkCompletion(){
+  if (dataInput.length > minInputLength) {
+     $('#submit-button').removeClass('disabled');
+ } else {
+     $('#submit-button').addClass('disabled');
+ }
+}
+
+function submit(input) {
+
+  var url = "";
+
+  var data = dataInput;
+  $.ajax({
+      type: "POST",
+      url: url,
+      contentType: 'application/json',
+      data: JSON.stringify(data, null, '\t'),
+      success: function (data) {
+          phonetical = data[''];
+          lexical = data[''];
+          dataInput='';
+      }
+  });
+}
 
 $( document ).ready(function() {
   $('#audio-speed-rate').text(wavesurfer.audioRate);
