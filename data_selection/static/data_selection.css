@@ -1,0 +1,211 @@
+#audio-section{
+  margin: 32px 0px;
+}
+
+#start-advice{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#start-advice > p{
+  padding-left: 10px;
+}
+
+.audio-container{
+  background-color: #F5F5F5;
+  border-radius: 5px;
+}
+
+nav{
+  background-color: #ffffff;
+}
+
+.sample-label{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.sample-label > span{
+  padding: 3px 28px;
+  cursor: pointer;
+}
+
+.sample-label > span > p{
+  font-size: 16px;
+}
+
+#audio-player{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 24px;
+  padding-bottom: 10px;
+}
+
+#waveform{
+  overflow-x: hidden!important;
+  background-color: #ffffff;
+  margin-bottom: 0px;
+  padding: 2px 0px;
+}
+
+.audio-btn{
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-container{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #1781E3;
+  cursor: pointer;
+}
+
+.btn-container:hover{
+  background-color: #0851DA;
+}
+
+#audio-timer{
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 20px; 
+}
+
+#current-time{
+  color: #1781E3;
+}
+
+#duration-time{
+  color: #474747;
+}
+
+#play-btn{
+  color: #ffffff;
+}
+
+#stop-btn{
+  color: #ffffff;
+}
+
+.player-options{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+}
+
+.audio-speed{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.audio-speed > p{
+  font-size: 16px;
+  color: #474747;
+  font-weight: 300;
+  margin: 0px;
+}
+
+.audio-speed > i{
+  padding: 0px 5px;
+  color: #1781E3;
+}
+
+.audio-speed > i:hover{
+  color: #0851DA;
+}
+
+#audio-speed-rate{
+  display: flex;
+  justify-content: center;
+  width: 50px;
+}
+
+.speed-option{
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+.speed-option > p{
+  font-size: 16px;
+  color: #474747;
+  font-weight: 300;
+  margin: 0px;
+}
+
+.speed-option > i{
+  color: #1781E3;
+}
+
+.speed-option > i:hover{
+  color: #0851DA;
+}
+
+#audio-move{
+  color: #474747;
+  cursor: pointer;
+  margin: 0px 16px;
+}
+
+#audio-move > i{
+  font-size: 20px;
+  padding: 0px 5px;
+  color: #1781E3;
+}
+
+#audio-move > i:hover{
+  color: #0851DA;
+}
+
+h2{
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0px;
+}
+
+#input-transcription{
+  margin-top: 0px;
+}
+
+#transcription-section{
+  padding: 0px;
+}
+
+.submit-button{
+  float: right;
+}
+
+/* ----- STATE ------ */
+
+.display-none{
+  display: none;
+}
+
+.display-flex{
+  display: flex;
+}
+
+.no-gutters{
+  padding: 0px;
+};
+
+.active{
+  background-color: #F5F5F5;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.active > p{
+  font-weight: 600;
+}
