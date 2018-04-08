@@ -160,7 +160,7 @@ nav{
 }
 
 #audio-move > i{
-  font-size: 20px;
+  font-size: 18px;
   padding: 0px 5px;
   color: #1781E3;
 }
@@ -199,7 +199,7 @@ h2{
 
 .no-gutters{
   padding: 0px;
-};
+}
 
 .active{
   background-color: #F5F5F5;
