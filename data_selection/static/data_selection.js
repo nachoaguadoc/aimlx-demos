@@ -103,14 +103,19 @@ $('.sample-label span').on('click', function() {
   loadAudioSample(this.id);
   $('.sample-label span').removeClass('active');
   $('#' + id).addClass('active');
+
+  // Hide the result panel when the user click on another audio sample
+  $('#results-section').addClass('display-none');
 });
 
+// Restart the audio sample (return to the start)
 $('#go-start').on('click', function(){
   wavesurfer.stop();
   $('#stop-btn').addClass('display-none');
   $('#play-btn').removeClass('display-none');
 });
 
+// Finish the audio sample
 $('#go-end').on('click', function(){
   wavesurfer.skipForward(10);
   $('#stop-btn').addClass('display-none');
@@ -121,14 +126,9 @@ let input = '';
 
 $('#input-transcription').keypress(function (e) {
   if (e.which === 13) {
-  $('#input-transcription').prop('disabled', true);
-  $('#submit-button span').hide();
-  $('#loader').removeClass("display-none");
+  isLoading();
   submit(input);
-  input='';
-  $('#phon-root').empty();
-  $('#lex-root').empty();
-  $('#user-transcription').empty();
+  clearResults();
   $('#results-section').addClass('display-none');
       return false;
   }}).on('input', function () {
@@ -137,14 +137,9 @@ $('#input-transcription').keypress(function (e) {
 });
 
 $('#submit-button').on('click', function(){
-  $('#input-transcription').prop('disabled', true);
-  $('#submit-button span').hide();
-  $('#loader').removeClass("display-none");
+  isLoading();
   submit(input);
-  input='';
-  $('#phon-root').empty();
-  $('#lex-root').empty();
-  $('#user-transcription').empty();
+  clearResults();
   $('#results-section').addClass('display-none');
 });
 
@@ -154,6 +149,7 @@ function submit(input) {
   var url = 'http://34.240.154.213:6121/api/compute/sim/' + uttId[currentSampleId];
   var data = {"input": input};
 
+  console.log(input);
   $.ajax({
       type: "POST",
       url: url,
@@ -165,11 +161,11 @@ function submit(input) {
       let jsonLexiSim = data['tp_json'];
 
       let phoneticalSimilarities = jsonPhonSim.map(jsonPhonSim => {
-        return '<tr><td class="transcription">' + jsonPhonSim.transcript + '</td><td class="score">' + Math.round(jsonPhonSim.ngrams_sim * 1000) / 10 + ' %</td></tr>';
+        return '<tr><td class="transcription" title="'+ jsonPhonSim.transcript +'">' + jsonPhonSim.transcript + '</td><td class="score">' + Math.round(jsonPhonSim.ngrams_sim * 1000) / 10 + ' %</td></tr>';
       });
 
       let lexicalSimilarities = jsonLexiSim.map(jsonLexiSim => {
-        return '<tr><td class="transcription">' + jsonLexiSim.transcript + '</td><td class="score">' + Math.round(jsonLexiSim.triphone_sim * 1000) / 10 + '%</td></tr>';
+        return '<tr><td class="transcription" title="'+ jsonLexiSim.transcript +'">' + jsonLexiSim.transcript + '</td><td class="score">' + Math.round(jsonLexiSim.triphone_sim * 1000) / 10 + '%</td></tr>';
       });
 
       $('#user-transcription').append('<div class="user-transcription">User transcription:  </div>' + input);
@@ -193,8 +189,6 @@ $( document ).ready(function() {
   $('#audio-speed-rate').text(wavesurfer.audioRate);
   loadAudioSample(0);
 });
-
-
 
 // Functions definition
 
@@ -227,4 +221,17 @@ function checkCompletion(){
   }else {
     $('#submit-button').addClass('disabled');
   }
+}
+
+function isLoading(){
+  $('#input-transcription').prop('disabled', true);
+  $('#submit-button span').hide();
+  $('#loader').removeClass("display-none");
+}
+
+function clearResults(){
+  input='';
+  $('#phon-root').empty();
+  $('#lex-root').empty();
+  $('#user-transcription').empty();
 }

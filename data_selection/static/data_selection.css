@@ -1,3 +1,13 @@
+/* ----- GENERAL ------ */
+
+h2{
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0px;
+}
+
+/* ----- AUDIO ------ */
+
 #audio-section{
   margin: 16px 0px;
 }
@@ -169,12 +179,6 @@ nav{
   color: #0851DA;
 }
 
-h2{
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0px;
-}
-
 #input-transcription{
   margin-top: 0px;
 }
@@ -187,7 +191,7 @@ h2{
   float: right;
 }
 
-/* -------- Result -------- */
+/* ----- RESULTS ------ */
 
 #user-transcription{
   display: flex;
@@ -270,7 +274,7 @@ td{
   font-weight: 600;
 }
 
-/* loader */
+/* ----- LOADER ------ */
 
 @keyframes blink {
   0% {
