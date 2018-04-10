@@ -62,14 +62,57 @@
             </div>
         </div>
     </div>
+    <div id="results-section" class="row flex-items-xs-center display-none">
+        <div class="col-lg-11">
+            <h2>Results</h2>
+            <div id="user-transcription"></div>
+        </div>
+        <div class="col-xs col-lg-11 results-container">
+            <div class="display-flex">
+                <h2 class="col-lg-6">Lexical similarities</h2>
+                <h2 class="col-lg-6">Phonetical similarities</h2>
+            </div>
+            <div id="result">
+                <div id="lexical" class="col-lg-6">
+                    <table>
+                        <thead>
+                            <th>Sentence</th>
+                            <th>Score</th>
+                        </thead>
+                        <tbody id="phon-root">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="phonetical" class="col-lg-6">
+                    <table>
+                        <thead>
+                            <th>Sentence</th>
+                            <th>Score</th>
+                        </thead>
+                        <tbody id="lex-root">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row flex-items-xs-center">
         <div class="col-xs col-lg-8">
             <h2>Transcription</h2>
             <div id="transcription-section" class="col-lg-12">
                 <div class="input-field input-multiline input-field--static-label" data-init="auto">
-                    <textarea id="input-transcription" placeholder="Please transcribe here the audio sample" data-min-rows="3" data-max-rows="10"></textarea>
+                    <input id="input-transcription" placeholder="Please transcribe here the audio sample" data-min-rows="1" data-max-rows="10"></input>
                 </div>
-                <input class="button button--primary submit-button disabled" type="submit" value="Process">
+                <button id="submit-button" class="button button--primary submit-button disabled">
+                    <span>{% block submit_button_text %}Process{% endblock %}</span>
+                    <div id="loader" class="display-none ellipsis-loader">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </button>
             </div>
         </div>
     </div>
