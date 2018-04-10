@@ -1,0 +1,50 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+{{ super() }}
+
+{#Add custom styles here.#}
+{% endblock %}
+
+{% block title %}Evaluation of Multilingual Embeddings{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
+
+{% block description %}Using deep neural networks to classify documents in multiple languages.{#One line for for demo description#}{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Select Demo Mode -->
+<div class="row flex-items-xs-center">
+    <!-- Select One demo mode -->
+    <div class="form col-md-10" id="demoMode">
+        <h3> Welcome ! Please select one Demo Mode</h3>
+        <div class="radio">
+            <input type='radio' name='dummy' id='alldocs' value='alldocs' checked>
+            <label for='alldocs'>Display some sample documents in vector space</label>
+        </div>
+        <div class="radio">
+            <input type='radio' name='dummy' id='choosedoc' value='choosedoc'>
+            <label for='choosedoc'>Fetch Document using URL and find its neighbours in all languages in vector space</label>
+        </div>
+    </div>
+</div>
+&nbsp;&nbsp;
+&nbsp;&nbsp;
+&nbsp;&nbsp;
+<div id="tab-input" class="row row-special flex-items-xs-bottom flex-items-xs-center input-url">
+    <div class="col-xs col-md-2">
+        <button id="choose-mode" class="button button--primary" >
+            <span>{% block submit_button_text %}GO!{% endblock %}</span>
+        </button>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+{% endblock %}
