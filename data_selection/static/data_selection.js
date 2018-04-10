@@ -2,12 +2,22 @@
 
 // Audio Samples
 const audioSamples = [
-  '26-495-0017.wav',
-  '8014-112586-0013.wav',
-  '27-124992-0036.wav',
-  '6531-61334-0009.wav',
+  '1737-146161-0013.wav',
+  '839-130898-0001.wav',
   '1737-146161-0007.wav',
-  '1737-146161-0009.wav'
+  '27-124992-0036.wav',
+  '26-495-0017.wav',
+  '6531-61334-0009.wav'
+];
+
+// Audio Samples
+const uttId = [
+  '1737-146161-0013',
+  '839-130898-0001',
+  '1737-146161-0007',
+  '27-124992-0036',
+  '26-495-0017',
+  '6531-61334-0009'
 ];
 
 // Audio Instance
@@ -84,7 +94,6 @@ $('.rate-option').on('click', function(){
       wavesurfer.setPlaybackRate(rates[index - 1]);
     }
     let currentRate = wavesurfer.getPlaybackRate();
-    console.log(currentRate);
     $('#audio-speed-rate').text(currentRate + 'x');
 });
 
@@ -108,8 +117,89 @@ $('#go-end').on('click', function(){
   $('#play-btn').removeClass('display-none');
 });
 
+let input = '';
+
+$('#input-transcription').keypress(function (e) {
+  if (e.which === 13) {
+  $('#input-transcription').prop('disabled', true);
+  $('#submit-button span').hide();
+  $('#loader').removeClass("display-none");
+  submit(input);
+  input='';
+  $('#phon-root').empty();
+  $('#lex-root').empty();
+  $('#user-transcription').empty();
+  $('#results-section').addClass('display-none');
+      return false;
+  }}).on('input', function () {
+  input = this.value;
+  checkCompletion();
+});
+
+$('#submit-button').on('click', function(){
+  $('#input-transcription').prop('disabled', true);
+  $('#submit-button span').hide();
+  $('#loader').removeClass("display-none");
+  submit(input);
+  input='';
+  $('#phon-root').empty();
+  $('#lex-root').empty();
+  $('#user-transcription').empty();
+  $('#results-section').addClass('display-none');
+});
+
+function submit(input) {
+
+  let currentSampleId = $('.active').attr('id');
+  var url = 'http://34.240.154.213:6121/api/compute/sim/' + uttId[currentSampleId];
+  var data = {"input": input};
+
+  $.ajax({
+      type: "POST",
+      url: url,
+      contentType: 'application/json',
+      data: JSON.stringify(data, null, '\t'),
+      success: function (data) {
+
+      let jsonPhonSim = data['ng_json'];
+      let jsonLexiSim = data['tp_json'];
+
+      let phoneticalSimilarities = jsonPhonSim.map(jsonPhonSim => {
+        return '<tr><td class="transcription">' + jsonPhonSim.transcript + '</td><td class="score">' + Math.round(jsonPhonSim.ngrams_sim * 1000) / 10 + ' %</td></tr>';
+      });
+
+      let lexicalSimilarities = jsonLexiSim.map(jsonLexiSim => {
+        return '<tr><td class="transcription">' + jsonLexiSim.transcript + '</td><td class="score">' + Math.round(jsonLexiSim.triphone_sim * 1000) / 10 + '%</td></tr>';
+      });
+
+      $('#user-transcription').append('<div class="user-transcription">User transcription:  </div>' + input);
+      $('#input-transcription').prop('disabled', false).val('');
+      
+      $('#loader').addClass("display-none");
+      $('#submit-button span').show();
+
+      input = '';
+      checkCompletion();
+
+      $('#phon-root').append(phoneticalSimilarities);   
+      $('#lex-root').append(lexicalSimilarities);
+
+      $('#results-section').removeClass('display-none');
+      }
+  });
+}
+
+$( document ).ready(function() {
+  $('#audio-speed-rate').text(wavesurfer.audioRate);
+  loadAudioSample(0);
+});
+
+
 
 // Functions definition
+
+const minInputLength = 9;
+
 function showAudioDuration(){
   let audioDuration = wavesurfer.getDuration();
   var minutes = "0" + Math.floor(audioDuration / 60);
@@ -131,43 +221,10 @@ function showCurrentRate() {
   $('#audio-speed-rate').text(audioRate + 'x');  
 }
 
-let dataInput = '';
-
-$('#input-transcription').on('input', function () {
-  dataInput = this.value;
-  console.log(dataInput.length);
-  checkCompletion();
-});
-
-const minInputLength = 9;
-
 function checkCompletion(){
-  if (dataInput.length > minInputLength) {
-     $('#submit-button').removeClass('disabled');
- } else {
-     $('#submit-button').addClass('disabled');
- }
+  if (input.length > minInputLength) {
+    $('#submit-button').removeClass('disabled');
+  }else {
+    $('#submit-button').addClass('disabled');
+  }
 }
-
-function submit(input) {
-
-  var url = "";
-
-  var data = dataInput;
-  $.ajax({
-      type: "POST",
-      url: url,
-      contentType: 'application/json',
-      data: JSON.stringify(data, null, '\t'),
-      success: function (data) {
-          phonetical = data[''];
-          lexical = data[''];
-          dataInput='';
-      }
-  });
-}
-
-$( document ).ready(function() {
-  $('#audio-speed-rate').text(wavesurfer.audioRate);
-  loadAudioSample(0);
-});
