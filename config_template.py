@@ -110,3 +110,7 @@ chestxray = {
     'url': '',
     'dir': ''
 }
+
+data_selection = {
+    'url': ''
+}
