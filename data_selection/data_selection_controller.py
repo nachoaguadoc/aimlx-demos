@@ -10,6 +10,6 @@ def showDataSelectionPage():
 @data_selection.route('', methods=['POST'])
 def submitDataSelection():
     parameters = request.get_json(force=True)
-    result = requests.post(conf.data_selection['url'], json=parameters)
+    result = requests.post(conf.data_selection['url'] + '/' + parameters['sampleId'], json=parameters)
     resultdict = result.json()
     return jsonify(resultdict)

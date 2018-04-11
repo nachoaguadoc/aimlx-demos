@@ -148,9 +148,8 @@ $("#submit-button").on("click", function() {
 
 function submit(input) {
   let currentSampleId = $(".active").attr("id");
-  var url =
-    "http://52.30.254.33:6121/api/compute/sim/" + uttId[currentSampleId];
-  var data = { input: input };
+  var url = "/data_selection"
+  var data = { input: input, sampleId: uttId[currentSampleId]};
 
   $.ajax({
     type: "POST",
