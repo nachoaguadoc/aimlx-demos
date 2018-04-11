@@ -41,6 +41,9 @@ kpextract = {
     'python_env': '',
     'api_emb_url': ''
 }
+doc_emb = {
+    'url': ''
+}
 neural_programmer = {
     'socket_address': '',
     'socket_port': '',
@@ -77,10 +80,6 @@ sfid = {
     'url': ''
 }
 
-sid = {
-    'url': ''
-}
-
 grocery = {
     'host': '',
     'port': 1999,
@@ -101,7 +100,6 @@ seq2seq = {
     'socket_address': '',
     'socket_port': ''
 }
-
 material = {
     'host': '',
     'port': '' ,
@@ -114,7 +112,9 @@ chestxray = {
     'url': '',
     'dir': ''
 }
-
+sid = {
+    'url': ''
+}
 data_selection = {
     'url': ''
 }
