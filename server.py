@@ -24,6 +24,7 @@ from controller.chatbot_controller import chatbot_api
 from controller.churn_controller import churn_api
 from controller.argumentation_controller import argumentation_api
 from controller.kp_extraction_controller import kp_extraction_api
+from controller.doc_emb_controller import doc_emb_api
 from controller.machine_translation_controller import machine_translation_api
 from controller.gsw_controller import gsw_api
 #from controller.ner_controller import ner_api
@@ -57,6 +58,7 @@ app.register_blueprint(opinion_target_api, url_prefix='/opinion')
 app.register_blueprint(churn_api, url_prefix='/churn')
 #app.register_blueprint(ner_api, url_prefix='/ner')
 app.register_blueprint(kp_extraction_api, url_prefix='/kp')
+app.register_blueprint(doc_emb_api, url_prefix='/doc_emb')
 app.register_blueprint(machine_translation_api, url_prefix='/translate')
 app.register_blueprint(gsw_api, url_prefix='/gsw')
 app.register_blueprint(argumentation, url_prefix='/argumentation')
