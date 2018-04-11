@@ -41,6 +41,9 @@ kpextract = {
     'python_env': '',
     'api_emb_url': ''
 }
+doc_emb = {
+    'url': ''
+}
 neural_programmer = {
     'socket_address': '',
     'socket_port': '',
@@ -96,7 +99,6 @@ summarization = {
 seq2seq = {
     'socket_address': '',
     'socket_port': ''
-
 }
 
 material = {
@@ -117,4 +119,11 @@ multilingual = {
     'port': '',
     'url':'',
     'dir': ''
+}
+
+sid = {
+    'url': ''
+}
+data_selection = {
+    'url': ''
 }

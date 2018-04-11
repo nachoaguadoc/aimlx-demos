@@ -24,15 +24,16 @@ from controller.chatbot_controller import chatbot_api
 from controller.churn_controller import churn_api
 from controller.argumentation_controller import argumentation_api
 from controller.kp_extraction_controller import kp_extraction_api
+from controller.doc_emb_controller import doc_emb_api
 from controller.machine_translation_controller import machine_translation_api
 from controller.gsw_controller import gsw_api
-from controller.ner_controller import ner_api
+#from controller.ner_controller import ner_api
 from controller.neural_programmer_controller import neural_programmer_api
 from controller.opinion_target_controller import opinion_target_api
 from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.seq2sql_controller import seq2sql_api
-from controller.multilingual_controller import multilingual_api
+from controller.sid_controller import sid_api
 
 from sfid import sfid
 from argumentation import argumentation
@@ -43,20 +44,21 @@ from go_chatbot import go_chatbot
 from material import material
 from chestxray import chestxray
 from multilingual import multilingual
-
+from sid import sid
+from data_selection import data_selection
 
 app = Flask(__name__)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
 
-app.register_blueprint(multilingual_api, url_prefix='/multilingual')
 app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
 app.register_blueprint(neural_programmer_api, url_prefix='/neural_programmer')
 app.register_blueprint(opinion_target_api, url_prefix='/opinion')
 app.register_blueprint(churn_api, url_prefix='/churn')
-app.register_blueprint(ner_api, url_prefix='/ner')
+#app.register_blueprint(ner_api, url_prefix='/ner')
 app.register_blueprint(kp_extraction_api, url_prefix='/kp')
+app.register_blueprint(doc_emb_api, url_prefix='/doc_emb')
 app.register_blueprint(machine_translation_api, url_prefix='/translate')
 app.register_blueprint(gsw_api, url_prefix='/gsw')
 app.register_blueprint(argumentation, url_prefix='/argumentation')
@@ -72,6 +74,9 @@ app.register_blueprint(emotion, url_prefix='/emotion')
 
 app.register_blueprint(material, url_prefix='/material')
 app.register_blueprint(chestxray, url_prefix='/chestxray')
+app.register_blueprint(data_selection, url_prefix='/data_selection')
+
+app.register_blueprint(sid, url_prefix='/sid')
 
 
 @app.route('/')
@@ -86,3 +91,4 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
+    

@@ -1,0 +1,74 @@
+{
+  "moviename": [
+    "e.g. Zoolander",
+    "e.g. Deadpool",
+    "e.g. Zootopia",
+    "e.g. Hail Caesar",
+    "e.g. Star Wars",
+    "e.g. Room",
+    "e.g. The Witch",
+    "e.g. The Big Short",
+    "e.g. Young Messiah",
+    "e.g. Eddie the Eagle",
+    "e.g. Risen",
+    "e.g. Avengers"
+  ],
+  "numberofpeople": [
+    "e.g. 2",
+    "e.g. 4",
+    "e.g. 7",
+    "e.g. 1",
+    "e.g. 5",
+    "e.g. 10",
+    "e.g. 6",
+    "e.g. 8",
+    "e.g. 3"
+  ],
+  "date": [
+    "e.g. tomorrow",
+    "e.g. today",
+    "e.g. saturday",
+    "e.g. tonight",
+    "e.g. this friday",
+    "e.g. tomorrow night",
+    "e.g. tomorrow",
+    "e.g. today",
+    "e.g. tonight"
+  ],
+  "starttime": [
+    "e.g. 5 PM",
+    "e.g. 8 PM",
+    "e.g. 11 AM",
+    "e.g. 5 AM",
+    "e.g. 8 AM",
+    "e.g. 4 PM",
+    "e.g. 10 PM",
+    "e.g. 3 PM",
+    "e.g. 6 PM"
+  ],
+  "city": [
+    "e.g. Pittsburgh",
+    "e.g. Chicago",
+    "e.g. Philadelphia",
+    "e.g. Baltimore",
+    "e.g. Portland",
+    "e.g. Miami",
+    "e.g. Los Angeles",
+    "e.g. Atlanta",
+    "e.g. Belleville",
+    "e.g. Nashville",
+    "e.g. Orlando",
+    "e.g. Detroit"
+  ],
+  "theater": [
+    "e.g. Regal meridian 16",
+    "e.g. Mason city IA Cinema West",
+    "e.g. Pacific Science Center",
+    "e.g. Bellevue Lincoln Square",
+    "e.g. Regal South Beach",
+    "e.g. Cinema West",
+    "e.g. Century Eastport 16",
+    "e.g. The Pearl theatre",
+    "e.g. Regal Marysville 14"
+  ]
+}

@@ -14,6 +14,8 @@ models/chatbot_ubuntu
 .DS_Store
 config.py
 start_server.sh
+node_modules/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -107,3 +109,5 @@ ENV/
 # compiled css files
 static/ui-kit/custom/css
 static/ui-kit/custom/scss/**/*.css
+static/assets/.DS_Store
+static/assets/.DS_Store

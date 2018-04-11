@@ -117,11 +117,12 @@ var ChatbotLayout = {
         $('#chat-data').append('<div class="speech-buble speech-buble--user"><p>' + messageData + '</p></div>');
     },
     submit: function () {
+        this.dataInput = $("#input-submit").val();
         if (this.dataInput.length > this.minInputLength && !this.isLoading) {
             this.pushMessage(this.dataInput, 'client');
             this.submitFunction(this.dataInput);
             this.setLoadingState();
-            $('#input-submit').val('')
+            $('#input-submit').val('');
         }
     },
     initializeUiEventHandler: function () {
