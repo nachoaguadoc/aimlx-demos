@@ -116,7 +116,7 @@ var MultilingualLayout = {
 
 MultilingualLayout.config(
     {
-        sampleLink: "multilingual/static/json/samples.json"
+        sampleLink: "static/json/samples.json"
     }
 );
 
