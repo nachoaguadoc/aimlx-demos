@@ -5,7 +5,7 @@ from . import multilingual
 
 @multilingual.route('')
 def index():
-    return render_template('index.html')
+    return render_template('multilingual_index.html')
 
 
 @multilingual.route('/alldocs', methods=['GET', 'POST'])
