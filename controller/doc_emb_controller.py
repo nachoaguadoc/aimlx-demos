@@ -31,6 +31,7 @@ def submitDE():
         result_dict = result.json()
         url = result_dict['url']
         try:
+            title = result_dict['title']
             category = result_dict['category']
             predictions = result_dict['predictions']
             list_kp = result_dict['list_kp']
