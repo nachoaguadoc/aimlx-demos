@@ -1,0 +1,51 @@
+#banner {
+    width: 50%;
+    margin-top: 1%;
+}
+#panel_row {
+    margin-top: 30px;
+}
+.panel_title {
+	font-size: 14px;
+	font-weight: bold;
+}
+#form-input{
+	position: relative;
+}
+#submit_col {
+	position: absolute;
+	height: 100%;
+	right: 0;
+	top: 40%;
+}
+#submit_button {
+	position: absolute;
+	right: 30%
+}
+
+.title_method {
+	text-align: left;
+	font-weight: bold;
+	color: #456bb2;
+	font-size: 21px;
+	margin: 0 0 10px 0;
+}
+
+.sentence {
+	text-align: left;
+	font-size: 18px;
+}
+
+#r-dumb {
+	margin-top: 40% !important;
+    width: 50% !important;
+    position: absolute;
+    right: 20px;
+}
+
+#r-clever {
+	margin-top: 40% !important;
+    width: 50% !important;
+    position: absolute;
+    right: 50px;
+}
