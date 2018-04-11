@@ -1,10 +1,9 @@
 from __future__ import absolute_import
 from flask import Flask, jsonify, request, render_template
 from . import multilingual
-app = Flask(__name__)
 
 
-@multilingual.route('/')
+@multilingual.route('')
 def index():
     return render_template('index.html')
 

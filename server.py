@@ -32,6 +32,7 @@ from controller.opinion_target_controller import opinion_target_api
 from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.seq2sql_controller import seq2sql_api
+from controller.multilingual_controller import multilingual_api
 
 from sfid import sfid
 from argumentation import argumentation
@@ -41,13 +42,14 @@ from emotion import emotion
 from go_chatbot import go_chatbot
 from material import material
 from chestxray import chestxray
+from multilingual import multilingual
 
 
 app = Flask(__name__)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
 
-
+app.register_blueprint(multilingual_api, url_prefix='/multilingual')
 app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
 app.register_blueprint(neural_programmer_api, url_prefix='/neural_programmer')
@@ -60,6 +62,7 @@ app.register_blueprint(gsw_api, url_prefix='/gsw')
 app.register_blueprint(argumentation, url_prefix='/argumentation')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 
+app.register_blueprint(multilingual, url_prefix='/multilingual')
 app.register_blueprint(sfid, url_prefix='/sfid')
 app.register_blueprint(go_chatbot, url_prefix='/go_chatbot')
 app.register_blueprint(summarization, url_prefix='/summarization')
