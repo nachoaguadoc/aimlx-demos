@@ -4,7 +4,7 @@
 {{ super() }}
 
 {#Add custom styles here.#}
-<link rel="stylesheet" href="{{ url_for('static', filename='multilingual.css') }}">
+<link rel="stylesheet" href="{{ url_for('multilingual.static', filename='multilingual.css') }}">
 <!--<link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">-->
 {% endblock %}
 
@@ -110,6 +110,6 @@
 
 {% block scripts %}
 {{ super() }}
-<script src="{{ url_for('static', filename='multilingual_choose_doc.js') }}"></script>
+<script src="{{ url_for('multilingual.static', filename='multilingual_choose_doc.js') }}"></script>
 
 {% endblock %}

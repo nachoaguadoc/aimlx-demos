@@ -5,7 +5,7 @@
 
 {#Add custom styles here.#}
 <!--<link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">-->
-<link rel="stylesheet" href="{{ url_for('static', filename='multilingual.css') }}">
+<link rel="stylesheet" href="{{ url_for('multilingual.static', filename='multilingual.css') }}">
 {% endblock %}
 
 {% block title %}Evaluation of Multilingual Embeddings{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
@@ -157,5 +157,5 @@
 
 {% block scripts %}
 {{ super() }}
-<script src="{{ url_for('static', filename='multilingual_sample_docs.js') }}"></script>
+<script src="{{ url_for('multilingual.static', filename='multilingual_sample_docs.js') }}"></script>
 {% endblock %}
