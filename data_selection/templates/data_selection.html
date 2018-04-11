@@ -1,0 +1,127 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    {#Add custom styles here.
+    <link rel="stylesheet" href="{{ url_for('yourdemo.static', filename='yourdemo.css') }}">#}
+    <link rel="stylesheet" href="{{ url_for('data_selection.static', filename='data_selection.css') }}">
+{% endblock %}
+
+{% block title %}ASR Data Selection {% endblock %}
+
+{% block description %}Lorem ipsum dolor sit amet, consectetur adipiscing{% endblock %}
+
+{% block content %}
+    <div class="row flex-items-xs-center">
+        <div id="audio-section" class="col-lg-8">
+            <div id="start-advice" class="">
+                <i class="icon icon-046-information-circle icon--s2" aria-hidden="true"></i>
+                <p>Please listen the audio sample and transcribe it below</p>
+            </div>
+            <div class="audio-container">
+                <nav class="sample-label">
+                    <span id="0" class="active"><p>Sample 1</p></span>
+                    <span id="1" class=""><p>Sample 2</p></span>
+                    <span id="2" class=""><p>Sample 3</p></span>
+                    <span id="3" class=""><p>Sample 4</p></span>
+                    <span id="4" class=""><p>Sample 5</p></span>
+                    <span id="5" class=""><p>Sample 6</p></span>
+                </nav>
+                <div id="audio-player">
+                    <div class="audio-btn col-lg-2">
+                        <button id="play-btn" class="btn-container">
+                            <i class="icon icon-060-play-filled icon--s2" aria-hidden="true"></i>
+                        </button>
+                        <button id="stop-btn" class="btn-container display-none">
+                            <i class="icon icon-057-pause-filled icon--s2" aria-hidden="true"></i>
+                        </button>
+                        <div id="audio-timer">
+                            <div id="current-time"></div>
+                            <div id="duration-time"></div>
+                        </div>
+                    </div>
+                    <div id="waveform" class="waveform-vizualizer col-lg-10"></div>
+                    <div class="player-options col-lg-12">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-10 display-flex no-gutters">
+                            <div class="audio-speed">
+                                <p>Speed</p>
+                                <div class="speed-option">
+                                    <i id="minus" class="icon icon-052-minus icon--s1 rate-option" aria-hidden="true"></i>
+                                    <p id="audio-speed-rate"></p>
+                                    <i id="plus" class="icon icon-061-plus icon--s1 rate-option" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div id="audio-move">
+                                <i id="go-start" class="icon icon-040-go-to-start"></i>
+                                <i id="go-end" class="icon icon-038-go-to-end"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="results-section" class="row flex-items-xs-center display-none">
+        <div class="col-lg-11">
+            <h2>Results</h2>
+            <div id="user-transcription"></div>
+        </div>
+        <div class="col-xs col-lg-11 results-container">
+            <div class="display-flex">
+                <h2 class="col-lg-6">Lexical similarities</h2>
+                <h2 class="col-lg-6">Phonetical similarities</h2>
+            </div>
+            <div id="result">
+                <div id="lexical" class="col-lg-6">
+                    <table>
+                        <thead>
+                            <th>Sentence</th>
+                            <th>Score</th>
+                        </thead>
+                        <tbody id="phon-root">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="phonetical" class="col-lg-6">
+                    <table>
+                        <thead>
+                            <th>Sentence</th>
+                            <th>Score</th>
+                        </thead>
+                        <tbody id="lex-root">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row flex-items-xs-center">
+        <div class="col-xs col-lg-8">
+            <h2>Transcription</h2>
+            <div id="transcription-section" class="col-lg-12">
+                <div class="input-field input-multiline input-field--static-label" data-init="auto">
+                    <input id="input-transcription" placeholder="Please transcribe here the audio sample" data-min-rows="1" data-max-rows="10"></input>
+                </div>
+                <button id="submit-button" class="button button--primary submit-button disabled">
+                    <span>{% block submit_button_text %}Process{% endblock %}</span>
+                    <div id="loader" class="display-none ellipsis-loader">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {#Add custom styles here.
+    <script src="{{ url_for('yourdemo.static', filename='yourdemo.js') }}"></script>#}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.5/wavesurfer.min.js"></script>
+    <script src="{{ url_for('data_selection.static', filename='data_selection.js') }}"></script>
+{% endblock %}
