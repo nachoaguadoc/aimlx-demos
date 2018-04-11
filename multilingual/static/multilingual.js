@@ -1,11 +1,11 @@
 function submit_all_docs(){
     $.ajax({
-           url: "/alldocs",
+           url: "/multilingual/alldocs",
            type: "POST",
            processData: false,
            contentType: false,
            success: function(response) {
-                window.location.href = "/alldocs";
+                window.location.href = "/multilingual/alldocs";
            },
            error: function(jqXHR, textStatus, errorMessage) {
                console.log(errorMessage); // Optional
@@ -16,12 +16,12 @@ function submit_all_docs(){
 
  function submit_choose_doc(){
      $.ajax({
-            url: "/choosedoc",
+            url: "/multilingual/choosedoc",
             type: "POST",
             processData: false,
             contentType: false,
             success: function() {
-                window.location.href = "/choosedoc";
+                window.location.href = "/multilingual/choosedoc";
             },
             error: function(jqXHR, textStatus, errorMessage) {
                  errorMessage = "Method failed";
