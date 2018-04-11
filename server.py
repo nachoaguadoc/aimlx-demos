@@ -43,13 +43,13 @@ from emotion import emotion
 from go_chatbot import go_chatbot
 from material import material
 from chestxray import chestxray
+from multilingual import multilingual
 from sid import sid
 from data_selection import data_selection
 
 app = Flask(__name__)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
-
 
 app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
@@ -64,6 +64,7 @@ app.register_blueprint(gsw_api, url_prefix='/gsw')
 app.register_blueprint(argumentation, url_prefix='/argumentation')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 
+app.register_blueprint(multilingual, url_prefix='/multilingual')
 app.register_blueprint(sfid, url_prefix='/sfid')
 app.register_blueprint(go_chatbot, url_prefix='/go_chatbot')
 app.register_blueprint(summarization, url_prefix='/summarization')

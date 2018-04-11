@@ -100,9 +100,10 @@ seq2seq = {
     'socket_address': '',
     'socket_port': ''
 }
+
 material = {
     'host': '',
-    'port': '' ,
+    'port': '',
     'url': '',
     'dir': ''
 }
@@ -112,6 +113,14 @@ chestxray = {
     'url': '',
     'dir': ''
 }
+
+multilingual = {
+    'host': '',
+    'port': '',
+    'url':'',
+    'dir': ''
+}
+
 sid = {
     'url': ''
 }
