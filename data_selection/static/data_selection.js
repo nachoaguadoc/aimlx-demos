@@ -157,10 +157,10 @@ function submit(input) {
     contentType: "application/json",
     data: JSON.stringify(data),
     success: function(data) {
-      let json = data["ng"];
+      let jsonPhonSim = data["ng"];
       let jsonLexiSim = data["tp"];
 
-      let phoneticalSimilarities = buildResultStructure(json);
+      let phoneticalSimilarities = buildResultStructure(jsonPhonSim);
       let lexicalSimilarities = buildResultStructure(jsonLexiSim);
 
       $("#user-transcription").append(
