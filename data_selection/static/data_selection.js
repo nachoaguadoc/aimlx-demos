@@ -98,10 +98,9 @@ $(".rate-option").on("click", function() {
 
 // Navigation for the samples
 $(".sample-label span").on("click", function() {
-  let id = this.id;
   loadAudioSample(this.id);
   $(".sample-label span").removeClass("active");
-  $("#" + id).addClass("active");
+  $("#" + this.id).addClass("active");
 
   // Hide the result panel when the user click on another audio sample
   $("#results-section").addClass("display-none");
@@ -122,10 +121,12 @@ $("#go-end").on("click", function() {
 });
 
 let input = "";
+const keyEnter = 13;
 
 $("#input-transcription")
   .keypress(function(e) {
-    if (e.which === 13) {
+    // When the user press the key ENTER for process his transcription
+    if (e.which === keyEnter) {
       isLoading();
       submit(input);
       clearResults();
@@ -203,8 +204,8 @@ function showCurrentTime() {
   var time = wavesurfer.getCurrentTime();
   var minutes = "0" + Math.floor(time / 60);
   var seconds = "0" + Math.floor(time - minutes * 60);
-  var CurrentTime = minutes.substr(-1) + ":" + seconds.substr(-2);
-  return CurrentTime;
+  var currentTime = minutes.substr(-1) + ":" + seconds.substr(-2);
+  return currentTime;
 }
 
 function showCurrentRate() {
