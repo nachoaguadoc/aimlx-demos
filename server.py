@@ -32,6 +32,7 @@ from controller.opinion_target_controller import opinion_target_api
 from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.seq2sql_controller import seq2sql_api
+from controller.sid_controller import sid_api
 
 from sfid import sfid
 from argumentation import argumentation
@@ -41,7 +42,7 @@ from emotion import emotion
 from go_chatbot import go_chatbot
 from material import material
 from chestxray import chestxray
-
+from sid import sid
 
 app = Flask(__name__)
 CORS(app)
@@ -69,6 +70,8 @@ app.register_blueprint(emotion, url_prefix='/emotion')
 
 app.register_blueprint(material, url_prefix='/material')
 app.register_blueprint(chestxray, url_prefix='/chestxray')
+
+app.register_blueprint(sid, url_prefix='/sid')
 
 
 @app.route('/')
