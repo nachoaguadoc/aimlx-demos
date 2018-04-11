@@ -77,6 +77,10 @@ sfid = {
     'url': ''
 }
 
+sid = {
+    'url': ''
+}
+
 grocery = {
     'host': '',
     'port': 1999,
