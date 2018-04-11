@@ -29,6 +29,7 @@ def submitDE():
             post_parameters[r] = str(post_parameters[r])
         result = requests.post(conf.doc_emb['url'], json=post_parameters)
         result_dict = result.json()
+        print("Demo DE:", result_dict)
         url = result_dict['url']
         try:
             category = result_dict['category']
