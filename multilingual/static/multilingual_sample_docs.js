@@ -1,7 +1,7 @@
 function submit(data_py){
     $("#legend_lang").empty();
     $.ajax({
-           url: "/sendalldocs",
+           url: "/multilingual/sendalldocs",
            type: "POST",
            data: data_py,
            processData: false,
@@ -207,7 +207,7 @@ $(document).ready(function(){
     $('#btn-submit').click(function(e){
         $('#btn-submit span').hide();
         $('#loader').removeClass("aix-invisible");
-        $.getJSON('multilingual/static/json/new_json_neighbours.json', function(data) {
+        $.getJSON('static/json/new_json_neighbours.json', function(data) {
             submit(data);
         });
      });

@@ -129,7 +129,7 @@ function getRemote(urldoc, language, mode) {
     console.log(data);
     $.ajax({
         type: "POST",
-        url: "/sendchoosedoc",
+        url: "/multilingual/sendchoosedoc",
         contentType: 'application/json',
         data: JSON.stringify(data, null, '\t'),
         success: function(data){
