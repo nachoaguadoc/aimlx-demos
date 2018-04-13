@@ -67,7 +67,7 @@ churn = {
     'e_port': ''
 }
 tweet_label = {
-    'dir_tweets': ''
+    'api_url': ''
 }
 argumentation = {
     'url': ''
