@@ -31,8 +31,6 @@ function submit_all_docs(){
 
   }
 
-
-
 var radiobutton;
 $('#choose-mode').click(function(e){
     //$('#demoMode input').on('click', function() {
