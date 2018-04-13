@@ -1,0 +1,161 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+{{ super() }}
+
+{#Add custom styles here.#}
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">-->
+<link rel="stylesheet" href="{{ url_for('multilingual.static', filename='multilingual.css') }}">
+{% endblock %}
+
+{% block title %}Evaluation of Multilingual Embeddings{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
+
+{% block description %}Using deep neural networks to classify documents in multiple languages.{#One line for for demo description#}{% endblock %}
+
+{% block content %}
+
+<div class="row aix-row">
+    <!-- Select the Document Classes -->
+    <div class="col-md-3">
+        <div class="form col-md-10 form-inline" id="classSet" style="padding-left:0px; padding-right:0px;">
+            <h3>Select one or more class(es)</h3>
+            <div class="checkbox_check">
+                <input type='checkbox' name='GCAT' id='GCAT'>
+                <label for='gcat'>Government/Social (GCAT) </label>
+            </div>
+            <div class="checkbox_check">
+                <input type='checkbox' name='MCAT' id='MCAT'>
+                <label for='mcat'>Markets (MCAT) </label>
+            </div>
+            <div class="checkbox_check">
+                <input type='checkbox' name='CCAT' id='CCAT'>
+                <label for='ccat'>Corporate/Industry (CCAT) </label>
+            </div>
+            <div class="checkbox_check">
+                <input type='checkbox' name='ECAT' id='ECAT'>
+                <label for='ecat'>Economics (ECAT) </label>
+            </div>
+            <div class="checkbox_check">
+                <input type='checkbox' name='ALLC' id='ALLC'>
+                <label for='allc'>All Classes</label>
+            </div>
+        </div>
+        &nbsp;&nbsp;
+        <!-- Select the List of languages -->
+        <div class="form col-md-10 form-inline" id="languageSet">
+            <h3>Select one or more language(s)</h3>
+            <div class="checkbox_check">
+                <input type='checkbox' name='English' id='en'>
+                <label for='en'>English</label>
+            </div>
+            <div class="checkbox_check">
+                <input type='checkbox' name='German' id='de'>
+                <label for='de'>German</label>
+            </div>
+            <div class="checkbox_check">
+                <input type='checkbox' name='French' id='fr'>
+                <label for='fr'>French</label>
+            </div>
+            <div class="checkbox_check">
+                <input type='checkbox' name='Italian' id='it'>
+                <label for='it'>Italian</label>
+            </div>
+            <div class="checkbox_check">
+                <input type='checkbox' name='ALLL' id='ALLL'>
+                <label for='alll'>All Languages</label>
+            </div>
+        </div>
+
+        &nbsp;&nbsp;
+        <div class="col-xs col-md-2">
+            <button id="btn-submit" class="button button--primary" >
+                <span>{% block submit_button_text %}Find Documents{% endblock %}</span>
+                <div id ="loader" class="ellipsis-loader aix-invisible">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </button>
+        </div>
+
+    </div>
+
+
+    <!--
+    <div class="col-md-6">
+
+    </div>
+    -->
+
+
+    <!-- Submit for Finding documents
+    <div id="tab-input" class="col-md-6">
+
+    </div>
+    -->
+
+    <!-- Displays summary results -->
+    <div id = "results" class="col-lg-6 aix-invisible">
+        {% block samples %}
+        <!--<div class="sample-container aix-invisible">-->
+            <div class="sample-container__header">
+                <h3>Found Documents in Vector Space</h3>
+            </div>
+            <div id="sample-data" class="col-lg-12">
+                <head>
+                    <!-- Plotly.js -->
+                    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                </head>
+
+                <body>
+
+                <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV -->
+
+                </div>
+
+                <script>
+                 </script>
+                </body>
+            </div>
+        <!--</div>-->
+        {% endblock %}
+    </div>
+    <!-- Adding Legend -->
+    <div id= "legend" class="col-lg-3 aix-invisible" style="padding-top: 80px; padding-left:160px; padding-right: 60px;">
+        <div id="legend_lang"> </div>
+        <div id="legend_class">
+            <svg height="30" width="30" >
+                <circle cx="15" cy="15" r="10" stroke="black" stroke-width="3" fill="white"/>
+            </svg>
+            <span style="padding-right:20px"> GCAT </span>
+
+            <svg height="30" width="30" style="padding-left: 5px; padding-top:10px;">
+                <rect width="15" height="15" style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)" />
+                <!--<rect cx="15" cy="15" r="10" stroke="black" stroke-width="3" fill="white"/>-->
+            </svg>
+            <span style="padding-right:80px"> MCAT </span>
+
+            <svg width="30" height="30" style="padding-left: 13px; padding-top:5px;">
+                <rect width="15" height="15" transform="rotate(45)" style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)" />
+                <!--<rect cx="15" cy="15" r="10" stroke="black" stroke-width="3" fill="white"/>-->
+            </svg>
+            <span style="padding-right:30px"> CCAT </span>
+
+            <svg height="40" width="30" style="padding-left:12px">
+                <path class="close-x" d="M 10,10 L 25,25 M 25,10 L 10,25" transform="rotate(45)" style="stroke: black; fill: transparent; stroke-linecap: round; stroke-width: 5;" />
+            </svg>
+            <span style="padding-right:0px"> ECAT </span>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('multilingual.static', filename='multilingual_sample_docs.js') }}"></script>
+{% endblock %}
