@@ -38,6 +38,7 @@ from controller.sid_controller import sid_api
 from sfid import sfid
 from argumentation import argumentation
 from summarization import summarization
+from tweet_label import tweet_label
 from grocery import grocery
 from emotion import emotion
 from go_chatbot import go_chatbot
@@ -63,6 +64,7 @@ app.register_blueprint(doc_emb_api, url_prefix='/doc_emb')
 app.register_blueprint(machine_translation_api, url_prefix='/translate')
 app.register_blueprint(gsw_api, url_prefix='/gsw')
 app.register_blueprint(argumentation, url_prefix='/argumentation')
+app.register_blueprint(tweet_label, url_prefix='/tweet_label')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 
 app.register_blueprint(multilingual, url_prefix='/multilingual')

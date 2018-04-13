@@ -9,6 +9,9 @@ static/assets/chestxray_images
 static/assets/material_images
 static/assets/images
 
+models
+!models/README.md
+
 models/chatbot_swisscom
 models/chatbot_ubuntu
 .DS_Store
