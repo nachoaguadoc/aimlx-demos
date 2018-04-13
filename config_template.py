@@ -80,6 +80,10 @@ sfid = {
     'url': ''
 }
 
+speech_emotion = {
+    'url': ''
+}
+
 grocery = {
     'host': '',
     'port': 1999,

@@ -46,6 +46,7 @@ from chestxray import chestxray
 from multilingual import multilingual
 from sid import sid
 from data_selection import data_selection
+from speech_emotion import speech_emotion
 
 app = Flask(__name__)
 CORS(app)
@@ -77,6 +78,7 @@ app.register_blueprint(chestxray, url_prefix='/chestxray')
 app.register_blueprint(data_selection, url_prefix='/data_selection')
 
 app.register_blueprint(sid, url_prefix='/sid')
+app.register_blueprint(speech_emotion, url_prefix='/speech_emotion')
 
 
 @app.route('/')
