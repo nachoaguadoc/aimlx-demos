@@ -66,6 +66,9 @@ churn = {
     'e_host': '',
     'e_port': ''
 }
+tweet_label = {
+    'dir_tweets': ''
+}
 argumentation = {
     'url': ''
 }
