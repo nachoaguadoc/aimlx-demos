@@ -1,0 +1,189 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block title %}Tweets labelling{% endblock %}
+
+{% block description %}Tweets labelling to augment database{% endblock %}
+
+{% block content %}
+
+        <div id="bar01" class="loader-bar">
+        <div class="detail">
+            <div class="name">{{ data['name'] }}</div>
+            <div class="detail-right">
+                <div class="progress">{{ data['n_lab']}}</div>
+                <div class="file-size">of {{ data['n_tot'] }} tweets</div>
+            </div>
+        </div>
+        <div class="loader-bar--progress">
+            <div class="indicator" style="width: {{ 100*data['n_lab']/data['n_tot'] }}%"></div>
+        </div>
+
+    </div>
+
+        <div class="divider divider--light-gray"></div>
+
+<form id="form-tweet-label" method="post">
+
+    <div class="input-field" data-init="auto">
+        <input type="text" id="brand" name="brand" placeholder="brand" value={{ data['brand'] }}>
+        <label for="user-name-valid">Source brand</label>
+        <i class="icon icon-011-check-mark" aria-hidden="true"></i>
+    </div>
+
+
+    <div class="input-field input-multiline input-field--static-label" data-init="auto">
+        <textarea id="multiline_tweet" placeholder="Tweet text" data-min-rows="3" data-max-rows="10">{{ data['full_text'] }}</textarea>
+        <label for="multiline_tweet">Tweet text</label>
+    </div>
+
+    <div id="loading_trans" class="loader-spinner loader-spinner--small"></div>
+    <div id='block_trans' class="input-field input-multiline input-field--static-label" data-init="auto">
+        <textarea id="multiline_tweet_trans" placeholder="Tweet text translation" rows="4" data-min-rows="3" data-max-rows="10"></textarea>
+        <label for="multiline_tweet_trans">Tweet text - Translated (not accurate)</label>
+    </div>
+
+    <div class="form-inline">
+        {% for label in data['labels'] %}
+            <div class="radio">
+                {% if loop.index == 1 %}
+                    <input type='radio' name='label' id='radio-{{ label[2] }}' value={{ label[0] }} checked>
+                {% else %}
+                    <input type='radio' name='label' id='radio-{{ label[2] }}' value={{ label[0] }}>
+                {% endif %}
+                <label for='radio-{{ label[2] }}'>{{ label[1] }} ({{ label[2] }})</label>
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <input id="id_tweet" name="id_tweet" type="hidden" value={{ data['id_tweet'] }}>
+    <input id="db_info" name="db_info" type="hidden" value={{ data['db_info'] }}>
+
+    {% if 'id_tweet_prev' in data %}
+        <input id="id_tweet_prev" name="id_tweet_prev" type="hidden" value={{ data['id_tweet_prev'] }}>
+    {% endif %}
+
+    <div class="button-group button-group--right">
+        {% if 'id_tweet_prev' in data %}
+            <button class="button button--secondary" id='bu-back' name="action" value="back" type="submit">Back (Backspace)</button>
+        {% endif %}
+        <button class="button button--primary" id='bu-enter' name="action" value="go" type="submit">Go (Enter)</button>
+    </div>
+
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+    <script type="text/javascript">
+
+        var mt_cont = document.getElementById('multiline_tweet');
+
+        document.addEventListener('keydown', keyHandler);
+
+        function keyHandler(e) {
+
+            // Check if enter pressed
+            if(e.keyCode === 13) {
+{#                document.getElementById('form-tweet-label').submit();#}
+                document.getElementById('bu-enter').click();
+                return
+            }
+
+            // Check if backspace pressed
+            if(e.keyCode === 8) {
+{#                document.getElementById('form-tweet-label').submit();#}
+                document.getElementById('bu-back').click();
+                return
+            }
+            // Check if key if new label
+            var element = document.getElementById('radio-'+String.fromCharCode(e.keyCode));
+            if(element === null) {
+                return
+            }
+            element.checked = true;
+        }
+
+
+{#        var cors_api_url = 'https://cors-anywhere.herokuapp.com/';#}
+{##}
+{#        function replaceAll(str, find, replace) {#}
+{#            return str.replace(new RegExp(find, 'g'), replace);#}
+{#        }#}
+{##}
+{#        function doCORSRequest(options, printResult) {#}
+{#            var x = new XMLHttpRequest();#}
+{#            x.open(options.method, cors_api_url + options.url);#}
+{#            x.onload = x.onerror = function() {#}
+{#                printResult(#}
+{#                    (x.responseText || '')#}
+{#                );#}
+{#            };#}
+{#            if (/^POST/i.test(options.method)) {#}
+{#              x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');#}
+{#            }#}
+{#            x.send(options.data);#}
+{#        }#}
+{##}
+{#        function get_translation(text) {#}
+{#            var data = {"jsonrpc": "2.0", "method": "LMT_handle_jobs",#}
+{#                "params": {"jobs": [{"kind": "default", "raw_en_sentence": text}],#}
+{#                "lang": {"user_preferred_langs": ['FR', 'DE'],#}
+{#                        "source_lang_user_selected": 'auto',#}
+{#                        "target_lang": 'EN'},#}
+{#                "priority": -1}, "id": 0};#}
+{##}
+{#            doCORSRequest({#}
+{#                method: 'POST',#}
+{#                url: 'https://www.deepl.com/jsonrpc',#}
+{#                data: JSON.stringify(data)#}
+{#                }, function printResult(result) {#}
+{##}
+{#                    var r = JSON.parse(result);#}
+{#                    r = r['result']['translations'][0]['beams'][0]['postprocessed_sentence'];#}
+{#                    r = r.replace('&lt;', '<').replace('&gt;', '>');#}
+{#                    r = replaceAll(r, '&lt;', '<');#}
+{#                    r = replaceAll(r, '&gt;', '>');#}
+{#                    document.getElementById('multiline_tweet_trans').value = r;#}
+{#                    document.getElementById('loading_trans').style.visibility = "hidden";#}
+{#                    });#}
+{#                }#}
+{##}
+{#        get_translation(mt_cont.innerHTML);#}
+
+    var formData = new FormData();
+    formData.append("text", mt_cont.innerHTML);
+
+    $.ajax({
+       url: "/tweet_label/translation",
+       type: "POST",
+       data: formData,
+       processData: false,
+       contentType: false,
+       success: function(data) {
+            console.log('translation', data);
+            document.getElementById('multiline_tweet_trans').value = data;
+            document.getElementById('loading_trans').style.visibility = "hidden";
+       },
+       error: function(jqXHR, textStatus, errorMessage) {
+           console.log(errorMessage); // Optional
+       }
+    });
+
+
+
+</script>
+
+
+
+
+{% endblock %}
+
+
+
