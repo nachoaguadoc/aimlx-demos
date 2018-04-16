@@ -81,6 +81,10 @@ sid = {
     'url': ''
 }
 
+lid = {
+    'url': ''
+}
+
 grocery = {
     'host': '',
     'port': 1999,

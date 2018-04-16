@@ -33,6 +33,7 @@ from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.seq2sql_controller import seq2sql_api
 from controller.sid_controller import sid_api
+from controller.lid_controller import lid_api
 
 from sfid import sfid
 from argumentation import argumentation
@@ -43,6 +44,7 @@ from go_chatbot import go_chatbot
 from material import material
 from chestxray import chestxray
 from sid import sid
+from lid import lid
 from data_selection import data_selection
 
 app = Flask(__name__)
@@ -74,7 +76,7 @@ app.register_blueprint(chestxray, url_prefix='/chestxray')
 app.register_blueprint(data_selection, url_prefix='/data_selection')
 
 app.register_blueprint(sid, url_prefix='/sid')
-
+app.register_blueprint(lid, url_prefix='/lid')
 
 @app.route('/')
 def getIndex():
