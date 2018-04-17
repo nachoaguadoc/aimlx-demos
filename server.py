@@ -34,11 +34,11 @@ from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
 from controller.seq2sql_controller import seq2sql_api
 from controller.sid_controller import sid_api
-from controller.lid_controller import lid_api
 
 from sfid import sfid
 from argumentation import argumentation
 from summarization import summarization
+from tweet_label import tweet_label
 from grocery import grocery
 from emotion import emotion
 from go_chatbot import go_chatbot
@@ -46,7 +46,6 @@ from material import material
 from chestxray import chestxray
 from multilingual import multilingual
 from sid import sid
-from lid import lid
 from data_selection import data_selection
 from speech_emotion import speech_emotion
 
@@ -65,6 +64,7 @@ app.register_blueprint(doc_emb_api, url_prefix='/doc_emb')
 app.register_blueprint(machine_translation_api, url_prefix='/translate')
 app.register_blueprint(gsw_api, url_prefix='/gsw')
 app.register_blueprint(argumentation, url_prefix='/argumentation')
+app.register_blueprint(tweet_label, url_prefix='/tweet_label')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 
 app.register_blueprint(multilingual, url_prefix='/multilingual')
@@ -80,8 +80,8 @@ app.register_blueprint(chestxray, url_prefix='/chestxray')
 app.register_blueprint(data_selection, url_prefix='/data_selection')
 
 app.register_blueprint(sid, url_prefix='/sid')
-app.register_blueprint(lid, url_prefix='/lid')
 app.register_blueprint(speech_emotion, url_prefix='/speech_emotion')
+
 
 @app.route('/')
 def getIndex():
