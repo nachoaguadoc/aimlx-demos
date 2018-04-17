@@ -1,0 +1,69 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block title %}Tweets labelling{% endblock %}
+
+{% block description %}Tweets labelling to augment database{% endblock %}
+
+{% block content %}
+
+    <h1>Datasets available: {{ username }}</h1>
+    {#Put here your demo markup.#}
+<form method="post">
+
+    <div class="divider divider--light-gray"></div>
+
+    {% for file in files %}
+
+        <div id="bar01" class="loader-bar">
+            <div class="detail">
+                <div class="name">
+                    {{ files[file]['name'] }}
+
+                </div>
+                <div class="detail-right">
+                    <div class="progress">{{ files[file]['n_lab']}}</div>
+                    <div class="file-size">of {{ files[file]['n_tot'] }} tweets</div>
+                </div>
+            </div>
+            <div class="loader-bar--progress">
+                <div class="indicator" style="width: {{ 100*files[file]['n_lab']/files[file]['n_tot'] }}%"></div>
+            </div>
+
+        </div>
+
+        <!-- Right button group -->
+        <p> </p>
+
+        <!-- Right button group -->
+        <div class="button-group button-group--right">
+            <button class="button button--secondary disabled">{{ files[file]['n_labeled'] }} labeled</button>
+            {% if files[file]['n_tot'] <= files[file]['n_lab'] %}
+                <button class="button button--primary disabled" name="db_info" value={{ file }}>Go</button>
+            {% else %}
+                <button class="button button--primary" name="db_info" value={{ file }} formaction="/tweet_label/go" type="submit">Go</button>
+            {% endif %}
+
+        </div>
+
+
+        <div class="divider divider--light-gray"></div>
+
+    {% endfor %}
+
+
+</form>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {#Add custom styles here.
+    <script src="{{ url_for('yourdemo.static', filename='yourdemo.js') }}"></script>#}
+{% endblock %}

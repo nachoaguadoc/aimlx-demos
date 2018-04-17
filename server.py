@@ -19,6 +19,7 @@ import json
 import config as conf
 import jsonpickle
 import helpers
+import os
 
 from controller.chatbot_controller import chatbot_api
 from controller.churn_controller import churn_api
@@ -50,6 +51,7 @@ from data_selection import data_selection
 from speech_emotion import speech_emotion
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
 
