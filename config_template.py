@@ -41,6 +41,9 @@ kpextract = {
     'python_env': '',
     'api_emb_url': ''
 }
+doc_emb = {
+    'url': ''
+}
 neural_programmer = {
     'socket_address': '',
     'socket_port': '',
@@ -77,7 +80,7 @@ sfid = {
     'url': ''
 }
 
-sid = {
+speech_emotion = {
     'url': ''
 }
 
@@ -108,7 +111,7 @@ seq2seq = {
 
 material = {
     'host': '',
-    'port': '' ,
+    'port': '',
     'url': '',
     'dir': ''
 }
@@ -117,4 +120,18 @@ chestxray = {
     'port': '',
     'url': '',
     'dir': ''
+}
+
+multilingual = {
+    'host': '',
+    'port': '',
+    'url':'',
+    'dir': ''
+}
+
+sid = {
+    'url': ''
+}
+data_selection = {
+    'url': ''
 }

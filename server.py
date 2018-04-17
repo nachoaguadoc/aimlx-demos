@@ -24,6 +24,7 @@ from controller.chatbot_controller import chatbot_api
 from controller.churn_controller import churn_api
 from controller.argumentation_controller import argumentation_api
 from controller.kp_extraction_controller import kp_extraction_api
+from controller.doc_emb_controller import doc_emb_api
 from controller.machine_translation_controller import machine_translation_api
 from controller.gsw_controller import gsw_api
 #from controller.ner_controller import ner_api
@@ -43,14 +44,15 @@ from emotion import emotion
 from go_chatbot import go_chatbot
 from material import material
 from chestxray import chestxray
+from multilingual import multilingual
 from sid import sid
 from lid import lid
 from data_selection import data_selection
+from speech_emotion import speech_emotion
 
 app = Flask(__name__)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
-
 
 app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
@@ -59,11 +61,13 @@ app.register_blueprint(opinion_target_api, url_prefix='/opinion')
 app.register_blueprint(churn_api, url_prefix='/churn')
 #app.register_blueprint(ner_api, url_prefix='/ner')
 app.register_blueprint(kp_extraction_api, url_prefix='/kp')
+app.register_blueprint(doc_emb_api, url_prefix='/doc_emb')
 app.register_blueprint(machine_translation_api, url_prefix='/translate')
 app.register_blueprint(gsw_api, url_prefix='/gsw')
 app.register_blueprint(argumentation, url_prefix='/argumentation')
 app.register_blueprint(slot_filling_api, url_prefix='/slotfilling')
 
+app.register_blueprint(multilingual, url_prefix='/multilingual')
 app.register_blueprint(sfid, url_prefix='/sfid')
 app.register_blueprint(go_chatbot, url_prefix='/go_chatbot')
 app.register_blueprint(summarization, url_prefix='/summarization')
@@ -77,6 +81,7 @@ app.register_blueprint(data_selection, url_prefix='/data_selection')
 
 app.register_blueprint(sid, url_prefix='/sid')
 app.register_blueprint(lid, url_prefix='/lid')
+app.register_blueprint(speech_emotion, url_prefix='/speech_emotion')
 
 @app.route('/')
 def getIndex():

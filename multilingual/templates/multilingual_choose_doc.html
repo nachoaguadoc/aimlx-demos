@@ -1,0 +1,115 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}
+{{ super() }}
+
+{#Add custom styles here.#}
+<link rel="stylesheet" href="{{ url_for('multilingual.static', filename='multilingual.css') }}">
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">-->
+{% endblock %}
+
+{% block title %}Evaluation of Multilingual Embeddings{#Enter here your demo title. Keep it short. There is extra space for a description below.#}{% endblock %}
+
+{% block description %}Using deep neural networks to classify documents in multiple languages.{#One line for for demo description#}{% endblock %}
+
+{% block content %}
+
+
+<!-- Select One embedding model -->
+
+<!--<div class="row flex-items-xs-center">-->
+
+&nbsp;&nbsp;
+<div class="row aix-row">
+
+  <div class="col-md-12">
+    {% block samples %}
+    <div class="sample-container aix-invisible">
+        <div class="sample-container__header">
+            <h3>Sample Documents</h3>
+            <i id="btn-refresh"
+               class="btn-sample-refresh icon icon-071-retry icon--s3 icon--flip-horizontal aix-invisible"
+               aria-hidden="true"></i>
+        </div>
+        <div class="sample-data-loader">
+            <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>
+        </div>
+        <div id="sample-data" class="row">
+            {#Samples will be added here automatically#}
+        </div>
+        <h4>or Enter the URL of a wikipedia article</h4>
+        <div class="input-field input-field--fixed input-field-url" data-init="auto">
+            <input type="text" id="url-submit" placeholder="Enter the URL (e.g. of an article) to find closest neighbours to it in all languages.">
+            <label for="url-submit">Enter the URL</label>
+        </div>
+    </div>
+    {% endblock %}
+
+  </div>
+
+</div>
+
+<!-- Displays multilingual results
+<div id="tab-results" class="row aix-row aix-invisible result">-->
+&nbsp;&nbsp;
+<div class="row col-centered-button">
+    <div class="col-md-4">
+        <button id="btn-submit" class="aix-button button button--primary button--full disabled" >
+            <span>{% block submit_button_text %}Find Neighbours in Vector Space{% endblock %}</span>
+            <div id ="loader" class="ellipsis-loader aix-invisible">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </button>
+    </div>
+</div>
+&nbsp;&nbsp;
+<div id="results" class="row col-centered aix-invisible">
+    <div class="col-md-8">
+        <head>
+            <!-- Plotly.js -->
+            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        </head>
+        <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+    </div>
+    <!-- Adding Legend -->
+    <div id= "legend" class="col-md-2 aix-invisible" style="padding-top: 80px; padding-right:10px;">
+        <div id="legend_lang"> </div>
+        <div id="legend_class">
+            <svg height="30" width="30" >
+                <circle cx="15" cy="15" r="10" stroke="black" stroke-width="3" fill="white"/>
+            </svg>
+            <span style="padding-right:20px"> Government/Social </span>
+
+            <svg height="30" width="30" style="padding-left: 5px; padding-top:10px;">
+                <rect width="15" height="15" style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)" />
+                <!--<rect cx="15" cy="15" r="10" stroke="black" stroke-width="3" fill="white"/>-->
+            </svg>
+            <span style="padding-right:80px"> Markets </span>
+
+            <svg width="30" height="30" style="padding-left: 13px; padding-top:5px;">
+                <rect width="15" height="15" transform="rotate(45)" style="fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)" />
+                <!--<rect cx="15" cy="15" r="10" stroke="black" stroke-width="3" fill="white"/>-->
+            </svg>
+            <span style="padding-right:30px"> Corporate/Industry </span>
+
+            <svg height="40" width="30" style="padding-left:12px">
+                <path class="close-x" d="M 10,10 L 25,25 M 25,10 L 10,25" transform="rotate(45)" style="stroke: black; fill: transparent; stroke-linecap: round; stroke-width: 5;" />
+            </svg>
+            <span style="padding-right:0px"> Economics </span>
+        </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('multilingual.static', filename='multilingual_choose_doc.js') }}"></script>
+
+{% endblock %}
