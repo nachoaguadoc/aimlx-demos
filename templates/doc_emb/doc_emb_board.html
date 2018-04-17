@@ -1,0 +1,108 @@
+        <style>
+        #doc_block{
+          width: 50%;
+          float:left;
+        }
+        #html_doc{
+          position: relative;
+          height: 600px;
+          color: rgba(0, 0, 0, 0.2);
+          overflow: scroll;
+          }
+
+
+        #div_list_kp{
+            float:right;
+            width:50%
+        }
+
+        .list-group-item:hover{
+          background-color: rgba(240, 240, 240, 0.5);
+        }
+
+    .kp{
+        position: relative;
+        color:rgba(255, 0, 0, 0.5);
+        font-weight: bold;
+        display:inline;
+     }
+
+     .list-group-item{
+       color:rgba(0, 16, 85, 1)
+     }
+
+
+    .start:hover{
+        color:black;
+    }
+
+    .start:hover .kp{
+        color:rgba(255, 0, 0, 1);
+    }
+    </style>
+
+
+    <div class="container">
+        <div id="upper_block" class="row">
+          <div id="flat_method_name" class="col-xs-8 col-xs-offset-2">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-xs-3"><font color="green"><center>{{category}}</center></font></div>
+                  <div class="col-xs-9"><b><center>{{ title }}</center></b></div>
+                </div>
+              </li>
+            </li>
+          </div>
+        </div>
+        <div id="lower_block" class="row">
+            <div id="flat" class="col-xs-6">
+                <div id="flat_method_block" class="row">
+                    <div id="flat_method_name" class="col-xs-6 col-xs-offset-3">
+                      <ul class="list-group">
+                        <li class="list-group-item"><font color="#001055"><h4><b><center>Flat Average</center></h4></b></font></li>
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col-xs-4"><b><right>Prediction</right></b></div>
+                            <div class="col-xs-8">{{ flat_prediction | safe }}</div>
+                          </div>
+                        </li>
+                      </li>
+                    </div>
+                </div>
+                <div id="flat_list_block" class="row">
+                    <div id="flat_div_list_kp" class="col-xs-12">
+                        <ul id="flat_list_kp" class="list-group">
+                        {% for keyphrase in flat_list_kp %}
+                            <li class="list-group-item"><div class='row'>{{keyphrase | safe}}</div></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="structured" class="col-xs-6">
+                <div id="structured_method_block" class="row">
+                    <div id="structured_method_name" class="col-xs-6 col-xs-offset-3">
+                      <ul class="list-group">
+                        <li class="list-group-item"><font color="#001055"><h4><b><center>Tree-Structured Average</center></h4></b></font></li>
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col-xs-4"><b><right>Prediction</right></b></div>
+                            <div class="col-xs-8">{{ structured_prediction | safe }}</div>
+                          </div>
+                        </li>
+                      </li>
+                    </div>
+                </div>
+                <div id="structured_list_block" class="row">
+                    <div id="structured_div_list_kp" class="col-xs-12">
+                        <ul id="structured_list_kp" class="list-group">
+                        {% for keyphrase in structured_list_kp %}
+                            <li class="list-group-item"><div class='row'>{{keyphrase | safe}}</div></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
