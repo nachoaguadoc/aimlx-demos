@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/sdx.min.css" />    
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+
+
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+        <div id="root">
+          
+        </div>
+
+        <canvas id="myCanvas" style="background: white;"></canvas>
+        <legend for="myCanvas"></legend>
+        <script type="text/javascript" src="script.js"></script>
+        
+        <style>
+          .chart div {
+            font: 10px TheSans,sans-serif;
+            background-color: #1781e3;
+            text-align: right;
+            padding: 4px;
+            margin: 2px;
+            color: black;
+          }
+        </style>
+        <div class="chart" id='chartprobs' style="display: none; width: 500px; align-content: center; margin-top: 50px; margin-left: auto; margin-right: auto;">
+          <div id="ger" style="width: 100px;">German</div>
+          <div id="fre" style="width: 250px;">French</div>
+          <div id="ita" style="width: 150px;">Italian</div>
+          <div id="eng" style="width: 400px;">English</div>
+        </div>
+        <!-- <div class="bg" id='chartprobs' style="display: none; width: 800px; align-content: center; margin-top: 50px; margin-left: auto; margin-right: auto;">
+            <h4>Here are my probabilities</h4>
+            <div class="bar-chart-vertical" data-max="300">
+              <div class="js-data-list">
+                <div id="ger" style="width: 100px;">German</div>
+                <div id="fre" style="width: 250px;">French</div>
+                <div id="ita" style="width: 150px;">Italian</div>
+                <div id="eng" style="width: 400px;">English</div>
+                <div class="js-data" data-value="0" data-class="hidden-phone-down">Apr</div>
+                <div class="js-data" data-value="80" data-class="hidden-phone-down">May</div>
+              </div>
+              <div class="chart-wrapper">
+                <ul class="bar-chart__grid">
+                  <li><div class="axis-y-label">300</div></li>
+                  <li><div class="axis-y-label">200</div></li>
+                  <li><div class="axis-y-label">100</div></li>
+                </ul>
+                <ul class="chart js-chart"></ul>
+              </div>
+            </div>
+          </div> -->
+    
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+
+
+  </body>
+</html>
