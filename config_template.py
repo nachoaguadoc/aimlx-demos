@@ -69,9 +69,6 @@ churn = {
     'e_host': '',
     'e_port': ''
 }
-tweet_label = {
-    'api_url': ''
-}
 argumentation = {
     'url': ''
 }
@@ -84,6 +81,10 @@ sfid = {
 }
 
 speech_emotion = {
+    'url': ''
+}
+
+lid = {
     'url': ''
 }
 
