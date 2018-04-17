@@ -112,3 +112,5 @@ ENV/
 # compiled css files
 static/ui-kit/custom/css
 static/ui-kit/custom/scss/**/*.css
+static/assets/.DS_Store
+static/assets/.DS_Store
