@@ -135,6 +135,7 @@
   border-radius: 5px;
   height: 104px;
   margin-bottom: 16px;
+  height: 400px;
   cursor: pointer; }
   .sample-box:hover {
     background-color: #EEF3F6; }
