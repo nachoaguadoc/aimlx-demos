@@ -45,8 +45,10 @@ from material import material
 from chestxray import chestxray
 from sid import sid
 from data_selection import data_selection
+import os
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
 
