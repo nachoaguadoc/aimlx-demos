@@ -11,7 +11,7 @@ def label_tweet_home():
 
     if request.method == 'POST':
         username = request.form['username']
-        print('Continue with user logged as: {}'.format(username))
+        # print('Continue with user logged as: {}'.format(username))
         session['username'] = username
 
         return redirect(url_for('tweet_label.tweet_db'))
@@ -28,7 +28,6 @@ def tweet_db():
     try:
         response = requests.post(conf.tweet_label['api_url'] + 'db_list', data=session['username'])
         files = json.loads(response.text)
-        print('files', files)
     except Exception as e:
         files = []
 
