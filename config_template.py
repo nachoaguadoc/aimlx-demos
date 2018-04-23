@@ -128,6 +128,9 @@ multilingual = {
 sid = {
     'url': ''
 }
+lid = {
+    'url': ''
+}
 data_selection = {
     'url': ''
 }
