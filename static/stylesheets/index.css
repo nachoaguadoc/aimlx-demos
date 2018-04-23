@@ -2,33 +2,33 @@ h1 {
 	font-weight: 100;
 }
 
-#working .demo_name {
+.featured.demo_name {
 	font-size: 20px;
     font-weight: 400;
     margin: 5px;
     text-align: right;
 }
-#previous .demo_name {
+.legacy.demo_name {
 	font-size: 20px;
     font-weight: 200;
     margin: 5px;
     text-align: right;
 }
-#working .demo_url {
+.featured.demo_url {
 	font-size: 20px;
     font-weight: 400;
     margin: 5px;
     text-align: left;
 }
 
-#previous .demo_url {
+.legacy.demo_url {
 	font-size: 20px;
     font-weight: 200;
     margin: 5px;
     text-align: left;
 }
 
-#banner_row {
+.banner_row {
 	margin-bottom: 20px;
 }
 
