@@ -1,36 +1,19 @@
 {
   "EN": {
-    "churn": [
-      "Looks like it is churny for {}. Is it correct ?"
-    ],
-    "no_churn": [
-      "Looks like it is not churny for {}! Is is correct ?"
-    ],
-    "fooled": [
-      "You fooled me",
-      "I was right ;)"
-    ],
-    "msg": [
-      "Unable to process the tweet ... please try again later",
-      "No more brands to detect, please enter a new sentence !"
-    ]
+    "churn": "Looks like it is churny for {}. Is it correct ?",
+    "no_churn": "Looks like it is not churny for {}! Is is correct ?",
+    "fooled": "You fooled me",
+    "not_fooled": "I was right ;)",
+    "unknown": "I do not understand your answer...",
+    "next": "No brands to analyse. Let's try another example!"
   },
-
   "DE": {
-    "churn": [
-      " Das ist churny für {}! Versuch es noch einmal. Ist es richtig?"
-    ],
-    "no_churn": [
-      "Sie sprechen über {}, aber nicht auf eine churnyge Art. Ist es richtig?"
-    ],
-    "fooled": [
-      "Ich lag falsch ...",
-      "Ich hatte Recht ;)"
-    ],
-    "msg": [
-      "Verbindung zum Server nicht möglich ... Bitte versuchen Sie es später noch einmal",
-      "Keine Telekommunikationsmarken mehr zu erkennen! Bitte geben Sie einen neuen Satz ein !"
-    ]
+    "churn": "Das ist churny für {}! Versuch es noch einmal. Ist es richtig?",
+    "no_churn": "Sie sprechen über {}, aber nicht auf eine churnyge Art. Ist es richtig?",
+    "fooled": "Ich lag falsch ...",
+    "not_fooled": "Ich hatte Recht ;)",
+    "unknown": "Ich verstehe Ihre Antwort nicht...",
+    "next": "Keine Telekommunikationsmarken zu analysieren. Versuchen wir ein anderes Beispiel!"
   }
 
 }

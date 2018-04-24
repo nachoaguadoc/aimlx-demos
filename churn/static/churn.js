@@ -18,17 +18,15 @@ function formatAnswer(label, brand, lang) {
 
     var sentence = '{}';
     var brand_color = '';
-    console.log(lang, answers);
 
     if(label === 1) {
-        sentence = answers[lang]['churn'][0];
+        sentence = answers[lang]['churn'];
         brand_color = joinWithColor([brand], 'red');
     } else {
-        sentence = answers[lang]['no_churn'][0];
+        sentence = answers[lang]['no_churn'];
         brand_color = joinWithColor([brand], 'green');
     }
 
-    console.log(sentence, brand_color)
     return sentence.replace('{}', brand_color)
 
 }
@@ -56,8 +54,66 @@ ChatbotLayout.config(
     }
 );
 
+var lang = 'EN';
+var churn = null;
+var input_text = '';
+var STATE = 'input';
+
 function submit(input) {
-    var url = "/churn";
+
+    // Send message and wait for answer
+    if(STATE === 'input') {
+        get_prediction(input)
+    } else {
+        set_prediction(input)
+    }
+}
+
+function post_next_msg() {
+
+    if(churn !== null && churn.length === 0) {
+        STATE = 'input'
+    }
+
+    // Send message and wait for answer
+    if(STATE === 'input') {
+        ChatbotLayout.pushMessage('<p>' + answers[lang]['next'] + '</p>', 'bot', 'smile');
+    } else {
+        var id_next = churn.length - 1;
+        var brand = churn[id_next][0];
+        var label = churn[id_next][1];
+        ChatbotLayout.pushMessage(
+            '<p>' + formatAnswer(label, brand, lang) + '</p>',
+                    'bot', getEmotion(label));
+    }
+}
+
+
+function set_prediction(input) {
+    if (['yes', 'yeah', 'ja', 'yup'].indexOf(input.toLowerCase()) >= 0) {
+        // Is right
+        ChatbotLayout.pushMessage('<p>' + answers[lang]['not_fooled'] + '</p>', 'bot', 'smile');
+        console.log(churn[churn.length - 1][1]);
+        send_label(input_text, churn[churn.length - 1][0], churn[churn.length - 1][1], lang);
+        churn.pop();
+    } else if(['no', 'nope', 'nein'].indexOf(input.toLowerCase()) >= 0) {
+        // Is wrong
+        ChatbotLayout.pushMessage('<p>' + answers[lang]['fooled'] + '</p>', 'bot', 'angry');
+        console.log(churn[churn.length - 1][1]);
+        console.log(1-churn[churn.length - 1][1]);
+        send_label(input_text, churn[churn.length - 1][0], 1-churn[churn.length - 1][1], lang);
+        churn.pop();
+    } else {
+        // Unknown
+        ChatbotLayout.pushMessage('<p>' + answers[lang]['unknown'] + '</p>', 'bot', 'no_answer')
+    }
+
+    post_next_msg()
+
+}
+
+function get_prediction(input) {
+    var url = "/churn/get_prediction";
     var data = {"input": input};
     $.ajax({
         type: "POST",
@@ -67,27 +123,32 @@ function submit(input) {
         success: function (data) {
 
             data = JSON.parse(data);
-
-            if(data["lang"] !== undefined && data["label_answer"] !== undefined) {
-                // Non proper response, ask for new text
-                if(parseInt(data["label_answer"]) === 0) {
-                    ChatbotLayout.pushMessage('<p>' + answers[data["lang"]]['fooled'][0] + '</p>', 'bot', 'angry')
-                } else {
-                    ChatbotLayout.pushMessage('<p>' + answers[data["lang"]]['fooled'][1] + '</p>', 'bot', 'smile')
-                }
+            // Save new data
+            STATE = 'labelling';
+            input_text = input;
+            if(data["lang"] !== undefined) {
+                lang = data["lang"]
+            }
+            if(data["churn"] !== undefined) {
+                churn = data["churn"]
             }
 
-            if(data["lang"] !== undefined && data["label"] !== undefined && data["brand"] !== undefined) {
-                // Non proper response, ask for new text
-                ChatbotLayout.pushMessage('<p>' + formatAnswer(data["label"], data["brand"], data["lang"]) + '</p>',
-                    'bot', getEmotion(data["label"]));
-            } else if (data["msg"] !== undefined && data["lang"] !== undefined) {
-                // console.log(answers[data["lang"]]);
-                ChatbotLayout.pushMessage('<p>' + answers[data["lang"]]['msg'][data["msg"]] + '</p>', 'bot', 'smile')
-            } else {
-                ChatbotLayout.pushMessage('<p> I was not designed to do this </p>', 'bot', 'no_answer')
-            }
+            console.log('Process', input_text, 'in', lang, '\n', churn);
 
+            post_next_msg()
+        }
+    });
+}
+
+function send_label(text, brand, label, lang) {
+    var url = "/churn/send_label";
+    var data = {"text": text, "lang": lang, "brand": brand, "label": label};
+    $.ajax({
+        type: "POST",
+        url: url,
+        contentType: 'application/json',
+        data: JSON.stringify(data, null, '\t'),
+        success: function (data) {
         }
     });
 }

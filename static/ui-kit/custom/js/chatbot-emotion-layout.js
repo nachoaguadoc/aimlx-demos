@@ -136,7 +136,7 @@ var ChatbotLayout = {
         if (this.dataInput.length >= this.minInputLength && !this.isLoading) {
             this.pushMessage(this.dataInput, 'client', '');
             this.submitFunction(this.dataInput);
-            this.setLoadingState();
+            // this.setLoadingState();
             $('#input-submit').val('')
         }
     },
