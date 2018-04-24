@@ -1,0 +1,28 @@
+{
+  "EN": {
+    "churn": [
+      "Looks like it is churny for {}. Is it correct ? Yes/No"
+    ],
+    "no_churn": [
+      "Looks like it is not churny for {}! Is is correct ? Yes/No"
+    ],
+    "msg": [
+      "Unable to process the tweet ... please try again later",
+      "No more brands to detect, please enter a new sentence !"
+    ]
+  },
+
+  "DE": {
+    "churn": [
+      " Das ist churny für {}! Versuch es noch einmal. Ist es richtig? Ja/Nein"
+    ],
+    "no_churn": [
+      "Sie sprechen über {}, aber nicht auf eine churnyge Art. Ist es richtig? Ja/Nein"
+    ],
+    "msg": [
+      "Verbindung zum Server nicht möglich ... Bitte versuchen Sie es später noch einmal",
+      "Keine Telekommunikationsmarken mehr zu erkennen! Bitte geben Sie einen neuen Satz ein !"
+    ]
+  }
+
+}

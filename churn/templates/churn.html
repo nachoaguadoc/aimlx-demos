@@ -1,0 +1,16 @@
+{% extends "ui-kit/chatbot_emotion_layout.html" %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block title %}Textual Churn Detection{% endblock %}
+
+{% block description %}Indicates whether the submitted text is churny.{% endblock %}
+
+{% block input_placeholder_text %}{{ super() }}{% endblock %}
+
+{% block samples %}{{ super() }}{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('churn.static', filename='churn.js') }}"></script>
+{% endblock %}

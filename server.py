@@ -22,7 +22,7 @@ import helpers
 import os
 
 from controller.chatbot_controller import chatbot_api
-from controller.churn_controller import churn_api
+from churn import churn
 from controller.argumentation_controller import argumentation_api
 from controller.kp_extraction_controller import kp_extraction_api
 from controller.doc_emb_controller import doc_emb_api
@@ -60,7 +60,7 @@ app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
 app.register_blueprint(neural_programmer_api, url_prefix='/neural_programmer')
 app.register_blueprint(opinion_target_api, url_prefix='/opinion')
-app.register_blueprint(churn_api, url_prefix='/churn')
+app.register_blueprint(churn, url_prefix='/churn')
 #app.register_blueprint(ner_api, url_prefix='/ner')
 app.register_blueprint(kp_extraction_api, url_prefix='/kp')
 app.register_blueprint(doc_emb_api, url_prefix='/doc_emb')

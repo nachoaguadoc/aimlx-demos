@@ -64,10 +64,7 @@ machine_translation_stdlangs = {
     'base_url': ''
 }
 churn = {
-    'path': '',
-    'python_env': '',
-    'e_host': '',
-    'e_port': ''
+    'api_url': ''
 }
 tweet_label = {
     'api_url': ''
