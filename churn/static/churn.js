@@ -68,15 +68,24 @@ function submit(input) {
 
             data = JSON.parse(data);
 
+            if(data["lang"] !== undefined && data["label_answer"] !== undefined) {
+                // Non proper response, ask for new text
+                if(parseInt(data["label_answer"]) === 0) {
+                    ChatbotLayout.pushMessage('<p>' + answers[data["lang"]]['fooled'][0] + '</p>', 'bot', 'angry')
+                } else {
+                    ChatbotLayout.pushMessage('<p>' + answers[data["lang"]]['fooled'][1] + '</p>', 'bot', 'smile')
+                }
+            }
+
             if(data["lang"] !== undefined && data["label"] !== undefined && data["brand"] !== undefined) {
                 // Non proper response, ask for new text
-                ChatbotLayout.pushMessage(formatAnswer(data["label"], data["brand"], data["lang"]),
+                ChatbotLayout.pushMessage('<p>' + formatAnswer(data["label"], data["brand"], data["lang"]) + '</p>',
                     'bot', getEmotion(data["label"]));
             } else if (data["msg"] !== undefined && data["lang"] !== undefined) {
                 // console.log(answers[data["lang"]]);
-                ChatbotLayout.pushMessage(answers[data["lang"]]['msg'][data["msg"]], 'bot', 'smile')
+                ChatbotLayout.pushMessage('<p>' + answers[data["lang"]]['msg'][data["msg"]] + '</p>', 'bot', 'smile')
             } else {
-                ChatbotLayout.pushMessage('I was not designed to do this', 'bot', 'no_answer')
+                ChatbotLayout.pushMessage('<p> I was not designed to do this </p>', 'bot', 'no_answer')
             }
 
         }
