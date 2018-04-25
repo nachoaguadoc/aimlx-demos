@@ -23,7 +23,7 @@ def identify():
         return response
 
 @speech_emotion.route('/record', methods=['POST'])
-def identify():
+def record():
     if request.method == 'POST':
         record_url = os.path.join(conf.speech_emotion['url'], "record")
         resp = requests.request(method=request.method, url=record_url, headers={key: value for (key, value) in request.headers if key != 'Host'}, data=request.get_data(), cookies=request.cookies, allow_redirects=False)
