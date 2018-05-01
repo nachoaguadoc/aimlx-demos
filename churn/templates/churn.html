@@ -4,11 +4,16 @@
 
 {% block title %}Textual Churn Detection{% endblock %}
 
-{% block description %}Indicates whether the submitted text is churny.{% endblock %}
+{% block description %}Indicates whether the submitted text is churny for the specified telecommunication company.{% endblock %}
 
 {% block input_placeholder_text %}{{ super() }}{% endblock %}
 
 {% block samples %}{{ super() }}{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <br> <a class="link" href="{{ url_for('churn.churn_description') }}">What is churn ?</a>
+{% endblock %}
 
 {% block scripts %}
     {{ super() }}

@@ -10,6 +10,11 @@ def getChurn():
     return render_template('churn.html')
 
 
+@churn.route('/description')
+def churn_description():
+    return render_template('churn_description.html')
+
+
 @churn.route('/get_prediction', methods=['POST'])
 def get_prediction():
     try:
