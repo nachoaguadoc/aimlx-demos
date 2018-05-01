@@ -1,0 +1,62 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block title %}Churn{% endblock %}
+
+{% block description %}What is churn ?{% endblock %}
+
+{% block input_placeholder_text %}{{ super() }}{% endblock %}
+
+{% block samples %}{{ super() }}{% endblock %}
+
+{% block content %}
+    <p>Unsatisfied clients might express their will to leave a specific company (<strong>BRAND</strong>).
+    This is what we call churn. We are listing here a list of basic example so you can understand it.</p>
+<div class="card card--dark card--notification">
+{#  <p class="card__text">Global roaming is now switched on</p>#}
+ <table style="width:100%">
+  <tr>
+    <th align="left">No</th>
+    <th align="left">Source</th>
+    <th align="left">Text</th>
+    <th align="left">Label</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>BRAND-1</td>
+    <td>I am leaving &lt<strong>BRAND-1</strong>&gt at the end of the month!</td>
+    <td> <span class="font--semi-bold int-red">Churn</span> </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>BRAND-1</td>
+    <td>I am fed up with &lt<strong>BRAND-1</strong>&gt! I’m switching to &lt<strong>BRAND-2</strong>&gt.</td>
+    <td> <span class="font--semi-bold int-red">Churn</span> </td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>BRAND-2</td>
+    <td>I am fed up with &lt<strong>BRAND-1</strong>&gt! I’m switching to &lt<strong>BRAND-2</strong>&gt.</td>
+    <td> <span class="font--semi-bold int-green">No churn</span> </td>
+  </tr>
+
+   <tr>
+    <td>4</td>
+    <td>BRAND-1</td>
+    <td>I am fed up with &lt<strong>BRAND-1</strong>&gt!</td>
+    <td> <span class="font--semi-bold int-green">No churn</span> </td>
+  </tr>
+</table>
+</div>
+
+<p><br>Note that for number 2 and 3, the text is the same. However th reference brand change.
+Indeed <strong>BRAND-2</strong> is not considered by the churny content since the user wants to join its service .
+For example 4 it is not churn as well. Expressing disagreement with a service does not necessary mean you will quit it. </p>
+
+<p> With the bot you can try yourself to enter text with either churny or non churny content. The aim of the bot
+will be to detect if the entry is churny or not. Please help us to improve bot performance by giving it feedback on its answers. </p>
+
+<br> <a class="link" href="{{ url_for('churn.getChurn') }}">Back</a>
+
+{%  endblock %}
