@@ -4,8 +4,13 @@
 
 {% block title %}Churn{% endblock %}
 
-{% block description %}What is churn ?{% endblock %}
-
+{% block description %}
+    {% if t is not none %}
+        What is churn ?
+    {% else %}
+        What is churn ? Tutorial (1/2)
+    {% endif %}
+{% endblock %}
 {% block input_placeholder_text %}{{ super() }}{% endblock %}
 
 {% block samples %}{{ super() }}{% endblock %}
@@ -57,6 +62,15 @@ For example 4 it is not churn as well. Expressing disagreement with a service do
 <p> With the bot you can try yourself to enter text with either churny or non churny content. The aim of the bot
 will be to detect if the entry is churny or not. Please help us to improve bot performance by giving it feedback on its answers. </p>
 
-<br> <a class="link" href="{{ url_for('churn.getChurn') }}">Back</a>
+    {% if t is not none %}
+        <div class="button-group">
+          <button class="button button--primary" onclick="window.location.href = '{{ url_for('churn.getChurn') }}';">Back</button>
+        </div>
+    {% else %}
+        <div class="button-group button-group--right">
+          <button class="button button--primary" onclick="window.location.href = '{{ url_for('churn.churn_examples') }}';">Next</button>
+        </div>
+    {% endif %}
+{#    <br> <a class="link" href="{{ url_for('churn.getChurn') }}">Back</a>#}
 
 {%  endblock %}
