@@ -60,7 +60,7 @@
     </td>
     <td id="result2"> - </td>
   </tr>
-   <tr>
+    <tr>
     <td>3</td>
     <td>BRAND-1</td>
     <td>Bye bye &lt<strong>BRAND-1</strong>&gt ! Finally my contract has ended :)</td>
@@ -77,6 +77,24 @@
         </div>
     </td>
     <td id="result3"> - </td>
+  </tr>
+    <tr>
+    <td>4</td>
+    <td>-</td>
+    <td>I will quit the company soon</td>
+    <td>
+        <div class="form-inline">
+            <div class="radio">
+            <input type='radio' name='dummy4' id='radio4-1' onclick="display_answer(1, 'result4')">
+            <label for='radio4-1'>Churn</label>
+            </div>
+            <div class="radio">
+            <input type='radio' name='dummy4' id='radio4-2' onclick="display_answer(0, 'result4')">
+            <label for='radio4-2'>No churn</label>
+            </div>
+        </div>
+    </td>
+    <td id="result4"> - </td>
   </tr>
 </table>
 </div>
@@ -104,7 +122,8 @@
 
         if(document.getElementById('radio1-2').checked
             && document.getElementById('radio2-2').checked
-            && document.getElementById('radio3-1').checked) {
+            && document.getElementById('radio3-1').checked
+            && document.getElementById('radio4-1').checked) {
             document.cookie = "tutorial=ok";
             document.getElementById("bu_next").classList.remove("disabled")
         }

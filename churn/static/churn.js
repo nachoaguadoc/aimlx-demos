@@ -57,7 +57,7 @@ function capitalizeFirstLetter(string) {
 ChatbotLayout.config(
     {
         sampleLink: "churn/static/samples.json",
-        textStartingConversation: 'Enter a sentence (EN/DE) that is either churny or non churny and I will try to guess the correct answer :)!',
+        textStartingConversation: 'Enter a sentence (EN/DE) that is either churny or non churny. Try to be creative :)!',
         submitFunction: submit
     }
 );
