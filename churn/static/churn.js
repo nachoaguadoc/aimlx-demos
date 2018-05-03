@@ -17,17 +17,25 @@ function getEmotion(label) {
 function formatAnswer(label, brand, lang) {
 
     var sentence = '{}';
-    var brand_color = '';
 
     if(label === 1) {
-        sentence = answers[lang]['churn'];
-        brand_color = joinWithColor([brand], 'red');
+        if(brand === '') {
+            sentence = answers[lang]['churn_no_brand'];
+        } else {
+            sentence = answers[lang]['churn'];
+            sentence = sentence.replace('{}', joinWithColor([brand], 'red'))
+        }
+
     } else {
-        sentence = answers[lang]['no_churn'];
-        brand_color = joinWithColor([brand], 'green');
+        if(brand === '') {
+            sentence = answers[lang]['no_churn_no_brand'];
+        } else {
+            sentence = answers[lang]['no_churn'];
+            sentence = sentence.replace('{}', joinWithColor([brand], 'green'))
+        }
     }
 
-    return sentence.replace('{}', brand_color)
+    return sentence
 
 }
 
@@ -49,7 +57,7 @@ function capitalizeFirstLetter(string) {
 ChatbotLayout.config(
     {
         sampleLink: "churn/static/samples.json",
-        textStartingConversation: 'Try to fool me! Enter a sentence (EN/DE) that is either churny or non churny !',
+        textStartingConversation: 'Enter a sentence (EN/DE) that is either churny or non churny. Try to be creative :)!',
         submitFunction: submit
     }
 );
@@ -82,11 +90,36 @@ function post_next_msg() {
         var id_next = churn.length - 1;
         var brand = churn[id_next][0];
         var label = churn[id_next][1];
+
         ChatbotLayout.pushMessage(
-            '<p>' + formatAnswer(label, brand, lang) + '</p>',
-                    'bot', getEmotion(label));
+            '<p>' + formatAnswer(label, brand, lang) + '</p>', 'bot', getEmotion(label));
+
+        // Add feed back
+        ChatbotLayout.pushMessage(
+            '<div class="button-group button-group--fill" style="inline-flex">' +
+                '<button onclick="answer_button(1)" class="button button--confirm" type="submit"><i class="fa fa-check-circle "></i></button> ' +
+                '<button onclick="answer_button(0)" class="button button--secondary" type="submit"><i class="fa fa-times-circle"></i></button> ' +
+            '</div>'
+            , 'bot', getEmotion(label));
     }
 }
+
+function answer_button(label) {
+
+    $('#chat-data .button--confirm').last().addClass('disabled');
+    $('#chat-data .button--confirm').last().attr("onclick","");
+    $('#chat-data .button--secondary').last().addClass('disabled');
+    $('#chat-data .button--secondary').last().attr("onclick","");
+
+    var msg = answers[lang]['yes'];
+    if(label === 0) {
+        msg = answers[lang]['no'];
+    }
+    ChatbotLayout.pushMessage(
+            '<p>' + msg + '</p>', 'client', '');
+    submit(msg)
+}
+
 
 
 function set_prediction(input) {

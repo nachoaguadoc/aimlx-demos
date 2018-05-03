@@ -1,0 +1,133 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block title %}Churn{% endblock %}
+
+{% block description %}What is churn ? Tutorial (2/2){% endblock %}
+
+{% block input_placeholder_text %}{{ super() }}{% endblock %}
+
+{% block samples %}{{ super() }}{% endblock %}
+
+{% block content %}
+
+    <p>Here are some examples. Try them to see if you understood properly the concept.</p>
+
+<div class="card card--dark card--notification">
+{#  <p class="card__text">Global roaming is now switched on</p>#}
+ <table style="width:100%">
+  <tr>
+    <th align="left">No</th>
+    <th align="left">Source</th>
+    <th align="left">Text</th>
+    <th align="left">Your answer</th>
+    <th align="left"></th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>BRAND-1</td>
+    <td>I don't like brand &lt<strong>BRAND-1</strong>&gt ...</td>
+    <td>
+        <div class="form-inline">
+            <div class="radio">
+            <input type='radio' name='dummy' id='radio1-1' onclick="display_answer(0, 'result1')">
+            <label for='radio1-1'>Churn</label>
+            </div>
+            <div class="radio">
+            <input type='radio' name='dummy' id='radio1-2' onclick="display_answer(1, 'result1')">
+            <label for='radio1-2'>No churn</label>
+            </div>
+        </div>
+    </td>
+    <td id="result1"> - </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>BRAND-1</td>
+    <td>I should go to &lt<strong>BRAND-1</strong>&gt! &lt<strong>BRAND-2</strong>&gt is so shitty ...</td>
+    <td>
+        <div class="form-inline">
+            <div class="radio">
+            <input type='radio' name='dummy2' id='radio2-1' onclick="display_answer(0, 'result2')">
+            <label for='radio2-1'>Churn</label>
+            </div>
+            <div class="radio">
+            <input type='radio' name='dummy2' id='radio2-2' onclick="display_answer(1, 'result2')">
+            <label for='radio2-2'>No churn</label>
+            </div>
+        </div>
+    </td>
+    <td id="result2"> - </td>
+  </tr>
+    <tr>
+    <td>3</td>
+    <td>BRAND-1</td>
+    <td>Bye bye &lt<strong>BRAND-1</strong>&gt ! Finally my contract has ended :)</td>
+    <td>
+        <div class="form-inline">
+            <div class="radio">
+            <input type='radio' name='dummy3' id='radio3-1' onclick="display_answer(1, 'result3')">
+            <label for='radio3-1'>Churn</label>
+            </div>
+            <div class="radio">
+            <input type='radio' name='dummy3' id='radio3-2' onclick="display_answer(0, 'result3')">
+            <label for='radio3-2'>No churn</label>
+            </div>
+        </div>
+    </td>
+    <td id="result3"> - </td>
+  </tr>
+    <tr>
+    <td>4</td>
+    <td>-</td>
+    <td>I will quit the company soon</td>
+    <td>
+        <div class="form-inline">
+            <div class="radio">
+            <input type='radio' name='dummy4' id='radio4-1' onclick="display_answer(1, 'result4')">
+            <label for='radio4-1'>Churn</label>
+            </div>
+            <div class="radio">
+            <input type='radio' name='dummy4' id='radio4-2' onclick="display_answer(0, 'result4')">
+            <label for='radio4-2'>No churn</label>
+            </div>
+        </div>
+    </td>
+    <td id="result4"> - </td>
+  </tr>
+</table>
+</div>
+
+<br>
+<div class="button-group button-group--right">
+  <button class="button button--primary" onclick="window.location.href = '{{ url_for('churn.churn_description') }}';">Back</button>
+  <button class="button button--primary disabled" id="bu_next" onclick="window.location.href = '{{ url_for('churn.getChurn') }}';">Next</button>
+</div>
+
+
+{%  endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+
+    function display_answer(is_correct, id_result) {
+        var text = "<span class='font--semi-bold int-green'>correct</span>";
+        if(is_correct !== 1) {
+            text = "<span class='font--semi-bold int-red'>wrong</span>";
+        }
+        document.getElementById(id_result).innerHTML = text;
+
+        if(document.getElementById('radio1-2').checked
+            && document.getElementById('radio2-2').checked
+            && document.getElementById('radio3-1').checked
+            && document.getElementById('radio4-1').checked) {
+            document.cookie = "tutorial=ok";
+            document.getElementById("bu_next").classList.remove("disabled")
+        }
+    }
+
+    </script>
+{% endblock %}

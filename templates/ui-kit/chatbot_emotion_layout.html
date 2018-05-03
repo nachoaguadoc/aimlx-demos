@@ -3,10 +3,14 @@
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='ui-kit/custom/css/chatbot-layout.css') }}">
     {#Child template header information#}
+    <style>
+    nav ul{overflow:hidden; overflow-y:scroll;}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 {% block content %}
     <div class="row aix-row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="chat-area">
                 <div id="chat-data" class="chat-area__history">
                     {#Speech bubbles will be added here automatically.#}
@@ -19,6 +23,26 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-2">
+
+            <h2>Supported brands</h2>
+            <ul class="list">
+              <li>Swisscom</li>
+              <li>Salt</li>
+              <li>Sunrise</li>
+              <li>UPC</li>
+              <li>SFR</li>
+              <li>Orange</li>
+              <li>O2</li>
+              <li>Vodafone</li>
+              <li>...</li>
+            </ul>
+
+        </div>
+    </div>
+
+{#        </div>
 {#        <div class="col-lg-3">#}
 {#            {% block samples %}#}
 {#                <div class="sample-container aix-invisible">#}
@@ -32,7 +56,7 @@
 {#                        <div class="loader-spinner loader-spinner--large loader-spinner--plain"></div>#}
 {#                    </div>#}
 {#                    <div id="sample-data" class="row">#}
-                        {#Samples will be added here automatically#}
+{#                        Samples will be added here automatically#}
 {#                    </div>#}
 {#                </div>#}
 {#            {% endblock %}#}
