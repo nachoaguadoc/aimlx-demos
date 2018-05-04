@@ -1,0 +1,89 @@
+{% extends "ui-kit/site_layout.html" %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block title %}Churn{% endblock %}
+
+{% block description %}
+    {% if t is not none %}
+        What is churn ?
+    {% else %}
+        What is churn ? Tutorial (1/2)
+    {% endif %}
+{% endblock %}
+{% block input_placeholder_text %}{{ super() }}{% endblock %}
+
+{% block samples %}{{ super() }}{% endblock %}
+
+{% block content %}
+    <p>Unsatisfied clients might express their will to leave a specific company (<strong>BRAND</strong>).
+    This is what we call churn. We are listing here a list of basic examples so you can understand it.</p>
+<div class="card card--dark card--notification">
+{#  <p class="card__text">Global roaming is now switched on</p>#}
+ <table style="width:100%">
+  <tr>
+    <th align="left">No</th>
+    <th align="left">Source</th>
+    <th align="left">Text</th>
+    <th align="left">Label</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>BRAND-1</td>
+    <td>I am leaving &lt<strong>BRAND-1</strong>&gt at the end of the month!</td>
+    <td> <span class="font--semi-bold int-red">Churn</span> </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>BRAND-1</td>
+    <td>I am fed up with &lt<strong>BRAND-1</strong>&gt! I’m switching to &lt<strong>BRAND-2</strong>&gt.</td>
+    <td> <span class="font--semi-bold int-red">Churn</span> </td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>BRAND-2</td>
+    <td>I am fed up with &lt<strong>BRAND-1</strong>&gt! I’m switching to &lt<strong>BRAND-2</strong>&gt.</td>
+    <td> <span class="font--semi-bold int-green">No churn</span> </td>
+  </tr>
+
+   <tr>
+    <td>4</td>
+    <td>BRAND-1</td>
+    <td>I don't like &lt<strong>BRAND-1</strong>&gt!</td>
+    <td> <span class="font--semi-bold int-green">No churn</span> </td>
+  </tr>
+
+    <tr>
+    <td>5</td>
+    <td>-</td>
+    <td>I will leave your service at the end of the month!</td>
+    <td> <span class="font--semi-bold int-red">Churn</span> </td>
+  </tr>
+</table>
+</div>
+
+<p><br>1. It is churn since the user is clear about his will to leave <strong>BRAND-1</strong>.</p>
+
+<p>2-3. The text is the same for both examples, however the reference brand is different.
+In this case, <strong>BRAND-2</strong> is not considered by the churny content since the user wants to join its service.
+</p>
+
+<p>4. It is not churn as well since expressing disagreement with a service does not necessary mean you will quit it. </p>
+
+<p>5. Here we don't have source brand. The user directly says he wants to leave the service.</p>
+
+<p> With the bot, you can try yourself to enter text with either churny or non churny content. The aim of the bot
+will be to detect if the entry is churny or not. Please help us to improve the bot performance by giving it feedback on its answers. </p>
+
+    {% if t is not none %}
+        <div class="button-group">
+          <button class="button button--primary" onclick="window.location.href = '{{ url_for('churn.getChurn') }}';">Back</button>
+        </div>
+    {% else %}
+        <div class="button-group button-group--right">
+          <button class="button button--primary" onclick="window.location.href = '{{ url_for('churn.churn_examples') }}';">Next</button>
+        </div>
+    {% endif %}
+{#    <br> <a class="link" href="{{ url_for('churn.getChurn') }}">Back</a>#}
+
+{%  endblock %}
