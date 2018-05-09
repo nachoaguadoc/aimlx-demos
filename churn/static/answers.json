@@ -2,8 +2,8 @@
   "EN": {
     "churn": "It is churny for {}. Is it correct ?",
     "churn_no_brand": "It is churny. Is it correct ?",
-    "no_churn": "It is not churny for {}! Is is correct ?",
-    "no_churn_no_brand": "It is not churny! Is is correct ?",
+    "no_churn": "It is not churny for {}! Is it correct ?",
+    "no_churn_no_brand": "It is not churny! Is it correct ?",
     "fooled": "You fooled me",
     "not_fooled": "I was right ;)",
     "unknown": "I do not understand your answer...",
