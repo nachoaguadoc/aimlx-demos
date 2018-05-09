@@ -11,6 +11,20 @@
 {% block samples %}{{ super() }}{% endblock %}
 
 {% block content %}
+    <div id="banner" class="notification-header notification--open">
+    <div class="notification__content">
+    <div class="notification__body">
+        <bold>Note that the aim is not to fool the bot. Please try examples that come from real life situations.</bold>
+    </div>
+    <button class="notification__close notification-cancel" aria-label="Close"
+            onclick="document.getElementById('banner').classList.remove('notification--open')">
+        <i class="icon icon-022-close" aria-hidden="true"></i>
+    </button>
+    </div>
+    </div>
+
+    <br>
+
     {{ super() }}
     <br> <a class="link" href="{{ url_for('churn.churn_description') }}">What is churn ?</a>
 {% endblock %}

@@ -59,9 +59,10 @@ def translation():
     if 'text' not in request.form:
         return 'No valid text'
 
-    text = request.form['text'].replace('&lt;', '<').replace('&gt;', '>')
-    data = json.dumps({'text': text})
-    response = requests.post(conf.tweet_label['api_url'] + 'translation', data=data)
-
-    return response.text
-
+    try:
+        text = request.form['text'].replace('&lt;', '<').replace('&gt;', '>')
+        data = json.dumps({'text': text})
+        response = requests.post(conf.tweet_label['api_url'] + 'translation', data=data)
+        return response.text
+    except Exception as e:
+        return 'No translation'
