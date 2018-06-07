@@ -1,55 +1,36 @@
-import re
-import select
-import socket
-import subprocess
-import sys
-from multiprocessing import Value
-import json
-import base64
-import requests
+import os
 
-from flask import Flask, abort
-from flask import jsonify
+from flask import Flask
 from flask import render_template
-from flask import request, send_from_directory
 from flask_cors import CORS
 from flask_scss import Scss
 
-import json
-import config as conf
-import jsonpickle
-import helpers
-import os
-
-from controller.chatbot_controller import chatbot_api
+from argumentation import argumentation
+from chestxray import chestxray
 from churn import churn
-from controller.argumentation_controller import argumentation_api
-from controller.kp_extraction_controller import kp_extraction_api
+from controller.chatbot_controller import chatbot_api
 from controller.doc_emb_controller import doc_emb_api
-from controller.machine_translation_controller import machine_translation_api
 from controller.gsw_controller import gsw_api
-#from controller.ner_controller import ner_api
+from controller.kp_extraction_controller import kp_extraction_api
+from controller.machine_translation_controller import machine_translation_api
+# from controller.ner_controller import ner_api
 from controller.neural_programmer_controller import neural_programmer_api
 from controller.opinion_target_controller import opinion_target_api
+from controller.seq2sql_controller import seq2sql_api
 from controller.sfid_controller import sfid_api
 from controller.slot_filling_controller import slot_filling_api
-from controller.seq2sql_controller import seq2sql_api
-from controller.sid_controller import sid_api
-
-from sfid import sfid
-from argumentation import argumentation
-from summarization import summarization
-from tweet_label import tweet_label
-from grocery import grocery
+from data_selection import data_selection
 from emotion import emotion
 from go_chatbot import go_chatbot
-from material import material
-from chestxray import chestxray
-from multilingual import multilingual
-from sid import sid
+from grocery import grocery
 from lid import lid
-from data_selection import data_selection
+from material import material
+from multilingual import multilingual
+from sfid import sfid
+from sid import sid
 from speech_emotion import speech_emotion
+from summarization import summarization
+from tweet_label import tweet_label
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
