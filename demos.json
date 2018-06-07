@@ -1,0 +1,128 @@
+[
+  {
+    "title": "Chatbot Goal Oriented",
+    "description": "",
+    "link": "go_chatbot",
+    "type": "chatbot",
+    "category": "Demo"
+  },
+  {
+    "title": "Slot Filling and Intent Detection",
+    "description": "",
+    "link": "sfid",
+    "type": "chatbot",
+    "category": "Demo"
+  },
+  {
+    "title": "SQL Chatbot",
+    "description": "",
+    "link": "seq2sql",
+    "type": "chatbot",
+    "category": "Demo"
+  },
+  {
+    "title": "Tweet Label",
+    "description": "",
+    "link": "tweet_label",
+    "type": "text",
+    "category": "Labelling"
+  },
+  {
+    "title": "Multilingual Embeddings",
+    "description": "",
+    "link": "multilingual",
+    "type": "text",
+    "category": "Demo"
+  },
+  {
+    "title": "Key Phrase Extraction",
+    "description": "",
+    "link": "kp",
+    "type": "text",
+    "category": "Demo"
+  },
+  {
+    "title": "Key Phrase Extraction (Group)",
+    "description": "",
+    "link": "kp/emb",
+    "type": "text",
+    "category": "Demo"
+  },
+  {
+    "title": "Long Document Classification",
+    "description": "",
+    "link": "doc_emb",
+    "type": "text",
+    "category": "Demo"
+  },
+  {
+    "title": "Summarization",
+    "description": "",
+    "link": "summarization",
+    "type": "text",
+    "category": "Demo"
+  },
+  {
+    "title": "Argumentation",
+    "description": "",
+    "link": "argumentation",
+    "type": "text",
+    "category": "Demo"
+  },
+  {
+    "title": "GSW",
+    "description": "",
+    "link": "gsw",
+    "type": "text",
+    "category": "Demo"
+  },
+  {
+    "title": "Machine Translation",
+    "description": "",
+    "link": "translate",
+    "type": "text",
+    "category": "Demo"
+  },
+  {
+    "title": "Speaker Identification",
+    "description": "",
+    "link": "sid",
+    "type": "speech",
+    "category": "Demo"
+  },
+  {
+    "title": "Language Identification",
+    "description": "",
+    "link": "lid",
+    "type": "speech",
+    "category": "Demo"
+  },
+  {
+    "title": "Data Selection",
+    "description": "",
+    "link": "data_selection",
+    "type": "speech",
+    "category": "Demo"
+  },
+  {
+    "title": "Speech Emotion Recognition",
+    "description": "",
+    "link": "speech_emotion",
+    "type": "speech",
+    "category": "Demo"
+  },
+  {
+    "title": "Emotion Recognition",
+    "description": "",
+    "link": "emotion",
+    "type": "image",
+    "category": "Demo"
+  },
+  {
+    "title": "Grocery Identification",
+    "description": "",
+    "link": "grocery",
+    "type": "image",
+    "category": "Demo"
+  }
+]
