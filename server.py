@@ -12,6 +12,7 @@ from controller.chatbot_controller import chatbot_api
 from controller.doc_emb_controller import doc_emb_api
 from controller.gsw_controller import gsw_api
 from controller.kp_extraction_controller import kp_extraction_api
+from controller.landingpage_controller import landingpage_api
 from controller.machine_translation_controller import machine_translation_api
 # from controller.ner_controller import ner_api
 from controller.neural_programmer_controller import neural_programmer_api
@@ -37,6 +38,7 @@ app.secret_key = os.urandom(24)
 CORS(app)
 Scss(app, static_dir='static/ui-kit/custom/css', asset_dir='static/ui-kit/custom/scss')
 
+app.register_blueprint(landingpage_api, url_prefix='/')
 app.register_blueprint(seq2sql_api, url_prefix='/seq2sql')
 app.register_blueprint(chatbot_api, url_prefix='/chatbot')
 app.register_blueprint(neural_programmer_api, url_prefix='/neural_programmer')
@@ -68,16 +70,5 @@ app.register_blueprint(lid, url_prefix='/lid')
 app.register_blueprint(speech_emotion, url_prefix='/speech_emotion')
 
 
-@app.route('/')
-def getIndex():
-    return render_template('index.html')
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('error.html'), 404
-
-
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
-    
