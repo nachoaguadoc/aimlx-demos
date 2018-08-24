@@ -1,56 +1,3 @@
-.chat-area{
-    min-height: 250px;
-    /* background-color: #F8FAFB; */
-}
-a+a,a+a.link,a+button.link,a.link+a,a.link+a.link,a.link+button.link,button.link+a,button.link+a.link,button.link+button.link{
-    margin-left:0px !important
-}
-#html_doc {
-    position: relative;
-    max-height: 700px;
-    color: rgba(0, 0, 0, 0.2);
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-.kp {
-    position: relative;
-    color: rgba(255, 0, 0, 0.5);
-    font-weight: bold;
-    display: inline;
-}
-/* .start:hover {
-    color: black;
-}
-
-.start:hover .kp {
-    color: rgba(255, 0, 0, 1);
-} */
-
-.just-padding {
-    padding: 15px;
-}
-
-#list-group {
-    padding: 0;
-    overflow: hidden;
-}
-
-.list-group-item:hover{
-    background-color: #E4E9EC;
-}
-
-#list-group{
-    margin-top: -20px;
-    position: relative;
-    max-height: 700px;
-    color: black;
-    font-weight: bold;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background-color: #FFFFFF;
-}
-
 #custom-search-input{
     padding: 3px;
     border: solid 1px #E4E4E4;
@@ -137,7 +84,7 @@ a+a,a+a.link,a+button.link,a.link+a,a.link+a.link,a.link+button.link,button.link
 }
 #banner {
     width: 50%;
-    margin-top: 2%;
+    margin-top: 5%;
 }
 
 .answer_box {
