@@ -1,31 +1,31 @@
 .chat-area{
-    min-height: 250px;
-    /* background-color: #F8FAFB; */
+    min-height: 400px;
+    background-color: #F8FAFB;
 }
+
 a+a,a+a.link,a+button.link,a.link+a,a.link+a.link,a.link+button.link,button.link+a,button.link+a.link,button.link+button.link{
-    margin-left:0px !important
+    margin-left:0px !important;
 }
+
 #html_doc {
     position: relative;
     max-height: 700px;
-    color: rgba(0, 0, 0, 0.2);
+    color:black;
     overflow-y: scroll;
     overflow-x: hidden;
+    background-color: #F8FAFB;
+}
+
+.container{
+    margin-top: 20px;
 }
 
 .kp {
     position: relative;
-    color: rgba(255, 0, 0, 0.5);
+    color:  #BE0000;
     font-weight: bold;
     display: inline;
 }
-/* .start:hover {
-    color: black;
-}
-
-.start:hover .kp {
-    color: rgba(255, 0, 0, 1);
-} */
 
 .just-padding {
     padding: 15px;
@@ -36,8 +36,11 @@ a+a,a+a.link,a+button.link,a.link+a,a.link+a.link,a.link+button.link,button.link
     overflow: hidden;
 }
 
-.list-group-item:hover{
-    background-color: #E4E9EC;
+b{
+    font-weight: 600 !important;
+}
+.list-group-item{
+    border: none;
 }
 
 #list-group{
@@ -45,7 +48,6 @@ a+a,a+a.link,a+button.link,a.link+a,a.link+a.link,a.link+button.link,button.link
     position: relative;
     max-height: 700px;
     color: black;
-    font-weight: bold;
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: #FFFFFF;

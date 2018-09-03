@@ -13,45 +13,56 @@ $.ajax({
   data: JSON.stringify(data),
   success: function(data) {
         //Process the JSON
-        console.log(data);
         $("#spinner").remove();
         var Itemlist = document.getElementById("list-group");
 
         //Loop trough the JSON
         data.api_result.forEach(function(element) {
-        element.relevance *=100;
+        element.relevance *= 100;
         var getProcent= element.relevance ;
-        Itemlist.insertAdjacentHTML( 'beforeend',"<li data-time='"+getProcent+"' class='list-group-item' style='background : linear-gradient(90deg, #90EE90 "+getProcent+"%, #FFFFFF 0%); text-shadow: none'>"+ "  " +element.label + " </li>"); 
+        Itemlist.insertAdjacentHTML( 'beforeend',"<li data-time='"+getProcent+"' class='list-group-item' style='background : linear-gradient(90deg, #c6e3fd "+getProcent+"%, #FFFFFF 0%); text-shadow: none'>"+ "  " +"<b>"+element.label +"</b>"+ " </li>"); 
         if(element.aliases.length > 0){
-            //console.log(element.aliases.length);
             for(var i = 0; i < element.aliases.length; i++){
-              //This is only for testcases until I found a solution
-              getProcent -=0.000001;
-              //
-            Itemlist.insertAdjacentHTML( 'beforeend',"<li data-time='"+getProcent+"' class='list-group-item'>"+element.aliases[i]+"</li>");
-              //console.log(element.aliases);
+            getProcent -=0.000001;
+            Itemlist.insertAdjacentHTML( 'beforeend',"<li data-time='"+getProcent+"' class='list-group-item' style='background : linear-gradient(90deg, #daedfd "+getProcent+"%, #FFFFFF 0%); text-shadow: none'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+element.aliases[i]+"</li>");
             }
         };
     });
+    
+    //Process text
+    var textlist = document.getElementById("html_doc");
+    var processed_text = data.processed_text;
+    processed_text = processed_text.replace(/(\r\n\t|\n|\r\t)/gm, '</div><div class=start></br>');
+    textlist.insertAdjacentHTML('beforeend',"<div class='start'>"+processed_text); 
+    textlist.innerHTML = textlist.innerHTML.replace(/<phrase>/g, '<span class=kp>') .replace(/<\/phrase>/g, '</span>');
+    textlist.style.paddingLeft = '10px';
 
-  var textlist = document.getElementById("html_doc");
-  var processed_text = data.processed_text;
-  processed_text = processed_text.replace(/(\r\n\t|\n|\r\t)/gm, '</div><div class=start></br>');
-  textlist.insertAdjacentHTML('beforeend',"<div class='start'>"+processed_text); 
-  textlist.innerHTML = textlist.innerHTML.replace(/<phrase>/g, '<span class=kp>') .replace(/<\/phrase>/g, '</span>');
-
-  //Sort <li> elements
-  var listitems = $('.list-group-item');
-  listitems.sort(function(a, b){
-  return +$(b).data('time') - +$(a).data('time');
+    //Sort <li> elements
+    var listitems = $('.list-group-item');
+    listitems.sort(function(a, b){
+    return +$(b).data('time') - +$(a).data('time');
   }); 
-  listitems.appendTo('#list-group');
-},
-error : function(jqXHR, textStatus, errorThrown) {
-},
+    listitems.appendTo('#list-group');
 
-timeout: 120000,
-});
+    //hide scrollbar
+    var doc_height = $('#html_doc').height();
+    var group_height = $('#list-group').height();
+
+    if(doc_height < 700){
+      document.getElementById("html_doc").style.overflowY = "hidden";
+    }
+    if(group_height < 700){
+      document.getElementById("list-group").style.overflowY = "hidden";
+    }
+    if(group_height > doc_height){
+      doc_height = group_height;
+      document.getElementById("html_doc").style.height = group_height+'px';
+    }
+  },
+  error : function(jqXHR, textStatus, errorThrown) {
+  },
+  timeout: 120000,
+  });
 }
 
   $(document).ready(function(){
@@ -70,7 +81,3 @@ timeout: 120000,
         if (input_text != '') submit(input_text, number_keyphrases);
     })
   });
-
-
-
-
