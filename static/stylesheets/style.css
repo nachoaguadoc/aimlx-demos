@@ -1,12 +1,26 @@
 .chat-area{
     min-height: 400px;
     background-color: #F8FAFB;
+    margin-left: -10px;
 }
 
+.ui-body-a, .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a{
+    border: none !important;
+}
 a+a,a+a.link,a+button.link,a.link+a,a.link+a.link,a.link+button.link,button.link+a,button.link+a.link,button.link+button.link{
     margin-left:0px !important;
 }
 
+.input-group-btn{
+    width: 0% !important;
+}
+
+.nav__container{
+    margin-left: 12.5% !important;
+}
+.content-area{
+    margin-left: -40px;
+}
 #html_doc {
     position: relative;
     max-height: 700px;
@@ -22,7 +36,7 @@ a+a,a+a.link,a+button.link,a.link+a,a.link+a.link,a.link+button.link,button.link
 
 .kp {
     position: relative;
-    color:  #BE0000;
+    color:  #5944c6;
     font-weight: bold;
     display: inline;
 }
@@ -41,6 +55,7 @@ b{
 }
 .list-group-item{
     border: none;
+    margin-top: 2px !important;    
 }
 
 #list-group{
@@ -66,19 +81,16 @@ b{
 }
 
 #custom-search-input button{
-    margin: 2px 0 0 0;
     background: none;
     box-shadow: none;
     border: 0;
     color: #666666;
-    padding: 0 8px 0 10px;
-    border-left: solid 1px #ccc;
+    padding-left: 300px;
 }
 
 #custom-search-input button:hover{
     border: 0;
     box-shadow: none;
-    border-left: solid 1px #ccc;
 }
 
 #custom-search-input .glyphicon-search{
@@ -87,6 +99,7 @@ b{
 
 #search_row {
     margin-top: 30px;
+    width: 1340px !important;
 }
 
 .input-group-btn {

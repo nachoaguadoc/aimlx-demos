@@ -1,6 +1,7 @@
 function submit(input_text, number_keyphrases) {
 	$("#last_group").append('<i class="fa fa-spinner fa-spin" id="spinner"></i>');
-	$('#input_text').val('');
+  $('#input_text').val(input_text);
+  
 	url = "http://52.30.254.33:1277/api/kp";
 	data = {'inp_url' : input_text,
 	  'nbkp' : number_keyphrases
