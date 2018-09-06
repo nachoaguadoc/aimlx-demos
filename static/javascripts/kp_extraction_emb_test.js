@@ -15,17 +15,17 @@ $.ajax({
   success: function(data) {
         //Process the JSON
         $("#spinner").remove();
-        var Itemlist = document.getElementById("list-group");
+        var itemList = document.getElementById("list-group");
 
         //Loop trough the JSON
         data.api_result.forEach(function(element) {
         element.relevance *= 100;
-        var getProcent= element.relevance ;
-        Itemlist.insertAdjacentHTML( 'beforeend',"<li data-time='"+getProcent+"' class='list-group-item' style='background : linear-gradient(90deg, #c6e3fd "+getProcent+"%, #FFFFFF 0%); text-shadow: none'>"+ "  " +"<b>"+element.label +"</b>"+ " </li>"); 
+        var probability= element.relevance ;
+        itemList.insertAdjacentHTML( 'beforeend',"<li data-time='"+probability+"' class='list-group-item' style='background : linear-gradient(90deg, #c6e3fd "+probability+"%, #FFFFFF 0%); text-shadow: none'>"+ "  " +"<b>"+element.label +"</b>"+ " </li>"); 
         if(element.aliases.length > 0){
             for(var i = 0; i < element.aliases.length; i++){
-            getProcent -=0.000001;
-            Itemlist.insertAdjacentHTML( 'beforeend',"<li data-time='"+getProcent+"' class='list-group-item' style='background : linear-gradient(90deg, #daedfd "+getProcent+"%, #FFFFFF 0%); text-shadow: none'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+element.aliases[i]+"</li>");
+            probability -=0.000001;
+            itemList.insertAdjacentHTML( 'beforeend',"<li data-time='"+probability+"' class='list-group-item' style='background : linear-gradient(90deg, #daedfd "+probability+"%, #FFFFFF 0%); text-shadow: none'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+element.aliases[i]+"</li>");
             }
         };
     });
@@ -39,25 +39,25 @@ $.ajax({
     textlist.style.paddingLeft = '10px';
 
     //Sort <li> elements
-    var listitems = $('.list-group-item');
-    listitems.sort(function(a, b){
+    var listItems = $('.list-group-item');
+    listItems.sort(function(a, b){
     return +$(b).data('time') - +$(a).data('time');
   }); 
-    listitems.appendTo('#list-group');
+    listItems.appendTo('#list-group');
 
     //hide scrollbar
-    var doc_height = $('#html_doc').height();
-    var group_height = $('#list-group').height();
+    var docHeight = $('#html_doc').height();
+    var groupHeight = $('#list-group').height();
 
-    if(doc_height < 700){
+    if(docHeight < 700){
       document.getElementById("html_doc").style.overflowY = "hidden";
     }
-    if(group_height < 700){
+    if(groupHeight < 700){
       document.getElementById("list-group").style.overflowY = "hidden";
     }
-    if(group_height > doc_height){
-      doc_height = group_height;
-      document.getElementById("html_doc").style.height = group_height+'px';
+    if(groupHeight > docHeight){
+      docHeight = groupHeight;
+      document.getElementById("html_doc").style.height = groupHeight+'px';
     }
   },
   error : function(jqXHR, textStatus, errorThrown) {
