@@ -28,6 +28,7 @@ a+a,a+a.link,a+button.link,a.link+a,a.link+a.link,a.link+button.link,button.link
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: #F8FAFB;
+    padding-left: 10px;
 }
 
 .container{
