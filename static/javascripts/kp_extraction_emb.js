@@ -23,13 +23,15 @@ function submit(input_text, number_keyphrases) {
                 .api_result
                 .forEach(function (element) {
                     element.relevance *= 100;
-                    const probability = element.relevance;
-                    itemList.insertAdjacentHTML('beforeend', "<li data-time='" + probability + "' class='list-group-item' style='background : linear-gradient(90deg, #c6e3fd " + probability + "%, #FFFFFF 0%); text-shadow: none'>  <b>" + element.label + "</b> </li>");
+                    var probability = element.relevance;
+                    var style = 'background : linear-gradient(90deg, #c6e3fd ' + probability + '%, #FFFFFF 0%); text-shadow: none';
+                    itemList.insertAdjacentHTML('beforeend', "<li data-time='" + probability + "' class='list-group-item' style='" + style + "'><b>" + element.label + "</b> </li>");
                     if (element.aliases.length > 0) {
                         for (var i = 0; i < element.aliases.length; i++) {
                             //make sure that the order is kept if two elements have the same probability
                             probability -= 0.000001;
-                            itemList.insertAdjacentHTML('beforeend', "<li data-time='" + probability + "' class='list-group-item' style='background : linear-gradient(90deg, #daedfd " + probability + "%, #FFFFFF 0%); text-shadow: none'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + element.aliases[i] + "</li>");
+                            var style = 'background : linear-gradient(90deg, #daedfd ' + probability + '%, #FFFFFF 0%); text-shadow: none';
+                            itemList.insertAdjacentHTML('beforeend', "<li data-time='" + probability + "' class='list-group-item' id='under-group-item' style='" + style + "'>" + element.aliases[i] + "</li>");
                         }
                     };
                 });
@@ -52,8 +54,8 @@ function submit(input_text, number_keyphrases) {
             listItems.appendTo('#list-group');
 
             //hide scrollbar
-            const docHeight = $('#html_doc').height();
-            const groupHeight = $('#list-group').height();
+            var docHeight = $('#html_doc').height();
+            var groupHeight = $('#list-group').height();
 
             if (docHeight < 700) {
                 document

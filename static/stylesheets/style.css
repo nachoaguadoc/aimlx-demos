@@ -56,7 +56,11 @@ b{
 }
 .list-group-item{
     border: none;
-    margin-top: 2px !important;    
+    margin-top: 2px !important;
+}
+
+#under-group-item{
+    padding-left: 35px;
 }
 
 #list-group{
